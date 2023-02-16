@@ -4,9 +4,9 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Document</title>
 </head>
 <body>
-
+    Hello
 </body>
 </html>
