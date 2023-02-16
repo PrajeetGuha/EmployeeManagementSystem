@@ -110,6 +110,14 @@ public class Employee {
 
 
 
+    @Override
+    public String toString() {
+        return "Employee [empId=" + empId + ", name=" + name + ", gender=" + gender + ", doj=" + doj + ", contactNo="
+                + contactNo + ", dob=" + dob + "]";
+    }
+
+
+
     // public Blob getAadhaarCard() {
     //     return aadhaarCard;
     // }

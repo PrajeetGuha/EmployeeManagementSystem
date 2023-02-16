@@ -6,7 +6,7 @@
 <meta charset="ISO-8859-1">
 <title>Document</title>
 </head>
-<body>
+<body bgcolor="olive">
     Hello
 </body>
 </html>

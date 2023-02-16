@@ -5,8 +5,10 @@ import java.util.Optional;
 
 import org.antwalk.ems.model.Employee;
 import org.antwalk.ems.repository.EmployeeRepository;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,8 +23,11 @@ public class EmployeeController {
     EmployeeRepository employeeRepository;
     
     @PostMapping("/add")
-    public void addEmployee(@RequestBody Employee employee){
+    public void addEmployee(@ModelAttribute("employee")  Employee employee){
+        
+        System.out.println(employee);
         employeeRepository.save(employee);
+        
     }
 
     @GetMapping("/listall")
