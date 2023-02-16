@@ -1,4 +1,4 @@
-package org.antwalk.ems.controllers;
+package org.antwalk.ems.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,4 +10,6 @@ public class HelloController {
 	public String index() {
 		return "index";
 	}
+
+	
 }
