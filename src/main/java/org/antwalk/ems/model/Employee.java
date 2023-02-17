@@ -18,38 +18,23 @@ public class Employee {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long empId;
 
-    @Column(columnDefinition = "varchar(50) not null")
+    @Column
     private String name;
 
-    @Column(columnDefinition = "enum('M','F','O') not null ")
+    @Column
     private char gender;
 
-    @Column(columnDefinition = "date not null")
+    @Column
     private Date doj;
 
-    @Column(columnDefinition = "char(10) not null")
+    @Column
     private String contactNo;
 
-    @Column(columnDefinition = "date not null")
+    @Column
     private Date dob;
-
-    // @Column(columnDefinition = "blob not null")
-    // private Blob aadhaarCard;
 
     public Employee() {
     }
-
-   
-
-    // public Employee(Long empId, String name, char gender, Date doj, String contactNo, Date dob, Blob aadhaarCard) {
-    //     this.empId = empId;
-    //     this.name = name;
-    //     this.gender = gender;
-    //     this.doj = doj;
-    //     this.contactNo = contactNo;
-    //     this.dob = dob;
-    //     this.aadhaarCard = aadhaarCard;
-    // }
 
     public Employee(Long empId, String name, char gender, Date doj, String contactNo, Date dob) {
         this.empId = empId;
