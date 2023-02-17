@@ -1,7 +1,9 @@
 package org.antwalk.ems.model;
 
-import java.sql.Blob;
+
 import java.sql.Date;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -25,12 +27,14 @@ public class Employee {
     private char gender;
 
     @Column
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private Date doj;
 
     @Column
     private String contactNo;
 
     @Column
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private Date dob;
 
     public Employee() {
@@ -92,26 +96,5 @@ public class Employee {
     public void setDob(Date dob) {
         this.dob = dob;
     }
-
-
-
-    @Override
-    public String toString() {
-        return "Employee [empId=" + empId + ", name=" + name + ", gender=" + gender + ", doj=" + doj + ", contactNo="
-                + contactNo + ", dob=" + dob + "]";
-    }
-
-
-
-    // public Blob getAadhaarCard() {
-    //     return aadhaarCard;
-    // }
-
-
-
-    // public void setAadhaarCard(Blob aadhaarCard) {
-    //     this.aadhaarCard = aadhaarCard;
-    // }
-
     
 }
