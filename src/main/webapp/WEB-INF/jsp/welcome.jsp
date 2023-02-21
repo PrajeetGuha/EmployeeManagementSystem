@@ -6,6 +6,7 @@
 <meta charset="ISO-8859-1">
 <title>Welcome</title>
 </head>
+This is Welcome Page
 <body>
 </body>
 </html>

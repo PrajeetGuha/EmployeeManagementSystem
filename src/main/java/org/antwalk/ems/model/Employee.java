@@ -10,8 +10,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -63,38 +63,30 @@ public class Employee {
     private int isExpat;
 
     @Column
-    private Date releasDate;
+    private Date releaseDate;
 
     @ManyToOne
-    @JoinColumn(name = "locId")
     private Location location;
 
-    @ManyToOne
-    @JoinColumn(name = "domId")
+    @OneToOne
     private Domain domain;
 
     @Column
     private String workstationId;
 
     @ManyToOne
-    @JoinColumn(name = "compId")
     private Compensation compensation;
 
     @ManyToOne
-    @JoinColumn(name = "projId")
-    private Project project;
-
-    @ManyToOne
-    @JoinColumn(name = "grpId")
-    private Group group;
+    private Team team;
 
     public Employee() {
     }
 
     public Employee(Long empId, String name, String gender, String gl, Date doj, String designation, String empType,
             String empStatus, int probPeriod, int trainPeriod, Date contractEnDate, int servePeriod, int isGM,
-            int isExpat, Date releasDate, Location location, Domain domain, String workstationId,
-            Compensation compensation, Project project, Group group) {
+            int isExpat, Date releaseDate, Location location, Domain domain, String workstationId,
+            Compensation compensation, Team team) {
         this.empId = empId;
         this.name = name;
         this.gender = gender;
@@ -109,13 +101,12 @@ public class Employee {
         this.servePeriod = servePeriod;
         this.isGM = isGM;
         this.isExpat = isExpat;
-        this.releasDate = releasDate;
+        this.releaseDate = releaseDate;
         this.location = location;
         this.domain = domain;
         this.workstationId = workstationId;
         this.compensation = compensation;
-        this.project = project;
-        this.group = group;
+        this.team = team;
     }
 
     public Long getEmpId() {
@@ -230,12 +221,12 @@ public class Employee {
         this.isExpat = isExpat;
     }
 
-    public Date getReleasDate() {
-        return releasDate;
+    public Date getReleaseDate() {
+        return releaseDate;
     }
 
-    public void setReleasDate(Date releasDate) {
-        this.releasDate = releasDate;
+    public void setReleaseDate(Date releaseDate) {
+        this.releaseDate = releaseDate;
     }
 
     public Location getLocation() {
@@ -270,22 +261,12 @@ public class Employee {
         this.compensation = compensation;
     }
 
-    public Project getProject() {
-        return project;
+    public Team getTeam() {
+        return team;
     }
 
-    public void setProject(Project project) {
-        this.project = project;
+    public void setTeam(Team team) {
+        this.team = team;
     }
-
-    public Group getGroup() {
-        return group;
-    }
-
-    public void setGroup(Group group) {
-        this.group = group;
-    }
-    
-    
     
 }
