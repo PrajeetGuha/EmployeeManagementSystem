@@ -1,22 +1,24 @@
 package org.antwalk.ems.model;
 
 
+import java.io.Serializable;
 import java.sql.Date;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
 @Table
-public class Employee {
+public class Employee implements Serializable {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -51,42 +53,49 @@ public class Employee {
     private int trainPeriod;
 
     @Column
-    private Date contractEnDate;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
+    private Date contractEndDate;
 
     @Column
     private int servePeriod;
 
     @Column
-    private int isGM;
+    private boolean isGM;
 
     @Column
-    private int isExpat;
+    private boolean isExpat;
 
     @Column
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private Date releaseDate;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JsonIgnoreProperties("employees")
     private Location location;
-
-    @OneToOne
-    private Domain domain;
 
     @Column
     private String workstationId;
 
-    @ManyToOne
-    private Compensation compensation;
+    @Column
+    private Double ctc;
 
-    @ManyToOne
+    @Column
+    private String userId;
+
+    @Column
+    private String emailId;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JsonIgnoreProperties("employees")
     private Team team;
 
     public Employee() {
     }
 
     public Employee(Long empId, String name, String gender, String gl, Date doj, String designation, String empType,
-            String empStatus, int probPeriod, int trainPeriod, Date contractEnDate, int servePeriod, int isGM,
-            int isExpat, Date releaseDate, Location location, Domain domain, String workstationId,
-            Compensation compensation, Team team) {
+            String empStatus, int probPeriod, int trainPeriod, Date contractEndDate, int servePeriod, boolean isGM,
+            boolean isExpat, Date releaseDate, Location location, String workstationId, Double ctc, String userId,
+            String emailId, Team team) {
         this.empId = empId;
         this.name = name;
         this.gender = gender;
@@ -97,15 +106,16 @@ public class Employee {
         this.empStatus = empStatus;
         this.probPeriod = probPeriod;
         this.trainPeriod = trainPeriod;
-        this.contractEnDate = contractEnDate;
+        this.contractEndDate = contractEndDate;
         this.servePeriod = servePeriod;
         this.isGM = isGM;
         this.isExpat = isExpat;
         this.releaseDate = releaseDate;
         this.location = location;
-        this.domain = domain;
         this.workstationId = workstationId;
-        this.compensation = compensation;
+        this.ctc = ctc;
+        this.userId = userId;
+        this.emailId = emailId;
         this.team = team;
     }
 
@@ -189,12 +199,12 @@ public class Employee {
         this.trainPeriod = trainPeriod;
     }
 
-    public Date getContractEnDate() {
-        return contractEnDate;
+    public Date getContractEndDate() {
+        return contractEndDate;
     }
 
-    public void setContractEnDate(Date contractEnDate) {
-        this.contractEnDate = contractEnDate;
+    public void setContractEndDate(Date contractEndDate) {
+        this.contractEndDate = contractEndDate;
     }
 
     public int getServePeriod() {
@@ -205,19 +215,19 @@ public class Employee {
         this.servePeriod = servePeriod;
     }
 
-    public int getIsGM() {
+    public boolean isGM() {
         return isGM;
     }
 
-    public void setIsGM(int isGM) {
+    public void setGM(boolean isGM) {
         this.isGM = isGM;
     }
 
-    public int getIsExpat() {
+    public boolean isExpat() {
         return isExpat;
     }
 
-    public void setIsExpat(int isExpat) {
+    public void setExpat(boolean isExpat) {
         this.isExpat = isExpat;
     }
 
@@ -237,14 +247,6 @@ public class Employee {
         this.location = location;
     }
 
-    public Domain getDomain() {
-        return domain;
-    }
-
-    public void setDomain(Domain domain) {
-        this.domain = domain;
-    }
-
     public String getWorkstationId() {
         return workstationId;
     }
@@ -253,12 +255,28 @@ public class Employee {
         this.workstationId = workstationId;
     }
 
-    public Compensation getCompensation() {
-        return compensation;
+    public Double getCtc() {
+        return ctc;
     }
 
-    public void setCompensation(Compensation compensation) {
-        this.compensation = compensation;
+    public void setCtc(Double ctc) {
+        this.ctc = ctc;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public String getEmailId() {
+        return emailId;
+    }
+
+    public void setEmailId(String emailId) {
+        this.emailId = emailId;
     }
 
     public Team getTeam() {
@@ -268,5 +286,136 @@ public class Employee {
     public void setTeam(Team team) {
         this.team = team;
     }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((empId == null) ? 0 : empId.hashCode());
+        result = prime * result + ((name == null) ? 0 : name.hashCode());
+        result = prime * result + ((gender == null) ? 0 : gender.hashCode());
+        result = prime * result + ((gl == null) ? 0 : gl.hashCode());
+        result = prime * result + ((doj == null) ? 0 : doj.hashCode());
+        result = prime * result + ((designation == null) ? 0 : designation.hashCode());
+        result = prime * result + ((empType == null) ? 0 : empType.hashCode());
+        result = prime * result + ((empStatus == null) ? 0 : empStatus.hashCode());
+        result = prime * result + probPeriod;
+        result = prime * result + trainPeriod;
+        result = prime * result + ((contractEndDate == null) ? 0 : contractEndDate.hashCode());
+        result = prime * result + servePeriod;
+        result = prime * result + (isGM ? 1231 : 1237);
+        result = prime * result + (isExpat ? 1231 : 1237);
+        result = prime * result + ((releaseDate == null) ? 0 : releaseDate.hashCode());
+        result = prime * result + ((location == null) ? 0 : location.hashCode());
+        result = prime * result + ((workstationId == null) ? 0 : workstationId.hashCode());
+        result = prime * result + ((ctc == null) ? 0 : ctc.hashCode());
+        result = prime * result + ((userId == null) ? 0 : userId.hashCode());
+        result = prime * result + ((emailId == null) ? 0 : emailId.hashCode());
+        result = prime * result + ((team == null) ? 0 : team.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Employee other = (Employee) obj;
+        if (empId == null) {
+            if (other.empId != null)
+                return false;
+        } else if (!empId.equals(other.empId))
+            return false;
+        if (name == null) {
+            if (other.name != null)
+                return false;
+        } else if (!name.equals(other.name))
+            return false;
+        if (gender == null) {
+            if (other.gender != null)
+                return false;
+        } else if (!gender.equals(other.gender))
+            return false;
+        if (gl == null) {
+            if (other.gl != null)
+                return false;
+        } else if (!gl.equals(other.gl))
+            return false;
+        if (doj == null) {
+            if (other.doj != null)
+                return false;
+        } else if (!doj.equals(other.doj))
+            return false;
+        if (designation == null) {
+            if (other.designation != null)
+                return false;
+        } else if (!designation.equals(other.designation))
+            return false;
+        if (empType == null) {
+            if (other.empType != null)
+                return false;
+        } else if (!empType.equals(other.empType))
+            return false;
+        if (empStatus == null) {
+            if (other.empStatus != null)
+                return false;
+        } else if (!empStatus.equals(other.empStatus))
+            return false;
+        if (probPeriod != other.probPeriod)
+            return false;
+        if (trainPeriod != other.trainPeriod)
+            return false;
+        if (contractEndDate == null) {
+            if (other.contractEndDate != null)
+                return false;
+        } else if (!contractEndDate.equals(other.contractEndDate))
+            return false;
+        if (servePeriod != other.servePeriod)
+            return false;
+        if (isGM != other.isGM)
+            return false;
+        if (isExpat != other.isExpat)
+            return false;
+        if (releaseDate == null) {
+            if (other.releaseDate != null)
+                return false;
+        } else if (!releaseDate.equals(other.releaseDate))
+            return false;
+        if (location == null) {
+            if (other.location != null)
+                return false;
+        } else if (!location.equals(other.location))
+            return false;
+        if (workstationId == null) {
+            if (other.workstationId != null)
+                return false;
+        } else if (!workstationId.equals(other.workstationId))
+            return false;
+        if (ctc == null) {
+            if (other.ctc != null)
+                return false;
+        } else if (!ctc.equals(other.ctc))
+            return false;
+        if (userId == null) {
+            if (other.userId != null)
+                return false;
+        } else if (!userId.equals(other.userId))
+            return false;
+        if (emailId == null) {
+            if (other.emailId != null)
+                return false;
+        } else if (!emailId.equals(other.emailId))
+            return false;
+        if (team == null) {
+            if (other.team != null)
+                return false;
+        } else if (!team.equals(other.team))
+            return false;
+        return true;
+    }
+
     
 }

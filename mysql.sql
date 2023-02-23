@@ -74,3 +74,6 @@ desc domain;
 desc location;
 desc compensation;
 desc project;
+
+insert into user(username,password,role) values('user1','$2a$04$gfdfQfjbfjDnrLypZAUfE./MMYFmFXYhjPXSvA6zlSF/WDdJ3C4Ke','user');
+

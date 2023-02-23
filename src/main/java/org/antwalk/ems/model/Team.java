@@ -1,9 +1,13 @@
 package org.antwalk.ems.model;
 
+import java.io.Serializable;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -13,7 +17,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table
-public class Team {
+public class Team implements Serializable {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,13 +26,16 @@ public class Team {
     @Column
     private String tm;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JsonIgnoreProperties("team")
     private Department department;
 
     @OneToMany(mappedBy = "team")
+    @JsonIgnoreProperties("team")
     private List<Employee> employees;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JsonIgnoreProperties("team")
     private Project project;
 
     public Team() {
@@ -80,6 +87,61 @@ public class Team {
 
     public void setProject(Project project) {
         this.project = project;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((teamId == null) ? 0 : teamId.hashCode());
+        result = prime * result + ((tm == null) ? 0 : tm.hashCode());
+        result = prime * result + ((department == null) ? 0 : department.hashCode());
+        result = prime * result + ((employees == null) ? 0 : employees.hashCode());
+        result = prime * result + ((project == null) ? 0 : project.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Team other = (Team) obj;
+        if (teamId == null) {
+            if (other.teamId != null)
+                return false;
+        } else if (!teamId.equals(other.teamId))
+            return false;
+        if (tm == null) {
+            if (other.tm != null)
+                return false;
+        } else if (!tm.equals(other.tm))
+            return false;
+        if (department == null) {
+            if (other.department != null)
+                return false;
+        } else if (!department.equals(other.department))
+            return false;
+        if (employees == null) {
+            if (other.employees != null)
+                return false;
+        } else if (!employees.equals(other.employees))
+            return false;
+        if (project == null) {
+            if (other.project != null)
+                return false;
+        } else if (!project.equals(other.project))
+            return false;
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "Team [teamId=" + teamId + ", tm=" + tm + ", department=" + department + ", employees=" + employees
+                + ", project=" + project + "]";
     }
     
 }
