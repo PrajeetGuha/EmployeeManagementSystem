@@ -48,7 +48,7 @@
                     </div>
             </div>
         </div>
-        <div class="forgot"> <a href="#">Forgot your password?</a> </div>
+        <div class="forgot"> </div>
         <div>
             <div class="cover-photo"></div>
             <div class="profile-photo"></div>

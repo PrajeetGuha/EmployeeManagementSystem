@@ -23,7 +23,7 @@
        <li><a href="#">About</a></li>
        <li><a href="#">Services</a></li>
        <li><a href="#">Contact</a></li>
-       <button type="button" onclick="window.location.href = 'login';">Login</button>
+       
      </ul>
    </div>
  </nav>
@@ -34,14 +34,14 @@
      <a href="#">About</a>
      <a href="#">Services</a>
      <a href="#">Contact</a>
-     <a href="#"><button type="button">Login</button> </a>
+     
    </div>
    
    <!-- Header content with banner image -->
    <div class="row">
      <div class="column1">
        <h1>Employee Management System</h1>
-       <button  type="button" onclick="window.location.href = 'login';">LOGIN</button>
+       <button  class="login-btn" type="button" onclick="window.location.href = 'login';">LOGIN</button>
      </div>
      <div class="column2">
        <img src="https://www.hmablogs.com/wp-content/uploads/2022/06/banner-img.png" alt="banner" width="500px">
