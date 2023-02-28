@@ -27,11 +27,9 @@
             <input class="form-styling" type="text" name="username" placeholder="" /> 
             <label for="password">Password</label> 
             <input class="form-styling" type="text" name="password" placeholder="" /> 
-            <input type="checkbox" id="checkbox" /> 
-            <label for="checkbox"><span class="ui">
-            </span>Keep me signed in</label>
             
-                <div class="btn-animate"> <a class="btn-signin">Login to your account</a> </div>
+            
+                <div class="btn-animate"> <a class="btn-signin" onclick="window.location.href = 'dashboard';">Login to your account</a> </div>
             </form>
             <form class="form-signup" action="" method="post" name="form"> 
             <label for="fullname">Full name</label> 
