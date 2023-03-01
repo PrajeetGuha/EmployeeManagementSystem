@@ -81,9 +81,9 @@ li {
 
 .signup-active a {
     cursor: pointer;
-    color: #ffffff;
+    color: #ffffff !important;
     text-decoration: none;
-    border-bottom: solid 1px #1059FF;
+    border-bottom: solid 2px #1059FF;
     padding-bottom: 10px
 }
 
