@@ -71,7 +71,7 @@ li {
     cursor: pointer
 }
 
-.signin-inactive a {
+/* .signin-inactive a {
     padding-bottom: 0;
     color: rgba(255, 255, 255, .3);
     text-decoration: none;
@@ -92,7 +92,7 @@ li {
     color: rgba(255, 255, 255, .3);
     text-decoration: none;
     transition: all .25s ease
-}
+} */
 
 .form-signin {
     width: 430px;
@@ -319,13 +319,21 @@ textarea:focus {
 }
 
 .btn-signin {
-    float: left;
-    padding-top: 8px;
-    width: 100%;
-    height: 35px;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 17px;
+    text-align: center;
+    color: rgba(255, 255, 255, 1);
+    padding-top: 1px;
+    width: 40%;
+    height: 5px;
     border: none;
     border-radius: 20px;
-    margin-top: -8px
+    /* margin-top: 23px; */
+    display: block;
+    margin: 0px auto;
+    background-color: rgba(16, 89, 255, 1);
+    transition: all .5s ease, top .5s ease .5s, height .5s ease .5s, background-color .5s ease .75s;
 }
 
 .btn-animate {
@@ -336,7 +344,7 @@ textarea:focus {
     text-align: center;
     color: rgba(255, 255, 255, 1);
     padding-top: 13px;
-    width: 40%;
+    width: 44%;
     height: 45px;
     border: none;
     border-radius: 20px;

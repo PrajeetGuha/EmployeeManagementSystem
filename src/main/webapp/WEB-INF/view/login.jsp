@@ -18,8 +18,8 @@
             <div class="frame">
                 <div class="nav">
                     <ul class="links">
-                        <li class="signin-active"><a class="btn">Existing User</a></li>
-                        <li class="signup-inactive"><a class="btn">New User</a></li>
+                        <li class="signin-active"><a class="btn">Welcome to NRI FinTech!</a></li>
+                        <!-- <li class="signup-inactive"><a class="btn">New User</a></li> -->
                     </ul>
                 </div>
                 <div ng-app ng-init="checked = false">
@@ -28,12 +28,9 @@
                         <input class="form-styling" type="text" name="username" placeholder="" />
                         <label for="password">Password</label>
                         <input class="form-styling" type="text" name="password" placeholder="" />
-                        <input type="checkbox" id="checkbox" />
-                        <label for="checkbox"><span class="ui">
-                            </span>Keep me signed in</label>
+                        
 
-                        <div class="btn-animate"> 
-                            <input type="submit" value="Submit"/>Login to your account</div>
+                        <div class="btn-animate"><button class='btn-signin' value="submit;">Login</a></div>
                     </form>
                     </div>
             </div>
