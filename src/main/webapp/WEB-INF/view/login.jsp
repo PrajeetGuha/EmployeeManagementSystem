@@ -24,10 +24,10 @@
                 </div>
                 <div ng-app ng-init="checked = false">
                     <form class="form-signin" action="login" method="post" name="form">
-                        <label for="fullname">Full name</label>
+                        <label for="fullname">User name</label>
                         <input class="form-styling" type="text" name="username" placeholder="" />
                         <label for="password">Password</label>
-                        <input class="form-styling" type="text" name="password" placeholder="" />
+                        <input class="form-styling" type="password" name="password" placeholder="" />
                         
 
                         <div class="btn-animate"><button class='btn-signin' value="submit;">Login</a></div>
@@ -35,6 +35,7 @@
                     </div>
             </div>
         </div>
+        
                     <!-- <form class="form-signup" action="login" method="post" name="form"> 
             <label for="fullname">Full name</label> 
             <input class="form-styling" type="text" name="email" placeholder="" />
