@@ -20,41 +20,50 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 public class WebSecurityConfig {
 
-    // @Autowired
-    // private UserDetailsService userDetailsService;
-
-    // @Autowired
-    // private BCryptPasswordEncoder bcryptPasswordEncoder;
-    
-    // @Bean
-    // public AuthenticationProvider authenticationProvider(){
-    //     DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-    //     provider.setUserDetailsService(userDetailsService);
-    //     provider.setPasswordEncoder(new BCryptPasswordEncoder());
-    //     return provider;
-    // }
     @Bean
-    public InMemoryUserDetailsManager userDetailsService(PasswordEncoder passwordEncoder) {
-        UserDetails user = User.withUsername("user")
-            .password(passwordEncoder.encode("password"))
-            .roles("USER")
-            .build();
-
-        UserDetails admin = User.withUsername("admin")
-            .password(passwordEncoder.encode("admin"))
-            .roles("USER", "ADMIN")
-            .build();
-
-        return new InMemoryUserDetailsManager(user, admin);
+    public UserDetailsService userDetailsService() {
+        return new LoginDetailsService();
     }
+     
+    @Bean
+    public BCryptPasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+    
+    @Bean
+    public AuthenticationProvider authenticationProvider(){
+        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+        provider.setUserDetailsService(userDetailsService());
+        provider.setPasswordEncoder(new BCryptPasswordEncoder());
+        return provider;
+    }
+
+    // @Bean
+    // public InMemoryUserDetailsManager userDetailsService(PasswordEncoder passwordEncoder) {
+    //     UserDetails user = User.withUsername("user")
+    //         .password(passwordEncoder.encode("password"))
+    //         .roles("USER")
+    //         .build();
+
+    //     UserDetails admin = User.withUsername("admin")
+    //         .password(passwordEncoder.encode("admin"))
+    //         .roles("USER", "ADMIN")
+    //         .build();
+
+    //     return new InMemoryUserDetailsManager(user, admin);
+    // }
+
+
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf().disable();
         http.authorizeRequests()
-                .antMatchers("/welcome","/login").permitAll()
-                .antMatchers("/dashboard").authenticated();
-        http.formLogin().loginPage("/login").defaultSuccessUrl("/dashboard", true);
+                .antMatchers("/dashboard").hasAuthority("ADMIN")
+                .and()
+                .formLogin()
+                .loginPage("/login")
+                .defaultSuccessUrl("/dashboard", true);
         return http.build();
     }
 
@@ -62,9 +71,4 @@ public class WebSecurityConfig {
     // protected UserDetailsService userDetailsService(){
     //     return new LoginDetailsService();
     // }
-
-    @Bean
-    public BCryptPasswordEncoder bCryptPasswordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
 }
