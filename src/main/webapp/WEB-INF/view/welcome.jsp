@@ -19,7 +19,7 @@
  
    <div class="navLinks">
      <ul>
-       <li><a href="#">Home</a></li>
+       <li><a href="welcome">Home</a></li>
        <li><a href="#">About</a></li>
        <li><a href="#">Services</a></li>
        <li><a href="#">Contact</a></li>
@@ -40,7 +40,7 @@
    <!-- Header content with banner image -->
    <div class="row">
      <div class="column1">
-       <h1>Employee Management System</h1>
+       <h1>Employee Management System</h1><br>
        <button  class="login-btn" type="button" onclick="window.location.href = 'login';">LOGIN</button>
      </div>
      <div class="column2">

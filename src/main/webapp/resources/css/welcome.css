@@ -4,7 +4,8 @@
   box-sizing: border-box;
 }
 body {
-  background-image: linear-gradient(to right, rgba(200, 8,207, 0.75), rgba(28, 70, 184, 0.8)), url(https://www.hmablogs.com/wp-content/uploads/2022/06/background-1-scaled.jpg);
+  /* background-image: linear-gradient(to right, rgba(200, 8,207, 0.75), rgba(28, 70, 184, 0.8)), url(https://www.hmablogs.com/wp-content/uploads/2022/06/background-1-scaled.jpg); */
+  background-image: linear-gradient(to bottom, #0072C6, #FFFFFF);
   background-size: cover;
   background-attachment: fixed;
   color: white;
@@ -21,8 +22,12 @@ nav .logo{
   font-family: "Times New Roman", Times, serif;
   font-size: 30px;
   font-weight: 700;
-  
+  margin-left:-15px;
+  margin-top:-20px;
 }
+
+
+
 nav ul{
   display: flex;
   list-style: none;
@@ -30,18 +35,21 @@ nav ul{
 nav ul li{
   padding: 8px 15px;
   border-radius: 10px;
-  transition: 0.2s ease-in;
+  transition: all 0.2s ease-in-out;
 }
 nav ul li a{
   color: white;
   font-size: 20px;
   font-weight: 500;
   text-decoration: none;
+  
+  
+  transition: color 0.2s ease-in-out;
 }
 nav .navLinks button{
   padding: 2px 20px;
   border-radius: 10px;
-  color: blue;
+  color: skyblue;
   font-size: 16px;
   border-style: none;
   font-weight: 700;
@@ -50,24 +58,19 @@ nav .navLinks button{
 }
 
 .login-btn {
-  background-color:rgb(204,153,255);;
-  color: rgb(102,0,102);
-  border: none;
-  padding: 12px 24px;
-  font-size: 16px;
-  font-weight: bold;
-  text-transform: uppercase;
-  letter-spacing: 1px;
+  display: inline-block;
+  padding: 10px 20px;
   border-radius: 5px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
-  z-index: 1;
-  transition: transform 0.3s ease-out;
+  background-color: rgba(0, 255, 255, 0.5);
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease-in-out;
+  border: 2px solid #0072C6;
 }
 
-.login-btn::before {
+/* .login-btn::before {
   content: "";
   position: absolute;
   top: 0;
@@ -78,19 +81,22 @@ nav .navLinks button{
   z-index: -1;
   transform: translateX(-100%);
   transition: transform 0.3s ease;
-}
+} */
 
 .login-btn:hover {
-  transform: scale(1.1);
-  color: rgb(102,0,102);
-  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.5);
-  
-  background: linear-gradient(to bottom, rgb(204,153,255), rgb(229,195,255));
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  transform: translateY(-2px);
+  border-color: #1059FF;
 
   
 }
 
-.login-btn::after {
+.login-btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(16,89,255,0.3);
+}
+
+/* .login-btn::after {
   content: "";
   position: absolute;
   top: 50%;
@@ -102,11 +108,14 @@ nav .navLinks button{
   z-index: -1;
   transform: translate(-50%, -50%);
   transition: width 0.3s ease, height 0.3s ease;
-}
+} */
 
 
-nav ul li:hover{
-  background-image: linear-gradient(to top, rgba(200, 8,207, 0.75), rgba(28, 70, 184, 0.8));
+nav ul li:hover{ 
+  color: #f00; /* Text color on hover */
+  transition: all 0.4s ease-in-out;
+  /* text-shadow: 0 0 9px skyblue; */
+  
 }
 nav .menubtn{
   font-size: 30px;
@@ -191,7 +200,7 @@ nav .menubtn{
   padding: 12px 20px;
   border-radius: 20px;
   border-style: none;
-  color: blue;
+  color: white;
   font-size: 17px;
   font-weight: 600;
 }
