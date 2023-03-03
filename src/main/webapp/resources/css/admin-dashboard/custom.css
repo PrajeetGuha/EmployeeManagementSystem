@@ -375,7 +375,7 @@ background-color:rgba(0,0,0,0.09);
 		  color:#fff;
 	  }
 	  
-	  .navbar .notification{
+	 /* .navbar .notification{
 		  position:absolute;
 		  top:2px;
 		  right:3px;
@@ -389,7 +389,7 @@ background-color:rgba(0,0,0,0.09);
 		  height:15px;
 		  border-radius:2px;
 		  line-height:14px;
-	  }
+	  }*/
 	  
 	  @media (max-width:768px){
 		  .xp-searchbar{
@@ -397,7 +397,7 @@ background-color:rgba(0,0,0,0.09);
 		  }
 	  }
 	  
-	  .navbar-nav > li.show .dropdown-menu{
+	 /* .navbar-nav > li.show .dropdown-menu{
 		  transform:translate3d(0,0,0);
 		  opacity:1;
 		  display:block;
@@ -439,8 +439,8 @@ background-color:rgba(0,0,0,0.09);
 		  color:#777;
 		  margin-right:6px;
 		  font-size:16px;
-		  
-	  }
+		 
+	  } */
 	  
 	  .navbar-nav > .active > a:focus{
 		  color:#fff;
@@ -476,7 +476,7 @@ background-color:rgba(0,0,0,0.09);
 	   /*--table design start----*/ 
 	   
 	   .table-wrapper {
-    background-color: #fff;
+    background-color: #cefcff;
     /* padding: 20px 25px; */
     margin:6px 0px 40px 0px;
     width: 100%;

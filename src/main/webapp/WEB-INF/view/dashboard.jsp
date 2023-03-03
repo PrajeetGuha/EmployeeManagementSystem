@@ -7,7 +7,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
-        <title>crud dashboard</title>
+        <title>ADMIN DASHBOARD</title>
 	    <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="resources/css/admin-dashboard/bootstrap.min.css">
 	    <!----css3---->
@@ -76,7 +76,7 @@
                     </ul>
                 </li> -->
                  <li>
-                    <a href="#homeSubmenu1" data-toggle="collapse" aria-expanded="false">
+                    <a href="#homeSubmenu1" data-toggle="collapse" aria-expanded="false" >
 					<i class="material-icons">laptop</i>Project Allocation</a>
                     <!-- <ul class="collapse list-unstyled menu" id="homeSubmenu1">
                         <li>
