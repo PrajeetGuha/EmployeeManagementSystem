@@ -7,7 +7,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
-        <title>crud dashboard</title>
+        <title>ADMIN DASHBOARD</title>
 	    <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="resources/css/admin-dashboard/bootstrap.min.css">
 	    <!----css3---->
@@ -45,10 +45,24 @@
                 </li>
 		
 
-                <li class="dropdown">
-                    <a href="#homeSubmenu1" data-toggle="collapse" aria-expanded="false" 
-					class="dropdown-toggle">
-					<i class="material-icons">aspect_ratio</i>Layouts</a>
+                <li>
+                    <a href="#homeSubmenu1" data-toggle="collapse" aria-expanded="false">
+					<i class="material-icons">playlist_add_check</i>Leave Approval</a>
+                    <!-- <ul class="collapse list-unstyled menu" id="homeSubmenu1">
+                        <li>
+                            <a href="#">Home 1</a>
+                        </li>
+                        <li>
+                            <a href="#">Home 2</a>
+                        </li>
+                        <li>
+                            <a href="#">Home 3</a>
+                        </li>
+                    </ul> -->
+                </li>
+                  <!--<li>
+                    <a href="#homeSubmenu1" data-toggle="collapse" aria-expanded="false">
+					<i class="material-icons">edit_note</i>Apply Leave</a>
                     <ul class="collapse list-unstyled menu" id="homeSubmenu1">
                         <li>
                             <a href="#">Home 1</a>
@@ -60,9 +74,82 @@
                             <a href="#">Home 3</a>
                         </li>
                     </ul>
+                </li> -->
+                 <li>
+                    <a href="#homeSubmenu1" data-toggle="collapse" aria-expanded="false" >
+					<i class="material-icons">laptop</i>Project Allocation</a>
+                    <!-- <ul class="collapse list-unstyled menu" id="homeSubmenu1">
+                        <li>
+                            <a href="#">Home 1</a>
+                        </li>
+                        <li>
+                            <a href="#">Home 2</a>
+                        </li>
+                        <li>
+                            <a href="#">Home 3</a>
+                        </li>
+                    </ul> -->
+                </li>
+                 <li>
+                    <a href="#homeSubmenu1" data-toggle="collapse" aria-expanded="false">
+					<i class="material-icons">groups</i>Team Allocation</a>
+                    <!-- <ul class="collapse list-unstyled menu" id="homeSubmenu1">
+                        <li>
+                            <a href="#">Home 1</a>
+                        </li>
+                        <li>
+                            <a href="#">Home 2</a>
+                        </li>
+                        <li>
+                            <a href="#">Home 3</a>
+                        </li>
+                    </ul> -->
+                </li>
+                 <li>
+                    <a href="#homeSubmenu1" data-toggle="collapse" aria-expanded="false">
+					<i class="material-icons">work</i>Department Allocation</a>
+                    <!-- <ul class="collapse list-unstyled menu" id="homeSubmenu1">
+                        <li>
+                            <a href="#">Home 1</a>
+                        </li>
+                        <li>
+                            <a href="#">Home 2</a>
+                        </li>
+                        <li>
+                            <a href="#">Home 3</a>
+                        </li>
+                    </ul> -->
+                </li>
+                     <li>
+                    <a href="#homeSubmenu1" data-toggle="collapse" aria-expanded="false">
+					<i class="material-icons">currency_rupee</i>Appraisal</a>
+                    <!-- <ul class="collapse list-unstyled menu" id="homeSubmenu1">
+                        <li>
+                            <a href="#">Home 1</a>
+                        </li>
+                        <li>
+                            <a href="#">Home 2</a>
+                        </li>
+                        <li>
+                            <a href="#">Home 3</a>
+                        </li>
+                    </ul> -->
+                </li>
+                   
+                    <!-- <ul class="collapse list-unstyled menu" id="homeSubmenu1">
+                        <li>
+                            <a href="#">Home 1</a>
+                        </li>
+                        <li>
+                            <a href="#">Home 2</a>
+                        </li>
+                        <li>
+                            <a href="#">Home 3</a>
+                        </li>
+                    </ul> -->
                 </li>
                 
-                <li class="dropdown">
+                <!--  <li class="dropdown">
                     <a href="#pageSubmenu2" data-toggle="collapse" aria-expanded="false" 
 					class="dropdown-toggle">
 					<i class="material-icons">apps</i><span>widgets</span></a>
@@ -176,7 +263,7 @@
 				 <li  class="">
                     <a href="#"><i class="material-icons">library_books</i><span>Calender
 					</span></a>
-                </li>
+                </li>-->
                
                
             </ul>
@@ -229,7 +316,10 @@
                         <div class="xp-profilebar text-right">
 							 <nav class="navbar p-0">
                         <ul class="nav navbar-nav flex-row ml-auto">   
-                            <li class="dropdown nav-item active">
+                           <li>
+                                        <a href="login" ><span class="material-icons">logout</span> Logout</a>
+                           </li>
+                            <!--  <li class="dropdown nav-item active">
                                 <a href="#" class="nav-link" data-toggle="dropdown">
                                    <span class="material-icons">notifications</span>
 								   <span class="notification">4</span>
@@ -275,7 +365,7 @@
                                         <a href="#"><span class="material-icons">logout</span>Logout</a>
                                     </li>
                                 </ul>
-                            </li>
+                            </li>-->
                         </ul>
                     
                
