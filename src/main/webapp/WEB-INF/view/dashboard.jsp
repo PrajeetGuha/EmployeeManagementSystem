@@ -60,10 +60,10 @@
                         </li>
                     </ul> -->
                 </li>
-                 <li>
+                  <!--<li>
                     <a href="#homeSubmenu1" data-toggle="collapse" aria-expanded="false">
 					<i class="material-icons">edit_note</i>Apply Leave</a>
-                    <!-- <ul class="collapse list-unstyled menu" id="homeSubmenu1">
+                    <ul class="collapse list-unstyled menu" id="homeSubmenu1">
                         <li>
                             <a href="#">Home 1</a>
                         </li>
@@ -73,8 +73,8 @@
                         <li>
                             <a href="#">Home 3</a>
                         </li>
-                    </ul> -->
-                </li>
+                    </ul>
+                </li> -->
                  <li>
                     <a href="#homeSubmenu1" data-toggle="collapse" aria-expanded="false">
 					<i class="material-icons">laptop</i>Project Allocation</a>
@@ -316,7 +316,10 @@
                         <div class="xp-profilebar text-right">
 							 <nav class="navbar p-0">
                         <ul class="nav navbar-nav flex-row ml-auto">   
-                            <li class="dropdown nav-item active">
+                           <li>
+                                        <a href="login" ><span class="material-icons">logout</span> Logout</a>
+                           </li>
+                            <!--  <li class="dropdown nav-item active">
                                 <a href="#" class="nav-link" data-toggle="dropdown">
                                    <span class="material-icons">notifications</span>
 								   <span class="notification">4</span>
@@ -362,7 +365,7 @@
                                         <a href="#"><span class="material-icons">logout</span>Logout</a>
                                     </li>
                                 </ul>
-                            </li>
+                            </li>-->
                         </ul>
                     
                
