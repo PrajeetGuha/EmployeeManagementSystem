@@ -48,7 +48,7 @@
                 <li class="dropdown">
                     <a href="#homeSubmenu1" data-toggle="collapse" aria-expanded="false" 
 					class="dropdown-toggle">
-					<i class="material-icons">aspect_ratio</i>Layouts</a>
+					<i class="material-icons">aspect_ratio</i>Leave Approval</a>
                     <ul class="collapse list-unstyled menu" id="homeSubmenu1">
                         <li>
                             <a href="#">Home 1</a>
