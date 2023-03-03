@@ -45,11 +45,10 @@
                 </li>
 		
 
-                <li class="dropdown">
-                    <a href="#homeSubmenu1" data-toggle="collapse" aria-expanded="false" 
-					class="dropdown-toggle">
-					<i class="material-icons">aspect_ratio</i>Leave Approval</a>
-                    <ul class="collapse list-unstyled menu" id="homeSubmenu1">
+                <li>
+                    <a href="#homeSubmenu1" data-toggle="collapse" aria-expanded="false">
+					<i class="material-icons">playlist_add_check</i>Leave Approval</a>
+                    <!-- <ul class="collapse list-unstyled menu" id="homeSubmenu1">
                         <li>
                             <a href="#">Home 1</a>
                         </li>
@@ -59,10 +58,98 @@
                         <li>
                             <a href="#">Home 3</a>
                         </li>
-                    </ul>
+                    </ul> -->
+                </li>
+                 <li>
+                    <a href="#homeSubmenu1" data-toggle="collapse" aria-expanded="false">
+					<i class="material-icons">edit_note</i>Apply Leave</a>
+                    <!-- <ul class="collapse list-unstyled menu" id="homeSubmenu1">
+                        <li>
+                            <a href="#">Home 1</a>
+                        </li>
+                        <li>
+                            <a href="#">Home 2</a>
+                        </li>
+                        <li>
+                            <a href="#">Home 3</a>
+                        </li>
+                    </ul> -->
+                </li>
+                 <li>
+                    <a href="#homeSubmenu1" data-toggle="collapse" aria-expanded="false">
+					<i class="material-icons">laptop</i>Project Allocation</a>
+                    <!-- <ul class="collapse list-unstyled menu" id="homeSubmenu1">
+                        <li>
+                            <a href="#">Home 1</a>
+                        </li>
+                        <li>
+                            <a href="#">Home 2</a>
+                        </li>
+                        <li>
+                            <a href="#">Home 3</a>
+                        </li>
+                    </ul> -->
+                </li>
+                 <li>
+                    <a href="#homeSubmenu1" data-toggle="collapse" aria-expanded="false">
+					<i class="material-icons">groups</i>Team Allocation</a>
+                    <!-- <ul class="collapse list-unstyled menu" id="homeSubmenu1">
+                        <li>
+                            <a href="#">Home 1</a>
+                        </li>
+                        <li>
+                            <a href="#">Home 2</a>
+                        </li>
+                        <li>
+                            <a href="#">Home 3</a>
+                        </li>
+                    </ul> -->
+                </li>
+                 <li>
+                    <a href="#homeSubmenu1" data-toggle="collapse" aria-expanded="false">
+					<i class="material-icons">work</i>Department Allocation</a>
+                    <!-- <ul class="collapse list-unstyled menu" id="homeSubmenu1">
+                        <li>
+                            <a href="#">Home 1</a>
+                        </li>
+                        <li>
+                            <a href="#">Home 2</a>
+                        </li>
+                        <li>
+                            <a href="#">Home 3</a>
+                        </li>
+                    </ul> -->
+                </li>
+                     <li>
+                    <a href="#homeSubmenu1" data-toggle="collapse" aria-expanded="false">
+					<i class="material-icons">currency_rupee</i>Appraisal</a>
+                    <!-- <ul class="collapse list-unstyled menu" id="homeSubmenu1">
+                        <li>
+                            <a href="#">Home 1</a>
+                        </li>
+                        <li>
+                            <a href="#">Home 2</a>
+                        </li>
+                        <li>
+                            <a href="#">Home 3</a>
+                        </li>
+                    </ul> -->
+                </li>
+                   
+                    <!-- <ul class="collapse list-unstyled menu" id="homeSubmenu1">
+                        <li>
+                            <a href="#">Home 1</a>
+                        </li>
+                        <li>
+                            <a href="#">Home 2</a>
+                        </li>
+                        <li>
+                            <a href="#">Home 3</a>
+                        </li>
+                    </ul> -->
                 </li>
                 
-                <li class="dropdown">
+                <!--  <li class="dropdown">
                     <a href="#pageSubmenu2" data-toggle="collapse" aria-expanded="false" 
 					class="dropdown-toggle">
 					<i class="material-icons">apps</i><span>widgets</span></a>
@@ -176,7 +263,7 @@
 				 <li  class="">
                     <a href="#"><i class="material-icons">library_books</i><span>Calender
 					</span></a>
-                </li>
+                </li>-->
                
                
             </ul>

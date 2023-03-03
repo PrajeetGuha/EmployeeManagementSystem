@@ -21,7 +21,7 @@
      <ul>
        <li><a href="welcome">Home</a></li>
        <li><a href="#">About</a></li>
-       <li><a href="#">Services</a></li>
+       <!--<li><a href="#">Services</a></li>-->
        <li><a href="#">Contact</a></li>
        
      </ul>
@@ -32,7 +32,7 @@
      <a href="#" class="closeBtn" onclick="closeNav()"> &#10006;</a>
      <a href="#">Home</a>
      <a href="#">About</a>
-     <a href="#">Services</a>
+     <!-- <a href="#">Services</a> -->
      <a href="#">Contact</a>
      
    </div>
