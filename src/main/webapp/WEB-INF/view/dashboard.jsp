@@ -76,7 +76,7 @@
                     </ul>
                 </li> -->
                  <li>
-                    <a href="#homeSubmenu1" data-toggle="collapse" aria-expanded="false" >
+                    <a href="#project" data-toggle="modal" aria-expanded="false" >
 					<i class="material-icons">laptop</i>Project Allocation</a>
                     <!-- <ul class="collapse list-unstyled menu" id="homeSubmenu1">
                         <li>
@@ -91,7 +91,7 @@
                     </ul> -->
                 </li>
                  <li>
-                    <a href="#homeSubmenu1" data-toggle="collapse" aria-expanded="false">
+                    <a href="#team" data-toggle="modal" aria-expanded="false">
 					<i class="material-icons">groups</i>Team Allocation</a>
                     <!-- <ul class="collapse list-unstyled menu" id="homeSubmenu1">
                         <li>
@@ -106,7 +106,7 @@
                     </ul> -->
                 </li>
                  <li>
-                    <a href="#homeSubmenu1" data-toggle="collapse" aria-expanded="false">
+                    <a href="#department" data-toggle="modal" aria-expanded="false">
 					<i class="material-icons">work</i>Department Allocation</a>
                     <!-- <ul class="collapse list-unstyled menu" id="homeSubmenu1">
                         <li>
@@ -121,7 +121,7 @@
                     </ul> -->
                 </li>
                      <li>
-                    <a href="#homeSubmenu1" data-toggle="collapse" aria-expanded="false">
+                    <a href="#hike" data-toggle="modal" aria-expanded="false">
 					<i class="material-icons">currency_rupee</i>Appraisal</a>
                     <!-- <ul class="collapse list-unstyled menu" id="homeSubmenu1">
                         <li>
@@ -270,7 +270,149 @@
 
            
         </nav>
+        <div id="project" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form action="proAlloc" method="post">
+        <div class="modal-header">
+          <h4 class="modal-title">PROJECT ALLOCATION</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label>Team Name</label>
+            <input type="text" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label>Project Name</label>
+            <input type="text" class="form-control" required>
+          </div>
+          <!-- <div class="form-group">
+            <label>Address</label>
+            <textarea class="form-control" required></textarea>
+          </div>
+          <div class="form-group">
+            <label>Phone</label>
+            <input type="text" class="form-control" required>
+          </div> -->
+        </div>
+        <div class="modal-footer">
+          <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+          <input type="submit" class="btn btn-success" value="Add">
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div id="team" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form action="teamAlloc" method="post">
+        <div class="modal-header">
+          <h4 class="modal-title">TEAM ALLOCATION</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label>Employee Name</label>
+            <input type="text" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label>Team Name</label>
+            <input type="text" class="form-control" required>
+          </div>
+          <!-- <div class="form-group">
+            <label>Address</label>
+            <textarea class="form-control" required></textarea>
+          </div>
+          <div class="form-group">
+            <label>Phone</label>
+            <input type="text" class="form-control" required>
+          </div> -->
+        </div>
+        <div class="modal-footer">
+          <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+          <input type="submit" class="btn btn-success" value="Add">
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div id="department" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form action="deptAlloc" method="post">
+        <div class="modal-header">
+          <h4 class="modal-title">DEPARTMENT ALLOCATION</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label>Employee Name</label>
+            <input type="text" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label>Department Name</label>
+            <input type="text" class="form-control" required>
+          </div>
+          <!-- <div class="form-group">
+            <label>Address</label>
+            <textarea class="form-control" required></textarea>
+          </div>
+          <div class="form-group">
+            <label>Phone</label>
+            <input type="text" class="form-control" required>
+          </div> -->
+        </div>
+        <div class="modal-footer">
+          <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+          <input type="submit" class="btn btn-success" value="Add">
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
 		
+<div id="hike" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form action="hike" method="post">
+        <div class="modal-header">
+          <h4 class="modal-title">APPRAISAL</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label>Employee Name</label>
+            <input type="text" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label>Hike</label>
+            <input type="text" class="form-control" required>
+          </div>
+            <div class="form-group">
+            <label>Hike Date</label>
+            <input type="date" class="form-control" required>
+          </div>
+          <!-- <div class="form-group">
+            <label>Address</label>
+            <textarea class="form-control" required></textarea>
+          </div>
+          <div class="form-group">
+            <label>Phone</label>
+            <input type="text" class="form-control" required>
+          </div> -->
+        </div>
+        <div class="modal-footer">
+          <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+          <input type="submit" class="btn btn-success" value="Add">
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
 		
 		
 		
