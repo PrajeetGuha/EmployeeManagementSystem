@@ -30,7 +30,7 @@ public class WebController {
 	 }
 
 	@GetMapping("/loggedin")
-	@PreAuthorize("hasRole('ROLE_EMP') || hasRole('ROLE_ADMIN')")
+	// @PreAuthorize("hasRole('ROLE_EMP') || hasRole('ROLE_ADMIN')")
 	public String dashboard(){
 		if (AuthenticationSystem.isLoggedAs("ROLE_EMP"))
 			return "redirect:/employee/dashboard";
