@@ -755,7 +755,7 @@
 
 
 <!-- Delete Modal HTML -->
-<!--  <div id="deleteEmployeeModal" class="modal fade">
+  <div id="deleteEmployeeModal" class="modal fade">
   <div class="modal-dialog">
     <div class="modal-content">
       <form>
@@ -775,7 +775,7 @@
       </form>
     </div>
 	</div>
-  </div>-->
+  </div>
 				
 		   
 			  </div>
