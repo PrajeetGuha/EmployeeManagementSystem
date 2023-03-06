@@ -12,14 +12,29 @@ public class UserSecurity {
     @Autowired
     private UserRepository userRepository;
 	
-	public boolean hasUserId(Authentication authentication, Long userId) throws UserNotFoundException {
+	public boolean authorizeEmployee(Authentication authentication, Long userId) throws UserNotFoundException {
         System.out.println(userId);
 		User user = userRepository.findByUsername(authentication.getName()).orElseThrow(
             () -> new UserNotFoundException("The user is not found")
         );
         Long userID = user.getUserId();
-		System.out.println(userId+"  "+userID);
-            if(userID==userId)
+        String role = user.getRole();
+		// System.out.println(userId+"  "+userID);
+            if(userID==userId && role.equals("ROLE_EMP"))
+            	return true;
+            
+            return false;
+    }
+
+    public boolean authorizeAdmin(Authentication authentication, Long userId) throws UserNotFoundException {
+        System.out.println(userId);
+		User user = userRepository.findByUsername(authentication.getName()).orElseThrow(
+            () -> new UserNotFoundException("The user is not found")
+        );
+        Long userID = user.getUserId();
+        String role = user.getRole();
+		// System.out.println(userId+"  "+userID);
+            if(userID==userId && role.equals("ROLE_ADMIN"))
             	return true;
             
             return false;
