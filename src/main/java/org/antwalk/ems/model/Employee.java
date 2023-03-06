@@ -21,6 +21,9 @@ public class Employee {
     @Id
     private Long empId;
 
+    @Column
+    private String empName;
+
     @Column(columnDefinition = "ENUM('M','F','O')")
     private char gender;
 
@@ -110,12 +113,13 @@ public class Employee {
     public Employee() {
     }
 
-    public Employee(Long empId, char gender, String gradeLevel, Date doj, String designation, String emptype,
-            String empstatus, int probPeriod, Date probCompDate, int trainPeriod, Date contractEndDate, int servPeriod,
-            @Email String workEmail, String branch, String office, String workstationId, String empRole, int clLeft,
-            int plLeft, int slLeft, int moreLeave, int totalLeave, Double ctc ,Department department, Team team,
-            EmployeeDetails employeeDetails, List<Payroll> payrolls, List<Attendance> attendances) {
+    public Employee(Long empId, String empName, char gender, String gradeLevel, Date doj, String designation,
+            String emptype, String empstatus, int probPeriod, Date probCompDate, int trainPeriod, Date contractEndDate,
+            int servPeriod, @Email String workEmail, String branch, String office, String workstationId, String empRole,
+            int clLeft, int plLeft, int slLeft, int moreLeave, int totalLeave, Double ctc, Department department,
+            Team team, EmployeeDetails employeeDetails, List<Payroll> payrolls, List<Attendance> attendances) {
         this.empId = empId;
+        this.empName = empName;
         this.gender = gender;
         this.gradeLevel = gradeLevel;
         this.doj = doj;
@@ -151,6 +155,14 @@ public class Employee {
 
     public void setEmpId(Long empId) {
         this.empId = empId;
+    }
+
+    public String getEmpName() {
+        return empName;
+    }
+
+    public void setEmpName(String empName) {
+        this.empName = empName;
     }
 
     public char getGender() {
@@ -368,4 +380,6 @@ public class Employee {
     public void setAttendances(List<Attendance> attendances) {
         this.attendances = attendances;
     }
+
+    
 }
