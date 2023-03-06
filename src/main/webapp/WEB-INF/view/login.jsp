@@ -4,7 +4,7 @@
 
     <head>
         <meta charset="UTF-8">
-        <title>Insert title here</title>
+        <title>Login</title>
         <link href="resources/css/login.css" rel="stylesheet" type="text/css">
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
@@ -14,6 +14,15 @@
     </head>
 
     <body>
+    <nav>
+   <div class="logo"><img src="resources/logo.png"/></div>
+   <div class="navLinks">
+     <ul>
+       <li><a href="welcome">Home</a></li>
+       
+     </ul>
+   </div>
+ 	</nav>
         <div class="container">
             <div class="frame">
                 <div class="nav">

@@ -25,4 +25,6 @@ public class WebController {
 	public String dashboard(){
 		return "dashboard";
 	}
+	
+	
 }
