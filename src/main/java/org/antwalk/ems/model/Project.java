@@ -8,8 +8,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import javax.persistence.JoinColumn;
 
 @Entity
 @Table
@@ -32,6 +37,11 @@ public class Project {
     private String pm;
 
     @ManyToMany
+    @JsonIgnoreProperties("projects")
+    @JoinTable(
+            name = "team_project",
+            joinColumns = @JoinColumn(name = "proj_id"),
+            inverseJoinColumns = @JoinColumn(name = "team_id"))
     private Set<Project> projects;
 
     public Project() {

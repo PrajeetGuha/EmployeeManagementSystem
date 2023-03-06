@@ -14,24 +14,16 @@ public class DocFile {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long fileId;
-
-    @Column(columnDefinition = "ENUM('IMG','PDF')")
-    private String fileType;
     
     @Column
     private String fileName;
 
-    @Column
-    private int fileNum;
-
     public DocFile() {
     }
 
-    public DocFile(Long fileId, String fileType, String fileName, int fileNum) {
+    public DocFile(Long fileId, String fileName) {
         this.fileId = fileId;
-        this.fileType = fileType;
         this.fileName = fileName;
-        this.fileNum = fileNum;
     }
 
     public Long getFileId() {
@@ -42,14 +34,6 @@ public class DocFile {
         this.fileId = fileId;
     }
 
-    public String getFileType() {
-        return fileType;
-    }
-
-    public void setFileType(String fileType) {
-        this.fileType = fileType;
-    }
-
     public String getFileName() {
         return fileName;
     }
@@ -57,14 +41,5 @@ public class DocFile {
     public void setFileName(String fileName) {
         this.fileName = fileName;
     }
-
-    public int getFileNum() {
-        return fileNum;
-    }
-
-    public void setFileNum(int fileNum) {
-        this.fileNum = fileNum;
-    }
-
     
 }

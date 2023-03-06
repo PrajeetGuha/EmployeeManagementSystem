@@ -36,9 +36,65 @@ public class ProfDetails {
     @OneToOne
     private DocFile releaseLetterDoc;
 
-    
-
     public ProfDetails() {
+    }
+
+    public ProfDetails(Long profDelId, String nameOfPrevOrg, String designation, @Past Date fromDate, @Past Date toDate,
+            DocFile releaseLetterDoc) {
+        this.profDelId = profDelId;
+        this.nameOfPrevOrg = nameOfPrevOrg;
+        this.designation = designation;
+        this.fromDate = fromDate;
+        this.toDate = toDate;
+        this.releaseLetterDoc = releaseLetterDoc;
+    }
+
+    public Long getProfDelId() {
+        return profDelId;
+    }
+
+    public void setProfDelId(Long profDelId) {
+        this.profDelId = profDelId;
+    }
+
+    public String getNameOfPrevOrg() {
+        return nameOfPrevOrg;
+    }
+
+    public void setNameOfPrevOrg(String nameOfPrevOrg) {
+        this.nameOfPrevOrg = nameOfPrevOrg;
+    }
+
+    public String getDesignation() {
+        return designation;
+    }
+
+    public void setDesignation(String designation) {
+        this.designation = designation;
+    }
+
+    public Date getFromDate() {
+        return fromDate;
+    }
+
+    public void setFromDate(Date fromDate) {
+        this.fromDate = fromDate;
+    }
+
+    public Date getToDate() {
+        return toDate;
+    }
+
+    public void setToDate(Date toDate) {
+        this.toDate = toDate;
+    }
+
+    public DocFile getReleaseLetterDoc() {
+        return releaseLetterDoc;
+    }
+
+    public void setReleaseLetterDoc(DocFile releaseLetterDoc) {
+        this.releaseLetterDoc = releaseLetterDoc;
     }
 
     

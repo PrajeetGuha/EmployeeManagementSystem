@@ -1,5 +1,4 @@
 package org.antwalk.ems.model;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -7,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
@@ -25,6 +26,10 @@ public class Team {
 
     @ManyToMany
     @JsonIgnoreProperties("teams")
+    @JoinTable(
+        name = "team_project",
+        joinColumns = @JoinColumn(name = "team_id"),
+        inverseJoinColumns = @JoinColumn(name = "proj_id"))
     private Set<Project> projects;
 
     public Team() {

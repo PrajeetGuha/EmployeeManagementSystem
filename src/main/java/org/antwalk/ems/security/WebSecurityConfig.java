@@ -55,7 +55,7 @@ public class WebSecurityConfig {
         http.csrf().disable();
         http.authorizeRequests()
                 .antMatchers("/dashboard").hasRole("ADMIN")
-                .antMatchers(HttpMethod.GET,"/employee/{user_id}").access("@userSecurity.hasUserId(authentication,#user_id)")
+                .antMatchers(HttpMethod.GET,"/userdashboard?userid={user_id}").access("@userSecurity.hasUserId(authentication,#user_id)")
                 .and()
                 .formLogin()
                 .loginPage("/login")

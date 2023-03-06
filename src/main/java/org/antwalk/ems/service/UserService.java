@@ -1,9 +1,5 @@
 package org.antwalk.ems.service;
 
-import java.util.Optional;
-
-import javax.management.relation.Role;
-
 import org.antwalk.ems.model.Admin;
 import org.antwalk.ems.model.Employee;
 import org.antwalk.ems.model.User;

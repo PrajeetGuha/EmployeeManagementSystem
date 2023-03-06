@@ -37,9 +37,62 @@ public class FamilyDetails {
     public FamilyDetails() {
     }
 
-    
+    public FamilyDetails(Long familyId, String maritalStatus, String relation, @Past Date dob, String occupation,
+            String contactno) {
+        this.familyId = familyId;
+        this.maritalStatus = maritalStatus;
+        this.relation = relation;
+        this.dob = dob;
+        this.occupation = occupation;
+        this.contactno = contactno;
+    }
 
+    public Long getFamilyId() {
+        return familyId;
+    }
 
+    public void setFamilyId(Long familyId) {
+        this.familyId = familyId;
+    }
 
+    public String getMaritalStatus() {
+        return maritalStatus;
+    }
+
+    public void setMaritalStatus(String maritalStatus) {
+        this.maritalStatus = maritalStatus;
+    }
+
+    public String getRelation() {
+        return relation;
+    }
+
+    public void setRelation(String relation) {
+        this.relation = relation;
+    }
+
+    public Date getDob() {
+        return dob;
+    }
+
+    public void setDob(Date dob) {
+        this.dob = dob;
+    }
+
+    public String getOccupation() {
+        return occupation;
+    }
+
+    public void setOccupation(String occupation) {
+        this.occupation = occupation;
+    }
+
+    public String getContactno() {
+        return contactno;
+    }
+
+    public void setContactno(String contactno) {
+        this.contactno = contactno;
+    }
     
 }

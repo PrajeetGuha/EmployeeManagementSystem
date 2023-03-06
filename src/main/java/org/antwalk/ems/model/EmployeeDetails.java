@@ -23,7 +23,7 @@ public class EmployeeDetails {
     @OneToOne
     private DocFile profilePicDoc;
 
-    @Column(length = 100)
+    @Column
     private String permaAddress;
 
     @Column(length = 10)
@@ -64,15 +64,15 @@ public class EmployeeDetails {
     private String passportno;
 
     @OneToMany
-    // @JoinColumn(referencedColumnName = "emp_det_id")
+    @JoinColumn
     private List<QualificationDetails> listQualificationDetails;
 
     @OneToMany
-    // @JoinColumn(referencedColumnName = "emp_det_id")
+    @JoinColumn
     private List<FamilyDetails> listFamilyDetails;
 
     @OneToMany
-    // @JoinColumn(referencedColumnName = "emp_det_id")
+    @JoinColumn
     private List<ProfDetails> listProfDetails;
 
     public EmployeeDetails() {
