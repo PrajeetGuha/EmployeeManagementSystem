@@ -61,16 +61,19 @@ nav .navLinks button {
 }
 
 .login-btn {
-	display: inline-block;
-	padding: 10px 20px;
-	border-radius: 5px;
-	background-color: rgba(0, 255, 255, 0.5);
-	color: white;
-	text-align: center;
-	text-decoration: none;
-	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-	transition: all 0.2s ease-in-out;
-	border: 2px solid #0072C6;
+
+  display: inline-block;
+  padding: 10px 20px;
+  border-radius: 5px;
+  background-color: rgba(0, 255, 255, 0.5);
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease-in-out;
+  border: 2px solid #0072C6;
+  
+
 }
 
 /* .login-btn::before {
@@ -86,10 +89,12 @@ nav .navLinks button {
   transition: transform 0.3s ease;
 } */
 .login-btn:hover {
-	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-	transform: translateY(-2px);
-	border-color: #1059FF;
-	cursor: pointer;
+
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  transform: translateY(-2px);
+  border-color: #1059FF;
+  cursor:pointer;
+  
 }
 
 .login-btn:focus {

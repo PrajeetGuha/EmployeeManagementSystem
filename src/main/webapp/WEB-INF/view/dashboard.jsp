@@ -7,7 +7,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
-        <title>crud dashboard</title>
+        <title>ADMIN DASHBOARD</title>
 	    <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="resources/css/admin-dashboard/bootstrap.min.css">
 	    <!----css3---->
@@ -45,10 +45,24 @@
                 </li>
 		
 
-                <li class="dropdown">
-                    <a href="#homeSubmenu1" data-toggle="collapse" aria-expanded="false" 
-					class="dropdown-toggle">
-					<i class="material-icons">aspect_ratio</i>Layouts</a>
+                <li>
+                    <a href="#homeSubmenu1" data-toggle="collapse" aria-expanded="false">
+					<i class="material-icons">playlist_add_check</i>Leave Approval</a>
+                    <!-- <ul class="collapse list-unstyled menu" id="homeSubmenu1">
+                        <li>
+                            <a href="#">Home 1</a>
+                        </li>
+                        <li>
+                            <a href="#">Home 2</a>
+                        </li>
+                        <li>
+                            <a href="#">Home 3</a>
+                        </li>
+                    </ul> -->
+                </li>
+                  <!--<li>
+                    <a href="#homeSubmenu1" data-toggle="collapse" aria-expanded="false">
+					<i class="material-icons">edit_note</i>Apply Leave</a>
                     <ul class="collapse list-unstyled menu" id="homeSubmenu1">
                         <li>
                             <a href="#">Home 1</a>
@@ -60,9 +74,82 @@
                             <a href="#">Home 3</a>
                         </li>
                     </ul>
+                </li> -->
+                 <li>
+                    <a href="#project" data-toggle="modal" aria-expanded="false" >
+					<i class="material-icons">laptop</i>Project Allocation</a>
+                    <!-- <ul class="collapse list-unstyled menu" id="homeSubmenu1">
+                        <li>
+                            <a href="#">Home 1</a>
+                        </li>
+                        <li>
+                            <a href="#">Home 2</a>
+                        </li>
+                        <li>
+                            <a href="#">Home 3</a>
+                        </li>
+                    </ul> -->
+                </li>
+                 <li>
+                    <a href="#team" data-toggle="modal" aria-expanded="false">
+					<i class="material-icons">groups</i>Team Allocation</a>
+                    <!-- <ul class="collapse list-unstyled menu" id="homeSubmenu1">
+                        <li>
+                            <a href="#">Home 1</a>
+                        </li>
+                        <li>
+                            <a href="#">Home 2</a>
+                        </li>
+                        <li>
+                            <a href="#">Home 3</a>
+                        </li>
+                    </ul> -->
+                </li>
+                 <li>
+                    <a href="#department" data-toggle="modal" aria-expanded="false">
+					<i class="material-icons">work</i>Department Allocation</a>
+                    <!-- <ul class="collapse list-unstyled menu" id="homeSubmenu1">
+                        <li>
+                            <a href="#">Home 1</a>
+                        </li>
+                        <li>
+                            <a href="#">Home 2</a>
+                        </li>
+                        <li>
+                            <a href="#">Home 3</a>
+                        </li>
+                    </ul> -->
+                </li>
+                     <li>
+                    <a href="#hike" data-toggle="modal" aria-expanded="false">
+					<i class="material-icons">currency_rupee</i>Appraisal</a>
+                    <!-- <ul class="collapse list-unstyled menu" id="homeSubmenu1">
+                        <li>
+                            <a href="#">Home 1</a>
+                        </li>
+                        <li>
+                            <a href="#">Home 2</a>
+                        </li>
+                        <li>
+                            <a href="#">Home 3</a>
+                        </li>
+                    </ul> -->
+                </li>
+                   
+                    <!-- <ul class="collapse list-unstyled menu" id="homeSubmenu1">
+                        <li>
+                            <a href="#">Home 1</a>
+                        </li>
+                        <li>
+                            <a href="#">Home 2</a>
+                        </li>
+                        <li>
+                            <a href="#">Home 3</a>
+                        </li>
+                    </ul> -->
                 </li>
                 
-                <li class="dropdown">
+                <!--  <li class="dropdown">
                     <a href="#pageSubmenu2" data-toggle="collapse" aria-expanded="false" 
 					class="dropdown-toggle">
 					<i class="material-icons">apps</i><span>widgets</span></a>
@@ -176,14 +263,156 @@
 				 <li  class="">
                     <a href="#"><i class="material-icons">library_books</i><span>Calender
 					</span></a>
-                </li>
+                </li>-->
                
                
             </ul>
 
            
         </nav>
+        <div id="project" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form action="proAlloc" method="post">
+        <div class="modal-header">
+          <h4 class="modal-title">PROJECT ALLOCATION</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label>Team Name</label>
+            <input type="text" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label>Project Name</label>
+            <input type="text" class="form-control" required>
+          </div>
+          <!-- <div class="form-group">
+            <label>Address</label>
+            <textarea class="form-control" required></textarea>
+          </div>
+          <div class="form-group">
+            <label>Phone</label>
+            <input type="text" class="form-control" required>
+          </div> -->
+        </div>
+        <div class="modal-footer">
+          <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+          <input type="submit" class="btn btn-success" value="Add">
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div id="team" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form action="teamAlloc" method="post">
+        <div class="modal-header">
+          <h4 class="modal-title">TEAM ALLOCATION</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label>Employee Name</label>
+            <input type="text" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label>Team Name</label>
+            <input type="text" class="form-control" required>
+          </div>
+          <!-- <div class="form-group">
+            <label>Address</label>
+            <textarea class="form-control" required></textarea>
+          </div>
+          <div class="form-group">
+            <label>Phone</label>
+            <input type="text" class="form-control" required>
+          </div> -->
+        </div>
+        <div class="modal-footer">
+          <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+          <input type="submit" class="btn btn-success" value="Add">
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div id="department" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form action="deptAlloc" method="post">
+        <div class="modal-header">
+          <h4 class="modal-title">DEPARTMENT ALLOCATION</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label>Employee Name</label>
+            <input type="text" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label>Department Name</label>
+            <input type="text" class="form-control" required>
+          </div>
+          <!-- <div class="form-group">
+            <label>Address</label>
+            <textarea class="form-control" required></textarea>
+          </div>
+          <div class="form-group">
+            <label>Phone</label>
+            <input type="text" class="form-control" required>
+          </div> -->
+        </div>
+        <div class="modal-footer">
+          <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+          <input type="submit" class="btn btn-success" value="Add">
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
 		
+<div id="hike" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form action="hike" method="post">
+        <div class="modal-header">
+          <h4 class="modal-title">APPRAISAL</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label>Employee Name</label>
+            <input type="text" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label>Hike</label>
+            <input type="text" class="form-control" required>
+          </div>
+            <div class="form-group">
+            <label>Hike Date</label>
+            <input type="date" class="form-control" required>
+          </div>
+          <!-- <div class="form-group">
+            <label>Address</label>
+            <textarea class="form-control" required></textarea>
+          </div>
+          <div class="form-group">
+            <label>Phone</label>
+            <input type="text" class="form-control" required>
+          </div> -->
+        </div>
+        <div class="modal-footer">
+          <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+          <input type="submit" class="btn btn-success" value="Add">
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
 		
 		
 		
@@ -229,7 +458,10 @@
                         <div class="xp-profilebar text-right">
 							 <nav class="navbar p-0">
                         <ul class="nav navbar-nav flex-row ml-auto">   
-                            <li class="dropdown nav-item active">
+                           <li>
+                                        <a href="login" ><span class="material-icons">logout</span> Logout</a>
+                           </li>
+                            <!--  <li class="dropdown nav-item active">
                                 <a href="#" class="nav-link" data-toggle="dropdown">
                                    <span class="material-icons">notifications</span>
 								   <span class="notification">4</span>
@@ -275,7 +507,7 @@
                                         <a href="#"><span class="material-icons">logout</span>Logout</a>
                                     </li>
                                 </ul>
-                            </li>
+                            </li>-->
                         </ul>
                     
                
@@ -316,8 +548,8 @@
         <div class="col-sm-6 p-0 d-flex justify-content-lg-end justify-content-center">
           <a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal">
 		  <i class="material-icons">&#xE147;</i> <span>Add New Employee</span></a>
-          <a href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal">
-		  <i class="material-icons">&#xE15C;</i> <span>Delete</span></a>
+          <!--  <a href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal">
+		  <i class="material-icons">&#xE15C;</i> <span>Delete</span></a>-->
         </div>
       </div>
     </div>
@@ -428,8 +660,8 @@
           <td>
             <a href="#editEmployeeModal" class="edit" data-toggle="modal">
 			<i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-            <a href="#deleteEmployeeModal" class="delete" data-toggle="modal">
-			<i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+            <!--  <a href="#deleteEmployeeModal" class="delete" data-toggle="modal">
+			<i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>-->
           </td>
         </tr>
       </tbody>
@@ -523,7 +755,7 @@
 
 
 <!-- Delete Modal HTML -->
-<div id="deleteEmployeeModal" class="modal fade">
+  <div id="deleteEmployeeModal" class="modal fade">
   <div class="modal-dialog">
     <div class="modal-content">
       <form>
@@ -566,7 +798,6 @@
 
 
 <!----------html code complete----------->
-
 
 
 

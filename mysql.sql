@@ -75,5 +75,11 @@ desc location;
 desc compensation;
 desc project;
 
-insert into user(username,password,role) values('user1','$2a$04$gfdfQfjbfjDnrLypZAUfE./MMYFmFXYhjPXSvA6zlSF/WDdJ3C4Ke','user');
+drop database ems;
+create database ems;
+use ems;
 
+insert into user(username,password,role) values('user1','$2a$12$7sYraBm3w1BCxb8Fs../Z.icQVly84Ejr3auoFMDzjLDhptAMIgr2','ROLE_EMP');
+insert into user(username,password,role) values('user2','$2a$12$7sYraBm3w1BCxb8Fs../Z.icQVly84Ejr3auoFMDzjLDhptAMIgr2','ROLE_EMP');
+insert into user(username,password,role) values('user3','$2a$12$7sYraBm3w1BCxb8Fs../Z.icQVly84Ejr3auoFMDzjLDhptAMIgr2','ROLE_EMP');
+insert into user(username,password,role) values('admin','$2a$12$StespNsylzyMn3ac1CKzrOBF5gAfoohX70SIXPALD/Ts0owJ9A0W2','ROLE_ADMIN');

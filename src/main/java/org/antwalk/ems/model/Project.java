@@ -1,44 +1,59 @@
 package org.antwalk.ems.model;
 
-import java.io.Serializable;
-import java.util.List;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import java.sql.Date;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import javax.persistence.JoinColumn;
 
 @Entity
 @Table
-public class Project implements Serializable {
-    
+public class Project {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long projId;
 
-    @Column
+    @Column(length = 50)
     private String projectName;
 
     @Column
+    private Date startDate;
+
+    @Column
+    private Date endDate;
+
+    @Column(length = 50)
     private String pm;
 
-    @OneToMany(mappedBy = "project")
-    @JsonIgnoreProperties("project")
-    private List<Team> teams;
+    @ManyToMany
+    @JsonIgnoreProperties("projects")
+    @JoinTable(
+            name = "team_project",
+            joinColumns = @JoinColumn(name = "proj_id"),
+            inverseJoinColumns = @JoinColumn(name = "team_id"))
+    private Set<Project> projects;
 
     public Project() {
     }
 
-    public Project(Long projId, String projectName, String pm, List<Team> teams) {
+    public Project(Long projId, String projectName, Date startDate, Date endDate, String pm, Set<Project> projects) {
         this.projId = projId;
         this.projectName = projectName;
+        this.startDate = startDate;
+        this.endDate = endDate;
         this.pm = pm;
-        this.teams = teams;
+        this.projects = projects;
     }
 
     public Long getProjId() {
@@ -57,6 +72,22 @@ public class Project implements Serializable {
         this.projectName = projectName;
     }
 
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
+
     public String getPm() {
         return pm;
     }
@@ -65,61 +96,13 @@ public class Project implements Serializable {
         this.pm = pm;
     }
 
-    public List<Team> getTeams() {
-        return teams;
+    public Set<Project> getProjects() {
+        return projects;
     }
 
-    public void setTeams(List<Team> teams) {
-        this.teams = teams;
+    public void setProjects(Set<Project> projects) {
+        this.projects = projects;
     }
 
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((projId == null) ? 0 : projId.hashCode());
-        result = prime * result + ((projectName == null) ? 0 : projectName.hashCode());
-        result = prime * result + ((pm == null) ? 0 : pm.hashCode());
-        result = prime * result + ((teams == null) ? 0 : teams.hashCode());
-        return result;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        Project other = (Project) obj;
-        if (projId == null) {
-            if (other.projId != null)
-                return false;
-        } else if (!projId.equals(other.projId))
-            return false;
-        if (projectName == null) {
-            if (other.projectName != null)
-                return false;
-        } else if (!projectName.equals(other.projectName))
-            return false;
-        if (pm == null) {
-            if (other.pm != null)
-                return false;
-        } else if (!pm.equals(other.pm))
-            return false;
-        if (teams == null) {
-            if (other.teams != null)
-                return false;
-        } else if (!teams.equals(other.teams))
-            return false;
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "Project [projId=" + projId + ", projectName=" + projectName + ", pm=" + pm + ", teams=" + teams + "]";
-    }
-
-
+    
 }

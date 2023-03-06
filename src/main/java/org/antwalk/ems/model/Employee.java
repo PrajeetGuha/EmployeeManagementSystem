@@ -1,122 +1,152 @@
 package org.antwalk.ems.model;
 
-
-import java.io.Serializable;
 import java.sql.Date;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table
-public class Employee implements Serializable {
+public class Employee {
     
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long empId;
 
     @Column
-    private String name;
+    private String empName;
+
+    @Column(columnDefinition = "ENUM('M','F','O')")
+    private char gender;
+
+    @Column(length = 2)
+    private String gradeLevel;
 
     @Column
-    private String gender;
-
-    @Column
-    private String gl;
-
-    @Column
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private Date doj;
 
-    @Column
+    @Column(length = 50)
     private String designation;
 
-    @Column
-    private String empType;
+    @Column(columnDefinition = "ENUM('FULL-TIME','PART-TIME','CONTRACT')")
+    private String emptype;
 
-    @Column
-    private String empStatus;
+    @Column(columnDefinition = "ENUM('ACTIVE','INACTIVE')")
+    private String empstatus;
 
     @Column
     private int probPeriod;
 
     @Column
+    private Date probCompDate;
+
+    @Column
     private int trainPeriod;
 
     @Column
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private Date contractEndDate;
 
     @Column
-    private int servePeriod;
+    private int servPeriod;
 
-    @Column
-    private boolean isGM;
+    @Column(length = 50, unique = true)
+    @Email
+    private String workEmail;
 
-    @Column
-    private boolean isExpat;
+    @Column(length = 50)
+    private String branch;
 
-    @Column
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
-    private Date releaseDate;
+    @Column(length = 50)
+    private String office;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JsonIgnoreProperties("employees")
-    private Location location;
-
-    @Column
+    @Column(length = 5)
     private String workstationId;
+
+    @Column(length = 4)
+    private String empRole;
+
+    @Column
+    private int clLeft;
+
+    @Column
+    private int plLeft;
+
+    @Column
+    private int slLeft;
+
+    @Column
+    private int moreLeave;
+
+    @Column
+    private int totalLeave;
 
     @Column
     private Double ctc;
 
-    @Column
-    private String userId;
+    @ManyToOne
+    @JsonIgnoreProperties("employees")
+    private Department department;
 
-    @Column
-    private String emailId;
-
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     @JsonIgnoreProperties("employees")
     private Team team;
+
+    @OneToOne
+    private EmployeeDetails employeeDetails;
+
+    @OneToMany(mappedBy = "employee")
+    @JsonIgnoreProperties("employee")
+    private List<Payroll> payrolls;
+
+    @OneToMany(mappedBy = "employee")
+    @JsonIgnoreProperties("employee")
+    private List<Attendance> attendances;
 
     public Employee() {
     }
 
-    public Employee(Long empId, String name, String gender, String gl, Date doj, String designation, String empType,
-            String empStatus, int probPeriod, int trainPeriod, Date contractEndDate, int servePeriod, boolean isGM,
-            boolean isExpat, Date releaseDate, Location location, String workstationId, Double ctc, String userId,
-            String emailId, Team team) {
+    public Employee(Long empId, String empName, char gender, String gradeLevel, Date doj, String designation,
+            String emptype, String empstatus, int probPeriod, Date probCompDate, int trainPeriod, Date contractEndDate,
+            int servPeriod, @Email String workEmail, String branch, String office, String workstationId, String empRole,
+            int clLeft, int plLeft, int slLeft, int moreLeave, int totalLeave, Double ctc, Department department,
+            Team team, EmployeeDetails employeeDetails, List<Payroll> payrolls, List<Attendance> attendances) {
         this.empId = empId;
-        this.name = name;
+        this.empName = empName;
         this.gender = gender;
-        this.gl = gl;
+        this.gradeLevel = gradeLevel;
         this.doj = doj;
         this.designation = designation;
-        this.empType = empType;
-        this.empStatus = empStatus;
+        this.emptype = emptype;
+        this.empstatus = empstatus;
         this.probPeriod = probPeriod;
+        this.probCompDate = probCompDate;
         this.trainPeriod = trainPeriod;
         this.contractEndDate = contractEndDate;
-        this.servePeriod = servePeriod;
-        this.isGM = isGM;
-        this.isExpat = isExpat;
-        this.releaseDate = releaseDate;
-        this.location = location;
+        this.servPeriod = servPeriod;
+        this.workEmail = workEmail;
+        this.branch = branch;
+        this.office = office;
         this.workstationId = workstationId;
+        this.empRole = empRole;
+        this.clLeft = clLeft;
+        this.plLeft = plLeft;
+        this.slLeft = slLeft;
+        this.moreLeave = moreLeave;
+        this.totalLeave = totalLeave;
         this.ctc = ctc;
-        this.userId = userId;
-        this.emailId = emailId;
+        this.department = department;
         this.team = team;
+        this.employeeDetails = employeeDetails;
+        this.payrolls = payrolls;
+        this.attendances = attendances;
     }
 
     public Long getEmpId() {
@@ -127,28 +157,28 @@ public class Employee implements Serializable {
         this.empId = empId;
     }
 
-    public String getName() {
-        return name;
+    public String getEmpName() {
+        return empName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setEmpName(String empName) {
+        this.empName = empName;
     }
 
-    public String getGender() {
+    public char getGender() {
         return gender;
     }
 
-    public void setGender(String gender) {
+    public void setGender(char gender) {
         this.gender = gender;
     }
 
-    public String getGl() {
-        return gl;
+    public String getGradeLevel() {
+        return gradeLevel;
     }
 
-    public void setGl(String gl) {
-        this.gl = gl;
+    public void setGradeLevel(String gradeLevel) {
+        this.gradeLevel = gradeLevel;
     }
 
     public Date getDoj() {
@@ -167,20 +197,20 @@ public class Employee implements Serializable {
         this.designation = designation;
     }
 
-    public String getEmpType() {
-        return empType;
+    public String getEmptype() {
+        return emptype;
     }
 
-    public void setEmpType(String empType) {
-        this.empType = empType;
+    public void setEmptype(String emptype) {
+        this.emptype = emptype;
     }
 
-    public String getEmpStatus() {
-        return empStatus;
+    public String getEmpstatus() {
+        return empstatus;
     }
 
-    public void setEmpStatus(String empStatus) {
-        this.empStatus = empStatus;
+    public void setEmpstatus(String empstatus) {
+        this.empstatus = empstatus;
     }
 
     public int getProbPeriod() {
@@ -189,6 +219,14 @@ public class Employee implements Serializable {
 
     public void setProbPeriod(int probPeriod) {
         this.probPeriod = probPeriod;
+    }
+
+    public Date getProbCompDate() {
+        return probCompDate;
+    }
+
+    public void setProbCompDate(Date probCompDate) {
+        this.probCompDate = probCompDate;
     }
 
     public int getTrainPeriod() {
@@ -207,44 +245,36 @@ public class Employee implements Serializable {
         this.contractEndDate = contractEndDate;
     }
 
-    public int getServePeriod() {
-        return servePeriod;
+    public int getServPeriod() {
+        return servPeriod;
     }
 
-    public void setServePeriod(int servePeriod) {
-        this.servePeriod = servePeriod;
+    public void setServPeriod(int servPeriod) {
+        this.servPeriod = servPeriod;
     }
 
-    public boolean isGM() {
-        return isGM;
+    public String getWorkEmail() {
+        return workEmail;
     }
 
-    public void setGM(boolean isGM) {
-        this.isGM = isGM;
+    public void setWorkEmail(String workEmail) {
+        this.workEmail = workEmail;
     }
 
-    public boolean isExpat() {
-        return isExpat;
+    public String getBranch() {
+        return branch;
     }
 
-    public void setExpat(boolean isExpat) {
-        this.isExpat = isExpat;
+    public void setBranch(String branch) {
+        this.branch = branch;
     }
 
-    public Date getReleaseDate() {
-        return releaseDate;
+    public String getOffice() {
+        return office;
     }
 
-    public void setReleaseDate(Date releaseDate) {
-        this.releaseDate = releaseDate;
-    }
-
-    public Location getLocation() {
-        return location;
-    }
-
-    public void setLocation(Location location) {
-        this.location = location;
+    public void setOffice(String office) {
+        this.office = office;
     }
 
     public String getWorkstationId() {
@@ -255,6 +285,54 @@ public class Employee implements Serializable {
         this.workstationId = workstationId;
     }
 
+    public String getEmpRole() {
+        return empRole;
+    }
+
+    public void setEmpRole(String empRole) {
+        this.empRole = empRole;
+    }
+
+    public int getClLeft() {
+        return clLeft;
+    }
+
+    public void setClLeft(int clLeft) {
+        this.clLeft = clLeft;
+    }
+
+    public int getPlLeft() {
+        return plLeft;
+    }
+
+    public void setPlLeft(int plLeft) {
+        this.plLeft = plLeft;
+    }
+
+    public int getSlLeft() {
+        return slLeft;
+    }
+
+    public void setSlLeft(int slLeft) {
+        this.slLeft = slLeft;
+    }
+
+    public int getMoreLeave() {
+        return moreLeave;
+    }
+
+    public void setMoreLeave(int moreLeave) {
+        this.moreLeave = moreLeave;
+    }
+
+    public int getTotalLeave() {
+        return totalLeave;
+    }
+
+    public void setTotalLeave(int totalLeave) {
+        this.totalLeave = totalLeave;
+    }
+
     public Double getCtc() {
         return ctc;
     }
@@ -263,20 +341,12 @@ public class Employee implements Serializable {
         this.ctc = ctc;
     }
 
-    public String getUserId() {
-        return userId;
+    public Department getDepartment() {
+        return department;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
-    public String getEmailId() {
-        return emailId;
-    }
-
-    public void setEmailId(String emailId) {
-        this.emailId = emailId;
+    public void setDepartment(Department department) {
+        this.department = department;
     }
 
     public Team getTeam() {
@@ -287,134 +357,28 @@ public class Employee implements Serializable {
         this.team = team;
     }
 
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((empId == null) ? 0 : empId.hashCode());
-        result = prime * result + ((name == null) ? 0 : name.hashCode());
-        result = prime * result + ((gender == null) ? 0 : gender.hashCode());
-        result = prime * result + ((gl == null) ? 0 : gl.hashCode());
-        result = prime * result + ((doj == null) ? 0 : doj.hashCode());
-        result = prime * result + ((designation == null) ? 0 : designation.hashCode());
-        result = prime * result + ((empType == null) ? 0 : empType.hashCode());
-        result = prime * result + ((empStatus == null) ? 0 : empStatus.hashCode());
-        result = prime * result + probPeriod;
-        result = prime * result + trainPeriod;
-        result = prime * result + ((contractEndDate == null) ? 0 : contractEndDate.hashCode());
-        result = prime * result + servePeriod;
-        result = prime * result + (isGM ? 1231 : 1237);
-        result = prime * result + (isExpat ? 1231 : 1237);
-        result = prime * result + ((releaseDate == null) ? 0 : releaseDate.hashCode());
-        result = prime * result + ((location == null) ? 0 : location.hashCode());
-        result = prime * result + ((workstationId == null) ? 0 : workstationId.hashCode());
-        result = prime * result + ((ctc == null) ? 0 : ctc.hashCode());
-        result = prime * result + ((userId == null) ? 0 : userId.hashCode());
-        result = prime * result + ((emailId == null) ? 0 : emailId.hashCode());
-        result = prime * result + ((team == null) ? 0 : team.hashCode());
-        return result;
+    public EmployeeDetails getEmployeeDetails() {
+        return employeeDetails;
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        Employee other = (Employee) obj;
-        if (empId == null) {
-            if (other.empId != null)
-                return false;
-        } else if (!empId.equals(other.empId))
-            return false;
-        if (name == null) {
-            if (other.name != null)
-                return false;
-        } else if (!name.equals(other.name))
-            return false;
-        if (gender == null) {
-            if (other.gender != null)
-                return false;
-        } else if (!gender.equals(other.gender))
-            return false;
-        if (gl == null) {
-            if (other.gl != null)
-                return false;
-        } else if (!gl.equals(other.gl))
-            return false;
-        if (doj == null) {
-            if (other.doj != null)
-                return false;
-        } else if (!doj.equals(other.doj))
-            return false;
-        if (designation == null) {
-            if (other.designation != null)
-                return false;
-        } else if (!designation.equals(other.designation))
-            return false;
-        if (empType == null) {
-            if (other.empType != null)
-                return false;
-        } else if (!empType.equals(other.empType))
-            return false;
-        if (empStatus == null) {
-            if (other.empStatus != null)
-                return false;
-        } else if (!empStatus.equals(other.empStatus))
-            return false;
-        if (probPeriod != other.probPeriod)
-            return false;
-        if (trainPeriod != other.trainPeriod)
-            return false;
-        if (contractEndDate == null) {
-            if (other.contractEndDate != null)
-                return false;
-        } else if (!contractEndDate.equals(other.contractEndDate))
-            return false;
-        if (servePeriod != other.servePeriod)
-            return false;
-        if (isGM != other.isGM)
-            return false;
-        if (isExpat != other.isExpat)
-            return false;
-        if (releaseDate == null) {
-            if (other.releaseDate != null)
-                return false;
-        } else if (!releaseDate.equals(other.releaseDate))
-            return false;
-        if (location == null) {
-            if (other.location != null)
-                return false;
-        } else if (!location.equals(other.location))
-            return false;
-        if (workstationId == null) {
-            if (other.workstationId != null)
-                return false;
-        } else if (!workstationId.equals(other.workstationId))
-            return false;
-        if (ctc == null) {
-            if (other.ctc != null)
-                return false;
-        } else if (!ctc.equals(other.ctc))
-            return false;
-        if (userId == null) {
-            if (other.userId != null)
-                return false;
-        } else if (!userId.equals(other.userId))
-            return false;
-        if (emailId == null) {
-            if (other.emailId != null)
-                return false;
-        } else if (!emailId.equals(other.emailId))
-            return false;
-        if (team == null) {
-            if (other.team != null)
-                return false;
-        } else if (!team.equals(other.team))
-            return false;
-        return true;
+    public void setEmployeeDetails(EmployeeDetails employeeDetails) {
+        this.employeeDetails = employeeDetails;
+    }
+
+    public List<Payroll> getPayrolls() {
+        return payrolls;
+    }
+
+    public void setPayrolls(List<Payroll> payrolls) {
+        this.payrolls = payrolls;
+    }
+
+    public List<Attendance> getAttendances() {
+        return attendances;
+    }
+
+    public void setAttendances(List<Attendance> attendances) {
+        this.attendances = attendances;
     }
 
     

@@ -14,6 +14,7 @@
 <title>NRI FINTECH</title>
 </head>
 <body>
+
 	<nav>
 		<div class="logo">
 			<img src="resources/logo.png" />
@@ -101,6 +102,7 @@
 			document.getElementById("sidenav").style.width = "0%";
 		}
 	</script>
+
 
 </body>
 </html>
