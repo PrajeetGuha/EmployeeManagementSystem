@@ -54,8 +54,8 @@ public class WebSecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf().disable();
         http.authorizeRequests()
-                .antMatchers(HttpMethod.GET,"/admindashboard?id={user_id}").access("@userSecurity.authorizeAdmin(authentication,#user_id)")
-                .antMatchers(HttpMethod.GET,"/employeedashboard?id={user_id}").access("@userSecurity.authorizeEmployee(authentication,#user_id)")
+                .antMatchers(HttpMethod.GET,"/admindashboard/{user_id}").access("@userSecurity.authorizeAdmin(authentication,#user_id)")
+                .antMatchers(HttpMethod.GET,"/employeedashboard/{user_id}").access("@userSecurity.authorizeEmployee(authentication,#user_id)")
                 .and()
                 .formLogin()
                 .loginPage("/login")

@@ -2,6 +2,7 @@ package org.antwalk.ems.controller;
 
 import org.antwalk.ems.security.AuthenticationSystem;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -32,17 +33,19 @@ public class WebController {
 	public String dashboard(){
 		Long id = AuthenticationSystem.getId();
 		if (AuthenticationSystem.isLoggedAs("ROLE_EMP"))
-			return "redirect:/employeedashboard?id="+id;
+			return "redirect:/employeedashboard/"+id;
 		else
-			return "redirect:/admindashboard?id="+id;
+			return "redirect:/admindashboard/"+id;
 	}
 
-	@GetMapping("/employeedashboard")
+	@GetMapping("/employeedashboard/{user_id}")
+	@PreAuthorize(value="hasRole('EMP')")
 	public String employeeDashboard(){
 		return "employeedashboard";
 	}
 
-	@GetMapping(value="/admindashboard")
+	@GetMapping(value="/admindashboard/{user_id}")
+	@PreAuthorize(value="hasRole('ADMIN')")
 	public String adminDashboard() {
 		return "admindashboard";
 	}
