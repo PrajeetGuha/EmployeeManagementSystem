@@ -26,28 +26,16 @@ public class WebController {
 		if (AuthenticationSystem.isLoggedAs("ROLE_ANONYMOUS"))
 	 		return "login";
 		else
-			return "redirect:/dashboard";
+			return "redirect:/loggedin";
 	 }
 
-	@GetMapping("/dashboard")
+	@GetMapping("/loggedin")
+	@PreAuthorize("hasRole('ROLE_EMP') || hasRole('ROLE_ADMIN')")
 	public String dashboard(){
-		Long id = AuthenticationSystem.getId();
 		if (AuthenticationSystem.isLoggedAs("ROLE_EMP"))
-			return "redirect:/employeedashboard/"+id;
+			return "redirect:/employee/dashboard";
 		else
-			return "redirect:/admindashboard/"+id;
-	}
-
-	@GetMapping("/employeedashboard/{user_id}")
-	@PreAuthorize(value="hasRole('EMP')")
-	public String employeeDashboard(){
-		return "employeedashboard";
-	}
-
-	@GetMapping(value="/admindashboard/{user_id}")
-	@PreAuthorize(value="hasRole('ADMIN')")
-	public String adminDashboard() {
-		return "admindashboard";
+			return "redirect:/admin/dashboard";
 	}
 	
 }

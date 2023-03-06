@@ -54,12 +54,13 @@ public class WebSecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf().disable();
         http.authorizeRequests()
-                .antMatchers(HttpMethod.GET,"/admindashboard/{user_id}").access("@userSecurity.authorizeAdmin(authentication,#user_id)")
-                .antMatchers(HttpMethod.GET,"/employeedashboard/{user_id}").access("@userSecurity.authorizeEmployee(authentication,#user_id)")
+                .antMatchers("/welcome").permitAll()
+                .antMatchers(HttpMethod.GET,"/admin/*").hasRole("ADMIN")
+                .antMatchers(HttpMethod.GET,"/employee/*").hasRole("EMP")
                 .and()
                 .formLogin()
                 .loginPage("/login")
-                .defaultSuccessUrl("/dashboard", true);
+                .defaultSuccessUrl("/loggedin", true);
         return http.build();
     }
 
