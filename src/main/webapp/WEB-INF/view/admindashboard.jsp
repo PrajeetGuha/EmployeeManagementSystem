@@ -601,10 +601,10 @@
                           <label for="selectAll"></label>
                         </span>
                       </th>
-                      <th>Name</th>
-                      <th>Email</th>
-                      <th>Address</th>
-                      <th>Phone</th>
+                      <th>ID</th>
+                      <th>NAME</th>
+                      <th>DESIGNATION</th>
+                      <th>STATUS</th>
                       <th>Actions</th>
                     </tr>
                   </thead>
@@ -616,10 +616,10 @@
                           <label for="checkbox1"></label>
                         </span>
                       </td>
-                      <td>Thomas Hardy</td>
-                      <td>thomashardy@mail.com</td>
-                      <td>89 Chiaroscuro Rd, Portland, USA</td>
-                      <td>(171) 555-2222</td>
+                      <td>${employee.empId}</td>
+                      <td>${employee.empName}</td>
+                      <td>${employee.designation}</td>
+                      <td>${employee.empstatus}</td>
                       <td>
                         <a href="#editEmployeeModal" class="edit" data-toggle="modal">
                           <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
@@ -627,7 +627,7 @@
                           <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                       </td>
                     </tr>
-                    <tr>
+                    <!--  <tr>
                       <td>
                         <span class="custom-checkbox">
                           <input type="checkbox" id="checkbox2" name="options[]" value="1">
@@ -698,7 +698,7 @@
                          <a href="#deleteEmployeeModal" class="delete" data-toggle="modal">
 			<i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                       </td>
-                    </tr>
+                    </tr>-->
                   </tbody>
                 </table>
                 <div class="clearfix">
