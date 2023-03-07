@@ -13,6 +13,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
+    
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
@@ -249,6 +250,21 @@
                     <a href="#"><i class="material-icons">library_books</i><span>Calender
 					</span></a>
                 </li>-->
+                <li>
+            <a href="#adminprofile" data-toggle="modal" aria-expanded="false">
+              <i class="material-icons">account_circle</i>Profile</a>
+            <!-- <ul class="collapse list-unstyled menu" id="homeSubmenu1">
+                        <li>
+                            <a href="#">Home 1</a>
+                        </li>
+                        <li>
+                            <a href="#">Home 2</a>
+                        </li>
+                        <li>
+                            <a href="#">Home 3</a>
+                        </li>
+                    </ul> -->
+          </li>
 
 
         </ul>
@@ -399,6 +415,46 @@
         </div>
       </div>
 
+      <div id="adminprofile" class="modal fade">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <form action="hike" method="post">
+              <div class="modal-header">
+                <h4 class="modal-title">ADMIN PROFILE</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              </div>
+              <div class="modal-body">
+              <ul>
+         <li>
+         	<p><b>Admin id:</b>
+            ${admin.adminId}
+         	</p>
+         </li>
+         <li>
+           <p><b>Admin name:</b>
+            ${admin.adminName}
+         </p>
+         </li>
+         <li>
+           <p><b>Admin email:</b>
+            ${admin.adminEmail}
+         </p>
+         </li>
+      </ul>
+                </div>
+                
+              <div class="modal-footer">
+                <input type="button" class="btn btn-default" data-dismiss="modal" value="Close">
+                
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+
+
+      
 
 
       <!--------page-content---------------->
@@ -639,8 +695,8 @@
                       <td>
                         <a href="#editEmployeeModal" class="edit" data-toggle="modal">
                           <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                        <!--  <a href="#deleteEmployeeModal" class="delete" data-toggle="modal">
-			<i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>-->
+                         <a href="#deleteEmployeeModal" class="delete" data-toggle="modal">
+			<i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                       </td>
                     </tr>
                   </tbody>
