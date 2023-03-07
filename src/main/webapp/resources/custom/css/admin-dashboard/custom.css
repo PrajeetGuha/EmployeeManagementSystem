@@ -104,7 +104,8 @@ body,html{
   .wrapper{
 	position:relative;
 width:100%;
-overflow:auto;	
+overflow:auto;
+	
   }
   
   /*=========sidebar---design------*/
