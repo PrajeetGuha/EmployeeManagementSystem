@@ -9,9 +9,9 @@
 	  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
         <title>ADMIN DASHBOARD</title>
 	    <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="resources/css/admin-dashboard/bootstrap.min.css">
+        <link rel="stylesheet" href="resources/lib/bootstrap/css/bootstrap.min.css">
 	    <!----css3---->
-        <link rel="stylesheet" href="resources/css/admin-dashboard/custom.css">
+        <link rel="stylesheet" href="resources/custom/css/admin-dashboard/custom.css">
 		
 		
 		<!--google fonts -->
@@ -813,10 +813,11 @@
   
      <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-   <script src="resources/js/admin-dashboard/jquery-3.3.1.slim.min.js"></script>
-   <script src="resources/js/admin-dashboard/popper.min.js"></script>
-   <script src="resources/js/admin-dashboard/bootstrap.min.js"></script>
-   <script src="resources/js/admin-dashboard/jquery-3.3.1.min.js"></script>
+    <script src="resources/lib/jquery/jquery-3.3.1.min.js"></script>
+   <script src="resources/lib/jquery/jquery-3.3.1.slim.min.js"></script>
+   <script src="resources/lib/popper/popper.min.js"></script>
+   <script src="resources/lib/bootstrap/js/bootstrap.min.js"></script>
+   
   
   
   <script type="text/javascript">
