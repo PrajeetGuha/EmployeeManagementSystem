@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
   <!DOCTYPE html>
   <html>
 
@@ -595,12 +596,7 @@
                 <table class="table table-striped table-hover">
                   <thead>
                     <tr>
-                      <th>
-                        <span class="custom-checkbox">
-                          <input type="checkbox" id="selectAll">
-                          <label for="selectAll"></label>
-                        </span>
-                      </th>
+                      
                       <th>ID</th>
                       <th>NAME</th>
                       <th>DESIGNATION</th>
@@ -610,22 +606,22 @@
                   </thead>
                   <tbody>
                     <tr>
-                      <td>
-                        <span class="custom-checkbox">
-                          <input type="checkbox" id="checkbox1" name="options[]" value="1">
-                          <label for="checkbox1"></label>
-                        </span>
-                      </td>
-                      <td>${employee.empId}</td>
-                      <td>${employee.empName}</td>
-                      <td>${employee.designation}</td>
-                      <td>${employee.empstatus}</td>
+                      
+                      <c:forEach items="${employees}" var="employee">
+                      <tr>
+                      <td><c:out value="${employee.empId}" /></td>
+                      <td><c:out value="${employee.empName}" /></td>
+                      <td><c:out value="${employee.designation}" /></td>
+                      <td><c:out value="${employee.empstatus}" /></td>
                       <td>
                         <a href="#editEmployeeModal" class="edit" data-toggle="modal">
                           <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
                         <a href="#deleteEmployeeModal" class="delete" data-toggle="modal">
                           <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                       </td>
+   					 </tr>
+ 					 </c:forEach>
+                      
                     </tr>
                     <!--  <tr>
                       <td>
