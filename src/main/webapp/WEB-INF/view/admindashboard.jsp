@@ -432,19 +432,19 @@
          </li>
          <li>
            <p><b>Admin name:</b>
-            ${adminName}
+            ${admin.adminName}
          </p>
          </li>
          <li>
            <p><b>Admin email:</b>
-            ${adminEmail}
+            ${admin.adminEmail}
          </p>
          </li>
       </ul>
                 </div>
                 
               <div class="modal-footer">
-                <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                <input type="button" class="btn btn-default" data-dismiss="modal" value="Close">
                 
               </div>
             </form>
