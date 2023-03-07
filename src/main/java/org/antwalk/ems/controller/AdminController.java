@@ -42,9 +42,11 @@ public class AdminController {
         Long id = AuthenticationSystem.getId();
         int pageNo = Integer.parseInt(request.getParameter("pg"));
         Admin admin = adminService.fetchAdminData(id);
+        int pageCount = adminService.countPagesOfEmployees();
         List<EmployeeListView> employeeListViews = adminService.listEmployees(pageNo);
         model.addAttribute("admin",admin);
         model.addAttribute("employees", employeeListViews);
+        model.addAttribute("pageCount", pageCount);
         return "admindashboard";
     }
 }

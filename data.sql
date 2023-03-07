@@ -20,4 +20,4 @@ insert into employee(emp_id, emp_name, designation, empstatus) values(7, "Shekha
 insert into employee(emp_id, emp_name, designation, empstatus) values(8, "Kingshuk Goyal", "ASE", "ACTIVE");
 insert into employee(emp_id, emp_name, designation, empstatus) values(9, "Dures Mukherjee", "HR", "INACTIVE");
 
-insert into admin(admin_id, admin_name, admin_email) values(4,"Pallab Patel","pallabpatel@nrifintech.com");
+insert into admin(admin_id, admin_name, admin_email) values(10,"Pallab Patel","pallabpatel@nrifintech.com");
