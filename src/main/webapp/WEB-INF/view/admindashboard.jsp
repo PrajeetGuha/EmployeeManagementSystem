@@ -782,12 +782,13 @@
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <!-- <script src="resources/js/admin-dashboard/jquery-3.3.1.slim.min.js"></script> -->
+    
   </body>
 
+  
   <script src="../resources/lib/popper/popper.min.js" type="text/javascript" />
   <script src="../resources/lib/bootstrap/js/bootstrap.bundle.min.js" type="text/javascript" />
-  <script src="../resources/lib/jquery/jquery.min.js" type="text/javascript" />
+  <script src="../resources/lib/jquery/jquery-3.3.1.min.js" type="text/javascript" />
+  <script src="../resources/js/admin-dashboard/jquery-3.3.1.slim.min.js" type="text/javascript"/>
   <script src="../resources/custom/js/admin-dashboard/navtoggle.js" type="text/javascript" />
-
   </html>
