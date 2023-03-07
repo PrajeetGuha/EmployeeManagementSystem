@@ -21,13 +21,13 @@ public class Payroll {
     private Long payrollId;
 
     @Column
-    private double ctc;
+    private Double ctc;
 
     @Column
-    private double hike;
+    private Double hike;
 
     @Column
-    private double ctcNew;
+    private Double ctcNew;
 
     @Column
     @Past
@@ -40,7 +40,7 @@ public class Payroll {
     public Payroll() {
     }
 
-    public Payroll(Long payrollId, double ctc, double hike, double ctcNew, @Past Date hikeDt, Employee employee) {
+    public Payroll(Long payrollId, Double ctc, Double hike, Double ctcNew, @Past Date hikeDt, Employee employee) {
         this.payrollId = payrollId;
         this.ctc = ctc;
         this.hike = hike;
@@ -57,27 +57,27 @@ public class Payroll {
         this.payrollId = payrollId;
     }
 
-    public double getCtc() {
+    public Double getCtc() {
         return ctc;
     }
 
-    public void setCtc(double ctc) {
+    public void setCtc(Double ctc) {
         this.ctc = ctc;
     }
 
-    public double getHike() {
+    public Double getHike() {
         return hike;
     }
 
-    public void setHike(double hike) {
+    public void setHike(Double hike) {
         this.hike = hike;
     }
 
-    public double getCtcNew() {
+    public Double getCtcNew() {
         return ctcNew;
     }
 
-    public void setCtcNew(double ctcNew) {
+    public void setCtcNew(Double ctcNew) {
         this.ctcNew = ctcNew;
     }
 

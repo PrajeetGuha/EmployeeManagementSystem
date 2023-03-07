@@ -25,7 +25,7 @@ public class Employee {
     private String empName;
 
     @Column(columnDefinition = "ENUM('M','F','O')")
-    private char gender;
+    private String gender;
 
     @Column(length = 2)
     private String gradeLevel;
@@ -43,19 +43,19 @@ public class Employee {
     private String empstatus;
 
     @Column
-    private int probPeriod;
+    private Integer probPeriod;
 
     @Column
     private Date probCompDate;
 
     @Column
-    private int trainPeriod;
+    private Integer trainPeriod;
 
     @Column
     private Date contractEndDate;
 
     @Column
-    private int servPeriod;
+    private Integer servPeriod;
 
     @Column(length = 50, unique = true)
     @Email
@@ -74,19 +74,19 @@ public class Employee {
     private String empRole;
 
     @Column
-    private int clLeft;
+    private Integer clLeft;
 
     @Column
-    private int plLeft;
+    private Integer plLeft;
 
     @Column
-    private int slLeft;
+    private Integer slLeft;
 
     @Column
-    private int moreLeave;
+    private Integer moreLeave;
 
     @Column
-    private int totalLeave;
+    private Integer totalLeave;
 
     @Column
     private Double ctc;
@@ -113,10 +113,10 @@ public class Employee {
     public Employee() {
     }
 
-    public Employee(Long empId, String empName, char gender, String gradeLevel, Date doj, String designation,
-            String emptype, String empstatus, int probPeriod, Date probCompDate, int trainPeriod, Date contractEndDate,
-            int servPeriod, @Email String workEmail, String branch, String office, String workstationId, String empRole,
-            int clLeft, int plLeft, int slLeft, int moreLeave, int totalLeave, Double ctc, Department department,
+    public Employee(Long empId, String empName, String gender, String gradeLevel, Date doj, String designation,
+            String emptype, String empstatus, Integer probPeriod, Date probCompDate, Integer trainPeriod, Date contractEndDate,
+            Integer servPeriod, @Email String workEmail, String branch, String office, String workstationId, String empRole,
+            Integer clLeft, Integer plLeft, Integer slLeft, Integer moreLeave, Integer totalLeave, Double ctc, Department department,
             Team team, EmployeeDetails employeeDetails, List<Payroll> payrolls, List<Attendance> attendances) {
         this.empId = empId;
         this.empName = empName;
@@ -165,11 +165,11 @@ public class Employee {
         this.empName = empName;
     }
 
-    public char getGender() {
+    public String getGender() {
         return gender;
     }
 
-    public void setGender(char gender) {
+    public void setGender(String gender) {
         this.gender = gender;
     }
 
@@ -213,11 +213,11 @@ public class Employee {
         this.empstatus = empstatus;
     }
 
-    public int getProbPeriod() {
+    public Integer getProbPeriod() {
         return probPeriod;
     }
 
-    public void setProbPeriod(int probPeriod) {
+    public void setProbPeriod(Integer probPeriod) {
         this.probPeriod = probPeriod;
     }
 
@@ -229,11 +229,11 @@ public class Employee {
         this.probCompDate = probCompDate;
     }
 
-    public int getTrainPeriod() {
+    public Integer getTrainPeriod() {
         return trainPeriod;
     }
 
-    public void setTrainPeriod(int trainPeriod) {
+    public void setTrainPeriod(Integer trainPeriod) {
         this.trainPeriod = trainPeriod;
     }
 
@@ -245,11 +245,11 @@ public class Employee {
         this.contractEndDate = contractEndDate;
     }
 
-    public int getServPeriod() {
+    public Integer getServPeriod() {
         return servPeriod;
     }
 
-    public void setServPeriod(int servPeriod) {
+    public void setServPeriod(Integer servPeriod) {
         this.servPeriod = servPeriod;
     }
 
@@ -293,43 +293,43 @@ public class Employee {
         this.empRole = empRole;
     }
 
-    public int getClLeft() {
+    public Integer getClLeft() {
         return clLeft;
     }
 
-    public void setClLeft(int clLeft) {
+    public void setClLeft(Integer clLeft) {
         this.clLeft = clLeft;
     }
 
-    public int getPlLeft() {
+    public Integer getPlLeft() {
         return plLeft;
     }
 
-    public void setPlLeft(int plLeft) {
+    public void setPlLeft(Integer plLeft) {
         this.plLeft = plLeft;
     }
 
-    public int getSlLeft() {
+    public Integer getSlLeft() {
         return slLeft;
     }
 
-    public void setSlLeft(int slLeft) {
+    public void setSlLeft(Integer slLeft) {
         this.slLeft = slLeft;
     }
 
-    public int getMoreLeave() {
+    public Integer getMoreLeave() {
         return moreLeave;
     }
 
-    public void setMoreLeave(int moreLeave) {
+    public void setMoreLeave(Integer moreLeave) {
         this.moreLeave = moreLeave;
     }
 
-    public int getTotalLeave() {
+    public Integer getTotalLeave() {
         return totalLeave;
     }
 
-    public void setTotalLeave(int totalLeave) {
+    public void setTotalLeave(Integer totalLeave) {
         this.totalLeave = totalLeave;
     }
 

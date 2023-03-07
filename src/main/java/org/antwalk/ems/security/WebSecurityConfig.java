@@ -63,7 +63,13 @@ public class WebSecurityConfig {
                 .and()
                 .formLogin()
                 .loginPage("/login")
-                .defaultSuccessUrl("/loggedin", true);
+                .defaultSuccessUrl("/loggedin", true)
+                .and()
+                .logout()
+                .logoutSuccessUrl("/login")
+                .logoutUrl("/logout")
+                .invalidateHttpSession(true)
+                .deleteCookies("JSESSIONID");
         // http.formLogin().loginPage("/login").defaultSuccessUrl("/loggedin",true);
         return http.build();
     }
