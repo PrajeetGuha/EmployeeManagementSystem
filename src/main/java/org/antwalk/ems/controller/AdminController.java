@@ -40,8 +40,9 @@ public class AdminController {
     @GetMapping("dashboard")
     public String admindashboard(HttpServletRequest request, Model model) throws UserNotFoundException{
         Long id = AuthenticationSystem.getId();
+        int pageNo = Integer.parseInt(request.getParameter("pg"));
         Admin admin = adminService.fetchAdminData(id);
-        List<EmployeeListView> employeeListViews = adminService.listEmployees();
+        List<EmployeeListView> employeeListViews = adminService.listEmployees(pageNo);
         model.addAttribute("admin",admin);
         model.addAttribute("employees", employeeListViews);
         return "admindashboard";

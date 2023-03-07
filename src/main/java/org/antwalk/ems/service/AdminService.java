@@ -9,6 +9,9 @@ import org.antwalk.ems.repository.AdminRepository;
 import org.antwalk.ems.repository.EmployeeRepository;
 import org.antwalk.ems.view.EmployeeListView;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -26,8 +29,9 @@ public class AdminService {
         );
     }
 
-    public List<EmployeeListView> listEmployees(){
-        return employeeRepository.findAllEmployeeListViews();
+    public List<EmployeeListView> listEmployees(int pageNo){
+        Pageable pageable = PageRequest.of(pageNo-1, 5, Sort.by("empId"));
+        return employeeRepository.findAllEmployeeListViews(pageable).getContent();
     }
     
 }
