@@ -660,8 +660,8 @@
           <td>
             <a href="#editEmployeeModal" class="edit" data-toggle="modal">
 			<i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-            <!--  <a href="#deleteEmployeeModal" class="delete" data-toggle="modal">
-			<i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>-->
+              <a href="#deleteEmployeeModal" class="delete" data-toggle="modal">
+			<i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
           </td>
         </tr>
       </tbody>
@@ -694,14 +694,19 @@
             <label>Name</label>
             <input type="text" class="form-control" required>
           </div>
+         <label for="role">Role</label><br>
+		<select id="role" name="role">
+  		<option value="user">User</option>
+  		<option value="admin">Admin</option>
+		</select>
           <div class="form-group">
             <label>Email</label>
             <input type="email" class="form-control" required>
           </div>
-          <div class="form-group">
+          <!--  <div class="form-group">
             <label>Address</label>
             <textarea class="form-control" required></textarea>
-          </div>
+          </div>-->
           <div class="form-group">
             <label>Phone</label>
             <input type="text" class="form-control" required>
