@@ -2,7 +2,9 @@ package org.antwalk.ems.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.antwalk.ems.model.Admin;
 import org.antwalk.ems.model.Employee;
+import org.antwalk.ems.repository.AdminRepository;
 import org.antwalk.ems.repository.EmployeeRepository;
 import org.antwalk.ems.security.AuthenticationSystem;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 // @RestController
 // @RequestMapping("/dashboard/admin")
 @Controller
-@RequestMapping("employee")
-public class EmployeeController {
+@RequestMapping("admin")
+public class AdminController {
 
     // @Autowired
     // UserService userService;
@@ -28,13 +30,13 @@ public class EmployeeController {
     // }
 
     @Autowired
-    EmployeeRepository employeeRepository;
+    AdminRepository adminRepository;
 
     @GetMapping("dashboard")
-    public String employeedashboard(HttpServletRequest request, Model model){
+    public String admindashboard(HttpServletRequest request, Model model){
         Long id = AuthenticationSystem.getId();
-        Employee employee = employeeRepository.getById(id);
-        model.addAttribute("employee",employee);
-        return "employeedashboard";
+        Admin admin = adminRepository.getById(id);
+        model.addAttribute("admin",admin);
+        return "admindashboard";
     }
 }
