@@ -10,5 +10,6 @@
 	<h1>Read the textbox value</h1>
 	<hr/>
 	<p>Employee name: ${employee.empId}</p>
+	<button><a  href="../logout">Logout</a></button>
 </body>
 </html>

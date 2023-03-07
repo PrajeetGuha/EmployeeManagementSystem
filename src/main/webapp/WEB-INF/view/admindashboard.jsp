@@ -498,7 +498,7 @@
                   <nav class="navbar p-0">
                     <ul class="nav navbar-nav flex-row ml-auto">
                       <li>
-                        <a href="login"><span class="material-icons">logout</span> Logout</a>
+                        <a href="../logout"><span class="material-icons">logout</span> Logout</a>
                       </li>
                       <!--  <li class="dropdown nav-item active">
                                 <a href="#" class="nav-link" data-toggle="dropdown">

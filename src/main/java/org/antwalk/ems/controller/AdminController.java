@@ -2,11 +2,13 @@ package org.antwalk.ems.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.antwalk.ems.exception.UserNotFoundException;
 import org.antwalk.ems.model.Admin;
 import org.antwalk.ems.model.Employee;
 import org.antwalk.ems.repository.AdminRepository;
 import org.antwalk.ems.repository.EmployeeRepository;
 import org.antwalk.ems.security.AuthenticationSystem;
+import org.antwalk.ems.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.stereotype.Controller;
@@ -30,12 +32,12 @@ public class AdminController {
     // }
 
     @Autowired
-    AdminRepository adminRepository;
+    AdminService adminService;
 
     @GetMapping("dashboard")
-    public String admindashboard(HttpServletRequest request, Model model){
+    public String admindashboard(HttpServletRequest request, Model model) throws UserNotFoundException{
         Long id = AuthenticationSystem.getId();
-        Admin admin = adminRepository.getById(id);
+        Admin admin = adminService.fetchAdminData(id);
         model.addAttribute("admin",admin);
         return "admindashboard";
     }

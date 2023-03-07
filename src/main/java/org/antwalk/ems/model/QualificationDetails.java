@@ -23,12 +23,12 @@ public class QualificationDetails {
     private DocFile qualDoc;
 
     @Column
-    private double percent;
+    private Double percent;
 
     public QualificationDetails() {
     }
 
-    public QualificationDetails(Long qdId, String qual, DocFile qualDoc, double percent) {
+    public QualificationDetails(Long qdId, String qual, DocFile qualDoc, Double percent) {
         this.qdId = qdId;
         this.qual = qual;
         this.qualDoc = qualDoc;
@@ -59,11 +59,11 @@ public class QualificationDetails {
         this.qualDoc = qualDoc;
     }
 
-    public double getPercent() {
+    public Double getPercent() {
         return percent;
     }
 
-    public void setPercent(double percent) {
+    public void setPercent(Double percent) {
         this.percent = percent;
     }
 
