@@ -60,6 +60,19 @@ public class AdminController {
         
  
     }
+     
+    @GetMapping("/projectallocation")
+	public String projectallocation() {
+		return "projectallocation";
+	}
+    @GetMapping("/teamallocation")
+   	public String teamallocation() {
+   		return "teamallocation";
+   	}
+    @GetMapping("/departmentallocation")
+   	public String departmentallocation() {
+   		return "departmentallocation";
+   	}
 
     @PostMapping("deactivateUser")
     public ResponseEntity<SuccessDetails> deactivateEmployee(@RequestBody Employee employee) throws UserNotFoundException{

@@ -44,7 +44,7 @@
 				</h3>
 			</div>
 			<ul class="list-unstyled components">
-				<li class="active"><a href="#" class="dashboard"><i
+				<li ><a href="dashboard?pg=1" class="dashboard"><i
 						class="material-icons">dashboard</i> <span>Dashboard</span></a></li>
 				<li><a href="#homeSubmenu1" data-toggle="collapse"
 					aria-expanded="false"> <i class="material-icons">playlist_add_check</i>Leave
@@ -54,10 +54,10 @@
 				<li><a href="projectallocation"> <i class="material-icons">laptop</i>Project
 						Allocation
 				</a> </li>
-				<li><a href="teamallocation">
+				<li class="active"><a href="teamallocation">
 						<i class="material-icons">groups</i>Team Allocation
 				</a> </li>
-				<li><a href="departmentallocation"> <i class="material-icons">work</i>Department
+				<li><a href="departmentallocation" > <i class="material-icons">work</i>Department
 						Allocation
 				</a> </li>
 				<li><a href="#hike" data-toggle="modal" aria-expanded="false">
@@ -369,15 +369,18 @@
 								<div class="row">
 									<div
 										class="col-sm-6 p-0 d-flex justify-content-lg-start justify-content-center">
-										<h2 class="ml-lg-2">Manage Employees</h2>
+										<h2 class="ml-lg-2">Manage Teams</h2>
 									</div>
 									<div
 										class="col-sm-6 p-0 d-flex justify-content-lg-end justify-content-center">
-										<a href="#addEmployeeModal" class="btn btn-success"
+										<a href="#addTeamModal" class="btn btn-success"
 											data-toggle="modal"> <i class="material-icons">&#xE147;</i>
-											<span>Add New Employee</span></a>
+											<span>Add New Team</span></a>
 										<!--  <a href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal">
 		  <i class="material-icons">&#xE15C;</i> <span>Delete</span></a>-->
+		  <a href="#allocateTeamModal" class="btn btn-success"
+											data-toggle="modal"> <i class="material-icons">&#xE147;</i>
+											<span>Allocate Team</span></a>
 									</div>
 								</div>
 							</div>
@@ -386,10 +389,8 @@
 									<tr>
 
 										<th>ID</th>
-										<th>NAME</th>
-										<th>EMAIL</th>
-										<th>DESIGNATION</th>
-										<th>STATUS</th>
+										<th>TEAM NAME</th>
+										<th>EMPLOYEE NAME</th>
 										<th>Actions</th>
 									</tr>
 								</thead>
@@ -512,28 +513,59 @@
 						</div>
 					</div>
 					<!-- Edit Modal HTML -->
-					<div id="addEmployeeModal" class="modal fade">
+					<div id="addTeamModal" class="modal fade">
 						<div class="modal-dialog">
 							<div class="modal-content">
 								<form>
 									<div class="modal-header">
-										<h4 class="modal-title">Add Employee</h4>
+										<h4 class="modal-title">Add Team</h4>
 										<button type="button" class="close" data-dismiss="modal"
 											aria-hidden="true">&times;</button>
 									</div>
 									<div class="modal-body">
 										<div class="form-group">
-											<label>Name</label> <input type="text" class="form-control"
+											<label>Team Name</label> <input type="text" class="form-control"
+												required>
+										</div>
+										
+										
+										<!--  <div class="form-group">
+											<label>Address</label>
+											<textarea class="form-control" required></textarea>
+										</div>
+										<div class="form-group">
+											<label>Phone</label> <input type="text" class="form-control"
+												required>
+										</div>-->
+									</div>
+									<div class="modal-footer">
+										<input type="button" class="btn btn-default"
+											data-dismiss="modal" value="Cancel"> <input
+											type="submit" class="btn btn-success" value="Add">
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+					<div id="allocateTeamModal" class="modal fade">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<form>
+									<div class="modal-header">
+										<h4 class="modal-title">Allocate Team</h4>
+										<button type="button" class="close" data-dismiss="modal"
+											aria-hidden="true">&times;</button>
+									</div>
+									<div class="modal-body">
+										<div class="form-group">
+											<label>Team Name</label> <input type="text" class="form-control"
 												required>
 										</div>
 										<div class="form-group">
-											<label>Username</label> <input type="text" class="form-control"
+											<label>Employee Name</label> <input type="text" class="form-control"
 												required>
 										</div>
-										<div class="form-group">
-											<label>Password</label> <input type="password" class="form-control"
-												required>
-										</div>
+										
 										<!--  <div class="form-group">
 											<label>Address</label>
 											<textarea class="form-control" required></textarea>
