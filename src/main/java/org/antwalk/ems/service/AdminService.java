@@ -43,4 +43,8 @@ public class AdminService {
         return employeeRepository.findAll(pageable).getTotalPages();
     }
     
+    public long countEmployees() {
+    	return employeeRepository.count();
+    }
+    
 }

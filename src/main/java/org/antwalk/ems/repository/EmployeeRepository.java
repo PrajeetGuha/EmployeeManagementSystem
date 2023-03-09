@@ -13,6 +13,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface EmployeeRepository extends JpaRepository<Employee,Long> {
     
-    @Query("select e.empId as empId, e.empName as empName, e.designation as designation, e.empstatus as empstatus from Employee e")
+    @Query("select e.empId as empId, e.empName as empName, e.workEmail as workEmail, e.designation as designation, e.empstatus as empstatus from Employee e")
     public Page<EmployeeListView> findAllEmployeeListViews(Pageable pageable);
 }

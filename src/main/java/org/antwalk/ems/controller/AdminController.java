@@ -43,10 +43,16 @@ public class AdminController {
         int pageNo = Integer.parseInt(request.getParameter("pg"));
         Admin admin = adminService.fetchAdminData(id);
         int pageCount = adminService.countPagesOfEmployees();
+        Long empCount = adminService.countEmployees();
         List<EmployeeListView> employeeListViews = adminService.listEmployees(pageNo);
         model.addAttribute("admin",admin);
         model.addAttribute("employees", employeeListViews);
         model.addAttribute("pageCount", pageCount);
+        model.addAttribute("empCount",empCount);
+        model.addAttribute("pageNo",pageNo);
+        //System.out.println(employeeListViews);
         return "admindashboard";
+        
+ 
     }
 }

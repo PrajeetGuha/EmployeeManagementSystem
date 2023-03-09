@@ -28,9 +28,12 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+	<c:set var="pageNo" value="${pageNo}" />
+							<c:set var="pageCount" value="${pageCount}" />
 </head>
 
 <body>
+
 	<div class="wrapper">
 		<div class="body-overlay" />
 		<nav id="sidebar">
@@ -614,6 +617,7 @@
 
 										<th>ID</th>
 										<th>NAME</th>
+										<th>EMAIL</th>
 										<th>DESIGNATION</th>
 										<th>STATUS</th>
 										<th>Actions</th>
@@ -626,6 +630,7 @@
 											<tr>
 												<td><c:out value="${employee.empId}" /></td>
 												<td><c:out value="${employee.empName}" /></td>
+												<td><c:out value="${employee.workEmail}" /></td>
 												<td><c:out value="${employee.designation}" /></td>
 												<td><c:out value="${employee.empstatus}" /></td>
 												<td><a href="#editEmployeeModal" class="edit"
@@ -633,7 +638,7 @@
 														data-toggle="tooltip" title="Edit">&#xE254;</i></a> <a
 													href="#deleteEmployeeModal" class="delete"
 													data-toggle="modal"> <i class="material-icons"
-														data-toggle="tooltip" title="Delete">&#xE872;</i></a></td>
+														data-toggle="tooltip" title="Status">&#xE152;</i></a></td>
 											</tr>
 										</c:forEach>
 
@@ -712,18 +717,26 @@
                     </tr>-->
 								</tbody>
 							</table>
+							
 							<div class="clearfix">
 								<div class="hint-text">
-									Showing <b>5</b> out of <b>25</b> entries
+									Total number of entries <b>${empCount}</b><br> Showing
+									page <b>${pageNo}</b>
 								</div>
 								<ul class="pagination">
-									<li class="page-item disabled"><a href="#">Previous</a></li>
-									<li class="page-item"><a href="#" class="page-link">1</a></li>
-									<li class="page-item"><a href="#" class="page-link">2</a></li>
-									<li class="page-item active"><a href="#" class="page-link">3</a></li>
-									<li class="page-item"><a href="#" class="page-link">4</a></li>
-									<li class="page-item"><a href="#" class="page-link">5</a></li>
-									<li class="page-item"><a href="#" class="page-link">Next</a></li>
+										
+										<c:if test="${ pageNo > 1}" > 
+											<li class="page-item">
+											<a href="?pg=${pageNo-1}" class="page-link">Previous</a> 
+											</li>
+										</c:if>
+										<c:if test="${ pageNo < pageCount}"> 
+											<li class="page-item">
+											<a href="?pg=${pageNo+1}" class="page-link">Next</a> 
+											</li>
+										</c:if>
+										
+									
 								</ul>
 							</div>
 						</div>
@@ -809,22 +822,19 @@
 					<div id="deleteEmployeeModal" class="modal fade">
 						<div class="modal-dialog">
 							<div class="modal-content">
-								<form>
+								<form action="editStatus" method="post">
 									<div class="modal-header">
-										<h4 class="modal-title">Delete Employee</h4>
+										<h4 class="modal-title">Edit Status</h4>
 										<button type="button" class="close" data-dismiss="modal"
 											aria-hidden="true">&times;</button>
 									</div>
 									<div class="modal-body">
-										<p>Are you sure you want to delete these Records?</p>
-										<p class="text-warning">
-											<small>This action cannot be undone.</small>
-										</p>
+										<p>Edit status for this employee?</p>
+										
 									</div>
 									<div class="modal-footer">
-										<input type="button" class="btn btn-default"
-											data-dismiss="modal" value="Cancel"> <input
-											type="submit" class="btn btn-danger" value="Delete">
+										<input type="submit" class="btn btn-primary" value="Active"> 
+										<input type="submit" class="btn btn-danger" value="Inactive">
 									</div>
 								</form>
 							</div>
