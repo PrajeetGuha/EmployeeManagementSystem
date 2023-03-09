@@ -348,10 +348,10 @@
 				</div>
 				<div class="xp-breadcrumbbar text-center">
 					<h4 class="page-title">Dashboard</h4>
-					<ol class="breadcrumb">
+					<!--  <ol class="breadcrumb">
 						<li class="breadcrumb-item"><a href="#">Booster</a></li>
 						<li class="breadcrumb-item active" aria-current="page">Dashboard</li>
-					</ol>
+					</ol>-->
 				</div>
 
 			</div>

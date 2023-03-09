@@ -57,8 +57,7 @@
 				<li><a href="teamallocation">
 						<i class="material-icons">groups</i>Team Allocation
 				</a> </li>
-				<li><a href="departmentallocation" data-toggle="modal"
-					aria-expanded="false"> <i class="material-icons">work</i>Department
+				<li><a href="departmentallocation"> <i class="material-icons">work</i>Department
 						Allocation
 				</a> </li>
 				<li><a href="#hike" data-toggle="modal" aria-expanded="false">
@@ -348,11 +347,11 @@
 
 				</div>
 				<div class="xp-breadcrumbbar text-center">
-					<h4 class="page-title">Dashboard</h4>
-					<ol class="breadcrumb">
+					<h4 class="page-title">Project Dashboard</h4>
+					<!-- <ol class="breadcrumb">
 						<li class="breadcrumb-item"><a href="#">Booster</a></li>
 						<li class="breadcrumb-item active" aria-current="page">Dashboard</li>
-					</ol>
+					</ol> -->
 				</div>
 
 			</div>
