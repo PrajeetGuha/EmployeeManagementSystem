@@ -28,37 +28,8 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
-<c:set var="pageNo" value="${pageNo}" />
-<c:set var="pageCount" value="${pageCount}" />
-<script>
-	$(document)
-			.ready(
-					function() {
-						// Loop through each cell in the highlight-column class
-						$('.highlight-column')
-								.each(
-										function() {
-											var status = $(this).text(); // Get the cell's text value
-
-											// Set a different background color based on the status value
-											if (status === 'ACTIVE') {
-												$(this)
-														.css(
-																'background-image',
-																'linear-gradient(to bottom, green,white)');
-
-												$(this).css('color', 'white');
-
-											} else if (status === 'INACTIVE') {
-												$(this)
-														.css('background',
-																'linear-gradient(to bottom, red, white)');
-
-												$(this).css('color', 'white');
-											}
-										});
-					});
-</script>
+	<c:set var="pageNo" value="${pageNo}" />
+							<c:set var="pageCount" value="${pageCount}" />
 </head>
 
 <body>
@@ -73,14 +44,14 @@
 				</h3>
 			</div>
 			<ul class="list-unstyled components">
-				<li class="active"><a href="#" class="dashboard"><i
+				<li><a href="dashboard?pg=1" class="dashboard"><i
 						class="material-icons">dashboard</i> <span>Dashboard</span></a></li>
 				<li><a href="#homeSubmenu1" data-toggle="collapse"
 					aria-expanded="false"> <i class="material-icons">playlist_add_check</i>Leave
 						Approval
 				</a> </li>
 				
-				<li><a href="projectallocation"> <i class="material-icons">laptop</i>Project
+				<li class="active"><a href="#"> <i class="material-icons">laptop</i>Project
 						Allocation
 				</a> </li>
 				<li><a href="teamallocation">
@@ -376,11 +347,11 @@
 
 				</div>
 				<div class="xp-breadcrumbbar text-center">
-					<h4 class="page-title">Dashboard</h4>
-					<!--  <ol class="breadcrumb">
+					<h4 class="page-title">Project Dashboard</h4>
+					<!-- <ol class="breadcrumb">
 						<li class="breadcrumb-item"><a href="#">Booster</a></li>
 						<li class="breadcrumb-item active" aria-current="page">Dashboard</li>
-					</ol>-->
+					</ol> -->
 				</div>
 
 			</div>
@@ -398,15 +369,18 @@
 								<div class="row">
 									<div
 										class="col-sm-6 p-0 d-flex justify-content-lg-start justify-content-center">
-										<h2 class="ml-lg-2">Manage Employees</h2>
+										<h2 class="ml-lg-2">Manage Projects</h2>
 									</div>
 									<div
 										class="col-sm-6 p-0 d-flex justify-content-lg-end justify-content-center">
-										<a href="#addEmployeeModal" class="btn btn-success"
+										<a href="#addProjectModal" class="btn btn-success"
 											data-toggle="modal"> <i class="material-icons">&#xE147;</i>
-											<span>Add New Employee</span></a>
+											<span>Add New Project</span></a>
 										<!--  <a href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal">
 		  <i class="material-icons">&#xE15C;</i> <span>Delete</span></a>-->
+		  <a href="#allocateProjectModal" class="btn btn-success"
+											data-toggle="modal"> <i class="material-icons">&#xE147;</i>
+											<span>Allocate Project</span></a>
 									</div>
 								</div>
 							</div>
@@ -415,10 +389,8 @@
 									<tr>
 
 										<th>ID</th>
-										<th>NAME</th>
-										<th>EMAIL</th>
-										<th>DESIGNATION</th>
-										<th>STATUS</th>
+										<th>PROJECT NAME</th>
+										<th>TEAM NAME</th>
 										<th>Actions</th>
 									</tr>
 								</thead>
@@ -431,42 +403,17 @@
 												<td><c:out value="${employee.empName}" /></td>
 												<td><c:out value="${employee.workEmail}" /></td>
 												<td><c:out value="${employee.designation}" /></td>
-												<td class="highlight-column"><c:out
-														value="${employee.empstatus}" /></td>
-												<td><button id="editemp" class='edit' />
-														<i class="material-icons" data-toggle="tooltip"
-														title="Edit">&#xE254;</i>
-												</a> <button id="editstat" class='edit' data-employee-id='${employee.empId }' />
-														<i class="material-icons" data-toggle="tooltip"
-														title="Status">&#xE152;</i>
-												</a></td>
+												<td><c:out value="${employee.empstatus}" /></td>
+												<td><a href="#editEmployeeModal" class="edit"
+													data-toggle="modal"> <i class="material-icons"
+														data-toggle="tooltip" title="Edit">&#xE254;</i></a> <a
+													href="#deleteEmployeeModal" class="delete"
+													data-toggle="modal"> <i class="material-icons"
+														data-toggle="tooltip" title="Status">&#xE152;</i></a></td>
 											</tr>
 										</c:forEach>
 
-<script>									</tr>
-$(document).on('click', '#editstat', function(event) {
-	  event.preventDefault(); // Prevent the form from submitting normally
-
-	  var empId = $(this).data('employee-id'); // Extract employee ID from data attribute
-
-	  // Make AJAX request to the server
-	  $.ajax({
-	    url: '/your/server/endpoint', // Replace with your server endpoint URL
-	    type: 'POST',
-	    data: { empId: empId }, // Send the employee ID as POST data
-	    success: function(response) {
-	      // Handle success response from server
-	      console.log('Success:', response);
-	    },
-	    error: function(jqXHR, textStatus, errorThrown) {
-	      // Handle error response from server
-	      console.error('Error:', textStatus, errorThrown);
-	    }
-	  });
-	});
-
-</script>
-
+									</tr>
 									<!--  <tr>
                       <td>
                         <span class="custom-checkbox">
@@ -541,51 +488,84 @@ $(document).on('click', '#editstat', function(event) {
                     </tr>-->
 								</tbody>
 							</table>
-
+							
 							<div class="clearfix">
 								<div class="hint-text">
 									Total number of entries <b>${empCount}</b><br> Showing
-									page <b>${pageNo}</b> of <b>${pageCount }</b>
+									page <b>${pageNo}</b>
 								</div>
 								<ul class="pagination">
-
-									<c:if test="${ pageNo > 1}">
-										<li class="page-item"><a href="?pg=${pageNo-1}"
-											class="page-link">Previous</a></li>
-									</c:if>
-									<c:if test="${ pageNo < pageCount}">
-										<li class="page-item"><a href="?pg=${pageNo+1}"
-											class="page-link">Next</a></li>
-									</c:if>
-
-
+										
+										<c:if test="${ pageNo > 1}" > 
+											<li class="page-item">
+											<a href="?pg=${pageNo-1}" class="page-link">Previous</a> 
+											</li>
+										</c:if>
+										<c:if test="${ pageNo < pageCount}"> 
+											<li class="page-item">
+											<a href="?pg=${pageNo+1}" class="page-link">Next</a> 
+											</li>
+										</c:if>
+										
+									
 								</ul>
 							</div>
 						</div>
 					</div>
 					<!-- Edit Modal HTML -->
-					<div id="addEmployeeModal" class="modal fade">
+					<div id="addProjectModal" class="modal fade">
 						<div class="modal-dialog">
 							<div class="modal-content">
 								<form>
 									<div class="modal-header">
-										<h4 class="modal-title">Add Employee</h4>
+										<h4 class="modal-title">Add Project</h4>
 										<button type="button" class="close" data-dismiss="modal"
 											aria-hidden="true">&times;</button>
 									</div>
 									<div class="modal-body">
 										<div class="form-group">
-											<label>Name</label> <input type="text" class="form-control"
+											<label>Project Name</label> <input type="text" class="form-control"
+												required>
+										</div>
+										
+										
+										<!--  <div class="form-group">
+											<label>Address</label>
+											<textarea class="form-control" required></textarea>
+										</div>
+										<div class="form-group">
+											<label>Phone</label> <input type="text" class="form-control"
+												required>
+										</div>-->
+									</div>
+									<div class="modal-footer">
+										<input type="button" class="btn btn-default"
+											data-dismiss="modal" value="Cancel"> <input
+											type="submit" class="btn btn-success" value="Add">
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+					<div id="allocateProjectModal" class="modal fade">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<form>
+									<div class="modal-header">
+										<h4 class="modal-title">Allocate Project</h4>
+										<button type="button" class="close" data-dismiss="modal"
+											aria-hidden="true">&times;</button>
+									</div>
+									<div class="modal-body">
+										<div class="form-group">
+											<label>Project Name</label> <input type="text" class="form-control"
 												required>
 										</div>
 										<div class="form-group">
-											<label>Username</label> <input type="text"
-												class="form-control" required>
+											<label>Team Name</label> <input type="text" class="form-control"
+												required>
 										</div>
-										<div class="form-group">
-											<label>Password</label> <input type="password"
-												class="form-control" required>
-										</div>
+										
 										<!--  <div class="form-group">
 											<label>Address</label>
 											<textarea class="form-control" required></textarea>
@@ -643,11 +623,12 @@ $(document).on('click', '#editstat', function(event) {
 					</div>
 
 
-					<!-- <!-- Delete Modal HTML -->
+
+					<!-- Delete Modal HTML -->
 					<div id="deleteEmployeeModal" class="modal fade">
 						<div class="modal-dialog">
 							<div class="modal-content">
-								<form>
+								<form action="editStatus" method="post">
 									<div class="modal-header">
 										<h4 class="modal-title">Edit Status</h4>
 										<button type="button" class="close" data-dismiss="modal"
@@ -655,16 +636,16 @@ $(document).on('click', '#editstat', function(event) {
 									</div>
 									<div class="modal-body">
 										<p>Edit status for this employee?</p>
+										
 									</div>
 									<div class="modal-footer">
+										<input type="submit" class="btn btn-primary" value="Active"> 
 										<input type="submit" class="btn btn-danger" value="Inactive">
-										<input type="submit" class="btn btn-primary" value="Active">
 									</div>
 								</form>
 							</div>
 						</div>
-					</div>  -->
-
+					</div>
 
 
 				</div>

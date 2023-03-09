@@ -60,6 +60,28 @@ public class AdminController {
         
  
     }
+     
+    @GetMapping("/projectallocation")
+	public String projectallocation(HttpServletRequest request, Model model) throws UserNotFoundException{
+    	Long id = AuthenticationSystem.getId();
+    	Admin admin = adminService.fetchAdminData(id);
+    	 model.addAttribute("admin",admin);
+		return "projectallocation";
+	}
+    @GetMapping("/teamallocation")
+   	public String teamallocation(HttpServletRequest request, Model model) throws UserNotFoundException{
+    	Long id = AuthenticationSystem.getId();
+    	Admin admin = adminService.fetchAdminData(id);
+    	 model.addAttribute("admin",admin);
+   		return "teamallocation";
+   	}
+    @GetMapping("/departmentallocation")
+   	public String departmentallocation(HttpServletRequest request, Model model) throws UserNotFoundException{
+    	Long id = AuthenticationSystem.getId();
+    	Admin admin = adminService.fetchAdminData(id);
+    	 model.addAttribute("admin",admin);
+   		return "departmentallocation";
+   	}
 
     @PostMapping("deactivateUser")
     public ResponseEntity<SuccessDetails> deactivateEmployee(@RequestBody Employee employee) throws UserNotFoundException{
