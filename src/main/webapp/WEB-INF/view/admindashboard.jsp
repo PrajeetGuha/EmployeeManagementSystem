@@ -757,17 +757,21 @@
 												required>
 										</div>
 										<div class="form-group">
-											<label>Email</label> <input type="email" class="form-control"
+											<label>Username</label> <input type="text" class="form-control"
 												required>
 										</div>
 										<div class="form-group">
+											<label>Password</label> <input type="password" class="form-control"
+												required>
+										</div>
+										<!--  <div class="form-group">
 											<label>Address</label>
 											<textarea class="form-control" required></textarea>
 										</div>
 										<div class="form-group">
 											<label>Phone</label> <input type="text" class="form-control"
 												required>
-										</div>
+										</div>-->
 									</div>
 									<div class="modal-footer">
 										<input type="button" class="btn btn-default"
@@ -819,7 +823,7 @@
 
 
 					<!-- Delete Modal HTML -->
-					<div id="deleteEmployeeModal" class="modal fade">
+					  <div id="deleteEmployeeModal" class="modal fade">
 						<div class="modal-dialog">
 							<div class="modal-content">
 								<form action="editStatus" method="post">
