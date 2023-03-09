@@ -14,6 +14,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.antwalk.ems.repository.UserRepository;
 
 @Service
 public class AdminService {
@@ -21,11 +22,17 @@ public class AdminService {
     @Autowired
     AdminRepository adminRepository;
 
+    @Autowired
+    UserRepository UserRepository;
+
     @Value("${employees.fetch.pagesize}")
     private int PAGE_SIZE;
 
     @Autowired
     EmployeeRepository employeeRepository;
+
+    @Autowired
+    UserRepository userRepository;
 
     public Admin fetchAdminData(Long id) throws UserNotFoundException{
         return Optional.of(adminRepository.getById(id)).orElseThrow(
@@ -41,6 +48,26 @@ public class AdminService {
     public int countPagesOfEmployees(){
         Pageable pageable = PageRequest.of(0, PAGE_SIZE, Sort.by("empId"));
         return employeeRepository.findAll(pageable).getTotalPages();
+    }
+
+    public void deactivateEmp(Long empId) throws UserNotFoundException{
+        if (employeeRepository.existsById(empId)){
+            employeeRepository.deactivateEmpById(empId);
+            userRepository.disableUserById(empId);
+        }
+        else{
+            throw new UserNotFoundException("User with id: " + empId + " not found");
+        }
+    }
+
+    public void activateEmp(Long empId) throws UserNotFoundException{
+        if (employeeRepository.existsById(empId)){
+            employeeRepository.activateEmpById(empId);
+            userRepository.enableUserById(empId);
+        }
+        else{
+            throw new UserNotFoundException("User with id: " + empId + " not found");
+        }
     }
     
 }

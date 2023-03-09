@@ -13,6 +13,12 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface EmployeeRepository extends JpaRepository<Employee,Long> {
     
-    @Query("select e.empId as empId, e.empName as empName, e.designation as designation, e.empstatus as empstatus from Employee e")
+    @Query("select e.empId as empId, e.empName as empName, e.workEmail as workEmail, e.designation as designation, e.empstatus as empstatus from Employee e")
     public Page<EmployeeListView> findAllEmployeeListViews(Pageable pageable);
+
+    @Query("update Employee e set e.empstatus = 'INACTIVE' where empId = :empId")
+    public void deactivateEmpById(Long empId);
+
+    @Query("update Employee e set e.empstatus = 'ACTIVE' where empId = :empId")
+    public void activateEmpById(Long empId);
 }

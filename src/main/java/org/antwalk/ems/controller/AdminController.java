@@ -1,5 +1,6 @@
 package org.antwalk.ems.controller;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -7,16 +8,20 @@ import javax.servlet.http.HttpServletRequest;
 import org.antwalk.ems.exception.UserNotFoundException;
 import org.antwalk.ems.model.Admin;
 import org.antwalk.ems.model.Employee;
+import org.antwalk.ems.pojo.SuccessDetails;
 import org.antwalk.ems.repository.AdminRepository;
 import org.antwalk.ems.repository.EmployeeRepository;
 import org.antwalk.ems.security.AuthenticationSystem;
 import org.antwalk.ems.service.AdminService;
 import org.antwalk.ems.view.EmployeeListView;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 // @RestController
@@ -48,5 +53,25 @@ public class AdminController {
         model.addAttribute("employees", employeeListViews);
         model.addAttribute("pageCount", pageCount);
         return "admindashboard";
+    }
+
+    @PostMapping("deactivateUser")
+    public ResponseEntity<SuccessDetails> deactivateEmployee(@RequestBody Employee employee) throws UserNotFoundException{
+        adminService.deactivateEmp(employee.getEmpId());
+        return ResponseEntity.ok().body(new SuccessDetails(
+            new Date(),
+            "Deactivated",
+            "The employee " + employee.getEmpId() + " has been deactivated"
+        ));
+    }
+
+    @PostMapping("activateUser")
+    public ResponseEntity<SuccessDetails> activateEmployee(@RequestBody Employee employee) throws UserNotFoundException{
+        adminService.deactivateEmp(employee.getEmpId());
+        return ResponseEntity.ok().body(new SuccessDetails(
+            new Date(),
+            "Activated",
+            "The employee " + employee.getEmpId() + " has been activated"
+        ));
     }
 }

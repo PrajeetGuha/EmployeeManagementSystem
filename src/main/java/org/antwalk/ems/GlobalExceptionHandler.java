@@ -2,8 +2,8 @@ package org.antwalk.ems;
 
 import java.util.Date;
 
-import org.antwalk.ems.exception.ErrorDetails;
 import org.antwalk.ems.exception.ResourceNotFoundException;
+import org.antwalk.ems.pojo.ErrorDetails;
 //import org.antwalk.ems.exception.UserNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
