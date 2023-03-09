@@ -24,14 +24,18 @@ public class User {
     @Column
     private String role;
 
+    @Column
+    private Boolean isEnabled = true;
+
     public User() {
     }
 
-    public User(Long userId, String username, String password, String role) {
+    public User(Long userId, String username, String password, String role, Boolean isEnabled) {
         this.userId = userId;
         this.username = username;
         this.password = password;
         this.role = role;
+        this.isEnabled = isEnabled;
     }
 
     public Long getUserId() {
@@ -66,6 +70,13 @@ public class User {
         this.role = role;
     }
 
-    
+    public Boolean getIsEnabled() {
+        return isEnabled;
+    }
+
+    public void setIsEnabled(Boolean isEnabled) {
+        this.isEnabled = isEnabled;
+    }
+
     
 }

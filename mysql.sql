@@ -79,12 +79,3 @@ drop database ems;
 create database ems;
 use ems;
 
-insert into user(username,password,role) values('user1','$2a$12$7sYraBm3w1BCxb8Fs../Z.icQVly84Ejr3auoFMDzjLDhptAMIgr2','ROLE_EMP');
-insert into user(username,password,role) values('user2','$2a$12$7sYraBm3w1BCxb8Fs../Z.icQVly84Ejr3auoFMDzjLDhptAMIgr2','ROLE_EMP');
-insert into user(username,password,role) values('user3','$2a$12$7sYraBm3w1BCxb8Fs../Z.icQVly84Ejr3auoFMDzjLDhptAMIgr2','ROLE_EMP');
-insert into user(username,password,role) values('admin','$2a$12$StespNsylzyMn3ac1CKzrOBF5gAfoohX70SIXPALD/Ts0owJ9A0W2','ROLE_ADMIN');
-
-insert into employee(emp_id, emp_name, designation, empstatus) values(1, "Jyoti Shankar", "ASE", "ACTIVE");
-insert into employee(emp_id, emp_name, designation, empstatus) values(2, "Kaveri Devi", "DBA", "ACTIVE");
-insert into employee(emp_id, emp_name, designation, empstatus) values(3, "Dcosta Aloysus", "HR", "INACTIVE");
-insert into admin(admin_id, admin_name, admin_email) values(4,"Pallab Patel","pallabpatel@nrifintech.com");
