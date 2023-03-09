@@ -775,16 +775,20 @@
 												required>
 										</div>
 										<div class="form-group">
-											<label>Designation</label> <input type="text" class="form-control"
+											<label>Username</label> <input type="text" class="form-control"
 												required>
 										</div>
 										<div class="form-group">
+											<label>Password</label> <input type="password" class="form-control"
+												required>
+										</div>
+										<!-- <div class="form-group">
 										<label>Employee Status</label><br>
 											 <input type="radio" id="active" name="status" value="Active" >
                                               <label for="active">Active</label>
                                              <input type="radio" id="inactive" name="status" value="Inactive" >
                                                <label for="inactive">Inactive</label><br>
-										</div>
+										</div> -->
 										<!--  <div class="form-group">
 											<label>Address</label>
 											<textarea class="form-control" required></textarea>
