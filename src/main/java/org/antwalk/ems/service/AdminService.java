@@ -70,4 +70,8 @@ public class AdminService {
         }
     }
     
+    public long countEmployees() {
+    	return employeeRepository.count();
+    }
+    
 }
