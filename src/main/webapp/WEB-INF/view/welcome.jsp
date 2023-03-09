@@ -9,7 +9,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link href="resources/custom/css/welcome/welcome.css" rel="stylesheet" type="text/css">
 		<link href="resources/lib/all.min.css" rel="stylesheet" type="text/css">
-
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
 
 		<title>NRI FINTECH</title>
 	</head>
@@ -53,19 +53,19 @@
 					width="500px">
 			</div>
 		</div>
-		<br><br><br><br><br><br><br><br><br><br><br>
+		<br><br><br><br><br><br><br><br>
 		<footer>
 			<div class="container">
 				<div class="row2">
-					<div class="col-sm-6 col-md-4 col-lg-3">
+				<!-- <div class="col-sm-6 col-md-4 col-lg-3">
 						<h3>About Us</h3>
 						<p>
 							At NRI FinTech, our mission is to meet our long term commitment to
 							serve the global <br> capital markets with modern technology
 							and quality services.
 						</p>
-					</div>
-					<div class="col-sm-6 col-md-4 col-lg-3">
+					</div> -->
+				<div class="col-sm-6 col-md-4 col-lg-3">
 						<h3>Follow Us</h3>
 						<div class="social-icons">
 							<a href="https://www.facebook.com/NRIFintechIndia/"><i class="fab fa-facebook"></i></a>
