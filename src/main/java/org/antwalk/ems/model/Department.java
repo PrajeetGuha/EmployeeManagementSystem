@@ -4,10 +4,12 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -23,8 +25,8 @@ public class Department {
     @Column(length = 50)
     private String departmentName;
 
-    @Column(length = 50)
-    private String hod;
+    @OneToOne(fetch = FetchType.LAZY)
+    private Employee hod;
 
     @OneToMany(mappedBy = "department")
     @JsonIgnoreProperties("department")
@@ -33,7 +35,7 @@ public class Department {
     public Department() {
     }
 
-    public Department(Long deptId, String departmentName, String hod, List<Employee> employees) {
+    public Department(Long deptId, String departmentName, Employee hod, List<Employee> employees) {
         this.deptId = deptId;
         this.departmentName = departmentName;
         this.hod = hod;
@@ -56,11 +58,11 @@ public class Department {
         this.departmentName = departmentName;
     }
 
-    public String getHod() {
+    public Employee getHod() {
         return hod;
     }
 
-    public void setHod(String hod) {
+    public void setHod(Employee hod) {
         this.hod = hod;
     }
 
@@ -72,5 +74,6 @@ public class Department {
         this.employees = employees;
     }
 
+    
     
 }
