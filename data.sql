@@ -19,5 +19,8 @@ insert into employee(emp_id, emp_name, work_email, designation, empstatus) value
 insert into employee(emp_id, emp_name, work_email, designation, empstatus) values(7, "Shekhar Murthy","shekharm@nrifintech.com", "ASE", "ACTIVE");
 insert into employee(emp_id, emp_name, work_email, designation, empstatus) values(8, "Kingshuk Goyal","kingshukg@nrifintech.com", "ASE", "ACTIVE");
 insert into employee(emp_id, emp_name, work_email, designation, empstatus) values(9, "Dures Mukherjee","duresm@nrifintech.com", "HR", "INACTIVE");
+insert into employee(emp_id, emp_name, work_email, designation, empstatus) values(10, "Rajesh Kumar","rajeshk@nrifintech.com", "DBA", "ACTIVE");
+insert into employee(emp_id, emp_name, work_email, designation, empstatus) values(11, "Amish Deb","amishd@nrifintech.com", "ASE", "ACTIVE");
+insert into employee(emp_id, emp_name, work_email, designation, empstatus) values(12, "Ritik Jha","ritikj@nrifintech.com", "HR", "INACTIVE");
 
 insert into admin(admin_id, admin_name, admin_email) values(10,"Pallab Patel","pallabpatel@nrifintech.com");

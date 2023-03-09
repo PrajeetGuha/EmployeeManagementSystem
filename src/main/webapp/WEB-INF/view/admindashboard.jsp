@@ -28,8 +28,37 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
-	<c:set var="pageNo" value="${pageNo}" />
-							<c:set var="pageCount" value="${pageCount}" />
+<c:set var="pageNo" value="${pageNo}" />
+<c:set var="pageCount" value="${pageCount}" />
+<script>
+	$(document)
+			.ready(
+					function() {
+						// Loop through each cell in the highlight-column class
+						$('.highlight-column')
+								.each(
+										function() {
+											var status = $(this).text(); // Get the cell's text value
+
+											// Set a different background color based on the status value
+											if (status === 'ACTIVE') {
+												$(this)
+														.css(
+																'background-image',
+																'linear-gradient(to bottom, green,white)');
+
+												$(this).css('color', 'white');
+
+											} else if (status === 'INACTIVE') {
+												$(this)
+														.css('background',
+																'linear-gradient(to bottom, red, white)');
+
+												$(this).css('color', 'white');
+											}
+										});
+					});
+</script>
 </head>
 
 <body>
@@ -632,17 +661,42 @@
 												<td><c:out value="${employee.empName}" /></td>
 												<td><c:out value="${employee.workEmail}" /></td>
 												<td><c:out value="${employee.designation}" /></td>
-												<td><c:out value="${employee.empstatus}" /></td>
-												<td><a href="#editEmployeeModal" class="edit"
-													data-toggle="modal"> <i class="material-icons"
-														data-toggle="tooltip" title="Edit">&#xE254;</i></a> <a
-													href="#deleteEmployeeModal" class="delete"
-													data-toggle="modal"> <i class="material-icons"
-														data-toggle="tooltip" title="Status">&#xE152;</i></a></td>
+												<td class="highlight-column"><c:out
+														value="${employee.empstatus}" /></td>
+												<td><button id="editemp" class='edit' />
+														<i class="material-icons" data-toggle="tooltip"
+														title="Edit">&#xE254;</i>
+												</a> <button id="editstat" class='edit' data-employee-id='${employee.empId }' />
+														<i class="material-icons" data-toggle="tooltip"
+														title="Status">&#xE152;</i>
+												</a></td>
 											</tr>
 										</c:forEach>
 
-									</tr>
+<script>									</tr>
+$(document).on('click', '#editstat', function(event) {
+	  event.preventDefault(); // Prevent the form from submitting normally
+
+	  var empId = $(this).data('employee-id'); // Extract employee ID from data attribute
+
+	  // Make AJAX request to the server
+	  $.ajax({
+	    url: '/your/server/endpoint', // Replace with your server endpoint URL
+	    type: 'POST',
+	    data: { empId: empId }, // Send the employee ID as POST data
+	    success: function(response) {
+	      // Handle success response from server
+	      console.log('Success:', response);
+	    },
+	    error: function(jqXHR, textStatus, errorThrown) {
+	      // Handle error response from server
+	      console.error('Error:', textStatus, errorThrown);
+	    }
+	  });
+	});
+
+</script>
+
 									<!--  <tr>
                       <td>
                         <span class="custom-checkbox">
@@ -717,26 +771,24 @@
                     </tr>-->
 								</tbody>
 							</table>
-							
+
 							<div class="clearfix">
 								<div class="hint-text">
 									Total number of entries <b>${empCount}</b><br> Showing
-									page <b>${pageNo}</b>
+									page <b>${pageNo}</b> of <b>${pageCount }</b>
 								</div>
 								<ul class="pagination">
-										
-										<c:if test="${ pageNo > 1}" > 
-											<li class="page-item">
-											<a href="?pg=${pageNo-1}" class="page-link">Previous</a> 
-											</li>
-										</c:if>
-										<c:if test="${ pageNo < pageCount}"> 
-											<li class="page-item">
-											<a href="?pg=${pageNo+1}" class="page-link">Next</a> 
-											</li>
-										</c:if>
-										
-									
+
+									<c:if test="${ pageNo > 1}">
+										<li class="page-item"><a href="?pg=${pageNo-1}"
+											class="page-link">Previous</a></li>
+									</c:if>
+									<c:if test="${ pageNo < pageCount}">
+										<li class="page-item"><a href="?pg=${pageNo+1}"
+											class="page-link">Next</a></li>
+									</c:if>
+
+
 								</ul>
 							</div>
 						</div>
@@ -757,12 +809,12 @@
 												required>
 										</div>
 										<div class="form-group">
-											<label>Username</label> <input type="text" class="form-control"
-												required>
+											<label>Username</label> <input type="text"
+												class="form-control" required>
 										</div>
 										<div class="form-group">
-											<label>Password</label> <input type="password" class="form-control"
-												required>
+											<label>Password</label> <input type="password"
+												class="form-control" required>
 										</div>
 										<!--  <div class="form-group">
 											<label>Address</label>
@@ -821,12 +873,12 @@
 					</div>
 
 
-
-					<!-- Delete Modal HTML -->
-					  <div id="deleteEmployeeModal" class="modal fade">
+					
+					<!-- <!-- Delete Modal HTML -->
+					<div id="deleteEmployeeModal" class="modal fade">
 						<div class="modal-dialog">
 							<div class="modal-content">
-								<form action="editStatus" method="post">
+								<form>
 									<div class="modal-header">
 										<h4 class="modal-title">Edit Status</h4>
 										<button type="button" class="close" data-dismiss="modal"
@@ -834,16 +886,18 @@
 									</div>
 									<div class="modal-body">
 										<p>Edit status for this employee?</p>
-										
 									</div>
 									<div class="modal-footer">
-										<input type="submit" class="btn btn-primary" value="Active"> 
-										<input type="submit" class="btn btn-danger" value="Inactive">
+										<input type="submit" class="btn btn-danger" value="Inactive"
+											>
+										<input type="submit" class="btn btn-primary" value="Active"
+											>
 									</div>
 								</form>
 							</div>
 						</div>
-					</div>
+					</div> -->
+
 
 
 				</div>
