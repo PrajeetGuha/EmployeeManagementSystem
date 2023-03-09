@@ -3,12 +3,14 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -21,8 +23,9 @@ public class Team {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long teamId;
 
-    @Column(length = 50)
-    private String tm;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn
+    private Employee tm;
 
     @ManyToMany
     @JsonIgnoreProperties("teams")
@@ -32,10 +35,7 @@ public class Team {
         inverseJoinColumns = @JoinColumn(name = "proj_id"))
     private Set<Project> projects;
 
-    public Team() {
-    }
-
-    public Team(Long teamId, String tm, Set<Project> projects) {
+    public Team(Long teamId, Employee tm, Set<Project> projects) {
         this.teamId = teamId;
         this.tm = tm;
         this.projects = projects;
@@ -49,11 +49,11 @@ public class Team {
         this.teamId = teamId;
     }
 
-    public String getTm() {
+    public Employee getTm() {
         return tm;
     }
 
-    public void setTm(String tm) {
+    public void setTm(Employee tm) {
         this.tm = tm;
     }
 
@@ -65,5 +65,6 @@ public class Team {
         this.projects = projects;
     }
 
+    
     
 }

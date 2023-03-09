@@ -23,6 +23,9 @@ public class EmployeeDetails {
     @OneToOne
     private DocFile profilePicDoc;
 
+    @Column(columnDefinition = "ENUM('MARRIED','SINGLE')")
+    private String maritalStatus;
+
     @Column
     private String permaAddress;
 

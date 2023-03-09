@@ -5,11 +5,13 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -33,8 +35,8 @@ public class Project {
     @Column
     private Date endDate;
 
-    @Column(length = 50)
-    private String pm;
+    @OneToOne(fetch = FetchType.LAZY)
+    private Employee pm;
 
     @ManyToMany
     @JsonIgnoreProperties("projects")
@@ -47,7 +49,7 @@ public class Project {
     public Project() {
     }
 
-    public Project(Long projId, String projectName, Date startDate, Date endDate, String pm, Set<Project> projects) {
+    public Project(Long projId, String projectName, Date startDate, Date endDate, Employee pm, Set<Project> projects) {
         this.projId = projId;
         this.projectName = projectName;
         this.startDate = startDate;
@@ -88,11 +90,11 @@ public class Project {
         this.endDate = endDate;
     }
 
-    public String getPm() {
+    public Employee getPm() {
         return pm;
     }
 
-    public void setPm(String pm) {
+    public void setPm(Employee pm) {
         this.pm = pm;
     }
 
@@ -104,5 +106,6 @@ public class Project {
         this.projects = projects;
     }
 
+   
     
 }
