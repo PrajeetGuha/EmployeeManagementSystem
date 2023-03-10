@@ -56,12 +56,12 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf().disable();
-        http.authorizeRequests()
-                .antMatchers(HttpMethod.GET,"/admin/*").hasRole("ADMIN")
-                .antMatchers(HttpMethod.GET,"/employee/*").hasRole("EMP")
-                .antMatchers(HttpMethod.GET,"/resources/**").permitAll()
-                .and()
-                .formLogin()
+        // http.authorizeRequests()
+        //         .antMatchers(HttpMethod.GET,"/admin/*").hasRole("ADMIN")
+        //         .antMatchers(HttpMethod.GET,"/employee/*").hasRole("EMP")
+        //         .antMatchers(HttpMethod.GET,"/resources/**").permitAll()
+        //         .and()
+                http.formLogin()
                 .loginPage("/login")
                 .defaultSuccessUrl("/loggedin", true)
                 .and()
