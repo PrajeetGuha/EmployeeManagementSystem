@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 // @RestController
 // @RequestMapping("/dashboard/admin")
@@ -110,23 +111,25 @@ public class AdminController {
    	}
 
     @PostMapping("deactivateUser")
-    public ResponseEntity<SuccessDetails> deactivateEmployee(@RequestBody Employee employee) throws UserNotFoundException{
+    public String deactivateEmployee(@ModelAttribute("employee") Employee employee, @RequestParam int pgNo) throws UserNotFoundException{
         adminService.deactivateEmp(employee.getEmpId());
-        return ResponseEntity.ok().body(new SuccessDetails(
-            new Date(),
-            "Deactivated",
-            "The employee " + employee.getEmpId() + " has been deactivated"
-        ));
+        // return ResponseEntity.ok().body(new SuccessDetails(
+        //     new Date(),
+        //     "Deactivated",
+        //     "The employee " + employee.getEmpId() + " has been deactivated"
+        // ));
+        return "redirect:/admin/dashboard?pg="+pgNo;
     }
 
     @PostMapping("activateUser")
-    public ResponseEntity<SuccessDetails> activateEmployee(@RequestBody Employee employee) throws UserNotFoundException{
-        adminService.deactivateEmp(employee.getEmpId());
-        return ResponseEntity.ok().body(new SuccessDetails(
-            new Date(),
-            "Activated",
-            "The employee " + employee.getEmpId() + " has been activated"
-        ));
+    public String activateEmployee(@ModelAttribute("employee") Employee employee, @RequestParam int pgNo) throws UserNotFoundException{
+        adminService.activateEmp(employee.getEmpId());
+        // return ResponseEntity.ok().body(new SuccessDetails(
+        //     new Date(),
+        //     "Activated",
+        //     "The employee " + employee.getEmpId() + " has been activated"
+        // ));
+        return "redirect:/admin/dashboard?pg="+pgNo;
     }
   
 }
