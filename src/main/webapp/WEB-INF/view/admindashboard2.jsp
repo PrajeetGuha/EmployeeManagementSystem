@@ -357,7 +357,7 @@
 											</div>
 											<div
 												class="col-sm-6 p-0 d-flex justify-content-lg-end justify-content-center">
-												<a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal">
+												<a href="javascript: void(0)" onclick="window.open('addemployee','_blank','width=900,height=300');" class="btn btn-success" >
 													<i class="material-icons">&#xE147;</i>
 													<span>Add New Employee</span></a>
 												<!--  <a href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal">
