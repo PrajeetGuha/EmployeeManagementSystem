@@ -10,6 +10,7 @@
 </head>
 <body>
 <div class="form">
+<form>
       <div class="title">WELCOME</div>
       <div class="subtitle">Add new project</div>
       <div class="input-container ic1">
@@ -19,6 +20,7 @@
       </div>
     
       <button type="text" class="submit">submit</button>
+      </form>
     </div>
 </body>
 </html>

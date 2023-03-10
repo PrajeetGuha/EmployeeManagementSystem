@@ -9,8 +9,9 @@
 	href="../resources/custom/css/admin-dashboard/form2.css">
 </head>
 <body>
-<form>
+
  <div class="form">
+ <form>
       <div class="title">WELCOME</div>
       <div class="subtitle">Add new department</div>
       <div class="input-container ic1">
@@ -20,7 +21,8 @@
       </div>
     
       <button type="text" class="submit">submit</button>
+      </form>
     </div>
-</form>
+
 </body>
 </html>
