@@ -333,7 +333,7 @@
 
 						<!-- Start XP Col -->
 						<div class="col-10 col-md-6 col-lg-8 order-1 order-md-3">
-							<div class="xp-profilebar text-right">
+							<div class="xp-profilebar text-right" >
 								<nav class="navbar p-0">
 									<ul class="nav navbar-nav flex-row ml-auto">
 										<li><a href="../logout"><span class="material-icons">logout</span>
@@ -457,7 +457,7 @@
 
 												<td class="highlight-column"><c:out
 														value="${employee.empstatus}" /></td>
-												<td><button id="editemp" class='edit' />
+												<%-- <td><button id="editemp" class='edit' />
 														<i class="material-icons" data-toggle="tooltip"
 														title="Edit">&#xE254;</i>
 												</a> <button id="editstat" class='edit' data-employee-id='${employee.empId }' />
@@ -465,7 +465,7 @@
 														title="Status">&#xE152;</i>
 												</a></td>
 
-												<td><c:out value="${employee.empstatus}" /></td>
+												<td><c:out value="${employee.empstatus}" /></td> --%>
 												<td><a href="#editEmployeeModal" class="edit"
 													data-toggle="modal"> <i class="material-icons"
 														data-toggle="tooltip" title="Edit">&#xE254;</i></a> <a
@@ -476,29 +476,7 @@
 											</tr>
 										</c:forEach>
 
-<script>									</tr>
-$(document).on('click', '#editstat', function(event) {
-	  event.preventDefault(); // Prevent the form from submitting normally
 
-	  var empId = $(this).data('employee-id'); // Extract employee ID from data attribute
-
-	  // Make AJAX request to the server
-	  $.ajax({
-	    url: '/your/server/endpoint', // Replace with your server endpoint URL
-	    type: 'POST',
-	    data: { empId: empId }, // Send the employee ID as POST data
-	    success: function(response) {
-	      // Handle success response from server
-	      console.log('Success:', response);
-	    },
-	    error: function(jqXHR, textStatus, errorThrown) {
-	      // Handle error response from server
-	      console.error('Error:', textStatus, errorThrown);
-	    }
-	  });
-	});
-
-</script>
 
 									<!--  <tr>
                       <td>
@@ -702,9 +680,9 @@ $(document).on('click', '#editstat', function(event) {
 									<input type="hidden" name = "empId" id = "empIdStatus"/>
 									<div class="modal-footer">
 
-										<input type="submit" class="btn btn-danger" value="Inactive">
+										<!-- <input type="submit" class="btn btn-danger" value="Inactive">
 										<input type="submit" class="btn btn-primary" value="Active">
-
+ -->
 										<!-- <input type="submit" class="btn btn-primary" value="Active" id = "activate"> 
 										<input type="submit" class="btn btn-danger" value="Inactive" id = "deactivate"> -->
 										<input type="submit" id = "changestatusbtn"/>
