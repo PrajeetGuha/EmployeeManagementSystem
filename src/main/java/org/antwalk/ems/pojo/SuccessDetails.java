@@ -38,6 +38,12 @@ public class SuccessDetails {
     public String getStatus() {
         return status;
     }
+    @Override
+    public String toString() {
+        return "SuccessDetails [timestamp=" + timestamp + ", message=" + message + ", details=" + details + ", status="
+                + status + "]";
+    }
+
     public void setStatus(String status) {
         this.status = status;
     }
