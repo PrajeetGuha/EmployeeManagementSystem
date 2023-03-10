@@ -16,7 +16,7 @@
       <div class="input-container ic1">
         <input id="name" class="input" type="text" placeholder=" " />
         <div class="cut"></div>
-        <label for="name" class="placeholder">Employee Name</label>
+        <label for="name" class="placeholder">Team Name</label>
       </div>
         <div class="input-container ic1">
         <input id="name" class="input" type="text" placeholder=" " />
