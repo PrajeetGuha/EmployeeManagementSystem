@@ -406,7 +406,7 @@
 												<td><a href="#editEmployeeModal" class="edit"
 													data-toggle="modal"> <i class="material-icons"
 														data-toggle="tooltip" title="Edit">&#xE254;</i></a> <a
-													href="#deleteEmployeeModal" class="delete"
+													href="#deleteEmployeeModal" data-id="${employee.empId}" class="statuschange"
 													data-toggle="modal"> <i class="material-icons"
 														data-toggle="tooltip" title="Status">&#xE152;</i></a></td>
 											</tr>
@@ -660,7 +660,7 @@
 	type="text/javascript" />
 
 
-<!-- <script type="text/javascript">
+<script type="text/javascript">
         
 		$(document).ready(function(){
 		  $(".xp-menubar").on('click',function(){
@@ -671,8 +671,13 @@
 		   $(".xp-menubar,.body-overlay").on('click',function(){
 		     $('#sidebar,.body-overlay').toggleClass('show-nav');
 		   });
+
+		//    $(".statuschange").on('click',function(){
+		// 	var empId = $(this).attr('data-id');
+		// 	(".modal-content #empId").val(empId);
+		//    })
 		  
 		});
 		
-</script> -->
+</script>
 </html>
