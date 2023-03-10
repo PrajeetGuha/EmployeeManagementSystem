@@ -60,7 +60,34 @@ public class AdminController {
         //System.out.println(employeeListViews);
         return "admindashboard";
     }
-     
+    @GetMapping("/addemployee")
+   	public String addemployee() {
+          		return "addemployee";
+   	}
+    @GetMapping("/addproject")
+   	public String addproject() {
+          		return "addproject";
+   	}
+    @GetMapping("/allocateproject")
+   	public String allocateproject() {
+          		return "allocateproject";
+   	}
+    @GetMapping("/addteam")
+   	public String addteam() {
+          		return "addteam";
+   	}
+    @GetMapping("/allocateteam")
+   	public String allocateteam() {
+          		return "allocateteam";
+   	}
+    @GetMapping("/adddepartment")
+   	public String adddepartment() {
+          		return "adddepartment";
+   	}
+    @GetMapping("/allocatedepartment")
+   	public String allocatedepartment() {
+          		return "allocatedepartment";
+   	}
     @GetMapping("/projectallocation")
 	public String projectallocation(HttpServletRequest request, Model model) throws UserNotFoundException{
     	Long id = AuthenticationSystem.getId();

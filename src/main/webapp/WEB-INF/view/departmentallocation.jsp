@@ -373,12 +373,12 @@
 									</div>
 									<div
 										class="col-sm-6 p-0 d-flex justify-content-lg-end justify-content-center">
-										<a href="#addDepartmentModal" class="btn btn-success"
-											data-toggle="modal"> <i class="material-icons">&#xE147;</i>
+										<a href="javascript: void(0)" onclick="window.open('adddepartment','_blank','width=900,height=300');" class="btn btn-success"
+											> <i class="material-icons">&#xE147;</i>
 											<span>Add New Department</span></a>
 										<!--  <a href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal">
 		  <i class="material-icons">&#xE15C;</i> <span>Delete</span></a>-->
-		  							     <a href="#allocateDepartmentModal" class="btn btn-success"
+		  							     <a href="javascript: void(0)" onclick="window.open('allocatedepartment','_blank','width=900,height=300');" class="btn btn-success"
 											data-toggle="modal"> <i class="material-icons">&#xE147;</i>
 											<span>Allocate Department</span></a>
 									</div>
