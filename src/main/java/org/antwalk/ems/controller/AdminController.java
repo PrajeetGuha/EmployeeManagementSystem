@@ -57,15 +57,13 @@ public class AdminController {
         model.addAttribute("pageNo",pageNo);
         //System.out.println(employeeListViews);
         return "admindashboard";
-        
- 
     }
      
     @GetMapping("/projectallocation")
 	public String projectallocation(HttpServletRequest request, Model model) throws UserNotFoundException{
     	Long id = AuthenticationSystem.getId();
     	Admin admin = adminService.fetchAdminData(id);
-    	 model.addAttribute("admin",admin);
+    	model.addAttribute("admin",admin);
 		return "projectallocation";
 	}
     @GetMapping("/teamallocation")
