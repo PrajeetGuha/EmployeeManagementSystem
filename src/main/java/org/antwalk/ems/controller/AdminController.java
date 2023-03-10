@@ -20,9 +20,11 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 // @RestController
 // @RequestMapping("/dashboard/admin")
@@ -57,15 +59,40 @@ public class AdminController {
         model.addAttribute("pageNo",pageNo);
         //System.out.println(employeeListViews);
         return "admindashboard";
-        
- 
     }
-     
+    @GetMapping("/addemployee")
+   	public String addemployee() {
+          		return "addemployee";
+   	}
+    @GetMapping("/addproject")
+   	public String addproject() {
+          		return "addproject";
+   	}
+    @GetMapping("/allocateproject")
+   	public String allocateproject() {
+          		return "allocateproject";
+   	}
+    @GetMapping("/addteam")
+   	public String addteam() {
+          		return "addteam";
+   	}
+    @GetMapping("/allocateteam")
+   	public String allocateteam() {
+          		return "allocateteam";
+   	}
+    @GetMapping("/adddepartment")
+   	public String adddepartment() {
+          		return "adddepartment";
+   	}
+    @GetMapping("/allocatedepartment")
+   	public String allocatedepartment() {
+          		return "allocatedepartment";
+   	}
     @GetMapping("/projectallocation")
 	public String projectallocation(HttpServletRequest request, Model model) throws UserNotFoundException{
     	Long id = AuthenticationSystem.getId();
     	Admin admin = adminService.fetchAdminData(id);
-    	 model.addAttribute("admin",admin);
+    	model.addAttribute("admin",admin);
 		return "projectallocation";
 	}
     @GetMapping("/teamallocation")
@@ -84,24 +111,25 @@ public class AdminController {
    	}
 
     @PostMapping("deactivateUser")
-    public ResponseEntity<SuccessDetails> deactivateEmployee(@RequestBody Employee employee) throws UserNotFoundException{
+    public String deactivateEmployee(@ModelAttribute("employee") Employee employee, @RequestParam int pgNo) throws UserNotFoundException{
         adminService.deactivateEmp(employee.getEmpId());
-        return ResponseEntity.ok().body(new SuccessDetails(
-            new Date(),
-            "Deactivated",
-            "The employee " + employee.getEmpId() + " has been deactivated"
-        ));
+        // return ResponseEntity.ok().body(new SuccessDetails(
+        //     new Date(),
+        //     "Deactivated",
+        //     "The employee " + employee.getEmpId() + " has been deactivated"
+        // ));
+        return "redirect:/admin/dashboard?pg="+pgNo;
     }
 
     @PostMapping("activateUser")
-    public ResponseEntity<SuccessDetails> activateEmployee(@RequestBody Employee employee) throws UserNotFoundException{
-        adminService.deactivateEmp(employee.getEmpId());
-        return ResponseEntity.ok().body(new SuccessDetails(
-            new Date(),
-            "Activated",
-            "The employee " + employee.getEmpId() + " has been activated"
-        ));
+    public String activateEmployee(@ModelAttribute("employee") Employee employee, @RequestParam int pgNo) throws UserNotFoundException{
+        adminService.activateEmp(employee.getEmpId());
+        // return ResponseEntity.ok().body(new SuccessDetails(
+        //     new Date(),
+        //     "Activated",
+        //     "The employee " + employee.getEmpId() + " has been activated"
+        // ));
+        return "redirect:/admin/dashboard?pg="+pgNo;
     }
-    
-    
+
 }

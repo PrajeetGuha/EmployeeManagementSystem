@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 <html>
 
@@ -28,6 +29,7 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+
 <c:set var="pageNo" value="${pageNo}" />
 <c:set var="pageCount" value="${pageCount}" />
 <script>
@@ -60,6 +62,26 @@
 					});
 </script>
 </head>
+
+	<c:set var="pageNo" value="${pageNo}" />
+							<c:set var="pageCount" value="${pageCount}" />
+</head><script>
+	function selectedEmpstatus(id,name,status){
+		document.getElementById("empstatusname").innerHTML = name;
+		$("#empIdStatus").attr("value",id);
+		if (status == "INACTIVE"){
+			$("#status-modal-form").attr("action","activateUser?pgNo="+"${pageNo}");
+			$("#changestatusbtn").attr("class", "btn btn-primary");
+			$("#changestatusbtn").attr("value", "Activate");
+		}
+		else{
+			$("#status-modal-form").attr("action","deactivateUser?pgNo="+"${pageNo}");
+			$("#changestatusbtn").attr("class", "btn btn-danger");
+			$("#changestatusbtn").attr("value", "Deactivate");
+		}
+	}
+</script>
+
 
 <body>
 
@@ -402,8 +424,8 @@
 									</div>
 									<div
 										class="col-sm-6 p-0 d-flex justify-content-lg-end justify-content-center">
-										<a href="#addEmployeeModal" class="btn btn-success"
-											data-toggle="modal"> <i class="material-icons">&#xE147;</i>
+										<a href="javascript: void(0)" onclick="window.open('addemployee','_blank','width=900,height=300');"  class="btn btn-success"
+											> <i class="material-icons">&#xE147;</i>
 											<span>Add New Employee</span></a>
 										<!--  <a href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal">
 		  <i class="material-icons">&#xE15C;</i> <span>Delete</span></a>-->
@@ -431,6 +453,7 @@
 												<td><c:out value="${employee.empName}" /></td>
 												<td><c:out value="${employee.workEmail}" /></td>
 												<td><c:out value="${employee.designation}" /></td>
+
 												<td class="highlight-column"><c:out
 														value="${employee.empstatus}" /></td>
 												<td><button id="editemp" class='edit' />
@@ -440,6 +463,15 @@
 														<i class="material-icons" data-toggle="tooltip"
 														title="Status">&#xE152;</i>
 												</a></td>
+
+												<td><c:out value="${employee.empstatus}" /></td>
+												<td><a href="#editEmployeeModal" class="edit"
+													data-toggle="modal"> <i class="material-icons"
+														data-toggle="tooltip" title="Edit">&#xE254;</i></a> <a
+													href="#deleteEmployeeModal" class="delete"
+													data-toggle="modal" onclick="selectedEmpstatus(${employee.empId},'${employee.empName}', '${employee.empstatus}')"> <i class="material-icons"
+														data-toggle="tooltip" title="Status" >&#xE152;</i></a></td>
+
 											</tr>
 										</c:forEach>
 
@@ -604,6 +636,9 @@ $(document).on('click', '#editstat', function(event) {
 							</div>
 						</div>
 					</div>
+					
+					
+  
 					<!-- Edit Modal HTML -->
 					<div id="editEmployeeModal" class="modal fade">
 						<div class="modal-dialog">
@@ -647,23 +682,37 @@ $(document).on('click', '#editstat', function(event) {
 					<div id="deleteEmployeeModal" class="modal fade">
 						<div class="modal-dialog">
 							<div class="modal-content">
-								<form>
+
+								<form:form action="editStatus" method="post" id = "status-modal-form" modelAttribute="employee">
+
 									<div class="modal-header">
 										<h4 class="modal-title">Edit Status</h4>
 										<button type="button" class="close" data-dismiss="modal"
 											aria-hidden="true">&times;</button>
 									</div>
 									<div class="modal-body">
+
 										<p>Edit status for this employee?</p>
+
+										<p>Edit status of <span id="empstatusname"></span></p>
+										
+
 									</div>
+									<input type="hidden" name = "empId" id = "empIdStatus"/>
 									<div class="modal-footer">
+
 										<input type="submit" class="btn btn-danger" value="Inactive">
 										<input type="submit" class="btn btn-primary" value="Active">
+
+										<!-- <input type="submit" class="btn btn-primary" value="Active" id = "activate"> 
+										<input type="submit" class="btn btn-danger" value="Inactive" id = "deactivate"> -->
+										<input type="submit" id = "changestatusbtn"/>
+
 									</div>
-								</form>
+								</form:form>
 							</div>
 						</div>
-					</div>  -->
+					</div>  
 
 
 
@@ -711,7 +760,7 @@ $(document).on('click', '#editstat', function(event) {
 	type="text/javascript" />
 
 
-<!-- <script type="text/javascript">
+<script type="text/javascript">
         
 		$(document).ready(function(){
 		  $(".xp-menubar").on('click',function(){
@@ -725,5 +774,5 @@ $(document).on('click', '#editstat', function(event) {
 		  
 		});
 		
-</script> -->
+</script>
 </html>
