@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.antwalk.ems.dto.NewEmployeeDTO;
 import org.antwalk.ems.exception.UserNotFoundException;
 import org.antwalk.ems.model.Admin;
 import org.antwalk.ems.model.Employee;
@@ -19,27 +20,20 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 // @RestController
 // @RequestMapping("/dashboard/admin")
 @Controller
 @RequestMapping("admin")
 public class AdminController {
-
-    // @Autowired
-    // UserService userService;
-    
-    // @PostMapping("/addUser")
-    // @PreAuthorize(value = "hasRole('ADMIN')")
-    // public ResponseEntity<User> addUser(@RequestBody User user){
-    //     return ResponseEntity.ok().body(userService.createUser(user));
-    // }
 
     @Autowired
     AdminService adminService;
@@ -111,25 +105,43 @@ public class AdminController {
    	}
 
     @PostMapping("deactivateUser")
-    public String deactivateEmployee(@ModelAttribute("employee") Employee employee, @RequestParam int pgNo) throws UserNotFoundException{
+    public String deactivateEmployee(@ModelAttribute("employee") Employee employee, @RequestParam int pgNo, BindingResult result, RedirectAttributes redirectAttrs) throws UserNotFoundException{
         adminService.deactivateEmp(employee.getEmpId());
-        // return ResponseEntity.ok().body(new SuccessDetails(
-        //     new Date(),
-        //     "Deactivated",
-        //     "The employee " + employee.getEmpId() + " has been deactivated"
-        // ));
+        if (result.hasErrors()){
+            redirectAttrs.addFlashAttribute("result", result);
+        }
+        else{
+            redirectAttrs.addFlashAttribute("result",ResponseEntity.ok().body(new SuccessDetails(
+                new Date(),
+                "Deactivated",
+                "The employee " + employee.getEmpId() + " has been deactivated"
+            )));
+        }
         return "redirect:/admin/dashboard?pg="+pgNo;
     }
 
     @PostMapping("activateUser")
-    public String activateEmployee(@ModelAttribute("employee") Employee employee, @RequestParam int pgNo) throws UserNotFoundException{
+    public String activateEmployee(@ModelAttribute("employee") Employee employee, @RequestParam int pgNo, BindingResult result, RedirectAttributes redirectAttrs) throws UserNotFoundException{
         adminService.activateEmp(employee.getEmpId());
-        // return ResponseEntity.ok().body(new SuccessDetails(
-        //     new Date(),
-        //     "Activated",
-        //     "The employee " + employee.getEmpId() + " has been activated"
-        // ));
+        if (result.hasErrors()){
+            redirectAttrs.addFlashAttribute("result", result);
+        }
+        else{
+            redirectAttrs.addFlashAttribute("result",ResponseEntity.ok().body(new SuccessDetails(
+                new Date(),
+                "Deactivated",
+                "The employee " + employee.getEmpId() + " has been activated"
+            )));
+        }
         return "redirect:/admin/dashboard?pg="+pgNo;
     }
+
+
+    // @PostMapping("/addUser")
+    // // @PreAuthorize(value = "hasRole('ADMIN')")
+    // public String addUser(@ModelAttribute("newuser") NewEmployeeDTO newEmployee,  BindingResult result, RedirectAttributes redirectAttrs ){
+    //     // return ResponseEntity.ok().body();
+    //     adminService.addEmployee(newEmployee);
+    // }
 
 }
