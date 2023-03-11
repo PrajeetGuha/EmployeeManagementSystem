@@ -119,7 +119,7 @@ public class AdminController {
                 "The employee " + employee.getEmpId() + " has been deactivated"
             )));
         }
-        return "redirect:/admin/dashboard?pg="+pgNo;
+        return "redirect:/admin/dashboard?search=null&pg="+pgNo;
     }
 
     @PostMapping("activateUser")
@@ -135,7 +135,7 @@ public class AdminController {
                 "The employee " + employee.getEmpId() + " has been activated"
             )));
         }
-        return "redirect:/admin/dashboard?pg="+pgNo;
+        return "redirect:/admin/dashboard?search=null&pg="+pgNo;
     }
 
 

@@ -626,12 +626,12 @@
 										
 										<c:if test="${ pageNo > 1}" > 
 											<li class="page-item">
-											<a href="?pg=${pageNo-1}" class="page-link">Previous</a> 
+											<a href="?search=${search}&pg=${pageNo-1}" class="page-link">Previous</a> 
 											</li>
 										</c:if>
 										<c:if test="${ pageNo < pageCount}"> 
 											<li class="page-item">
-											<a href="?pg=${pageNo+1}" class="page-link">Next</a> 
+											<a href="?search=${search}&pg=${pageNo+1}" class="page-link">Next</a> 
 											</li>
 										</c:if>
 										
@@ -738,7 +738,7 @@
 									</div>
 									<div class="modal-body">
 
-										<p>Edit status for this employee?</p>
+										<!-- <p>Edit status for this employee?</p> -->
 
 										<p>
 											Edit status of <span id="empstatusname"></span>
