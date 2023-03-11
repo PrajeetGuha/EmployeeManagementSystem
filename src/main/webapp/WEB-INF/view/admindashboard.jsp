@@ -43,7 +43,7 @@
 											var status = $(this).text(); // Get the cell's text value
 
 											// Set a different background color based on the status value
-											if (status === 'ACTIVE') {
+											if (status === 'active') {
 												$(this)
 														.css(
 																'background-image',
@@ -51,7 +51,7 @@
 
 												$(this).css('color', 'white');
 
-											} else if (status === 'INACTIVE') {
+											} else if (status === 'inactive') {
 												$(this)
 														.css('background',
 																'linear-gradient(to bottom, red, white)');
@@ -124,7 +124,7 @@
 	function selectedEmpstatus(id,name,status){
 		document.getElementById("empstatusname").innerHTML = name;
 		$("#empIdStatus").attr("value",id);
-		if (status == "INACTIVE"){
+		if (status == "inactive"){
 			$("#status-modal-form").attr("action","activateUser?pgNo="+"${pageNo}");
 			$("#changestatusbtn").attr("class", "btn btn-primary");
 			$("#changestatusbtn").attr("value", "Activate");

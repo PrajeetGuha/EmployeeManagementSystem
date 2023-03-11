@@ -22,7 +22,7 @@ public class User {
     private String password;
 
     @Column
-    private String role;
+    private String role = "ROLE_EMP";
 
     @Column
     private Boolean isEnabled = true;

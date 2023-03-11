@@ -23,7 +23,7 @@ public class EmployeeDetails {
     @OneToOne
     private DocFile profilePicDoc;
 
-    @Column(columnDefinition = "ENUM('MARRIED','SINGLE')")
+    @Column
     private String maritalStatus;
 
     @Column
@@ -35,7 +35,7 @@ public class EmployeeDetails {
     @Column(length = 10)
     private String emergencyContactno;
 
-    @Column(length = 30)
+    @Column(length = 30, unique = true)
     @Email
     private String emailId;
 

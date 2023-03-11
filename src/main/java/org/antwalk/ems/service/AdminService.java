@@ -48,6 +48,9 @@ public class AdminService {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    MailService mailService;
+
     public Admin fetchAdminData(Long id) throws UserNotFoundException{
         return Optional.of(adminRepository.getById(id)).orElseThrow(
             () -> new UserNotFoundException("User with id: " + id + " not found")
@@ -108,18 +111,17 @@ public class AdminService {
         employee.setEmpName(newEmployeeDTO.getName());
         employee.setWorkEmail(newEmployeeDTO.getWorkEmail());
         employee.setEmployeeDetails(employeeDetails);
-        employee.setEmpstatus("ACTIVE");
-        employee.setDesignation("UNASSIGNED");
         Employee persistedEmployee = employeeRepository.save(employee);
         
         User user = new User();
         user.setTablePk(persistedEmployee.getEmpId());
         user.setIsEnabled(true);
         user.setPassword(passwordEncoder.encode(newEmployeeDTO.getPassword()));
-        user.setRole("ROLE_EMP");
         user.setTablePk(persistedEmployee.getEmpId());
         user.setUsername(newEmployeeDTO.getUsername());
         User persistedUser = userRepository.save(user);
+
+        mailService.sendNewEmployeeMail(newEmployeeDTO.getPersonalEmail(),newEmployeeDTO.getName(),newEmployeeDTO.getWorkEmail(),newEmployeeDTO.getUsername(),newEmployeeDTO.getPassword());
     }
     
     

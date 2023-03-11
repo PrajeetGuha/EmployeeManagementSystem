@@ -27,7 +27,7 @@ public class Employee {
     @Column
     private String empName;
 
-    @Column(columnDefinition = "ENUM('M','F','O')")
+    @Column
     private String gender;
 
     @Column(length = 2)
@@ -37,12 +37,12 @@ public class Employee {
     private Date doj;
 
     @Column(length = 50)
-    private String designation = "Unassigned";
+    private String designation = "unassigned";
 
-    @Column(columnDefinition = "ENUM('FULL-TIME','PART-TIME','CONTRACT')")
+    @Column
     private String emptype;
 
-    @Column(columnDefinition = "ENUM('ACTIVE','INACTIVE')")
+    @Column
     private String empstatus = "active";
 
     @Column
