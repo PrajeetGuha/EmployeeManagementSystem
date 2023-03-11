@@ -125,12 +125,12 @@
 		document.getElementById("empstatusname").innerHTML = name;
 		$("#empIdStatus").attr("value",id);
 		if (status == "inactive"){
-			$("#status-modal-form").attr("action","activateUser?pgNo="+"${pageNo}");
+			$("#status-modal-form").attr("action","activateUser?search=${search}&pgNo=${pageNo}");
 			$("#changestatusbtn").attr("class", "btn btn-primary");
 			$("#changestatusbtn").attr("value", "Activate");
 		}
 		else{
-			$("#status-modal-form").attr("action","deactivateUser?pgNo="+"${pageNo}");
+			$("#status-modal-form").attr("action","deactivateUser?search=${search}&pgNo=${pageNo}");
 			$("#changestatusbtn").attr("class", "btn btn-danger");
 			$("#changestatusbtn").attr("value", "Deactivate");
 		}
