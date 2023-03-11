@@ -4,9 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 public class NewEmployeeDTO {
-
-    @Autowired
-    BCryptPasswordEncoder passwordEncoder;
     
     private String name;
     private String personalEmail;
@@ -50,8 +47,7 @@ public class NewEmployeeDTO {
         return password;
     }
     public void setPassword(String password) {
-        this.password = passwordEncoder.encode(password);
+        this.password = password;
     }
-
     
 }

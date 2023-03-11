@@ -27,15 +27,19 @@ public class User {
     @Column
     private Boolean isEnabled = true;
 
+    @Column
+    private Long tablePk;
+
     public User() {
     }
 
-    public User(Long userId, String username, String password, String role, Boolean isEnabled) {
+    public User(Long userId, String username, String password, String role, Boolean isEnabled, Long tablePk) {
         this.userId = userId;
         this.username = username;
         this.password = password;
         this.role = role;
         this.isEnabled = isEnabled;
+        this.tablePk = tablePk;
     }
 
     public Long getUserId() {
@@ -78,5 +82,13 @@ public class User {
         this.isEnabled = isEnabled;
     }
 
+    public Long getTablePk() {
+        return tablePk;
+    }
+
+    public void setTablePk(Long tablePk) {
+        this.tablePk = tablePk;
+    }
+    
     
 }

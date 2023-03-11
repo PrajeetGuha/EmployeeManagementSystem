@@ -42,21 +42,23 @@ public class AdminController {
     public String admindashboard(HttpServletRequest request, Model model) throws UserNotFoundException{
         Long id = AuthenticationSystem.getId();
         int pageNo = Integer.parseInt(request.getParameter("pg"));
+        String search = request.getParameter("search");
         Admin admin = adminService.fetchAdminData(id);
-        int pageCount = adminService.countPagesOfEmployees();
-        Long empCount = adminService.countEmployees();
-        List<EmployeeListView> employeeListViews = adminService.listEmployees(pageNo);
+        int pageCount = adminService.countPagesOfEmployees(search);
+        Long empCount = adminService.countEmployees(search);
+        List<EmployeeListView> employeeListViews = adminService.listEmployees(pageNo,search);
         model.addAttribute("admin",admin);
         model.addAttribute("employees", employeeListViews);
         model.addAttribute("pageCount", pageCount);
         model.addAttribute("empCount",empCount);
         model.addAttribute("pageNo",pageNo);
+        model.addAttribute("search",search);
         //System.out.println(employeeListViews);
         return "admindashboard";
     }
     @GetMapping("/addemployee")
-   	public String addemployee() {
-          		return "addemployee";
+   	public String addemployee(HttpServletRequest request, Model model) {
+          	return "addemployee";
    	}
     @GetMapping("/addproject")
    	public String addproject() {
@@ -136,10 +138,20 @@ public class AdminController {
         return "redirect:/admin/dashboard?pg="+pgNo;
     }
 
-    // @PostMapping("/addUser")
-    // // @PreAuthorize(value = "hasRole('ADMIN')")
-    // public String addUser(@ModelAttribute("newuser") NewEmployeeDTO newEmployee,  BindingResult result, RedirectAttributes redirectAttrs ){
-    //     // return ResponseEntity.ok().body();
-    //     adminService.addEmployee(newEmployee);
-    // }
+    @PostMapping("/addUser")
+    public String addUser(@ModelAttribute("newuser") NewEmployeeDTO newEmployee, BindingResult result, RedirectAttributes redirectAttrs ){
+        // return ResponseEntity.ok().body();
+        adminService.addEmployee(newEmployee);
+        if (result.hasErrors()){
+            redirectAttrs.addFlashAttribute("result", result);
+        }
+        else{
+            redirectAttrs.addFlashAttribute("result",ResponseEntity.ok().body(new SuccessDetails(
+                new Date(),
+                "Created",
+                "New user has been created"
+            )));
+        }
+        return "redirect:/admin/dashboard?search=null&pg=1";
+    }
 }

@@ -35,7 +35,7 @@ public class WebController {
 		if (AuthenticationSystem.isLoggedAs("ROLE_EMP"))
 			return "redirect:/employee/dashboard";
 		else
-			return "redirect:/admin/dashboard?pg=1";
+			return "redirect:/admin/dashboard?search=null&pg=1";
 	}
 	
 }
