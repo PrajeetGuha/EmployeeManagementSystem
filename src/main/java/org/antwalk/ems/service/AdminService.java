@@ -77,6 +77,7 @@ public class AdminService {
         if (employeeRepository.existsById(empId)){
             employeeRepository.deactivateEmpById(empId);
             userRepository.disableUserById(empId);
+            mailService.sendDeactivationMail(employeeRepository.getWorkEmailByEmpId(empId), employeeRepository.getEmpNameByEmpId(empId));
         }
         else{
             throw new UserNotFoundException("User with id: " + empId + " not found");
@@ -87,6 +88,7 @@ public class AdminService {
         if (employeeRepository.existsById(empId)){
             employeeRepository.activateEmpById(empId);
             userRepository.enableUserById(empId);
+            mailService.sendActivationMail(employeeRepository.getWorkEmailByEmpId(empId), employeeRepository.getEmpNameByEmpId(empId));
         }
         else{
             throw new UserNotFoundException("User with id: " + empId + " not found");

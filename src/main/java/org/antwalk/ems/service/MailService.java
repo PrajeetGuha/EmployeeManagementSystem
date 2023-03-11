@@ -20,4 +20,22 @@ public class MailService {
 
         mailsender.send(message);
     }
+
+    public void sendDeactivationMail(String receiverOfficialMailId, String name){
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo(receiverOfficialMailId);
+        message.setSubject(String.format("EMS Update"));
+        message.setText(String.format("Hi %s,\n\nYour EMS Portal is deactivated. Please contact HR for any issue.\nWith regards,\nEMS\n---This email is auto-generated. Do not reply back to these email-----",name));
+
+        mailsender.send(message);
+    }
+
+    public void sendActivationMail(String receiverOfficialMailId, String name){
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo(receiverOfficialMailId);
+        message.setSubject(String.format("EMS Update"));
+        message.setText(String.format("Hi %s,\n\nYour EMS Portal is activated. Please contact HR for any issue.\nWith regards,\nEMS\n---This email is auto-generated. Do not reply back to these email-----",name));
+
+        mailsender.send(message);
+    }
 }

@@ -33,11 +33,17 @@ public interface EmployeeRepository extends JpaRepository<Employee,Long> {
 
     @Transactional
     @Modifying
-    @Query("update Employee e set e.empstatus = 'INACTIVE' where empId = :empId")
+    @Query("update Employee e set e.empstatus = 'inactive' where empId = :empId")
     public void deactivateEmpById(Long empId);
 
     @Transactional
     @Modifying
-    @Query("update Employee e set e.empstatus = 'ACTIVE' where empId = :empId")
+    @Query("update Employee e set e.empstatus = 'active' where empId = :empId")
     public void activateEmpById(Long empId);
+
+    @Query("select workEmail from Employee e where empId = :empId")
+    public String getWorkEmailByEmpId(Long empId);
+
+    @Query("select empName from Employee e where empId = :empId")
+    public String getEmpNameByEmpId(Long empId);
 }
