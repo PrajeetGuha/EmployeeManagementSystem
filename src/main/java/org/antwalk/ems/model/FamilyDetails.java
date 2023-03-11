@@ -18,7 +18,7 @@ public class FamilyDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long familyId;
 
-    @Column(columnDefinition = "ENUM('FATHER','MOTHER','BROTHER','SISTER','CHILD')")
+    @Column
     private String relation;
 
     @Column

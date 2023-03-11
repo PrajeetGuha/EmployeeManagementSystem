@@ -19,10 +19,10 @@ public class Attendance {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long empAttId;
 
-    @Column(columnDefinition = "ENUM('Y','N')")
+    @Column
     private String isApproved;
 
-    @Column(columnDefinition = "ENUM('CL','PL','SL','OL')")
+    @Column
     private String leaveType;
 
     @Column

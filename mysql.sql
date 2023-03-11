@@ -79,3 +79,7 @@ drop database ems;
 create database ems;
 use ems;
 
+delete from user where role = "ROLE_EMP";
+truncate employee;
+truncate employee_details;
+

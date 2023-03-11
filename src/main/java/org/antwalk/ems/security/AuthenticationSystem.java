@@ -17,6 +17,6 @@ public class AuthenticationSystem {
     public static Long getId(){
         final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         LoginUserDetails loginUserDetails = (LoginUserDetails)authentication.getPrincipal();
-        return loginUserDetails.getId();
+        return loginUserDetails.getTablePk();
     }
 }

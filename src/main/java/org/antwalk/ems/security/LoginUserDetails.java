@@ -25,6 +25,10 @@ public class LoginUserDetails implements UserDetails {
         return user.getUserId();
     }
 
+    public Long getTablePk(){
+        return user.getTablePk();
+    }
+
     @Override
     public String getPassword() {
         return user.getPassword();

@@ -43,7 +43,7 @@
 											var status = $(this).text(); // Get the cell's text value
 
 											// Set a different background color based on the status value
-											if (status === 'ACTIVE') {
+											if (status === 'active') {
 												$(this)
 														.css(
 																'background-image',
@@ -51,7 +51,7 @@
 
 												$(this).css('color', 'white');
 
-											} else if (status === 'INACTIVE') {
+											} else if (status === 'inactive') {
 												$(this)
 														.css('background',
 																'linear-gradient(to bottom, red, white)');
@@ -124,13 +124,13 @@
 	function selectedEmpstatus(id,name,status){
 		document.getElementById("empstatusname").innerHTML = name;
 		$("#empIdStatus").attr("value",id);
-		if (status == "INACTIVE"){
-			$("#status-modal-form").attr("action","activateUser?pgNo="+"${pageNo}");
+		if (status == "inactive"){
+			$("#status-modal-form").attr("action","activateUser?search=${search}&pgNo=${pageNo}");
 			$("#changestatusbtn").attr("class", "btn btn-primary");
 			$("#changestatusbtn").attr("value", "Activate");
 		}
 		else{
-			$("#status-modal-form").attr("action","deactivateUser?pgNo="+"${pageNo}");
+			$("#status-modal-form").attr("action","deactivateUser?search=${search}&pgNo=${pageNo}");
 			$("#changestatusbtn").attr("class", "btn btn-danger");
 			$("#changestatusbtn").attr("value", "Deactivate");
 		}
@@ -486,9 +486,8 @@
 									</div>
 									<div
 										class="col-sm-6 p-0 d-flex justify-content-lg-end justify-content-center">
-										<a href="javascript: void(0)"
-											onclick="window.open('addemployee','_blank','width=900,height=300');"
-											class="btn btn-success"> <i class="material-icons">&#xE147;</i>
+										<a href="addemployee"  class="btn btn-success"
+											> <i class="material-icons">&#xE147;</i>
 											<span>Add New Employee</span></a>
 										<!--  <a href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal">
 		  <i class="material-icons">&#xE15C;</i> <span>Delete</span></a>-->
@@ -624,17 +623,19 @@
 									page <b>${pageNo}</b> of <b>${pageCount }</b>
 								</div>
 								<ul class="pagination">
-
-									<c:if test="${ pageNo > 1}">
-										<li class="page-item"><a href="?pg=${pageNo-1}"
-											class="page-link">Previous</a></li>
-									</c:if>
-									<c:if test="${ pageNo < pageCount}">
-										<li class="page-item"><a href="?pg=${pageNo+1}"
-											class="page-link">Next</a></li>
-									</c:if>
-
-
+										
+										<c:if test="${ pageNo > 1}" > 
+											<li class="page-item">
+											<a href="?search=${search}&pg=${pageNo-1}" class="page-link">Previous</a> 
+											</li>
+										</c:if>
+										<c:if test="${ pageNo < pageCount}"> 
+											<li class="page-item">
+											<a href="?search=${search}&pg=${pageNo+1}" class="page-link">Next</a> 
+											</li>
+										</c:if>
+										
+									
 								</ul>
 							</div>
 						</div>
@@ -737,7 +738,7 @@
 									</div>
 									<div class="modal-body">
 
-										<p>Edit status for this employee?</p>
+										<!-- <p>Edit status for this employee?</p> -->
 
 										<p>
 											Edit status of <span id="empstatusname"></span>

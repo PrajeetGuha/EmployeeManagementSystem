@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -19,12 +21,13 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class Employee {
     
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long empId;
 
     @Column
     private String empName;
 
-    @Column(columnDefinition = "ENUM('M','F','O')")
+    @Column
     private String gender;
 
     @Column(length = 2)
@@ -34,13 +37,13 @@ public class Employee {
     private Date doj;
 
     @Column(length = 50)
-    private String designation;
+    private String designation = "unassigned";
 
-    @Column(columnDefinition = "ENUM('FULL-TIME','PART-TIME','CONTRACT')")
+    @Column
     private String emptype;
 
-    @Column(columnDefinition = "ENUM('ACTIVE','INACTIVE')")
-    private String empstatus;
+    @Column
+    private String empstatus = "active";
 
     @Column
     private Integer probPeriod;
