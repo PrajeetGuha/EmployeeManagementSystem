@@ -46,6 +46,7 @@ public class AdminController {
         Admin admin = adminService.fetchAdminData(id);
         int pageCount = adminService.countPagesOfEmployees(search);
         Long empCount = adminService.countEmployees(search);
+        List<String> allemployees = adminService.listAllEmployees();
         List<EmployeeListView> employeeListViews = adminService.listEmployees(pageNo,search);
         model.addAttribute("admin",admin);
         model.addAttribute("employees", employeeListViews);
@@ -53,6 +54,7 @@ public class AdminController {
         model.addAttribute("empCount",empCount);
         model.addAttribute("pageNo",pageNo);
         model.addAttribute("search",search);
+        model.addAttribute("allemployeenames",allemployees);
         //System.out.println(employeeListViews);
         return "admindashboard";
     }

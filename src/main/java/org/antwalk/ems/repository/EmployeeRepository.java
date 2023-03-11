@@ -19,6 +19,9 @@ public interface EmployeeRepository extends JpaRepository<Employee,Long> {
     @Query("select e.empId as empId, e.empName as empName, e.workEmail as workEmail, e.designation as designation, e.empstatus as empstatus from Employee e")
     public Page<EmployeeListView> findAllEmployeeListViews(Pageable pageable);
 
+    @Query("select e.empName as empName from Employee e")
+    public List<String> findAllEmployeeNames();
+
     @Query("select e.empId as empId, e.empName as empName, e.workEmail as workEmail, e.designation as designation, e.empstatus as empstatus from Employee e where e.empName like :search%")
     public Page<EmployeeListView> findAllEmployeeListViewsWithSearch(Pageable pageable, String search);
 

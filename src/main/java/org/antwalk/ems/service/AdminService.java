@@ -124,6 +124,8 @@ public class AdminService {
         mailService.sendNewEmployeeMail(newEmployeeDTO.getPersonalEmail(),newEmployeeDTO.getName(),newEmployeeDTO.getWorkEmail(),newEmployeeDTO.getUsername(),newEmployeeDTO.getPassword());
     }
     
-    
+    public List<String> listAllEmployees(){
+        return employeeRepository.findAllEmployeeNames();
+    }
     
 }

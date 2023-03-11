@@ -8,8 +8,6 @@ insert into user(username,password,role,is_enabled) values('user7','$2a$12$7sYra
 insert into user(username,password,role,is_enabled) values('user8','$2a$12$7sYraBm3w1BCxb8Fs../Z.icQVly84Ejr3auoFMDzjLDhptAMIgr2','ROLE_EMP',1);
 insert into user(username,password,role,is_enabled) values('user9','$2a$12$7sYraBm3w1BCxb8Fs../Z.icQVly84Ejr3auoFMDzjLDhptAMIgr2','ROLE_EMP',0);
 
-insert into user(username,password,role,is_enabled, table_pk) values('admin','$2a$12$StespNsylzyMn3ac1CKzrOBF5gAfoohX70SIXPALD/Ts0owJ9A0W2','ROLE_ADMIN',1,1);
-
 insert into employee(emp_id, emp_name, work_email, designation, empstatus) values(1, "Jyoti Shankar","jyotis@nrifintech.com", "ASE", "ACTIVE");
 insert into employee(emp_id, emp_name, work_email, designation, empstatus) values(2, "Kaveri Devi","kaverid@nrifintech.com", "DBA", "ACTIVE");
 insert into employee(emp_id, emp_name, work_email, designation, empstatus) values(3, "Dcosta Aloysus","dcostaa@nrifintech.com", "HR", "INACTIVE");
