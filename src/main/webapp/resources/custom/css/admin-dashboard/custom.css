@@ -2,7 +2,7 @@ body,html{
 	line-height:1.8;
 	font-family:'Poppins',sans-serif;
 	color:#555e58;
-	text-transform:capitalize;
+	/* text-transform:capitalize; */
 	font-weight:400;
 	margin:0px;
 	padding:0px;
@@ -376,6 +376,7 @@ background-color:rgba(0,0,0,0.09);
 	  }
 	  .navbar-nav > li > a{
 		  color:#fff;
+		  text-align:right;
 	  }
 	  
 	 /* .navbar .notification{
@@ -755,8 +756,9 @@ background-color:rgba(0,0,0,0.09);
 		       background: linear-gradient(120deg, #0cf9e5, #5a84eb);
 			   color:#fff;
 			   text-align:center;
-			   padding:10px 30px;
+			   padding:10px ;
 			   position:relative;
+			   bottom:0;
 			   width:100%;
 			  }
 		   
@@ -803,8 +805,12 @@ background-color:rgba(0,0,0,0.09);
 			transition:all 150ms linear;
 			background-color:rgba(0,0,0,0.5);
 		}
+		
+		.align-right{
+	text-align:right !important;
 	}
 	
+	}
 	
 	
 	

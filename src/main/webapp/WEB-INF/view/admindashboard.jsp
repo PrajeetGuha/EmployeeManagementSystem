@@ -29,9 +29,98 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
-	<c:set var="pageNo" value="${pageNo}" />
-							<c:set var="pageCount" value="${pageCount}" />
-</head><script>
+
+<c:set var="pageNo" value="${pageNo}" />
+<c:set var="pageCount" value="${pageCount}" />
+<script>
+	$(document)
+			.ready(
+					function() {
+						// Loop through each cell in the highlight-column class
+						$('.highlight-column')
+								.each(
+										function() {
+											var status = $(this).text(); // Get the cell's text value
+
+											// Set a different background color based on the status value
+											if (status === 'ACTIVE') {
+												$(this)
+														.css(
+																'background-image',
+																'linear-gradient(to bottom, limegreen,white)');
+
+												$(this).css('color', 'white');
+
+											} else if (status === 'INACTIVE') {
+												$(this)
+														.css('background',
+																'linear-gradient(to bottom, red, white)');
+
+												$(this).css('color', 'white');
+											}
+										});
+					});
+</script>
+<script>
+  $(document).ready(function() {
+    // Get the list of items from the model attribute
+    var items = [
+      <c:forEach var="item" items="${employees}">
+        "${item.empName}",
+      </c:forEach>
+    ];
+
+    // Listen for the keyup event on the search input field
+    $('#search-input').on('keyup', function() {
+      // Get the value of the search input field
+      var searchTerm = $(this).val().toLowerCase();
+
+      // Filter the list based on the search term
+      var filteredItems = items.filter(function(item) {
+        return item.toLowerCase().indexOf(searchTerm) > -1;
+      });
+
+      // Update the search results list
+      var $searchResults = $('#search-results');
+      $searchResults.empty();
+      filteredItems.forEach(function(item) {
+        var $li = $('<li>').text(item);
+        $li.on('click', function() {
+          $('#search-input').val($(this).text());
+          $searchResults.hide();
+        });
+        $searchResults.append($li);
+      });
+
+      // Show/hide the search results list
+      if (searchTerm.length > 0) {
+        $searchResults.show();
+      } else {
+        $searchResults.hide();
+      }
+    });
+
+    // Hide the search results list on document click
+    $(document).on('click', function(event) {
+      if (!$(event.target).closest('.xp-searchbar').length) {
+        $searchResults.hide();
+      }
+    });
+    
+    $('#search-form').on('submit', function() {
+        var searchTerm = $('#search-term').val();
+        if (searchTerm === '') {
+          return false; // Prevent submitting the form if search term is empty
+        }
+      });
+  });
+</script>
+</head>
+
+<c:set var="pageNo" value="${pageNo}" />
+<c:set var="pageCount" value="${pageCount}" />
+</head>
+<script>
 	function selectedEmpstatus(id,name,status){
 		document.getElementById("empstatusname").innerHTML = name;
 		$("#empIdStatus").attr("value",id);
@@ -47,6 +136,7 @@
 		}
 	}
 </script>
+
 
 <body>
 	<!-- <div>${result.getBody().getStatus()}</div> -->
@@ -66,26 +156,26 @@
 				<li><a href="#homeSubmenu1" data-toggle="collapse"
 					aria-expanded="false"> <i class="material-icons">playlist_add_check</i>Leave
 						Approval
-				</a> </li>
-				
+				</a></li>
+
 				<li><a href="projectallocation"> <i class="material-icons">laptop</i>Project
 						Allocation
-				</a> </li>
-				<li><a href="teamallocation">
-						<i class="material-icons">groups</i>Team Allocation
-				</a> </li>
-				<li><a href="departmentallocation"> <i class="material-icons">work</i>Department
+				</a></li>
+				<li><a href="teamallocation"> <i class="material-icons">groups</i>Team
 						Allocation
-				</a> </li>
+				</a></li>
+				<li><a href="departmentallocation"> <i
+						class="material-icons">work</i>Department Allocation
+				</a></li>
 				<li><a href="#hike" data-toggle="modal" aria-expanded="false">
 						<i class="material-icons">currency_rupee</i>Appraisal
-				</a> </li>
+				</a></li>
 
-				
-		
+
+
 				<li><a href="#adminprofile" data-toggle="modal"
 					aria-expanded="false"> <i class="material-icons">account_circle</i>Profile
-				</a> </li>
+				</a></li>
 
 
 			</ul>
@@ -110,7 +200,7 @@
 								<label>Project Name</label> <input type="text"
 									class="form-control" required>
 							</div>
-							
+
 						</div>
 						<div class="modal-footer">
 							<input type="button" class="btn btn-default" data-dismiss="modal"
@@ -140,7 +230,7 @@
 								<label>Team Name</label> <input type="text" class="form-control"
 									required>
 							</div>
-						
+
 						</div>
 						<div class="modal-footer">
 							<input type="button" class="btn btn-default" data-dismiss="modal"
@@ -170,7 +260,7 @@
 								<label>Department Name</label> <input type="text"
 									class="form-control" required>
 							</div>
-							
+
 						</div>
 						<div class="modal-footer">
 							<input type="button" class="btn btn-default" data-dismiss="modal"
@@ -204,7 +294,7 @@
 								<label>Hike Date</label> <input type="date" class="form-control"
 									required>
 							</div>
-							
+
 						</div>
 						<div class="modal-footer">
 							<input type="button" class="btn btn-default" data-dismiss="modal"
@@ -272,37 +362,43 @@
 					<!-- Start XP Row -->
 					<div class="row">
 						<!-- Start XP Col -->
-						<div
+						<!-- <div
 							class="col-2 col-md-1 col-lg-1 order-2 order-md-1 align-self-center">
 							<div class="xp-menubar">
 								<span class="material-icons text-white">signal_cellular_alt
 								</span>
 							</div>
-						</div>
+						</div> -->
 						<!-- End XP Col -->
 
 						<!-- Start XP Col -->
 						<div class="col-md-5 col-lg-3 order-3 order-md-2">
 							<div class="xp-searchbar">
-								<form>
+								<form id="search-form" action="/viewdata" method="get">
 									<div class="input-group">
-										<input type="search" class="form-control" placeholder="Search">
+										<input type="search" class="form-control" placeholder="Search"
+											id="search-input">
 										<div class="input-group-append">
 											<button class="btn" type="submit" id="button-addon2">GO</button>
 										</div>
 									</div>
 								</form>
+								<ul class="dropdown-menu" id="search-results"
+									style="display: none;">
+								</ul>
 							</div>
 						</div>
+
+
 						<!-- End XP Col -->
 
 						<!-- Start XP Col -->
 						<div class="col-10 col-md-6 col-lg-8 order-1 order-md-3">
-							<div class="xp-profilebar text-right">
+							<div class="xp-profilebar text-right" align="right">
 								<nav class="navbar p-0">
 									<ul class="nav navbar-nav flex-row ml-auto">
-										<li><a href="../logout"><span class="material-icons">logout</span>
-												Logout</a></li>
+										<li class="align-right"><a href="../logout"><span
+												class="material-icons">logout</span> Logout</a></li>
 										<!--  <li class="dropdown nav-item active">
                                 <a href="#" class="nav-link" data-toggle="dropdown">
                                    <span class="material-icons">notifications</span>
@@ -419,18 +515,34 @@
 												<td><c:out value="${employee.empName}" /></td>
 												<td><c:out value="${employee.workEmail}" /></td>
 												<td><c:out value="${employee.designation}" /></td>
-												<td><c:out value="${employee.empstatus}" /></td>
+
+												<td class="highlight-column"><c:out
+														value="${employee.empstatus}" /></td>
+												<%-- <td><button id="editemp" class='edit' />
+														<i class="material-icons" data-toggle="tooltip"
+														title="Edit">&#xE254;</i>
+												</a> <button id="editstat" class='edit' data-employee-id='${employee.empId }' />
+														<i class="material-icons" data-toggle="tooltip"
+														title="Status">&#xE152;</i>
+												</a></td>
+
+												<td><c:out value="${employee.empstatus}" /></td> --%>
 												<td><a href="#editEmployeeModal" class="edit"
 													data-toggle="modal"> <i class="material-icons"
 														data-toggle="tooltip" title="Edit">&#xE254;</i></a> <a
 													href="#deleteEmployeeModal" class="delete"
-													data-toggle="modal" onclick="selectedEmpstatus(${employee.empId},'${employee.empName}', '${employee.empstatus}')"> <i class="material-icons"
-														data-toggle="tooltip" title="Status" >&#xE152;</i></a></td>
+													data-toggle="modal"
+													onclick="selectedEmpstatus(${employee.empId},'${employee.empName}', '${employee.empstatus}')">
+														<i class="material-icons" data-toggle="tooltip"
+														title="Status">&#xE152;</i>
+												</a></td>
+
 											</tr>
 										</c:forEach>
 
-									</tr>
-									<!--  <tr>
+
+
+										<!--  <tr>
                       <td>
                         <span class="custom-checkbox">
                           <input type="checkbox" id="checkbox2" name="options[]" value="1">
@@ -504,22 +616,22 @@
                     </tr>-->
 								</tbody>
 							</table>
-							
+
 							<div class="clearfix">
 								<div class="hint-text">
 									Total number of entries <b>${empCount}</b><br> Showing
-									page <b>${pageNo}</b>
+									page <b>${pageNo}</b> of <b>${pageCount }</b>
 								</div>
 								<ul class="pagination">
 										
 										<c:if test="${ pageNo > 1}" > 
 											<li class="page-item">
-											<a href="?search=${search}&pg=${pageNo-1}" class="page-link">Previous</a> 
+											<a href="?pg=${pageNo-1}" class="page-link">Previous</a> 
 											</li>
 										</c:if>
 										<c:if test="${ pageNo < pageCount}"> 
 											<li class="page-item">
-											<a href="?search=${search}&pg=${pageNo+1}" class="page-link">Next</a> 
+											<a href="?pg=${pageNo+1}" class="page-link">Next</a> 
 											</li>
 										</c:if>
 										
@@ -544,12 +656,12 @@
 												required>
 										</div>
 										<div class="form-group">
-											<label>Username</label> <input type="text" class="form-control"
-												required>
+											<label>Username</label> <input type="text"
+												class="form-control" required>
 										</div>
 										<div class="form-group">
-											<label>Password</label> <input type="password" class="form-control"
-												required>
+											<label>Password</label> <input type="password"
+												class="form-control" required>
 										</div>
 										<!--  <div class="form-group">
 											<label>Address</label>
@@ -569,9 +681,9 @@
 							</div>
 						</div>
 					</div>
-					
-					
-  
+
+
+
 					<!-- Edit Modal HTML -->
 					<div id="editEmployeeModal" class="modal fade">
 						<div class="modal-dialog">
@@ -611,31 +723,45 @@
 					</div>
 
 
-
-					<!-- Delete Modal HTML -->
+					<!-- <!-- Delete Modal HTML -->
 					<div id="deleteEmployeeModal" class="modal fade">
 						<div class="modal-dialog">
 							<div class="modal-content">
-								<form:form action="editStatus" method="post" id = "status-modal-form" modelAttribute="employee">
+
+								<form:form action="editStatus" method="post"
+									id="status-modal-form" modelAttribute="employee">
+
 									<div class="modal-header">
 										<h4 class="modal-title">Edit Status</h4>
 										<button type="button" class="close" data-dismiss="modal"
 											aria-hidden="true">&times;</button>
 									</div>
 									<div class="modal-body">
-										<p>Edit status of <span id="empstatusname"></span></p>
-										
+
+										<p>Edit status for this employee?</p>
+
+										<p>
+											Edit status of <span id="empstatusname"></span>
+										</p>
+
+
 									</div>
-									<input type="hidden" name = "empId" id = "empIdStatus"/>
+									<input type="hidden" name="empId" id="empIdStatus" />
 									<div class="modal-footer">
+
+										<!-- <input type="submit" class="btn btn-danger" value="Inactive">
+										<input type="submit" class="btn btn-primary" value="Active">
+ -->
 										<!-- <input type="submit" class="btn btn-primary" value="Active" id = "activate"> 
 										<input type="submit" class="btn btn-danger" value="Inactive" id = "deactivate"> -->
-										<input type="submit" id = "changestatusbtn"/>
+										<input type="submit" id="changestatusbtn" />
+
 									</div>
 								</form:form>
 							</div>
 						</div>
 					</div>
+
 
 
 				</div>

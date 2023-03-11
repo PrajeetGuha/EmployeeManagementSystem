@@ -138,6 +138,7 @@ public class AdminController {
         return "redirect:/admin/dashboard?pg="+pgNo;
     }
 
+
     @PostMapping("/addUser")
     public String addUser(@ModelAttribute("newuser") NewEmployeeDTO newEmployee, BindingResult result, RedirectAttributes redirectAttrs ){
         // return ResponseEntity.ok().body();
