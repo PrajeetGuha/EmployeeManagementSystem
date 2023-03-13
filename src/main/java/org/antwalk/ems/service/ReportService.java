@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.antwalk.ems.model.Department;
 import org.antwalk.ems.model.Employee;
 import org.antwalk.ems.model.EmployeeDetails;
-import org.antwalk.ems.report.employeeReport;
+import org.antwalk.ems.report.EmployeeReport;
 import org.antwalk.ems.repository.DepartmentRepository;
 import org.antwalk.ems.repository.EmployeeDetailsRepository;
 import org.antwalk.ems.repository.EmployeeRepository;
@@ -51,7 +51,7 @@ public class ReportService {
         XSSFWorkbook workbook = new XSSFWorkbook();
 
         Employee employee = employeeRepository.getById(id);
-        employeeReport.generateReport(workbook, employee);
+        EmployeeReport.generateReport(workbook, employee);
         
     }
 }

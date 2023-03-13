@@ -91,7 +91,7 @@ public class AdminController {
           		return "adddepartment";
    	}
     @GetMapping("/allocatedepartment")
-   	public String allocatedepartment() {
+   	public String allocatedepartment(HttpServletRequest request, Model model) {
           		return "allocatedepartment";
    	}
     @GetMapping("/projectallocation")
