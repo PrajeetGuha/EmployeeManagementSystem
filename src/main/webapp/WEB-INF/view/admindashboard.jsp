@@ -44,77 +44,100 @@
 
 											// Set a different background color based on the status value
 											if (status === 'active') {
-												$(this)
-														.css(
-																'background-image',
-																'linear-gradient(to bottom, limegreen,white)');
+								
 
-												$(this).css('color', 'white');
+												$(this).css('color', 'limegreen');
 
 											} else if (status === 'inactive') {
-												$(this)
-														.css('background',
-																'linear-gradient(to bottom, red, white)');
+												
 
-												$(this).css('color', 'white');
+												$(this).css('color', 'red');
 											}
 										});
 					});
 </script>
 <script>
-  $(document).ready(function() {
-    // Get the list of items from the model attribute
-    var items = [
-      <c:forEach var="item" items="${employees}">
-        "${item.empName}",
-      </c:forEach>
-    ];
+$(document).ready(function() {
+  // Get the list of items from the model attribute
+  var items = [
+    <c:forEach var="item" items="${allemployeenames}">
+      "${item}",
+    </c:forEach>
+  ];
 
-    // Listen for the keyup event on the search input field
-    $('#search-input').on('keyup', function() {
-      // Get the value of the search input field
-      var searchTerm = $(this).val().toLowerCase();
+  // Set the initial form action
+ /*  var initialUrl = window.location.href.split('?')[0];
+$('#search-form').attr('action', initialUrl + '?search=null&pg=1');
+ */
 
-      // Filter the list based on the search term
-      var filteredItems = items.filter(function(item) {
-        return item.toLowerCase().indexOf(searchTerm) > -1;
-      });
+  // Listen for the keyup event on the search input field
+  $('#search-input').on('keyup', function() {
+    // Get the value of the search input field
+    var searchTerm = $(this).val().toLowerCase();
 
-      // Update the search results list
-      var $searchResults = $('#search-results');
-      $searchResults.empty();
-      filteredItems.forEach(function(item) {
-        var $li = $('<li>').text(item);
-        $li.on('click', function() {
-          $('#search-input').val($(this).text());
-          $searchResults.hide();
-        });
-        $searchResults.append($li);
-      });
-
-      // Show/hide the search results list
-      if (searchTerm.length > 0) {
-        $searchResults.show();
-      } else {
-        $searchResults.hide();
-      }
+    // Filter the list based on the search term
+    var filteredItems = items.filter(function(item) {
+      return item.toLowerCase().indexOf(searchTerm) > -1;
     });
 
-    // Hide the search results list on document click
-    $(document).on('click', function(event) {
-      if (!$(event.target).closest('.xp-searchbar').length) {
+    // Update the search results list
+    var $searchResults = $('#search-results');
+    $searchResults.empty();
+    filteredItems.forEach(function(item) {
+      var $li = $('<li>').text(item);
+      $li.on('click', function() {
+        $('#search-input').val($(this).text());
         $searchResults.hide();
-      }
-    });
-    
-    $('#search-form').on('submit', function() {
-        var searchTerm = $('#search-term').val();
-        if (searchTerm === '') {
-          return false; // Prevent submitting the form if search term is empty
-        }
+        
+        
       });
+      $searchResults.append($li);
+    });
+
+    // Show/hide the search results list
+    if (searchTerm.length > 0) {
+      $searchResults.show();
+    } else {
+      $searchResults.hide();
+    }
   });
+
+  // Hide the search results list on document click
+  $(document).on('click', function(event) {
+    if (!$(event.target).closest('.xp-searchbar').length) {
+      $searchResults.hide();
+    }
+  });
+
+  // Update form action when GO button is clicked
+  $('#button-addon2').on('click', function() {
+	 
+    updateFormAction();
+  });
+
+  function updateFormAction() {
+	    var searchTerm = $('#search-input').val();
+	    var url = $('#search-form').attr('action');
+	    var newUrl = url.split('?')[0]; // get the base URL without the query parameters
+
+	    if (searchTerm.trim() !== '') {
+	        newUrl += '?search=' + encodeURIComponent(searchTerm);
+	    } else {
+	        newUrl += '?search=null';
+	    }
+
+	    newUrl += '&pg=1'; // add pg=1 parameter
+
+	    $('#search-form input[name="search"]').val(searchTerm || 'null'); // set the value of the hidden input field
+	    $('#search-form').attr('action', newUrl);
+	}
+
+
+
+
+});
 </script>
+
 </head>
 
 <c:set var="pageNo" value="${pageNo}" />
@@ -374,7 +397,8 @@
 						<!-- Start XP Col -->
 						<div class="col-md-5 col-lg-3 order-3 order-md-2">
 							<div class="xp-searchbar">
-								<form id="search-form" action="/viewdata" method="get">
+								<form id="search-form" action="" method="get">
+									<input type="hidden" name="search" value="">
 									<div class="input-group">
 										<input type="search" class="form-control" placeholder="Search"
 											id="search-input">
