@@ -202,7 +202,7 @@ $('#search-form').attr('action', initialUrl + '?search=null&pg=1');
 				<div class="modal-content">
 					<form action="proAlloc" method="post">
 						<div class="modal-header">
-							<h4 class="modal-title">PROJECT ALLOCATION</h4>
+							<h4 class="modal-title">PROJECT</h4>
 							<button type="button" class="close" data-dismiss="modal"
 								aria-hidden="true">&times;</button>
 						</div>
@@ -232,7 +232,7 @@ $('#search-form').attr('action', initialUrl + '?search=null&pg=1');
 				<div class="modal-content">
 					<form action="teamAlloc" method="post">
 						<div class="modal-header">
-							<h4 class="modal-title">TEAM ALLOCATION</h4>
+							<h4 class="modal-title">TEAM</h4>
 							<button type="button" class="close" data-dismiss="modal"
 								aria-hidden="true">&times;</button>
 						</div>
@@ -262,7 +262,7 @@ $('#search-form').attr('action', initialUrl + '?search=null&pg=1');
 				<div class="modal-content">
 					<form action="deptAlloc" method="post">
 						<div class="modal-header">
-							<h4 class="modal-title">DEPARTMENT ALLOCATION</h4>
+							<h4 class="modal-title">DEPARTMENT</h4>
 							<button type="button" class="close" data-dismiss="modal"
 								aria-hidden="true">&times;</button>
 						</div>
@@ -543,14 +543,12 @@ $('#search-form').attr('action', initialUrl + '?search=null&pg=1');
 												</a></td>
 
 												<td><c:out value="${employee.empstatus}" /></td> --%>
-												<td><a href="#editEmployeeModal" class="edit"
-													data-toggle="modal"> <i class="material-icons"
-														data-toggle="tooltip" title="Edit">&#xE254;</i></a> <a
-													href="#deleteEmployeeModal" class="delete"
-													data-toggle="modal"
-													onclick="selectedEmpstatus(${employee.empId},'${employee.empName}', '${employee.empstatus}')">
-														<i class="material-icons" data-toggle="tooltip"
-														title="Status">&#xE152;</i>
+												<td><a href="#editEmployeeModal" class="edit" data-toggle="modal"> <i class="material-icons"
+														data-toggle="tooltip" title="View">&#xE853;</i></a>
+														<a href="#analyticsEmployeeModal" class="analytics" data-toggle="modal"> <i class="material-icons"
+														data-toggle="tooltip" title="Analytics">assessment</i></a>  
+														<a href="#deleteEmployeeModal" class="delete" data-toggle="modal" onclick="selectedEmpstatus(${employee.empId},'${employee.empName}', '${employee.empstatus}')">
+														<i class="material-icons" data-toggle="tooltip" title="Status">new_releases</i>
 												</a></td>
 
 											</tr>
