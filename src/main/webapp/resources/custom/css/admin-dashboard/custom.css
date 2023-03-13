@@ -810,6 +810,12 @@ background-color:rgba(0,0,0,0.09);
 	text-align:right !important;
 	}
 	
+	.error {
+    border: 2px solid red;
+    color:red;
+    background-color:blue;
+}
+	
 	}
 	
 	

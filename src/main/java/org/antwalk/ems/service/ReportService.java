@@ -50,10 +50,7 @@ public class ReportService {
         XSSFWorkbook workbook = new XSSFWorkbook();
 
         Employee employee = employeeRepository.getById(id);
-        XSSFWorkbook populatedWorkbook = employeeReport.generateReport(workbook, employee);
-        ServletOutputStream ops = response.getOutputStream();
-        populatedWorkbook.write(ops);
-        populatedWorkbook.close();
-        ops.close();
+        employeeReport.generateReport(workbook, employee);
+        
     }
 }

@@ -100,8 +100,10 @@ public class AdminController {
           		return "adddepartment";
    	}
     @GetMapping("/allocatedepartment")
-   	public String allocatedepartment() {
-        return "allocatedepartment";
+
+   	public String allocatedepartment(HttpServletRequest request, Model model) {
+          		return "allocatedepartment";
+
    	}
     @GetMapping("/projectallocation")
 	public String projectallocation(HttpServletRequest request, Model model) throws UserNotFoundException{
