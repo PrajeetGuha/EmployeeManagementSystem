@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.antwalk.ems.model.Department;
 import org.antwalk.ems.model.Employee;
 import org.antwalk.ems.model.EmployeeDetails;
+import org.antwalk.ems.report.employeeReport;
 import org.antwalk.ems.repository.DepartmentRepository;
 import org.antwalk.ems.repository.EmployeeDetailsRepository;
 import org.antwalk.ems.repository.EmployeeRepository;
@@ -50,61 +51,7 @@ public class ReportService {
         XSSFWorkbook workbook = new XSSFWorkbook();
 
         Employee employee = employeeRepository.getById(id);
-        XSSFSheet sheet = workbook.createSheet(employee.getEmpName() + "-Employee Details");
+        employeeReport.generateReport(workbook, employee);
         
-        XSSFRow row1 = sheet.createRow(0);
-        row1.createCell(0).setCellValue("Employee Details");
-
-        Employee employeeFromRepository = employeeRepository.getById(id);
-
-        int rowIterator = 0;
-        List<String> fieldnames = Arrays.asList(
-            "Id",
-            "Name", 
-            "Gender", 
-            "Grade/Level", 
-            "DOJ", 
-            "Designation", 
-            "Employment Type", 
-            "Employment Status", 
-            "Probation Period", 
-            "Probation Completion Date", 
-            "Train Period", 
-            "Contract End Date", 
-            "Service Period", 
-            "Work Email", 
-            "Branch", 
-            "Office", 
-            "Workstation Id", 
-            "Casual Leaves Left", 
-            "Personal Leaves Left", 
-            "Sick Leaves Left", 
-            "Additional Leaves", 
-            "Total Leaves Taken", 
-            "Current CTC", 
-            "Department", 
-            "Team", 
-            "Marital Status", 
-            "Permanent Address", 
-            "Primary Contact Details", 
-            "Emergency Contact Details", 
-            "Personal Email Id", 
-            "Present Address", 
-            "Nationality", 
-            "Blood Group", 
-            "Pan Card Number", 
-            "Aadhaar Card Number", 
-            "Passport Number");
-
-        List<String> valueList = Arrays.asList(
-            employeeFromRepository.getEmpId().toString(),
-            employeeFromRepository.getEmpName()
-            // employeeFromRepository.getEmp
-        );
-
-        for(int i = 2+rowIterator; i < fieldnames.size(); i++){
-            XSSFRow row = sheet.createRow(i);
-            row.createCell(0).setCellValue(fieldnames.get(rowIterator));
-        }
     }
 }

@@ -19,6 +19,9 @@ public class FamilyDetails {
     private Long familyId;
 
     @Column
+    private String name;
+
+    @Column
     private String relation;
 
     @Column
@@ -34,8 +37,10 @@ public class FamilyDetails {
     public FamilyDetails() {
     }
 
-    public FamilyDetails(Long familyId, String relation, @Past Date dob, String occupation, String contactno) {
+    public FamilyDetails(Long familyId, String name, String relation, @Past Date dob, String occupation,
+            String contactno) {
         this.familyId = familyId;
+        this.name = name;
         this.relation = relation;
         this.dob = dob;
         this.occupation = occupation;
@@ -48,6 +53,14 @@ public class FamilyDetails {
 
     public void setFamilyId(Long familyId) {
         this.familyId = familyId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getRelation() {
@@ -81,7 +94,7 @@ public class FamilyDetails {
     public void setContactno(String contactno) {
         this.contactno = contactno;
     }
-
+    
     
     
 }
