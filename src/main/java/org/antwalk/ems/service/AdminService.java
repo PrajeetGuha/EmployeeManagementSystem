@@ -39,7 +39,7 @@ public class AdminService {
     @Autowired
     UserRepository UserRepository;
 
-    @Value("${departments.fetch.pagesize}")
+    @Value("${fetch.pagesize}")
     private int PAGE_SIZE;
 
     @Autowired

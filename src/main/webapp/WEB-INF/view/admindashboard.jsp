@@ -500,7 +500,7 @@ $('#search-form').attr('action', initialUrl + '?search=null&pg=1');
 												<td><c:out value="${employee.empstatus}" /></td> --%>
 												<td><a href="#editEmployeeModal" class="edit" data-toggle="modal"> <i class="material-icons"
 														data-toggle="tooltip" title="View">&#xE853;</i></a>
-														<a href="#analyticsEmployeeModal" class="analytics" data-toggle="modal"> <i class="material-icons"
+														<a href="#analyticsEmployeeModal" class="analytics" data-toggle="modal" onclick=""> <i class="material-icons"
 														data-toggle="tooltip" title="Analytics">assessment</i></a>  
 														<a href="#deleteEmployeeModal" class="delete" data-toggle="modal" onclick="selectedEmpstatus(${employee.empId},'${employee.empName}', '${employee.empstatus}')">
 														<i class="material-icons" data-toggle="tooltip" title="Status">new_releases</i>

@@ -9,10 +9,12 @@ import org.antwalk.ems.model.Employee;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.springframework.stereotype.Component;
 
+@Component
 public class EmployeeReport {
     
-    public static void generateReport(XSSFWorkbook workbook, Employee employee){
+    public XSSFWorkbook generateReport(XSSFWorkbook workbook, Employee employee){
         XSSFSheet sheet = workbook.createSheet(employee.getEmpName() + "-Employee Details");
 
         XSSFRow row1 = sheet.createRow(0);
@@ -81,15 +83,27 @@ public class EmployeeReport {
             employee.getMoreLeave().toString(),
             employee.getTotalLeave().toString(),
             employee.getCtc().toString(),
-            employee.getDepartment().getDepartmentName()
-            // employee.getTeam().getTeam().getTeamName(),
-
-
+            employee.getDepartment().getDepartmentName(),
+            employee.getTeam().getTeamName(),
+            employee.getEmployeeDetails().getMaritalStatus(),
+            employee.getEmployeeDetails().getPermaAddress(),
+            employee.getEmployeeDetails().getEmergencyContactno(),
+            employee.getEmployeeDetails().getEmailId(),
+            employee.getEmployeeDetails().getPresentAddress(),
+            employee.getEmployeeDetails().getNationality(),
+            employee.getEmployeeDetails().getBloodGrp(),
+            employee.getEmployeeDetails().getPancardnno(),
+            employee.getEmployeeDetails().getAdhaarno(),
+            employee.getEmployeeDetails().getPassportno()
         );
 
         for(int i = 2+rowIterator; i < fieldnames.size(); i++){
             XSSFRow row = sheet.createRow(i);
             row.createCell(0).setCellValue(fieldnames.get(rowIterator));
+            row.createCell(1).setCellValue(valueList.get(rowIterator));
+            rowIterator += 1;
         }
+
+        return workbook;
     }
 }

@@ -250,5 +250,13 @@ public class EmployeeDetails {
         this.listProfDetails = listProfDetails;
     }
 
+    public String getMaritalStatus() {
+        return maritalStatus;
+    }
+
+    public void setMaritalStatus(String maritalStatus) {
+        this.maritalStatus = maritalStatus;
+    }
+
     
 }

@@ -1,9 +1,11 @@
 package org.antwalk.ems.controller;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.antwalk.ems.dto.NewEmployeeDTO;
 import org.antwalk.ems.exception.UserNotFoundException;
@@ -17,6 +19,7 @@ import org.antwalk.ems.repository.AdminRepository;
 import org.antwalk.ems.repository.EmployeeRepository;
 import org.antwalk.ems.security.AuthenticationSystem;
 import org.antwalk.ems.service.AdminService;
+import org.antwalk.ems.service.ReportService;
 import org.antwalk.ems.view.EmployeeListView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -40,6 +43,9 @@ public class AdminController {
 
     @Autowired
     AdminService adminService;
+
+    @Autowired
+    ReportService reportService;
 
     @GetMapping("dashboard")
     public String admindashboard(HttpServletRequest request, Model model) throws UserNotFoundException{
@@ -191,5 +197,13 @@ public class AdminController {
             )));
         }
         return "redirect:/admin/dashboard?search=null&pg=1";
+    }
+
+    @GetMapping("/report")
+    public void generateEmployeeReport(HttpServletResponse response, HttpServletRequest request) throws IOException{
+        Long empId = Long.parseLong(request.getParameter("empId"));
+        response.setContentType("application/octet-stream");
+        response.setHeader("Content-Disposition", null);
+        reportService.generateEmployeeReport(response, empId);
     }
 }
