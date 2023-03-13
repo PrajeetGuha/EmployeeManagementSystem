@@ -83,3 +83,6 @@ delete from user where role = "ROLE_EMP";
 truncate employee;
 truncate employee_details;
 
+insert into employee(emp_id) values(1);
+select * from employee;
+insert into user(user_id,is_enabled,password,role,table_pk) values(1,1,..,'ROLE_EMP',...);
