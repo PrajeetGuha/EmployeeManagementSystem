@@ -110,28 +110,20 @@ $('#search-form').attr('action', initialUrl + '?search=null&pg=1');
   });
 
   // Update form action when GO button is clicked
-  $('#button-addon2').on('click', function() {
-	 
+  $('#button-addon2').on('click', function(event) {
+	event.preventDefault();
     updateFormAction();
   });
 
   function updateFormAction() {
-	    var searchTerm = $('#search-input').val();
-	    var url = $('#search-form').attr('action');
-	    var newUrl = url.split('?')[0]; // get the base URL without the query parameters
-
-	    if (searchTerm.trim() !== '') {
-	        newUrl += '?search=' + encodeURIComponent(searchTerm);
-	    } else {
-	        newUrl += '?search=null';
-	    }
-
-	    newUrl += '&pg=1'; // add pg=1 parameter
-
-	    $('#search-form input[name="search"]').val(searchTerm || 'null'); // set the value of the hidden input field
-	    $('#search-form').attr('action', newUrl);
+	  var searchTerm = $('#search-input').val();
+	  if (searchTerm.trim() === '') {
+	    searchTerm = 'null';
+	  }
+	  var url = 'http://localhost:8081/admin/dashboard?search=null'; // replace with your URL
+	  var newUrl = url.replace('search=null', 'search=' + encodeURIComponent(searchTerm)+'&pg=1');
+	  window.location.href = newUrl;
 	}
-
 
 
 
