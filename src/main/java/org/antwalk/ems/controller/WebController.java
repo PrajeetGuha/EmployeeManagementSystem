@@ -38,4 +38,18 @@ public class WebController {
 			return "redirect:/admin/dashboard?search=null&pg=1";
 	}
 	
+	@GetMapping("/dashboardallocation")
+	public String dashboardallocation() {
+		return "redirect:/admin/dashboardallocation?pg=1";
+	}
+	
+	@GetMapping("/teamallocation")
+	public String teamallocation() {
+		return "redirect:/admin/teamallocation?pg=1";
+	}
+	
+	@GetMapping("/projectallocation")
+	public String projectallocation() {
+		return "redirect:/admin/projectallocation?pg=1";
+	}
 }

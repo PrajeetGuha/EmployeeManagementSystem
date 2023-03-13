@@ -131,58 +131,34 @@ $('#search-form').attr('action', initialUrl + '?search=null&pg=1');
 });
 </script>
 <script>
-function validateForm() {
+  // Get emailIds and usernames from model attributes using JSTL
+  var emails = [
+  <c:forEach var="email" items="${emailIds}">
+   "${email}",
+  </c:forEach>
+  ];
+  
+  var unames = [
+  <c:forEach var="username" items="${usernames}">
+    "${username}",
+  </c:forEach>
+  ];
+  
+  function validateForm() {
     var isValid = true;
     
     // Remove any existing error styles
     $(".required").removeClass("error");
     
-    // Validate name field
-    var name = $("#name").val();
-    if (name === "") {
-        $("#name").addClass("error");
-        isValid = false;
-    }
-    
     // Validate personal email field
     var email = $("#email").val();
     if (email === "") {
         $("#email").addClass("error");
+        $("#email-error").text("Email is required");
         isValid = false;
-    }
-    
-    // Validate gender field
-    var gender = $("input[name='gender']:checked").val();
-    if (gender === undefined) {
-        $(".input-container.ic2:eq(1)").addClass("error");
-        isValid = false;
-    }
-    
-    // Validate department field
-    var department = $("#department").val();
-    if (department === "") {
-        $("#department").addClass("error");
-        isValid = false;
-    }
-    
-    // Validate grade level field
-    var gradeLevel = $("#gradelevel").val();
-    if (gradeLevel === "") {
-        $("#gradelevel").addClass("error");
-        isValid = false;
-    }
-    
-    // Validate date of joining field
-    var dateOfJoining = $("#dateofjoining").val();
-    if (dateOfJoining === "") {
-        $("#dateofjoining").addClass("error");
-        isValid = false;
-    }
-    
-    // Validate employee type field
-    var empType = $("#employeetype").val();
-    if (empType === "") {
-        $("#employeetype").addClass("error");
+    } else if (emails.includes(email)) {
+        $("#email").addClass("error");
+        $("#email-error").text("Email already exists");
         isValid = false;
     }
     
@@ -190,18 +166,29 @@ function validateForm() {
     var username = $("#username").val();
     if (username === "") {
         $("#username").addClass("error");
+        $("#username-error").text("Username is required");
+        isValid = false;
+    } else if (unames.includes(username)) {
+        $("#username").addClass("error");
+        $("#username-error").text("Username already taken");
         isValid = false;
     }
     
     // Validate password field
     var password = $("#password").val();
+    var passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+]).{8,}$/;
     if (password === "") {
         $("#password").addClass("error");
+        $("#password-error").text("Password is required");
+        isValid = false;
+    } else if (!passwordRegex.test(password)) {
+        $("#password").addClass("error");
+        $("#password-error").text("Password must contain at least 8 characters including an uppercase letter, a number and a special character");
         isValid = false;
     }
     
     return isValid;
-}
+  }
 </script>
 <script>
 	function selectedEmpstatus(id,name,status){
@@ -245,11 +232,13 @@ function validateForm() {
 						Approval
 				</a></li>
 
-				<li><a href="projectallocation"> <i class="material-icons">laptop</i>Project
+				<li><a href="projectallocation?pg=1"> <i
+						class="material-icons">laptop</i>Project
 				</a></li>
-				<li><a href="teamallocation"> <i class="material-icons">groups</i>Team
+				<li><a href="teamallocation?pg=1"> <i
+						class="material-icons">groups</i>Team
 				</a></li>
-				<li><a href="departmentallocation"> <i
+				<li><a href="departmentallocation?pg=1"> <i
 						class="material-icons">work</i>Department
 				</a></li>
 				<li><a href="#hike" data-toggle="modal" aria-expanded="false">
@@ -696,7 +685,7 @@ function validateForm() {
 						aria-hidden="true">
 						<div class="modal-dialog" role="document">
 							<div class="modal-content">
-							
+
 								<div class="modal-header">
 									<h5 class="modal-title" id="addEmployeeModalLabel">Add New
 										Employee</h5>
@@ -706,26 +695,29 @@ function validateForm() {
 									</button>
 								</div>
 								<div class="modal-body">
-										<form action="addUser" method="post" modelAttribute="newuser" onsubmit="return validateForm()">
+									<form action="addUser" method="post" modelAttribute="newuser"
+										onsubmit="return validateForm()">
 										<div class="input-container ic1">
 											<label for="name" class="placeholder">Name</label>
 											<div class="cut"></div>
-											<input id="name" name="name" class="input required" type="text"
-												placeholder=" " required />
+											<input id="name" name="name" class="input required"
+												type="text" placeholder=" " required />
 										</div>
 										<div class="input-container ic2">
 											<label for="email" class="placeholder">Personal Email</label>
 											<div class="cut cut-short"></div>
 											<input id="email" name="personalEmail" class="input required"
-												type="email" placeholder=" " />
+												type="email" placeholder=" " required /> <span
+												id="email-error" class="error-text"></span>
 										</div>
 										<div class="input-container ic2">
 											<label for="gender" class="placeholder">Gender</label>
 											<div class="cut cut-short"></div>
 											<input id="gender-male" name="gender" class="input required"
-												type="radio" value="male" /><label for="gender-male">Male</label>
-											<input id="gender-female" name="gender" class="input"
-												type="radio" value="female" /><label for="gender-female">Female</label>
+												type="radio" value="male" required /><label
+												for="gender-male">Male</label> <input id="gender-female"
+												name="gender" class="input" type="radio" value="female"
+												required /><label for="gender-female">Female</label>
 										</div>
 										<div class="input-container ic2">
 											<label for="designation" class="placeholder">Designation</label>
@@ -736,7 +728,8 @@ function validateForm() {
 										<div class="input-container ic2">
 											<label for="department" class="placeholder">Department</label>
 											<div class="cut cut-short"></div>
-											<select id="department" name="department" class="input required" placeholder="Deparment">
+											<select id="department" name="department"
+												class="input required" placeholder="Deparment" required>
 												<c:forEach items="${departments}" var="department">
 													<option value="${department}">${department}</option>
 												</c:forEach>
@@ -746,7 +739,8 @@ function validateForm() {
 											<label for="gradelevel" class="placeholder">Grade
 												Level</label>
 											<div class="cut cut-short"></div>
-											<select id="gradelevel" name="gradeLevel" class="input required">
+											<select id="gradelevel" name="gradeLevel"
+												class="input required" required>
 												<option value="1">1</option>
 												<option value="2">2</option>
 												<option value="3">3</option>
@@ -762,38 +756,41 @@ function validateForm() {
 												of Joining</label>
 											<div class="cut cut-short"></div>
 											<input id="dateofjoining" name="doj" class="input required"
-												type="date" placeholder=" " />
+												type="date" placeholder=" " required />
 										</div>
 										<div class="input-container ic2">
 											<label for="employeetype" class="placeholder">Employee
 												Type</label>
 											<div class="cut cut-short"></div>
-											<select id="employeetype" name="emptype" class="input required">
+											<select id="employeetype" name="emptype"
+												class="input required" required>
 												<option value="full time">Full Time</option>
 												<option value="part time">Part Time</option>
 												<option value="contract">Contract</option>
 											</select>
 										</div>
-										
+
 										<div class="input-container ic2">
 											<label for="username" class="placeholder">Username</label>
 											<div class="cut"></div>
 											<input id="username" name="username" class="input required"
-												type="text" placeholder=" " />
+												type="text" placeholder=" " required /> <span
+												id="username-error" class="error-text"></span>
 										</div>
 										<div class="input-container ic2">
 											<label for="password" class="placeholder">Password</label>
 											<div class="cut"></div>
 											<input id="password" name="password" class="input required"
-												type="password" placeholder=" " />
+												type="password" placeholder=" " required /> <span
+												id="password-error" class="error-text"></span>
 										</div>
-									<br>
-								<div class="modal-footer">
-									<button type="button" class="btn btn-secondary"
-										data-dismiss="modal">Close</button>
-									<button type="submit" class="btn btn-primary">Submit</button>
-								</div>
-							</form>
+										<br>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-secondary"
+												data-dismiss="modal">Close</button>
+											<button type="submit" class="btn btn-primary">Submit</button>
+										</div>
+									</form>
 								</div>
 							</div>
 						</div>

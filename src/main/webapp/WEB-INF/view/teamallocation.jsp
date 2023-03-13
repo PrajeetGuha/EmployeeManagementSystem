@@ -51,11 +51,11 @@
 						Approval
 				</a></li>
 
-				<li><a href="projectallocation"> <i class="material-icons">laptop</i>Project
+				<li><a href="projectallocation?pg=1"> <i class="material-icons">laptop</i>Project
 				</a></li>
-				<li><a href="teamallocation"> <i class="material-icons">groups</i>Team
+				<li><a href="teamallocation?pg=1"> <i class="material-icons">groups</i>Team
 				</a></li>
-				<li><a href="departmentallocation"> <i
+				<li><a href="departmentallocation?pg=1"> <i
 						class="material-icons">work</i>Department
 				</a></li>
 				<li><a href="#hike" data-toggle="modal" aria-expanded="false">
