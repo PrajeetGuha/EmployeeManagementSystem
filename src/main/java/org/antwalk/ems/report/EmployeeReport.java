@@ -70,7 +70,19 @@ public class EmployeeReport {
             employee.getProbCompDate().toString(),
             employee.getTrainPeriod().toString(),
             employee.getContractEndDate().toString(),
-            employee.getServPeriod().toString()
+            employee.getServPeriod().toString(),
+            employee.getWorkEmail(),
+            employee.getBranch(),
+            employee.getOffice(),
+            employee.getWorkstationId(),
+            employee.getClLeft().toString(),
+            employee.getPlLeft().toString(),
+            employee.getSlLeft().toString(),
+            employee.getMoreLeave().toString(),
+            employee.getTotalLeave().toString(),
+            employee.getCtc().toString(),
+            employee.getDepartment().getDepartmentName()
+            // employee.getTeam().getTeam().getTeamName(),
 
 
         );

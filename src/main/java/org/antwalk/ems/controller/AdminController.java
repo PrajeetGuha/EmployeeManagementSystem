@@ -8,7 +8,10 @@ import javax.servlet.http.HttpServletRequest;
 import org.antwalk.ems.dto.NewEmployeeDTO;
 import org.antwalk.ems.exception.UserNotFoundException;
 import org.antwalk.ems.model.Admin;
+import org.antwalk.ems.model.Department;
 import org.antwalk.ems.model.Employee;
+import org.antwalk.ems.model.Project;
+import org.antwalk.ems.model.Team;
 import org.antwalk.ems.pojo.SuccessDetails;
 import org.antwalk.ems.repository.AdminRepository;
 import org.antwalk.ems.repository.EmployeeRepository;
@@ -91,28 +94,54 @@ public class AdminController {
           		return "adddepartment";
    	}
     @GetMapping("/allocatedepartment")
+
    	public String allocatedepartment(HttpServletRequest request, Model model) {
           		return "allocatedepartment";
+
    	}
     @GetMapping("/projectallocation")
 	public String projectallocation(HttpServletRequest request, Model model) throws UserNotFoundException{
     	Long id = AuthenticationSystem.getId();
+    	int pageNo = Integer.parseInt(request.getParameter("pg"));
+        List<Project> listProjects = adminService.getAllProjects(pageNo);
     	Admin admin = adminService.fetchAdminData(id);
+        Long count = adminService.countAllProjects();
+        int countPages = adminService.countPagesofProjects();
     	model.addAttribute("admin",admin);
+        model.addAttribute("listprojects", listProjects);
+        model.addAttribute("countPages", countPages);
+        model.addAttribute("countOfprojects", count);
+        model.addAttribute("pageNo", pageNo);
 		return "projectallocation";
 	}
     @GetMapping("/teamallocation")
    	public String teamallocation(HttpServletRequest request, Model model) throws UserNotFoundException{
     	Long id = AuthenticationSystem.getId();
+    	int pageNo = Integer.parseInt(request.getParameter("pg"));
+        List<Team> listTeams = adminService.getAllTeams(pageNo);
     	Admin admin = adminService.fetchAdminData(id);
-    	 model.addAttribute("admin",admin);
+        Long count = adminService.countAllTeams();
+        int countPages = adminService.countPagesofTeams();
+    	model.addAttribute("admin",admin);
+        model.addAttribute("listteams", listTeams);
+        model.addAttribute("countPages", countPages);
+        model.addAttribute("countOfteams", count);
+        model.addAttribute("pageNo", pageNo);
    		return "teamallocation";
    	}
     @GetMapping("/departmentallocation")
    	public String departmentallocation(HttpServletRequest request, Model model) throws UserNotFoundException{
     	Long id = AuthenticationSystem.getId();
+        int pageNo = Integer.parseInt(request.getParameter("pg"));
+        List<Department> listDepartments = adminService.getAllDepartments(pageNo);
     	Admin admin = adminService.fetchAdminData(id);
-    	 model.addAttribute("admin",admin);
+        Long count = adminService.countAllDepartments();
+        int countPages = adminService.countPagesOfDepartments();
+    	model.addAttribute("admin",admin);
+        model.addAttribute("listdepartments", listDepartments);
+        model.addAttribute("countPages", countPages);
+        model.addAttribute("countOfDepartments", count);
+        model.addAttribute("pageNo", pageNo);
    		return "departmentallocation";
    	}
 

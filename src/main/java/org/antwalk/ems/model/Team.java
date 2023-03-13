@@ -23,6 +23,9 @@ public class Team {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long teamId;
 
+    @Column
+    private String teamName;
+
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn
     private Employee tm;
@@ -35,8 +38,9 @@ public class Team {
         inverseJoinColumns = @JoinColumn(name = "proj_id"))
     private Set<Project> projects;
 
-    public Team(Long teamId, Employee tm, Set<Project> projects) {
+    public Team(Long teamId, String teamName, Employee tm, Set<Project> projects) {
         this.teamId = teamId;
+        this.teamName = teamName;
         this.tm = tm;
         this.projects = projects;
     }
@@ -47,6 +51,14 @@ public class Team {
 
     public void setTeamId(Long teamId) {
         this.teamId = teamId;
+    }
+
+    public String getTeamName() {
+        return teamName;
+    }
+
+    public void setTeamName(String teamName) {
+        this.teamName = teamName;
     }
 
     public Employee getTm() {
@@ -65,6 +77,5 @@ public class Team {
         this.projects = projects;
     }
 
-    
     
 }
