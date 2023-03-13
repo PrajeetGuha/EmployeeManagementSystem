@@ -1,5 +1,6 @@
 package org.antwalk.ems.repository;
 
+import java.util.List;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
@@ -23,4 +24,7 @@ public interface UserRepository extends JpaRepository<User,Long> {
     @Modifying
     @Query("update User u set u.isEnabled = 1 where tablePk = :empId")
     public void enableUserById(Long empId);
+
+    @Query("select u.username from User u")
+    public List<String> listAllUsernames();
 }
