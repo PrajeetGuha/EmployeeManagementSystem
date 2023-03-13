@@ -12,6 +12,7 @@ import org.antwalk.ems.model.Employee;
 import org.antwalk.ems.model.EmployeeDetails;
 import org.antwalk.ems.model.User;
 import org.antwalk.ems.repository.AdminRepository;
+import org.antwalk.ems.repository.DepartmentRepository;
 import org.antwalk.ems.repository.EmployeeDetailsRepository;
 import org.antwalk.ems.repository.EmployeeRepository;
 import org.antwalk.ems.view.EmployeeListView;
@@ -47,6 +48,9 @@ public class AdminService {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    DepartmentRepository departmentRepository;
 
     @Autowired
     MailService mailService;
@@ -136,6 +140,10 @@ public class AdminService {
 
     public List<String> listAllUsernames(){
         return userRepository.listAllUsernames();
+    }
+
+    public List<String> listDepartments() {
+        return departmentRepository.findAllDepartments();
     }
     
 }

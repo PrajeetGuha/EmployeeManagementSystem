@@ -46,24 +46,27 @@ public class AdminController {
         Admin admin = adminService.fetchAdminData(id);
         int pageCount = adminService.countPagesOfEmployees(search);
         Long empCount = adminService.countEmployees(search);
+        List<String> usernames = adminService.listAllUsernames();
+        List<String> emailIds = adminService.listAllEmails();
         List<String> allemployees = adminService.listAllEmployees();
         List<EmployeeListView> employeeListViews = adminService.listEmployees(pageNo,search);
+        List<String> listOfdepartments = adminService.listDepartments();
         model.addAttribute("admin",admin);
         model.addAttribute("employees", employeeListViews);
         model.addAttribute("pageCount", pageCount);
         model.addAttribute("empCount",empCount);
         model.addAttribute("pageNo",pageNo);
-        model.addAttribute("search",search);
         model.addAttribute("allemployeenames",allemployees);
+        model.addAttribute("usernames",usernames);
+        model.addAttribute("emailIds", emailIds);
+        model.addAttribute("departments", listOfdepartments);
+
         //System.out.println(employeeListViews);
         return "admindashboard";
     }
     @GetMapping("/addemployee")
    	public String addemployee(HttpServletRequest request, Model model) {
-        List<String> usernames = adminService.listAllUsernames();
-        List<String> emailIds = adminService.listAllEmails();
-        model.addAttribute("usernames",usernames);
-        model.addAttribute("emailIds", emailIds);
+        
 
         return "addemployee";
    	}
