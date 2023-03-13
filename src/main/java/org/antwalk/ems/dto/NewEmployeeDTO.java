@@ -7,15 +7,13 @@ public class NewEmployeeDTO {
     
     private String name;
     private String personalEmail;
-    private String workEmail;
     private String username;
     private String password;
     public NewEmployeeDTO() {
     }
-    public NewEmployeeDTO(String name, String personalEmail, String workEmail, String username, String password) {
+    public NewEmployeeDTO(String name, String personalEmail, String username, String password) {
         this.name = name;
         this.personalEmail = personalEmail;
-        this.workEmail = workEmail;
         this.username = username;
         this.password = password;
     }
@@ -30,12 +28,6 @@ public class NewEmployeeDTO {
     }
     public void setPersonalEmail(String personalEmail) {
         this.personalEmail = personalEmail;
-    }
-    public String getWorkEmail() {
-        return workEmail;
-    }
-    public void setWorkEmail(String workEmail) {
-        this.workEmail = workEmail;
     }
     public String getUsername() {
         return username;

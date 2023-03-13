@@ -111,7 +111,7 @@ public class AdminService {
 
         Employee employee = new Employee();
         employee.setEmpName(newEmployeeDTO.getName());
-        employee.setWorkEmail(newEmployeeDTO.getWorkEmail());
+        employee.setWorkEmail(newEmployeeDTO.getUsername()+"@nrifintech.com");
         employee.setEmployeeDetails(employeeDetails);
         Employee persistedEmployee = employeeRepository.save(employee);
         
@@ -123,11 +123,19 @@ public class AdminService {
         user.setUsername(newEmployeeDTO.getUsername());
         User persistedUser = userRepository.save(user);
 
-        mailService.sendNewEmployeeMail(newEmployeeDTO.getPersonalEmail(),newEmployeeDTO.getName(),newEmployeeDTO.getWorkEmail(),newEmployeeDTO.getUsername(),newEmployeeDTO.getPassword());
+        mailService.sendNewEmployeeMail(newEmployeeDTO.getPersonalEmail(),newEmployeeDTO.getName(),persistedEmployee.getWorkEmail(),newEmployeeDTO.getUsername(),newEmployeeDTO.getPassword());
     }
     
     public List<String> listAllEmployees(){
         return employeeRepository.findAllEmployeeNames();
+    }
+
+    public List<String> listAllEmails(){
+        return employeeDetailsRepository.listOfEmails();
+    }
+
+    public List<String> listAllUsernames(){
+        return userRepository.listAllUsernames();
     }
     
 }

@@ -60,7 +60,12 @@ public class AdminController {
     }
     @GetMapping("/addemployee")
    	public String addemployee(HttpServletRequest request, Model model) {
-          	return "addemployee";
+        List<String> usernames = adminService.listAllUsernames();
+        List<String> emailIds = adminService.listAllEmails();
+        model.addAttribute("usernames",usernames);
+        model.addAttribute("emailIds", emailIds);
+
+        return "addemployee";
    	}
     @GetMapping("/addproject")
    	public String addproject() {
