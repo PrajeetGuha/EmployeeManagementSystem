@@ -166,7 +166,7 @@ $('#search-form').attr('action', initialUrl + '?search=null&pg=1');
 				</h3>
 			</div>
 			<ul class="list-unstyled components">
-				<li class="active"><a href="#" class="dashboard"><i
+				<li class="active"><a href="" class="dashboard"><i
 						class="material-icons">dashboard</i> <span>Dashboard</span></a></li>
 				<li><a href="#homeSubmenu1" data-toggle="collapse"
 					aria-expanded="false"> <i class="material-icons">playlist_add_check</i>Leave
@@ -174,20 +174,21 @@ $('#search-form').attr('action', initialUrl + '?search=null&pg=1');
 				</a></li>
 
 				<li><a href="projectallocation"> <i class="material-icons">laptop</i>Project
-						Allocation
 				</a></li>
 				<li><a href="teamallocation"> <i class="material-icons">groups</i>Team
-						Allocation
 				</a></li>
 				<li><a href="departmentallocation"> <i
-						class="material-icons">work</i>Department Allocation
+						class="material-icons">work</i>Department
 				</a></li>
 				<li><a href="#hike" data-toggle="modal" aria-expanded="false">
 						<i class="material-icons">currency_rupee</i>Appraisal
 				</a></li>
-
-
-
+				<li><a href="#empresignation" data-toggle="modal" aria-expanded="false">
+						<i class="material-icons">directions_walk</i>Resignation approval
+				</a></li>
+				<li><a href="analytics" data-toggle="modal" aria-expanded="false">
+						<i class="material-icons">analytics</i>Analytics
+				</a></li>
 				<li><a href="#adminprofile" data-toggle="modal"
 					aria-expanded="false"> <i class="material-icons">account_circle</i>Profile
 				</a></li>
@@ -202,7 +203,7 @@ $('#search-form').attr('action', initialUrl + '?search=null&pg=1');
 				<div class="modal-content">
 					<form action="proAlloc" method="post">
 						<div class="modal-header">
-							<h4 class="modal-title">PROJECT</h4>
+							<h4 class="modal-title">PROJECT ALLOCATION</h4>
 							<button type="button" class="close" data-dismiss="modal"
 								aria-hidden="true">&times;</button>
 						</div>
@@ -232,7 +233,7 @@ $('#search-form').attr('action', initialUrl + '?search=null&pg=1');
 				<div class="modal-content">
 					<form action="teamAlloc" method="post">
 						<div class="modal-header">
-							<h4 class="modal-title">TEAM</h4>
+							<h4 class="modal-title">TEAM ALLOCATION</h4>
 							<button type="button" class="close" data-dismiss="modal"
 								aria-hidden="true">&times;</button>
 						</div>
@@ -262,7 +263,7 @@ $('#search-form').attr('action', initialUrl + '?search=null&pg=1');
 				<div class="modal-content">
 					<form action="deptAlloc" method="post">
 						<div class="modal-header">
-							<h4 class="modal-title">DEPARTMENT</h4>
+							<h4 class="modal-title">DEPARTMENT ALLOCATION</h4>
 							<button type="button" class="close" data-dismiss="modal"
 								aria-hidden="true">&times;</button>
 						</div>
@@ -375,7 +376,7 @@ $('#search-form').attr('action', initialUrl + '?search=null&pg=1');
 				<div class="xp-topbar">
 
 					<!-- Start XP Row -->
-					<div class="row">
+					<div class="row justify-content-end">
 						<!-- Start XP Col -->
 						<!-- <div
 							class="col-2 col-md-1 col-lg-1 order-2 order-md-1 align-self-center">
@@ -387,7 +388,7 @@ $('#search-form').attr('action', initialUrl + '?search=null&pg=1');
 						<!-- End XP Col -->
 
 						<!-- Start XP Col -->
-						<div class="col-md-5 col-lg-3 order-3 order-md-2">
+						<div class="col-md-5 col-lg-2 order-3 order-md-2">
 							<div class="xp-searchbar">
 								<form id="search-form" action="" method="get">
 									<input type="hidden" name="search" value="">
@@ -409,59 +410,13 @@ $('#search-form').attr('action', initialUrl + '?search=null&pg=1');
 						<!-- End XP Col -->
 
 						<!-- Start XP Col -->
-						<div class="col-10 col-md-6 col-lg-8 order-1 order-md-3">
+						<div class="col-md-3 col-lg-2 order-1 order-md-3 ">
 							<div class="xp-profilebar text-right" align="right">
 								<nav class="navbar p-0">
 									<ul class="nav navbar-nav flex-row ml-auto">
-										<li class="align-right"><a href="../logout"><span
+										<li class="align-right"><a href="../logout" class="nav-link"><span
 												class="material-icons">logout</span> Logout</a></li>
-										<!--  <li class="dropdown nav-item active">
-                                <a href="#" class="nav-link" data-toggle="dropdown">
-                                   <span class="material-icons">notifications</span>
-								   <span class="notification">4</span>
-                               </a>
-                                <ul class="dropdown-menu">
-                                    <li>
-                                        <a href="#">You have 5 new messages</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">You're now friend with Mike</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Wish Mary on her birthday!</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">5 warnings in Server Console</a>
-                                    </li>
-                                  
-                                </ul>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">
-								<span class="material-icons">question_answer</span>
-
-								</a>
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link" href="#" data-toggle="dropdown">
-								<img src="img/user.jpg" style="width:40px; border-radius:50%;"/>
-								<span class="xp-user-live"></span>
-								</a>
-								<ul class="dropdown-menu small-menu">
-                                    <li>
-                                        <a href="#">
-										  <span class="material-icons">person_outline</span>Profile
-
-										</a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><span class="material-icons">settings</span>Settings</a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><span class="material-icons">logout</span>Logout</a>
-                                    </li>
-                                </ul>
-                            </li>-->
+										
 									</ul>
 
 

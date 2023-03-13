@@ -44,31 +44,32 @@
 				</h3>
 			</div>
 			<ul class="list-unstyled components">
-				<li ><a href="dashboard?pg=1" class="dashboard"><i
+				<li class="active"><a href="dashboard?search=null&pg=1" class="dashboard"><i
 						class="material-icons">dashboard</i> <span>Dashboard</span></a></li>
 				<li><a href="#homeSubmenu1" data-toggle="collapse"
 					aria-expanded="false"> <i class="material-icons">playlist_add_check</i>Leave
 						Approval
-				</a> </li>
-				
+				</a></li>
+
 				<li><a href="projectallocation"> <i class="material-icons">laptop</i>Project
-						Allocation
-				</a> </li>
-				<li class="active"><a href="teamallocation">
-						<i class="material-icons">groups</i>Team Allocation
-				</a> </li>
-				<li><a href="departmentallocation" > <i class="material-icons">work</i>Department
-						Allocation
-				</a> </li>
+				</a></li>
+				<li><a href="teamallocation"> <i class="material-icons">groups</i>Team
+				</a></li>
+				<li><a href="departmentallocation"> <i
+						class="material-icons">work</i>Department
+				</a></li>
 				<li><a href="#hike" data-toggle="modal" aria-expanded="false">
 						<i class="material-icons">currency_rupee</i>Appraisal
-				</a> </li>
-
-				
-		
+				</a></li>
+				<li><a href="#empresignation" data-toggle="modal" aria-expanded="false">
+						<i class="material-icons">directions_walk</i>Resignation approval
+				</a></li>
+				<li><a href="analytics" data-toggle="modal" aria-expanded="false">
+						<i class="material-icons">analytics</i>Analytics
+				</a></li>
 				<li><a href="#adminprofile" data-toggle="modal"
 					aria-expanded="false"> <i class="material-icons">account_circle</i>Profile
-				</a> </li>
+				</a></li>
 
 
 			</ul>
@@ -93,7 +94,7 @@
 								<label>Project Name</label> <input type="text"
 									class="form-control" required>
 							</div>
-							
+
 						</div>
 						<div class="modal-footer">
 							<input type="button" class="btn btn-default" data-dismiss="modal"
@@ -123,7 +124,7 @@
 								<label>Team Name</label> <input type="text" class="form-control"
 									required>
 							</div>
-						
+
 						</div>
 						<div class="modal-footer">
 							<input type="button" class="btn btn-default" data-dismiss="modal"
@@ -153,7 +154,7 @@
 								<label>Department Name</label> <input type="text"
 									class="form-control" required>
 							</div>
-							
+
 						</div>
 						<div class="modal-footer">
 							<input type="button" class="btn btn-default" data-dismiss="modal"
@@ -187,7 +188,7 @@
 								<label>Hike Date</label> <input type="date" class="form-control"
 									required>
 							</div>
-							
+
 						</div>
 						<div class="modal-footer">
 							<input type="button" class="btn btn-default" data-dismiss="modal"
@@ -242,7 +243,6 @@
 
 
 
-
 		<!--------page-content---------------->
 
 		<div id="content">
@@ -253,19 +253,19 @@
 				<div class="xp-topbar">
 
 					<!-- Start XP Row -->
-					<div class="row">
+					<div class="row justify-content-end">
 						<!-- Start XP Col -->
-						<div
+						<!-- <div
 							class="col-2 col-md-1 col-lg-1 order-2 order-md-1 align-self-center">
 							<div class="xp-menubar">
 								<span class="material-icons text-white">signal_cellular_alt
 								</span>
 							</div>
-						</div>
+						</div> -->
 						<!-- End XP Col -->
 
 						<!-- Start XP Col -->
-						<div class="col-md-5 col-lg-3 order-3 order-md-2">
+						<!-- <div class="col-md-5 col-lg-3 order-3 order-md-2">
 							<div class="xp-searchbar">
 								<form>
 									<div class="input-group">
@@ -276,63 +276,18 @@
 									</div>
 								</form>
 							</div>
-						</div>
+						</div> -->
 						<!-- End XP Col -->
 
+
 						<!-- Start XP Col -->
-						<div class="col-10 col-md-6 col-lg-8 order-1 order-md-3">
-							<div class="xp-profilebar text-right">
+						<div class="col-md-3 col-lg-2 order-1 order-md-3 ">
+							<div class="xp-profilebar text-right" align="right">
 								<nav class="navbar p-0">
 									<ul class="nav navbar-nav flex-row ml-auto">
-										<li><a href="../logout"><span class="material-icons">logout</span>
-												Logout</a></li>
-										<!--  <li class="dropdown nav-item active">
-                                <a href="#" class="nav-link" data-toggle="dropdown">
-                                   <span class="material-icons">notifications</span>
-								   <span class="notification">4</span>
-                               </a>
-                                <ul class="dropdown-menu">
-                                    <li>
-                                        <a href="#">You have 5 new messages</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">You're now friend with Mike</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Wish Mary on her birthday!</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">5 warnings in Server Console</a>
-                                    </li>
-                                  
-                                </ul>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">
-								<span class="material-icons">question_answer</span>
-
-								</a>
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link" href="#" data-toggle="dropdown">
-								<img src="img/user.jpg" style="width:40px; border-radius:50%;"/>
-								<span class="xp-user-live"></span>
-								</a>
-								<ul class="dropdown-menu small-menu">
-                                    <li>
-                                        <a href="#">
-										  <span class="material-icons">person_outline</span>Profile
-
-										</a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><span class="material-icons">settings</span>Settings</a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><span class="material-icons">logout</span>Logout</a>
-                                    </li>
-                                </ul>
-                            </li>-->
+										<li class="align-right"><a href="../logout" class="nav-link"><span
+												class="material-icons">logout</span> Logout</a></li>
+										
 									</ul>
 
 
@@ -347,7 +302,7 @@
 
 				</div>
 				<div class="xp-breadcrumbbar text-center">
-					<h4 class="page-title">Team Dashboard</h4>
+					<h4 class="page-title">Manage Teams</h4>
 					<!--  <ol class="breadcrumb">
 						<li class="breadcrumb-item"><a href="#">Booster</a></li>
 						<li class="breadcrumb-item active" aria-current="page">Dashboard</li>
