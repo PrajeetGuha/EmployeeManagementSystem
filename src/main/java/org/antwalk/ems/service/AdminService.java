@@ -58,7 +58,7 @@ public class AdminService {
     }
 
     public List<EmployeeListView> listEmployees(int pageNo, String search){
-        Pageable pageable = PageRequest.of(pageNo-1, PAGE_SIZE, Sort.by("empstatus").and(Sort.by("empName")));
+        Pageable pageable = PageRequest.of(pageNo-1, PAGE_SIZE, Sort.by("empId"));
         if (search.equals("null"))
             return employeeRepository.findAllEmployeeListViews(pageable).getContent();
         else
@@ -66,7 +66,7 @@ public class AdminService {
     }
 
     public int countPagesOfEmployees(String search){
-        Pageable pageable = PageRequest.of(0, PAGE_SIZE, Sort.by("empstatus").and(Sort.by("empName")));
+        Pageable pageable = PageRequest.of(0, PAGE_SIZE, Sort.by("empId"));
         if (search.equals("null"))
             return employeeRepository.findAll(pageable).getTotalPages();
         else
