@@ -213,8 +213,9 @@ private EmployeeRepository employeeRepository;
 
     // departmentName, hod
     @PostMapping("/addDept")
-    public String addDepartment(@ModelAttribute("newuser") NewDepartmentDTO newDepartment, BindingResult result, RedirectAttributes redirectAttrs ) throws DepartmentNotFoundException{
+    public String addDepartment(@ModelAttribute("newdept") NewDepartmentDTO newDepartment, BindingResult result, RedirectAttributes redirectAttrs ) throws DepartmentNotFoundException{
         // return ResponseEntity.ok().body();
+        System.out.println(newDepartment);
         adminService.addDepartment(newDepartment);
         if (result.hasErrors()){
             redirectAttrs.addFlashAttribute("result", result);
@@ -235,8 +236,6 @@ private EmployeeRepository employeeRepository;
         Long empId = Long.parseLong(request.getParameter("empId"));
         String pageNo = request.getParameter("pg");
         String search = request.getParameter("search");
-        response.setContentType("application/octet-stream");
-        response.setHeader("Content-Disposition", null);
         reportService.generateEmployeeReport(response, empId);
         return "redirect:/admin/dashboard?search="+ search + "&pg="+ pageNo;
     }
