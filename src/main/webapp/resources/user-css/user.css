@@ -1,0 +1,117 @@
+
+body {
+    font-family: "Lato", sans-serif;
+}
+
+.sidenavbaricon{
+    background-color: #7ee0d3;
+}
+.navbar-toggler{
+    
+    background-color: #7ee0d3;
+
+}
+.offcanvas-body{
+
+    background-color: #7ee0d3;
+
+}
+.offcanvas-end{
+    top: 150px;
+
+}
+.offcanvas-header{
+    background-color: aquamarine;
+    color: black;
+
+}
+.sidebar {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 0;
+    top: 0;
+    left: 1;
+    background-color: #7EE0D3;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+}
+
+.sidebar a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 20px;
+    color: black;
+    display: block;
+    transition: 0.3s;
+
+}
+
+.sidebar a:hover {
+    color: #f1f1f1;
+}
+.card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #9EFFF3;
+    background-clip: border-box;
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: 0.25rem;
+}
+.card-title {
+    background: linear-gradient(120deg, #0cf9e5, #5a84eb);
+    align-items: center;
+}
+
+.sidebar .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+.openbtn {
+    font-size: 20px;
+    cursor: pointer;
+    background-color: #7ee0d3;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    opacity: 0.9;
+}
+
+.openbtn:hover {
+    background-color: #444;
+}
+
+#main {
+    transition: margin-left .5s;
+    padding: 16px;
+}
+
+
+.card-body{
+	background-color: lightcyan;
+}
+.card{
+	background-color: #C4EAE1;
+}
+
+.cardside{
+	background-color: #C4EAE1;
+}
+/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+@media screen and (max-height: 450px) {
+    .sidebar {
+        padding-top: 15px;
+    }
+
+    .sidebar a {
+        font-size: 18px;
+    }
+}

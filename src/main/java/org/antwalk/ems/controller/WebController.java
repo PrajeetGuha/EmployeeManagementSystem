@@ -38,6 +38,11 @@ public class WebController {
 			return "redirect:/admin/dashboard?search=null&pg=1";
 	}
 	
+	@GetMapping("/family")
+	public String family() {
+		return "myFamily";
+	}
+	
 	@GetMapping("/dashboardallocation")
 	public String dashboardallocation() {
 		return "redirect:/admin/dashboardallocation?pg=1";

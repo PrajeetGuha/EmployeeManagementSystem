@@ -17,6 +17,7 @@ import org.antwalk.ems.model.Employee;
 import org.antwalk.ems.model.Project;
 import org.antwalk.ems.model.Team;
 import org.antwalk.ems.pojo.SuccessDetails;
+import org.antwalk.ems.repository.EmployeeRepository;
 import org.antwalk.ems.security.AuthenticationSystem;
 import org.antwalk.ems.service.AdminService;
 import org.antwalk.ems.service.ReportService;
@@ -45,6 +46,9 @@ public class AdminController {
 
     @Autowired
     ReportService reportService;
+    
+@Autowired
+private EmployeeRepository employeeRepository;
 
     @GetMapping("dashboard")
     public String admindashboard(HttpServletRequest request, Model model) throws UserNotFoundException{
@@ -234,5 +238,20 @@ public class AdminController {
         String search = request.getParameter("search");
         reportService.generateEmployeeReport(response, empId);
         return "redirect:/admin/dashboard?search="+ search + "&pg="+ pageNo;
+    }
+
+    @GetMapping("editemployeedetails")
+    public String editemployeedetails(HttpServletRequest request, Model model){
+        String id = request.getParameter("empId");
+        Long id_val=Long.parseLong(id);
+        Employee employee = employeeRepository.getById(id_val);
+        model.addAttribute("employee",employee);
+        return "editUser";
+    }
+
+    @PostMapping("editemployee")
+    public String editemployee(@ModelAttribute("employeeinfo") Employee employee, BindingResult result, RedirectAttributes redirectAttrs) throws UserNotFoundException{
+            employeeRepository.save(employee);
+            return "redirect:/admin/dashboard?search=null&pg=1";
     }
 }
