@@ -44,23 +44,23 @@
 				</h3>
 			</div>
 			<ul class="list-unstyled components">
-				<li class="active"><a href="dashboard?search=null&pg=1" class="dashboard"><i
+				<li ><a href="dashboard?search=null&pg=1" class="dashboard"><i
 						class="material-icons">dashboard</i> <span>Dashboard</span></a></li>
 				<li><a href="#homeSubmenu1" data-toggle="collapse"
 					aria-expanded="false"> <i class="material-icons">playlist_add_check</i>Leave
 						Approval
 				</a></li>
 
-				<li><a href="projectallocation?pg=1"> <i class="material-icons">laptop</i>Project
+				<li class="active"><a href="projectallocation?pg=1"> <i class="material-icons">laptop</i>Project
 				</a></li>
 				<li><a href="teamallocation?pg=1"> <i class="material-icons">groups</i>Team
 				</a></li>
 				<li><a href="departmentallocation?pg=1"> <i
 						class="material-icons">work</i>Department
 				</a></li>
-				<li><a href="#hike" data-toggle="modal" aria-expanded="false">
+				<!-- <li><a href="#hike" data-toggle="modal" aria-expanded="false">
 						<i class="material-icons">currency_rupee</i>Appraisal
-				</a></li>
+				</a></li> -->
 				<li><a href="#empresignation" data-toggle="modal" aria-expanded="false">
 						<i class="material-icons">directions_walk</i>Resignation approval
 				</a></li>
@@ -76,7 +76,7 @@
 
 
 		</nav>
-		<div id="project" class="modal fade">
+		<!-- <div id="project" class="modal fade">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<form action="proAlloc" method="post">
@@ -198,7 +198,7 @@
 					</form>
 				</div>
 			</div>
-		</div>
+		</div> -->
 
 		<div id="adminprofile" class="modal fade">
 			<div class="modal-dialog">
@@ -328,14 +328,14 @@
 									</div>
 									<div
 										class="col-sm-6 p-0 d-flex justify-content-lg-end justify-content-center">
-										<a href="javascript: void(0)" onclick="window.open('addproject','_blank','width=900,height=300');"  class="btn btn-success"
+										<a href="#addProjectModal"  class="btn btn-success" data-toggle="modal"
 											> <i class="material-icons">&#xE147;</i>
 											<span>Add New Project</span></a>
 										<!--  <a href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal">
 		  <i class="material-icons">&#xE15C;</i> <span>Delete</span></a>-->
-		  <a href="javascript: void(0)" onclick="window.open('allocateproject','_blank','width=900,height=300');" class="btn btn-success"
+		  <!-- <a href="javascript: void(0)" onclick="window.open('allocateproject','_blank','width=900,height=300');" class="btn btn-success"
 											> <i class="material-icons">&#xE147;</i>
-											<span>Allocate Project</span></a>
+											<span>Allocate Project</span></a> -->
 									</div>
 								</div>
 							</div>
@@ -345,26 +345,28 @@
 
 										<th>ID</th>
 										<th>PROJECT NAME</th>
-										<th>TEAM NAME</th>
-										<th>Actions</th>
+										<th>PROJECT MANAGER</th>
+										<th>START TIME</th>
+										<th>END TIME</th>
+										<th>ACTIONS</th>
 									</tr>
 								</thead>
 								<tbody>
 									<tr>
 
-										<c:forEach items="${employees}" var="employee">
+										<c:forEach items="${listprojects}" var="project">
 											<tr>
-												<td><c:out value="${employee.empId}" /></td>
-												<td><c:out value="${employee.empName}" /></td>
-												<td><c:out value="${employee.workEmail}" /></td>
-												<td><c:out value="${employee.designation}" /></td>
-												<td><c:out value="${employee.empstatus}" /></td>
-												<td><a href="#editEmployeeModal" class="edit"
+												<td><c:out value="${project.projId}" /></td>
+												<td><c:out value="${project.projectName}" /></td>
+												<td><c:out value="${project.pm}" /></td>
+												<td><c:out value="${project.startDate}" /></td>
+												<td><c:out value="${project.endDate}" /></td>
+												<td><a href="#editProjectModal" class="edit"
 													data-toggle="modal"> <i class="material-icons"
 														data-toggle="tooltip" title="Edit">&#xE254;</i></a> <a
-													href="#deleteEmployeeModal" class="delete"
+													href="#generateProjectReportModal" class="report"
 													data-toggle="modal"> <i class="material-icons"
-														data-toggle="tooltip" title="Status">&#xE152;</i></a></td>
+														data-toggle="tooltip" title="Report">summarize</i></a></td>
 											</tr>
 										</c:forEach>
 
@@ -446,8 +448,8 @@
 							
 							<div class="clearfix">
 								<div class="hint-text">
-									Total number of entries <b>${empCount}</b><br> Showing
-									page <b>${pageNo}</b>
+									Total number of entries <b>${countOfprojects}</b><br> Showing
+									page <b>${pageNo}</b> of <b>${countPages}</b>
 								</div>
 								<ul class="pagination">
 										
@@ -456,7 +458,7 @@
 											<a href="?pg=${pageNo-1}" class="page-link">Previous</a> 
 											</li>
 										</c:if>
-										<c:if test="${ pageNo < pageCount}"> 
+										<c:if test="${ pageNo < countPages}"> 
 											<li class="page-item">
 											<a href="?pg=${pageNo+1}" class="page-link">Next</a> 
 											</li>

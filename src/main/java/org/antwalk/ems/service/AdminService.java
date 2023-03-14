@@ -204,15 +204,17 @@ public class AdminService {
     }
 
     public List<Project> getAllProjects(int pageNo) {
-        return null;
+    	Pageable pageable = PageRequest.of(pageNo-1, PAGE_SIZE, Sort.by("projId"));
+        return projectRepository.findAll(pageable).getContent();
     }
 
     public Long countAllProjects() {
-        return null;
+    	return projectRepository.count();
     }
 
     public int countPagesofProjects() {
-        return 0;
+    	Pageable pageable = PageRequest.of(0, PAGE_SIZE, Sort.by("projId"));
+    	return projectRepository.findAll(pageable).getTotalPages();
     }
 
 	public void addDepartment(NewDepartmentDTO newDepartment) {

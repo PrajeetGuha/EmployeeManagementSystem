@@ -241,9 +241,9 @@ $('#search-form').attr('action', initialUrl + '?search=null&pg=1');
 				<li><a href="departmentallocation?pg=1"> <i
 						class="material-icons">work</i>Department
 				</a></li>
-				<li><a href="#hike" data-toggle="modal" aria-expanded="false">
+				<!-- <li><a href="#hike" data-toggle="modal" aria-expanded="false">
 						<i class="material-icons">currency_rupee</i>Appraisal
-				</a></li>
+				</a></li> -->
 				<li><a href="#empresignation" data-toggle="modal"
 					aria-expanded="false"> <i class="material-icons">directions_walk</i>Resignation
 						approval
@@ -260,7 +260,7 @@ $('#search-form').attr('action', initialUrl + '?search=null&pg=1');
 
 
 		</nav>
-		<div id="project" class="modal fade">
+		<%-- <div id="project" class="modal fade">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<form action="proAlloc" method="post">
@@ -382,7 +382,7 @@ $('#search-form').attr('action', initialUrl + '?search=null&pg=1');
 					</form>
 				</div>
 			</div>
-		</div>
+		</div> --%>
 
 		<div id="adminprofile" class="modal fade">
 			<div class="modal-dialog">

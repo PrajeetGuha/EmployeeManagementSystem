@@ -57,7 +57,7 @@ function capitalizer(str) {
 				</h3>
 			</div>
 			<ul class="list-unstyled components">
-				<li class="active"><a href="dashboard?search=null&pg=1" class="dashboard"><i
+				<li ><a href="dashboard?search=null&pg=1" class="dashboard"><i
 						class="material-icons">dashboard</i> <span>Dashboard</span></a></li>
 				<li><a href="#homeSubmenu1" data-toggle="collapse"
 					aria-expanded="false"> <i class="material-icons">playlist_add_check</i>Leave
@@ -68,12 +68,12 @@ function capitalizer(str) {
 				</a></li>
 				<li><a href="teamallocation?pg=1"> <i class="material-icons">groups</i>Team
 				</a></li>
-				<li><a href="departmentallocation?pg=1"> <i
+				<li class="active"><a href="departmentallocation?pg=1"> <i
 						class="material-icons">work</i>Department
 				</a></li>
-				<li><a href="#hike" data-toggle="modal" aria-expanded="false">
+				<!-- <li><a href="#hike" data-toggle="modal" aria-expanded="false">
 						<i class="material-icons">currency_rupee</i>Appraisal
-				</a></li>
+				</a></li> -->
 				<li><a href="#empresignation" data-toggle="modal" aria-expanded="false">
 						<i class="material-icons">directions_walk</i>Resignation approval
 				</a></li>
@@ -89,7 +89,7 @@ function capitalizer(str) {
 
 
 		</nav>
-		<div id="project" class="modal fade">
+		<!-- <div id="project" class="modal fade">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<form action="proAlloc" method="post">
@@ -211,7 +211,7 @@ function capitalizer(str) {
 					</form>
 				</div>
 			</div>
-		</div>
+		</div> -->
 
 		<div id="adminprofile" class="modal fade">
 			<div class="modal-dialog">
@@ -467,7 +467,7 @@ function capitalizer(str) {
 											<a href="?pg=${pageNo-1}" class="page-link">Previous</a> 
 											</li>
 										</c:if>
-										<c:if test="${ pageNo < pageCount}"> 
+										<c:if test="${ pageNo < countPages}"> 
 											<li class="page-item">
 											<a href="?pg=${pageNo+1}" class="page-link">Next</a> 
 											</li>
