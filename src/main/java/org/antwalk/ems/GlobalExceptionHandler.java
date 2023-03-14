@@ -2,7 +2,9 @@ package org.antwalk.ems;
 
 import java.util.Date;
 
+import org.antwalk.ems.exception.DepartmentNotFoundException;
 import org.antwalk.ems.exception.ResourceNotFoundException;
+import org.antwalk.ems.exception.UserNotFoundException;
 import org.antwalk.ems.pojo.ErrorDetails;
 //import org.antwalk.ems.exception.UserNotFoundException;
 import org.springframework.http.HttpStatus;
@@ -20,13 +22,17 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 		return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
 	}
 
-	/*
-	 * @ExceptionHandler(UserNotFoundException.class) public ResponseEntity<?>
-	 * userNotFoundException(UserNotFoundException ex, WebRequest request) {
-	 * ErrorDetails errorDetails = new ErrorDetails(new Date(), ex.getMessage(),
-	 * request.getDescription(false)); return new ResponseEntity<>(errorDetails,
-	 * HttpStatus.NOT_FOUND); }
-	 */
+	@ExceptionHandler(UserNotFoundException.class)
+	public ResponseEntity<?> userNotFoundException(UserNotFoundException ex, WebRequest request) {
+		ErrorDetails errorDetails = new ErrorDetails(new Date(), ex.getMessage(), request.getDescription(false));
+		return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
+	}
+
+	@ExceptionHandler(DepartmentNotFoundException.class)
+	public ResponseEntity<?> departmentNotFoundException(DepartmentNotFoundException ex, WebRequest request) {
+		ErrorDetails errorDetails = new ErrorDetails(new Date(), ex.getMessage(), request.getDescription(false));
+		return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
+	}
 
 	// do exception handling for data adding
 

@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
+
 <!DOCTYPE html>
 <html>
 
@@ -29,9 +32,21 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
 	<c:set var="pageNo" value="${pageNo}" />
-							<c:set var="pageCount" value="${pageCount}" />
+							<c:set var="pageCount" value="${countPages}" />
+
+<script>
+function capitalizer(str) {
+	  return str.charAt(0).toUpperCase() + str.slice(1);
+	}
+</script>
+<c:set var="capitalizer">
+  function(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  }
+</c:set>
 </head>
 <body>
+
 <div class="wrapper">
 		<div class="body-overlay" />
 		<nav id="sidebar">
@@ -56,9 +71,9 @@
 				<li class="active"><a href="departmentallocation?pg=1"> <i
 						class="material-icons">work</i>Department
 				</a></li>
-				<li><a href="#hike" data-toggle="modal" aria-expanded="false">
+				<!-- <li><a href="#hike" data-toggle="modal" aria-expanded="false">
 						<i class="material-icons">currency_rupee</i>Appraisal
-				</a></li>
+				</a></li> -->
 				<li><a href="#empresignation" data-toggle="modal" aria-expanded="false">
 						<i class="material-icons">directions_walk</i>Resignation approval
 				</a></li>
@@ -74,7 +89,7 @@
 
 
 		</nav>
-		<div id="project" class="modal fade">
+		<!-- <div id="project" class="modal fade">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<form action="proAlloc" method="post">
@@ -196,7 +211,7 @@
 					</form>
 				</div>
 			</div>
-		</div>
+		</div> -->
 
 		<div id="adminprofile" class="modal fade">
 			<div class="modal-dialog">
@@ -325,14 +340,14 @@
 									</div>
 									<div
 										class="col-sm-6 p-0 d-flex justify-content-lg-end justify-content-center">
-										<a href="javascript: void(0)" onclick="window.open('adddepartment','_blank','width=900,height=300');" class="btn btn-success"
+										<a href="#addDepartmentModal" class="btn btn-success" data-toggle="modal"
 											> <i class="material-icons">&#xE147;</i>
 											<span>Add New Department</span></a>
 										<!--  <a href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal">
 		  <i class="material-icons">&#xE15C;</i> <span>Delete</span></a>-->
-		  							     <a href="javascript: void(0)" onclick="window.open('allocatedepartment','_blank','width=900,height=300');" class="btn btn-success"
+		  							     <!-- <a href="javascript: void(0)" onclick="window.open('allocatedepartment','_blank','width=900,height=300');" class="btn btn-success"
 											data-toggle="modal"> <i class="material-icons">&#xE147;</i>
-											<span>Allocate Department</span></a>
+											<span>Allocate Department</span></a> -->
 									</div>
 									
 								</div>
@@ -342,27 +357,25 @@
 									<tr>
 
 										<th>ID</th>
-										<th>EMPLOYEE NAME</th>
 										<th>DEPARTMENT NAME</th>
-										<th>Actions</th>
+										<th>HEAD OF DEPARTMENT</th>
+										<th>ACTIONS</th>
 									</tr>
 								</thead>
 								<tbody>
 									<tr>
 
-										<c:forEach items="${employees}" var="employee">
+										<c:forEach items="${listdepartments}" var="dept">
 											<tr>
-												<td><c:out value="${employee.empId}" /></td>
-												<td><c:out value="${employee.empName}" /></td>
-												<td><c:out value="${employee.workEmail}" /></td>
-												<td><c:out value="${employee.designation}" /></td>
-												<td><c:out value="${employee.empstatus}" /></td>
-												<td><a href="#editEmployeeModal" class="edit"
+												<td><c:out value="${dept.deptId}" /></td>
+												<td><c:out value="${fn:toUpperCase(fn:substring(dept.departmentName, 0, 1))}${fn:toLowerCase(fn:substring(dept.departmentName, 1,fn:length(dept.departmentName)))}" /></td>
+												<td><c:out value="${dept.hod.empName}" /></td>
+												<td><a href="#editDepartmentModal" class="edit"
 													data-toggle="modal"> <i class="material-icons"
 														data-toggle="tooltip" title="Edit">&#xE254;</i></a> <a
-													href="#deleteEmployeeModal" class="delete"
+													href="#generateDepartmentReportModal" class="report"
 													data-toggle="modal"> <i class="material-icons"
-														data-toggle="tooltip" title="Status">&#xE152;</i></a></td>
+														data-toggle="tooltip" title="Report">summarize</i></a></td>
 											</tr>
 										</c:forEach>
 
@@ -444,8 +457,8 @@
 							
 							<div class="clearfix">
 								<div class="hint-text">
-									Total number of entries <b>${empCount}</b><br> Showing
-									page <b>${pageNo}</b>
+									Total number of entries <b>${countOfDepartments}</b><br> Showing
+									page <b>${pageNo}</b> of <b>${countPages }</b>
 								</div>
 								<ul class="pagination">
 										
@@ -454,7 +467,7 @@
 											<a href="?pg=${pageNo-1}" class="page-link">Previous</a> 
 											</li>
 										</c:if>
-										<c:if test="${ pageNo < pageCount}"> 
+										<c:if test="${ pageNo < countPages}"> 
 											<li class="page-item">
 											<a href="?pg=${pageNo+1}" class="page-link">Next</a> 
 											</li>
@@ -469,38 +482,43 @@
 					<div id="addDepartmentModal" class="modal fade">
 						<div class="modal-dialog">
 							<div class="modal-content">
-								<form>
+								
 									<div class="modal-header">
 										<h4 class="modal-title">Add Department</h4>
 										<button type="button" class="close" data-dismiss="modal"
 											aria-hidden="true">&times;</button>
 									</div>
 									<div class="modal-body">
-										
-										<div class="form-group">
-											<label>Department Name</label> <input type="text" class="form-control"
-												required>
+										<form action="addDept" method="post" modelAttribute="newdept"
+										onsubmit="return validateForm()">
+										<div class="input-container ic1">
+											<label for="departmentName" class="placeholder">Department Name</label>
+											<div class="cut"></div>
+											<input id="departmentName" name="departmentName" class="input required"
+												type="text" placeholder=" " required />
+										</div>
+										<div class="input-container ic2">
+											<label for="hod" class="placeholder">HOD</label>
+											<div class="cut cut-short"></div>
+											<select id="hod" name="hod"
+												class="input required" placeholder=" " required>
+												<c:forEach items="${allemployeenames}" var="department">
+													<option value="${department.empId}">(${department.empId}) ${department.empName}</option>
+												</c:forEach>
+											</select>
 										</div>
 										
-										<!--  <div class="form-group">
-											<label>Address</label>
-											<textarea class="form-control" required></textarea>
+										<br>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-secondary"
+												data-dismiss="modal">Close</button>
+											<button type="submit" class="btn btn-primary">Submit</button>
 										</div>
-										<div class="form-group">
-											<label>Phone</label> <input type="text" class="form-control"
-												required>
-										</div>-->
-									</div>
-									<div class="modal-footer">
-										<input type="button" class="btn btn-default"
-											data-dismiss="modal" value="Cancel"> <input
-											type="submit" class="btn btn-success" value="Add">
-									</div>
-								</form>
+									</form>
 							</div>
 						</div>
 					</div>
-					<div id="allocateDepartmentModal" class="modal fade">
+					<!-- <div id="allocateDepartmentModal" class="modal fade">
 						<div class="modal-dialog">
 							<div class="modal-content">
 								<form>
@@ -519,14 +537,14 @@
 												required>
 										</div>
 										
-										<!--  <div class="form-group">
+										 <div class="form-group">
 											<label>Address</label>
 											<textarea class="form-control" required></textarea>
 										</div>
 										<div class="form-group">
 											<label>Phone</label> <input type="text" class="form-control"
 												required>
-										</div>-->
+										</div>
 									</div>
 									<div class="modal-footer">
 										<input type="button" class="btn btn-default"
@@ -535,7 +553,7 @@
 									</div>
 								</form>
 							</div>
-						</div>
+						</div> -->
 					</div>
 					<!-- Edit Modal HTML -->
 					<div id="editEmployeeModal" class="modal fade">

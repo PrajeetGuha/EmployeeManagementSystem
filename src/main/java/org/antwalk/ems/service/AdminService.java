@@ -5,7 +5,9 @@ import java.util.Optional;
 
 import javax.transaction.Transactional;
 
+import org.antwalk.ems.dto.NewDepartmentDTO;
 import org.antwalk.ems.dto.NewEmployeeDTO;
+import org.antwalk.ems.exception.DepartmentNotFoundException;
 import org.antwalk.ems.exception.UserNotFoundException;
 import org.antwalk.ems.model.Admin;
 import org.antwalk.ems.model.Department;
@@ -21,6 +23,7 @@ import org.antwalk.ems.repository.EmployeeRepository;
 import org.antwalk.ems.repository.ProjectRepository;
 import org.antwalk.ems.repository.TeamRepository;
 import org.antwalk.ems.view.EmployeeListView;
+import org.antwalk.ems.view.EmployeeSelectionView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
@@ -118,15 +121,30 @@ public class AdminService {
     }
 
     @Transactional
-    public void addEmployee(NewEmployeeDTO newEmployeeDTO){
+    public void addEmployee(NewEmployeeDTO newEmployeeDTO) throws DepartmentNotFoundException{
 
         EmployeeDetails employeeDetails = new EmployeeDetails();
-        employeeDetails.setEmailId(newEmployeeDTO.getPersonalEmail());
+        employeeDetails.setEmailId(newEmployeeDTO.getEmail());
         employeeDetailsRepository.save(employeeDetails);
 
         Employee employee = new Employee();
         employee.setEmpName(newEmployeeDTO.getName());
-        employee.setWorkEmail(newEmployeeDTO.getUsername()+"@nrifintech.com");
+        employee.setDesignation(newEmployeeDTO.getDesignation());
+        employee.setGender(newEmployeeDTO.getGender());
+        Department department = departmentRepository.findByDepartmentName(newEmployeeDTO.getDepartment()).orElseThrow(
+            () -> new DepartmentNotFoundException("Department with name" + newEmployeeDTO.getDepartment() + " not found")
+        );
+        employee.setDepartment(department);
+        employee.setGradeLevel(newEmployeeDTO.getGradeLevel());
+        employee.setDoj(newEmployeeDTO.getDoj());
+        employee.setEmptype(newEmployeeDTO.getEmptype());
+
+        if (department.getDepartmentName().toLowerCase() == "trainee"){
+            employee.setWorkEmail(newEmployeeDTO.getUsername()+"@trainee.nrifintech.com");
+        }
+        else{
+            employee.setWorkEmail(newEmployeeDTO.getUsername()+"@nrifintech.com");
+        }
         employee.setEmployeeDetails(employeeDetails);
         Employee persistedEmployee = employeeRepository.save(employee);
         
@@ -141,7 +159,7 @@ public class AdminService {
         //mailService.sendNewEmployeeMail(newEmployeeDTO.getPersonalEmail(),newEmployeeDTO.getName(),persistedEmployee.getWorkEmail(),newEmployeeDTO.getUsername(),newEmployeeDTO.getPassword());
     }
     
-    public List<String> listAllEmployees(){
+    public List<EmployeeSelectionView> listAllEmployees(){
         return employeeRepository.findAllEmployeeNames();
     }
 
@@ -186,16 +204,23 @@ public class AdminService {
     }
 
     public List<Project> getAllProjects(int pageNo) {
-        return null;
+    	Pageable pageable = PageRequest.of(pageNo-1, PAGE_SIZE, Sort.by("projId"));
+        return projectRepository.findAll(pageable).getContent();
     }
 
     public Long countAllProjects() {
-        return null;
+    	return projectRepository.count();
     }
 
     public int countPagesofProjects() {
-        return 0;
+    	Pageable pageable = PageRequest.of(0, PAGE_SIZE, Sort.by("projId"));
+    	return projectRepository.findAll(pageable).getTotalPages();
     }
+
+	public void addDepartment(NewDepartmentDTO newDepartment) {
+		// TODO Auto-generated method stub
+		
+	}
 
 
     

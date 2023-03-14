@@ -61,7 +61,7 @@ $(document).ready(function() {
   // Get the list of items from the model attribute
   var items = [
     <c:forEach var="item" items="${allemployeenames}">
-      "${item}",
+      "${item.empName}",
     </c:forEach>
   ];
 
@@ -241,9 +241,9 @@ $('#search-form').attr('action', initialUrl + '?search=null&pg=1');
 				<li><a href="departmentallocation?pg=1"> <i
 						class="material-icons">work</i>Department
 				</a></li>
-				<li><a href="#hike" data-toggle="modal" aria-expanded="false">
+				<!-- <li><a href="#hike" data-toggle="modal" aria-expanded="false">
 						<i class="material-icons">currency_rupee</i>Appraisal
-				</a></li>
+				</a></li> -->
 				<li><a href="#empresignation" data-toggle="modal"
 					aria-expanded="false"> <i class="material-icons">directions_walk</i>Resignation
 						approval
@@ -260,7 +260,7 @@ $('#search-form').attr('action', initialUrl + '?search=null&pg=1');
 
 
 		</nav>
-		<div id="project" class="modal fade">
+		<%-- <div id="project" class="modal fade">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<form action="proAlloc" method="post">
@@ -382,7 +382,7 @@ $('#search-form').attr('action', initialUrl + '?search=null&pg=1');
 					</form>
 				</div>
 			</div>
-		</div>
+		</div> --%>
 
 		<div id="adminprofile" class="modal fade">
 			<div class="modal-dialog">
@@ -537,9 +537,11 @@ $('#search-form').attr('action', initialUrl + '?search=null&pg=1');
 										<th>ID</th>
 										<th>NAME</th>
 										<th>EMAIL</th>
+										<!-- <th>GRADE_LEVEL</th>
+										<th>TYPE</th> -->
 										<th>DESIGNATION</th>
 										<th>STATUS</th>
-										<th>Actions</th>
+										<th>ACTIONS</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -550,6 +552,8 @@ $('#search-form').attr('action', initialUrl + '?search=null&pg=1');
 												<td><c:out value="${employee.empId}" /></td>
 												<td><c:out value="${employee.empName}" /></td>
 												<td><c:out value="${employee.workEmail}" /></td>
+												<%-- <td><c:out value="${employee.gradeLevel}" /></td> --%>
+												<%-- <td><c:out value="${employee.emptype}" /></td> --%>
 												<td><c:out value="${employee.designation}" /></td>
 
 												<td class="highlight-column"><c:out
@@ -566,9 +570,9 @@ $('#search-form').attr('action', initialUrl + '?search=null&pg=1');
 												<td><a href="#editEmployeeModal" class="edit"
 													data-toggle="modal"> <i class="material-icons"
 														data-toggle="tooltip" title="View">&#xE853;</i></a> <a
-													href="#analyticsEmployeeModal" class="analytics"
-													data-toggle="modal"> <i class="material-icons"
-														data-toggle="tooltip" title="Analytics">assessment</i></a> <a
+													href="report?empId=${employee.empId}&pg=1&search=${search}" class="analytics"
+													> <i class="material-icons"
+														data-toggle="tooltip" title="Analytics">summarize</i></a> <a
 													href="#deleteEmployeeModal" class="delete"
 													data-toggle="modal"
 													onclick="selectedEmpstatus(${employee.empId},'${employee.empName}', '${employee.empstatus}')">

@@ -58,9 +58,9 @@
 				<li><a href="departmentallocation?pg=1"> <i
 						class="material-icons">work</i>Department
 				</a></li>
-				<li><a href="#hike" data-toggle="modal" aria-expanded="false">
+				<!-- <li><a href="#hike" data-toggle="modal" aria-expanded="false">
 						<i class="material-icons">currency_rupee</i>Appraisal
-				</a></li>
+				</a></li> -->
 				<li><a href="#empresignation" data-toggle="modal" aria-expanded="false">
 						<i class="material-icons">directions_walk</i>Resignation approval
 				</a></li>
@@ -76,7 +76,7 @@
 
 
 		</nav>
-		<div id="project" class="modal fade">
+		<!-- <div id="project" class="modal fade">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<form action="proAlloc" method="post">
@@ -198,7 +198,7 @@
 					</form>
 				</div>
 			</div>
-		</div>
+		</div> -->
 
 		<div id="adminprofile" class="modal fade">
 			<div class="modal-dialog">
