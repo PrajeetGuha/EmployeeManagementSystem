@@ -211,6 +211,7 @@ public class AdminController {
     @PostMapping("/addDept")
     public String addDepartment(@ModelAttribute("newdept") NewDepartmentDTO newDepartment, BindingResult result, RedirectAttributes redirectAttrs ) throws DepartmentNotFoundException{
         // return ResponseEntity.ok().body();
+        System.out.println(newDepartment);
         adminService.addDepartment(newDepartment);
         if (result.hasErrors()){
             redirectAttrs.addFlashAttribute("result", result);

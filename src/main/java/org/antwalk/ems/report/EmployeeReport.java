@@ -97,6 +97,10 @@ public class EmployeeReport {
             employee.getEmployeeDetails().getPassportno()
         );
 
+        for(int i = 0; i < valueList.size(); i++){
+            valueList.set(i, valueList.get(i) == null ? null : valueList.get(i));
+        }
+
         for(int i = 2+rowIterator; i < fieldnames.size(); i++){
             XSSFRow row = sheet.createRow(i);
             row.createCell(0).setCellValue(fieldnames.get(rowIterator));
