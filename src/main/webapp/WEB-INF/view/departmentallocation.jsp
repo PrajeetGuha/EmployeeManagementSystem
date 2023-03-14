@@ -44,6 +44,19 @@ function capitalizer(str) {
     return str.charAt(0).toUpperCase() + str.slice(1);
   }
 </c:set>
+<script>
+$(document).ready(function() {
+    $('#emplist').change(function() {
+        var selected = [];
+        $('#emplist option:selected').each(function() {
+            selected.push($(this).text());
+        });
+        $('#selected-employees').text(selected.join(', ')); // update the new element with the selected options
+    });
+});
+
+
+</script>
 </head>
 <body>
 
@@ -485,8 +498,8 @@ function capitalizer(str) {
 								
 									<div class="modal-header">
 										<h4 class="modal-title">Add Department</h4>
-										<button type="button" class="close" data-dismiss="modal"
-											aria-hidden="true">&times;</button>
+										<!-- <button type="button" class="close" data-dismiss="modal"
+											aria-hidden="true">&times;</button> -->
 									</div>
 									<div class="modal-body">
 										<form action="addDept" method="post" modelAttribute="newdept"
@@ -556,39 +569,54 @@ function capitalizer(str) {
 						</div> -->
 					</div>
 					<!-- Edit Modal HTML -->
-					<div id="editEmployeeModal" class="modal fade">
+					<div id="editDepartmentModal" class="modal fade">
 						<div class="modal-dialog">
 							<div class="modal-content">
-								<form>
+								
 									<div class="modal-header">
 										<h4 class="modal-title">Edit Employee</h4>
-										<button type="button" class="close" data-dismiss="modal"
-											aria-hidden="true">&times;</button>
+										<!-- <button type="button" class="close" data-dismiss="modal"
+											aria-hidden="true">&times;</button> -->
 									</div>
 									<div class="modal-body">
-										<div class="form-group">
-											<label>Name</label> <input type="text" class="form-control"
-												required>
+										<form action="editDepartment" method="post" modelAttribute="newuser"
+										>
+										<div class="input-container ic2">
+											<label for="departmentName" class="placeholder">Change Department Name</label>
+											<div class="cut"></div>
+											<input id="departmentName" name="departmentName" class="input required"
+												type="text" placeholder=" " />
+												
 										</div>
-										<div class="form-group">
-											<label>Email</label> <input type="email" class="form-control"
-												required>
+										<div class="input-container ic2">
+											<label for="department" class="placeholder">Change HOD</label>
+											<div class="cut cut-short"></div>
+											<select id="hod" name="hod"
+												class="input required" placeholder=" " required>
+												<c:forEach items="${allemployeenames}" var="department">
+													<option value="${department.empId}">(${department.empId}) ${department.empName}</option>
+												</c:forEach>
+											</select>
 										</div>
-										<div class="form-group">
-											<label>Address</label>
-											<textarea class="form-control" required></textarea>
+										<div class="input-container ic2">
+											<label for="employeelist" class="placeholder">Add Employees</label>
+											<div class="cut cut-short"></div>
+											<select id="emplist" name="employees"
+												class="input required" placeholder=" " multiple>
+												<c:forEach items="${allemployeenames}" var="department">
+													<option value="${department.empId}">(${department.empId}) ${department.empName}</option>
+												</c:forEach>
+											</select>
+											<div id="selected-employees"></div>
 										</div>
-										<div class="form-group">
-											<label>Phone</label> <input type="text" class="form-control"
-												required>
+										<br>
+										<div class="cut"></div>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-secondary"
+												data-dismiss="modal">Close</button>
+											<button type="submit" class="btn btn-primary">Submit</button>
 										</div>
-									</div>
-									<div class="modal-footer">
-										<input type="button" class="btn btn-default"
-											data-dismiss="modal" value="Cancel"> <input
-											type="submit" class="btn btn-info" value="Save">
-									</div>
-								</form>
+									</form>
 							</div>
 						</div>
 					</div>
