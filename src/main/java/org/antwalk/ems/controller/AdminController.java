@@ -37,6 +37,9 @@ public class AdminController {
 
     @Autowired
     AdminService adminService;
+    
+@Autowired
+private EmployeeRepository employeeRepository;
 
     @GetMapping("dashboard")
     public String admindashboard(HttpServletRequest request, Model model) throws UserNotFoundException{
@@ -156,5 +159,29 @@ public class AdminController {
             )));
         }
         return "redirect:/admin/dashboard?search=null&pg=1";
+    }
+
+    @GetMapping("editemployeedetails")
+    public String editemployeedetails(HttpServletRequest request, Model model){
+        String id = request.getParameter("empId");
+        System.out.println(id);
+        Long id_val=Long.parseLong(id);
+        System.out.println(id);
+        System.out.println(id_val);
+        Employee employee = employeeRepository.getById(id_val);
+        model.addAttribute("employee",employee);
+        return "editUser";
+    }
+
+    @PostMapping("editemployee")
+    public String editemployee(@ModelAttribute("employeeinfo") Employee employee, BindingResult result, RedirectAttributes redirectAttrs) throws UserNotFoundException{
+            // familyDetailsRepository.saveAll(families); // save all updated users to the database
+            System.out.println("Started");
+            System.out.println("Id of employee "+employee.getEmpId());
+            System.out.println(employee);
+            // System.out.println(employees);
+            employeeRepository.save(employee);
+            System.out.println("Done");
+            return "redirect:/admin/dashboard?search=null&pg=1";
     }
 }

@@ -33,13 +33,26 @@ public class Employee {
     @Column(length = 2)
     private String gradeLevel;
 
+    @Override
+    public String toString() {
+        return "Employee [empId=" + empId + ", empName=" + empName + ", gender=" + gender + ", gradeLevel=" + gradeLevel
+                + ", doj=" + doj + ", designation=" + designation + ", emptype=" + emptype + ", empstatus=" + empstatus
+                + ", probPeriod=" + probPeriod + ", probCompDate=" + probCompDate + ", trainPeriod=" + trainPeriod
+                + ", contractEndDate=" + contractEndDate + ", servPeriod=" + servPeriod + ", workEmail=" + workEmail
+                + ", branch=" + branch + ", office=" + office + ", workstationId=" + workstationId + ", empRole="
+                + empRole + ", clLeft=" + clLeft + ", plLeft=" + plLeft + ", slLeft=" + slLeft + ", moreLeave="
+                + moreLeave + ", totalLeave=" + totalLeave + ", ctc=" + ctc + ", department=" + department + ", team="
+                + team + ", employeeDetails=" + employeeDetails + ", payrolls=" + payrolls + ", attendances="
+                + attendances + "]";
+    }
+
     @Column
     private Date doj;
 
     @Column(length = 50)
     private String designation = "unassigned";
 
-    @Column
+    @Column(length = 255)
     private String emptype;
 
     @Column
@@ -115,6 +128,32 @@ public class Employee {
 
     public Employee() {
     }
+    
+
+    public Employee(Long empId, String empName, String gender, String gradeLevel, Date doj, String designation,
+            String emptype, String empstatus, Integer probPeriod, Date probCompDate, Integer trainPeriod,
+            Date contractEndDate, Integer servPeriod, @Email String workEmail, String branch, String office,
+            String workstationId, String empRole) {
+        this.empId = empId;
+        this.empName = empName;
+        this.gender = gender;
+        this.gradeLevel = gradeLevel;
+        this.doj = doj;
+        this.designation = designation;
+        this.emptype = emptype;
+        this.empstatus = empstatus;
+        this.probPeriod = probPeriod;
+        this.probCompDate = probCompDate;
+        this.trainPeriod = trainPeriod;
+        this.contractEndDate = contractEndDate;
+        this.servPeriod = servPeriod;
+        this.workEmail = workEmail;
+        this.branch = branch;
+        this.office = office;
+        this.workstationId = workstationId;
+        this.empRole = empRole;
+    }
+
 
     public Employee(Long empId, String empName, String gender, String gradeLevel, Date doj, String designation,
             String emptype, String empstatus, Integer probPeriod, Date probCompDate, Integer trainPeriod, Date contractEndDate,
