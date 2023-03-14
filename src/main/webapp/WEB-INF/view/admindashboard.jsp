@@ -689,10 +689,10 @@ $('#search-form').attr('action', initialUrl + '?search=null&pg=1');
 								<div class="modal-header">
 									<h5 class="modal-title" id="addEmployeeModalLabel">Add New
 										Employee</h5>
-									<button type="button" class="close" data-dismiss="modal"
+									<!-- <button type="button" class="close" data-dismiss="modal"
 										aria-label="Close">
 										<span aria-hidden="true">&times;</span>
-									</button>
+									</button> -->
 								</div>
 								<div class="modal-body">
 									<form action="addUser" method="post" modelAttribute="newuser"
@@ -710,14 +710,16 @@ $('#search-form').attr('action', initialUrl + '?search=null&pg=1');
 												type="email" placeholder=" " required /> <span
 												id="email-error" class="error-text"></span>
 										</div>
-										<div class="input-container ic2">
+										<div class="input-container ic3">
 											<label for="gender" class="placeholder">Gender</label>
 											<div class="cut cut-short"></div>
+											<div class="wrapper-class">
 											<input id="gender-male" name="gender" class="input required"
 												type="radio" value="male" required /><label
 												for="gender-male">Male</label> <input id="gender-female"
 												name="gender" class="input" type="radio" value="female"
 												required /><label for="gender-female">Female</label>
+												</div>
 										</div>
 										<div class="input-container ic2">
 											<label for="designation" class="placeholder">Designation</label>

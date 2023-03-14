@@ -44,7 +44,7 @@
 				</h3>
 			</div>
 			<ul class="list-unstyled components">
-				<li class="active"><a href="dashboard?search=null&pg=1" class="dashboard"><i
+				<li ><a href="dashboard?search=null&pg=1" class="dashboard"><i
 						class="material-icons">dashboard</i> <span>Dashboard</span></a></li>
 				<li><a href="#homeSubmenu1" data-toggle="collapse"
 					aria-expanded="false"> <i class="material-icons">playlist_add_check</i>Leave
@@ -53,7 +53,7 @@
 
 				<li><a href="projectallocation?pg=1"> <i class="material-icons">laptop</i>Project
 				</a></li>
-				<li><a href="teamallocation?pg=1"> <i class="material-icons">groups</i>Team
+				<li class="active"><a href="teamallocation?pg=1"> <i class="material-icons">groups</i>Team
 				</a></li>
 				<li><a href="departmentallocation?pg=1"> <i
 						class="material-icons">work</i>Department
