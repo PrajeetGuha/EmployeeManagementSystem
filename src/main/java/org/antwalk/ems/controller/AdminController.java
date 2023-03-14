@@ -198,6 +198,24 @@ public class AdminController {
         return "redirect:/admin/dashboard?search=null&pg=1";
     }
 
+    // departmentName, hod
+    @PostMapping("/addDept")
+    public String addDepartment(@ModelAttribute("newuser") NewEmployeeDTO newEmployee, BindingResult result, RedirectAttributes redirectAttrs ) throws DepartmentNotFoundException{
+        // return ResponseEntity.ok().body();
+        adminService.addEmployee(newEmployee);
+        if (result.hasErrors()){
+            redirectAttrs.addFlashAttribute("result", result);
+        }
+        else{
+            redirectAttrs.addFlashAttribute("result",ResponseEntity.ok().body(new SuccessDetails(
+                new Date(),
+                "Created",
+                "New department has been created"
+            )));
+        }
+        return "redirect:/admin/departmentallocation?pg=1";
+    }
+
     @GetMapping("/report")
     public void generateEmployeeReport(HttpServletResponse response, HttpServletRequest request) throws IOException{
         Long empId = Long.parseLong(request.getParameter("empId"));

@@ -20,7 +20,7 @@ public interface EmployeeRepository extends JpaRepository<Employee,Long> {
     @Query("select e.empId as empId, e.empName as empName, e.workEmail as workEmail, e.designation as designation, e.empstatus as empstatus, e.gradeLevel as gradeLevel, e.emptype as emptype from Employee e")
     public Page<EmployeeListView> findAllEmployeeListViews(Pageable pageable);
 
-    @Query("select e.empName as empName from Employee e")
+    @Query("select e.empName as empName from Employee e order by e.empName")
     public List<String> findAllEmployeeNames();
 
     @Query("select e.empId as empId, e.empName as empName, e.workEmail as workEmail, e.designation as designation, e.empstatus as empstatus, e.gradeLevel as gradeLevel, e.emptype as emptype from Employee e where e.empName like :search%")
