@@ -7,6 +7,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.antwalk.ems.dto.NewDepartmentDTO;
 import org.antwalk.ems.dto.NewEmployeeDTO;
 import org.antwalk.ems.exception.DepartmentNotFoundException;
 import org.antwalk.ems.exception.UserNotFoundException;
@@ -208,7 +209,7 @@ public class AdminController {
 
     // departmentName, hod
     @PostMapping("/addDept")
-    public String addDepartment(@ModelAttribute("newuser") DepartmentDTO newDepartment, BindingResult result, RedirectAttributes redirectAttrs ) throws DepartmentNotFoundException{
+    public String addDepartment(@ModelAttribute("newuser") NewDepartmentDTO newDepartment, BindingResult result, RedirectAttributes redirectAttrs ) throws DepartmentNotFoundException{
         // return ResponseEntity.ok().body();
         adminService.addDepartment(newDepartment);
         if (result.hasErrors()){

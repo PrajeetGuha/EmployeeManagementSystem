@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import javax.transaction.Transactional;
 
+import org.antwalk.ems.dto.NewDepartmentDTO;
 import org.antwalk.ems.dto.NewEmployeeDTO;
 import org.antwalk.ems.exception.DepartmentNotFoundException;
 import org.antwalk.ems.exception.UserNotFoundException;
@@ -213,6 +214,11 @@ public class AdminService {
     public int countPagesofProjects() {
         return 0;
     }
+
+	public void addDepartment(NewDepartmentDTO newDepartment) {
+		// TODO Auto-generated method stub
+		
+	}
 
 
     
