@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.antwalk.ems.dto.NewEmployeeDTO;
+import org.antwalk.ems.exception.DepartmentNotFoundException;
 import org.antwalk.ems.exception.UserNotFoundException;
 import org.antwalk.ems.model.Admin;
 import org.antwalk.ems.model.Department;
@@ -15,22 +16,18 @@ import org.antwalk.ems.model.Employee;
 import org.antwalk.ems.model.Project;
 import org.antwalk.ems.model.Team;
 import org.antwalk.ems.pojo.SuccessDetails;
-import org.antwalk.ems.repository.AdminRepository;
-import org.antwalk.ems.repository.EmployeeRepository;
 import org.antwalk.ems.security.AuthenticationSystem;
 import org.antwalk.ems.service.AdminService;
 import org.antwalk.ems.service.ReportService;
 import org.antwalk.ems.view.EmployeeListView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -185,7 +182,7 @@ public class AdminController {
 
 
     @PostMapping("/addUser")
-    public String addUser(@ModelAttribute("newuser") NewEmployeeDTO newEmployee, BindingResult result, RedirectAttributes redirectAttrs ){
+    public String addUser(@ModelAttribute("newuser") NewEmployeeDTO newEmployee, BindingResult result, RedirectAttributes redirectAttrs ) throws DepartmentNotFoundException{
         // return ResponseEntity.ok().body();
         adminService.addEmployee(newEmployee);
         if (result.hasErrors()){

@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import org.antwalk.ems.model.Department;
 import org.antwalk.ems.model.Employee;
 import org.antwalk.ems.view.EmployeeListView;
 import org.springframework.data.domain.Page;

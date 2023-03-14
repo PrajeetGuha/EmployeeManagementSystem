@@ -6,6 +6,7 @@ import java.util.Optional;
 import javax.transaction.Transactional;
 
 import org.antwalk.ems.dto.NewEmployeeDTO;
+import org.antwalk.ems.exception.DepartmentNotFoundException;
 import org.antwalk.ems.exception.UserNotFoundException;
 import org.antwalk.ems.model.Admin;
 import org.antwalk.ems.model.Department;
@@ -118,15 +119,30 @@ public class AdminService {
     }
 
     @Transactional
-    public void addEmployee(NewEmployeeDTO newEmployeeDTO){
+    public void addEmployee(NewEmployeeDTO newEmployeeDTO) throws DepartmentNotFoundException{
 
         EmployeeDetails employeeDetails = new EmployeeDetails();
-        employeeDetails.setEmailId(newEmployeeDTO.getPersonalEmail());
+        employeeDetails.setEmailId(newEmployeeDTO.getEmail());
         employeeDetailsRepository.save(employeeDetails);
 
         Employee employee = new Employee();
         employee.setEmpName(newEmployeeDTO.getName());
-        employee.setWorkEmail(newEmployeeDTO.getUsername()+"@nrifintech.com");
+        employee.setDesignation(newEmployeeDTO.getDesignation());
+        employee.setGender(newEmployeeDTO.getGender());
+        Department department = departmentRepository.findByDepartmentName(newEmployeeDTO.getDepartment()).orElseThrow(
+            () -> new DepartmentNotFoundException("Department with name" + newEmployeeDTO.getDepartment() + " not found")
+        );
+        employee.setDepartment(department);
+        employee.setGradeLevel(newEmployeeDTO.getGradeLevel());
+        employee.setDoj(newEmployeeDTO.getDoj());
+        employee.setEmptype(newEmployeeDTO.getEmptype());
+
+        if (department.getDepartmentName().toLowerCase() == "trainee"){
+            employee.setWorkEmail(newEmployeeDTO.getUsername()+"@trainee.nrifintech.com");
+        }
+        else{
+            employee.setWorkEmail(newEmployeeDTO.getUsername()+"@nrifintech.com");
+        }
         employee.setEmployeeDetails(employeeDetails);
         Employee persistedEmployee = employeeRepository.save(employee);
         
