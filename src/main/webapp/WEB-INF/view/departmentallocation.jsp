@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 
 <!DOCTYPE html>
@@ -31,36 +31,189 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
-	<c:set var="pageNo" value="${pageNo}" />
-							<c:set var="pageCount" value="${countPages}" />
+<c:set var="pageNo" value="${pageNo}" />
+<c:set var="pageCount" value="${countPages}" />
 
 <script>
-function capitalizer(str) {
-	  return str.charAt(0).toUpperCase() + str.slice(1);
-	}
-</script>
-<c:set var="capitalizer">
-  function(str) {
-    return str.charAt(0).toUpperCase() + str.slice(1);
+  document.addEventListener("DOMContentLoaded", function() {
+    // Get employee names and ids from model attribute using JSTL
+    var employees = [
+      <c:forEach var="employee" items="${allemployeenames}">
+        {
+          id: "${employee.empId}",
+          name: "${employee.empName}"
+        },
+      </c:forEach>
+    ];
+
+ // Get department names from model attribute using JSTL
+    var listdepartments = [
+      <c:forEach var="department" items="${listdepartments}">
+        "${department.hod.empName}",
+      </c:forEach>
+    ];
+    
+    // Create a list to store selected employee names
+    var selectedEmployees = [];
+
+    // Get references to DOM elements
+    var empList = document.getElementById("empList");
+    var suggestionList = document.getElementById("suggestions");
+
+    
+    
+    // Function to render the list of selected employees
+    function renderSelectedEmployees() {
+  var names = selectedEmployees.map(function(employee) {
+    return employee.name;
+  });
+  empList.value = names.join(", ");
+}
+
+
+
+
+    // Function to filter employee names based on input text
+    function filterEmployees(text) {
+      return employees.filter(function(employee) {
+        // Exclude names that are already in the list of selected employees
+        if (selectedEmployees.some(function(selectedEmployee) {
+          return selectedEmployee.name.toLowerCase() === employee.name.toLowerCase();
+        })) {
+          return false;
+        }
+        // Exclude names that match any department name
+        if (listdepartments.some(function(department) {
+          return department.toLowerCase() === employee.name.toLowerCase();
+        })) {
+          return false;
+        }
+        return employee.name.toLowerCase().includes(text.toLowerCase());
+      });
+    }
+
+    // Function to handle input events on empList
+    function handleInput() {
+      var text = empList.value.trim();
+      suggestionList.innerHTML = "";
+
+      if (text) {
+        // Split the input by commas
+        var names = text.split(",");
+        for (var i = 0; i < names.length; i++) {
+          var name = names[i].trim();
+          if (name) {
+            // Filter employee names based on input text
+            var filteredEmployees = filterEmployees(name);
+
+            // Create a new suggestion element for each filtered employee
+            filteredEmployees.forEach(function(employee) {
+              var suggestionElement = document.createElement("li");
+              suggestionElement.innerText = employee.name;
+              suggestionElement.setAttribute("data-employee-id", employee.id);
+
+              suggestionElement.addEventListener("click", function() {
+                // Add selected employee to list
+                var employeeId = this.getAttribute("data-employee-id");
+                selectedEmployees.push({
+                  id: employeeId,
+                  name: employee.name
+                });
+
+                
+                
+                renderSelectedEmployees();
+                suggestionList.innerHTML = "";
+              });
+
+              suggestionList.appendChild(suggestionElement);
+            });
+          }
+        }
+      }
+    }
+    
+ // Function to handle keydown events on empList
+    function handleKeydown(event) {
+  if (event.key === "Backspace") {
+    if (empList.selectionStart === empList.selectionEnd && empList.selectionStart === 0 && selectedEmployees.length > 0) {
+      // Remove last name from selected employees list
+      selectedEmployees.pop();
+      renderSelectedEmployees();
+      
+    } else if (empList.value.length < prevLength) {
+      // Remove last name from selected employees list
+      selectedEmployees.pop();
+      renderSelectedEmployees();
+    }
   }
-</c:set>
-<script>
-$(document).ready(function() {
-    $('#emplist').change(function() {
-        var selected = [];
-        $('#emplist option:selected').each(function() {
-            selected.push($(this).text());
-        });
-        $('#selected-employees').text(selected.join(', ')); // update the new element with the selected options
+
+  prevLength = empList.value.length;
+
+  console.log(selectedEmployees);
+  console.log(empList.value);
+}
+
+
+
+    // Add keydown event listener to empList
+    empList.addEventListener("keydown", handleKeydown);
+
+    // Add input event listener to empList
+    empList.addEventListener("input", handleInput);
+
+    // Add keydown event listener to empList to handle keyboard shortcuts
+    empList.addEventListener("keydown", function(event) {
+      if (event.key === "Escape") {
+        suggestionList.innerHTML = "";
+      } else if (event.key === "Enter") {
+        var firstSuggestion = suggestionList.querySelector("li");
+        if (firstSuggestion) {
+          firstSuggestion.click();
+        }
+      }
     });
-});
 
-
+    // Render the list of selected employees
+    renderSelectedEmployees();
+  });
 </script>
+
+
+<style>
+.dropdown-container {
+	position: relative;
+}
+
+.dropdown-menu {
+	position: absolute;
+	top: 100%;
+	left: 0;
+	z-index: 1;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	background-color: #fff;
+	border: 1px solid #ccc;
+	border-top: none;
+	overflow-y: scroll;
+	max-height: 150px;
+	display: block;
+}
+
+.dropdown-menu li {
+	padding: 5px;
+	cursor: pointer;
+}
+
+.dropdown-menu li:hover {
+	background-color: #f2f2f2;
+}
+</style>
 </head>
 <body>
 
-<div class="wrapper">
+	<div class="wrapper">
 		<div class="body-overlay" />
 		<nav id="sidebar">
 			<div class="sidebar-header">
@@ -70,16 +223,18 @@ $(document).ready(function() {
 				</h3>
 			</div>
 			<ul class="list-unstyled components">
-				<li ><a href="dashboard?search=null&pg=1" class="dashboard"><i
+				<li><a href="dashboard?search=null&pg=1" class="dashboard"><i
 						class="material-icons">dashboard</i> <span>Dashboard</span></a></li>
 				<li><a href="#homeSubmenu1" data-toggle="collapse"
 					aria-expanded="false"> <i class="material-icons">playlist_add_check</i>Leave
 						Approval
 				</a></li>
 
-				<li><a href="projectallocation?pg=1"> <i class="material-icons">laptop</i>Project
+				<li><a href="projectallocation?pg=1"> <i
+						class="material-icons">laptop</i>Project
 				</a></li>
-				<li><a href="teamallocation?pg=1"> <i class="material-icons">groups</i>Team
+				<li><a href="teamallocation?pg=1"> <i
+						class="material-icons">groups</i>Team
 				</a></li>
 				<li class="active"><a href="departmentallocation?pg=1"> <i
 						class="material-icons">work</i>Department
@@ -87,11 +242,12 @@ $(document).ready(function() {
 				<!-- <li><a href="#hike" data-toggle="modal" aria-expanded="false">
 						<i class="material-icons">currency_rupee</i>Appraisal
 				</a></li> -->
-				<li><a href="#empresignation" data-toggle="modal" aria-expanded="false">
-						<i class="material-icons">directions_walk</i>Resignation approval
+				<li><a href="#empresignation" data-toggle="modal"
+					aria-expanded="false"> <i class="material-icons">directions_walk</i>Resignation
+						approval
 				</a></li>
-				<li><a href="analytics" data-toggle="modal" aria-expanded="false">
-						<i class="material-icons">analytics</i>Analytics
+				<li><a href="analytics" data-toggle="modal"
+					aria-expanded="false"> <i class="material-icons">analytics</i>Analytics
 				</a></li>
 				<li><a href="#adminprofile" data-toggle="modal"
 					aria-expanded="false"> <i class="material-icons">account_circle</i>Profile
@@ -310,9 +466,10 @@ $(document).ready(function() {
 							<div class="xp-profilebar text-right" align="right">
 								<nav class="navbar p-0">
 									<ul class="nav navbar-nav flex-row ml-auto">
-										<li class="align-right"><a href="../logout" class="nav-link"><span
-												class="material-icons">logout</span> Logout</a></li>
-										
+										<li class="align-right"><a href="../logout"
+											class="nav-link"><span class="material-icons">logout</span>
+												Logout</a></li>
+
 									</ul>
 
 
@@ -353,16 +510,16 @@ $(document).ready(function() {
 									</div>
 									<div
 										class="col-sm-6 p-0 d-flex justify-content-lg-end justify-content-center">
-										<a href="#addDepartmentModal" class="btn btn-success" data-toggle="modal"
-											> <i class="material-icons">&#xE147;</i>
+										<a href="#addDepartmentModal" class="btn btn-success"
+											data-toggle="modal"> <i class="material-icons">&#xE147;</i>
 											<span>Add New Department</span></a>
 										<!--  <a href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal">
 		  <i class="material-icons">&#xE15C;</i> <span>Delete</span></a>-->
-		  							     <!-- <a href="javascript: void(0)" onclick="window.open('allocatedepartment','_blank','width=900,height=300');" class="btn btn-success"
+										<!-- <a href="javascript: void(0)" onclick="window.open('allocatedepartment','_blank','width=900,height=300');" class="btn btn-success"
 											data-toggle="modal"> <i class="material-icons">&#xE147;</i>
 											<span>Allocate Department</span></a> -->
 									</div>
-									
+
 								</div>
 							</div>
 							<table class="table table-striped table-hover">
@@ -381,7 +538,8 @@ $(document).ready(function() {
 										<c:forEach items="${listdepartments}" var="dept">
 											<tr>
 												<td><c:out value="${dept.deptId}" /></td>
-												<td><c:out value="${fn:toUpperCase(fn:substring(dept.departmentName, 0, 1))}${fn:toLowerCase(fn:substring(dept.departmentName, 1,fn:length(dept.departmentName)))}" /></td>
+												<td><c:out
+														value="${fn:toUpperCase(fn:substring(dept.departmentName, 0, 1))}${fn:toLowerCase(fn:substring(dept.departmentName, 1,fn:length(dept.departmentName)))}" /></td>
 												<td><c:out value="${dept.hod.empName}" /></td>
 												<td><a href="#editDepartmentModal" class="edit"
 													data-toggle="modal"> <i class="material-icons"
@@ -467,26 +625,24 @@ $(document).ready(function() {
                     </tr>-->
 								</tbody>
 							</table>
-							
+
 							<div class="clearfix">
 								<div class="hint-text">
-									Total number of entries <b>${countOfDepartments}</b><br> Showing
-									page <b>${pageNo}</b> of <b>${countPages }</b>
+									Total number of entries <b>${countOfDepartments}</b><br>
+									Showing page <b>${pageNo}</b> of <b>${countPages }</b>
 								</div>
 								<ul class="pagination">
-										
-										<c:if test="${ pageNo > 1}" > 
-											<li class="page-item">
-											<a href="?pg=${pageNo-1}" class="page-link">Previous</a> 
-											</li>
-										</c:if>
-										<c:if test="${ pageNo < countPages}"> 
-											<li class="page-item">
-											<a href="?pg=${pageNo+1}" class="page-link">Next</a> 
-											</li>
-										</c:if>
-										
-									
+
+									<c:if test="${ pageNo > 1}">
+										<li class="page-item"><a href="?pg=${pageNo-1}"
+											class="page-link">Previous</a></li>
+									</c:if>
+									<c:if test="${ pageNo < countPages}">
+										<li class="page-item"><a href="?pg=${pageNo+1}"
+											class="page-link">Next</a></li>
+									</c:if>
+
+
 								</ul>
 							</div>
 						</div>
@@ -495,32 +651,34 @@ $(document).ready(function() {
 					<div id="addDepartmentModal" class="modal fade">
 						<div class="modal-dialog">
 							<div class="modal-content">
-								
-									<div class="modal-header">
-										<h4 class="modal-title">Add Department</h4>
-										<!-- <button type="button" class="close" data-dismiss="modal"
+
+								<div class="modal-header">
+									<h4 class="modal-title">Add Department</h4>
+									<!-- <button type="button" class="close" data-dismiss="modal"
 											aria-hidden="true">&times;</button> -->
-									</div>
-									<div class="modal-body">
-										<form action="addDept" method="post" modelAttribute="newdept"
+								</div>
+								<div class="modal-body">
+									<form action="addDept" method="post" modelAttribute="newdept"
 										onsubmit="return validateForm()">
 										<div class="input-container ic1">
-											<label for="departmentName" class="placeholder">Department Name</label>
+											<label for="departmentName" class="placeholder">Department
+												Name</label>
 											<div class="cut"></div>
-											<input id="departmentName" name="departmentName" class="input required"
-												type="text" placeholder=" " required />
+											<input id="departmentName" name="departmentName"
+												class="input required" type="text" placeholder=" " required />
 										</div>
 										<div class="input-container ic2">
 											<label for="hod" class="placeholder">HOD</label>
 											<div class="cut cut-short"></div>
-											<select id="hod" name="hod"
-												class="input required" placeholder=" " required>
+											<select id="hod" name="hod" class="input required"
+												placeholder=" " required>
 												<c:forEach items="${allemployeenames}" var="department">
-													<option value="${department.empId}">(${department.empId}) ${department.empName}</option>
+													<option value="${department.empId}">(${department.empId})
+														${department.empName}</option>
 												</c:forEach>
 											</select>
 										</div>
-										
+
 										<br>
 										<div class="modal-footer">
 											<button type="button" class="btn btn-secondary"
@@ -528,10 +686,10 @@ $(document).ready(function() {
 											<button type="submit" class="btn btn-primary">Submit</button>
 										</div>
 									</form>
+								</div>
 							</div>
 						</div>
-					</div>
-					<!-- <div id="allocateDepartmentModal" class="modal fade">
+						<!-- <div id="allocateDepartmentModal" class="modal fade">
 						<div class="modal-dialog">
 							<div class="modal-content">
 								<form>
@@ -572,42 +730,46 @@ $(document).ready(function() {
 					<div id="editDepartmentModal" class="modal fade">
 						<div class="modal-dialog">
 							<div class="modal-content">
-								
-									<div class="modal-header">
-										<h4 class="modal-title">Edit Employee</h4>
-										<!-- <button type="button" class="close" data-dismiss="modal"
+
+								<div class="modal-header">
+									<h4 class="modal-title">Edit Employee</h4>
+									<!-- <button type="button" class="close" data-dismiss="modal"
 											aria-hidden="true">&times;</button> -->
-									</div>
-									<div class="modal-body">
-										<form action="editDepartment" method="post" modelAttribute="newuser"
-										>
+								</div>
+								<div class="modal-body">
+									<form action="editDepartment" method="post"
+										modelAttribute="newuser">
 										<div class="input-container ic2">
-											<label for="departmentName" class="placeholder">Change Department Name</label>
+											<label for="departmentName" class="placeholder">Change
+												Department Name</label>
 											<div class="cut"></div>
-											<input id="departmentName" name="departmentName" class="input required"
-												type="text" placeholder=" " />
-												
+											<input id="departmentName" name="departmentName"
+												class="input required" type="text" placeholder=" " />
+
 										</div>
 										<div class="input-container ic2">
-											<label for="department" class="placeholder">Change HOD</label>
+											<label for="department" class="placeholder">Change
+												HOD</label>
 											<div class="cut cut-short"></div>
-											<select id="hod" name="hod"
-												class="input required" placeholder=" " required>
+											<select id="hod" name="hod" class="input required"
+												placeholder=" " required>
 												<c:forEach items="${allemployeenames}" var="department">
-													<option value="${department.empId}">(${department.empId}) ${department.empName}</option>
+													<option value="${department.empId}">(${department.empId})
+														${department.empName}</option>
 												</c:forEach>
 											</select>
 										</div>
 										<div class="input-container ic2">
-											<label for="employeelist" class="placeholder">Add Employees</label>
+											<label for="employeelist" class="placeholder">Add
+												Employees</label>
 											<div class="cut cut-short"></div>
-											<select id="emplist" name="employees"
-												class="input required" placeholder=" " multiple>
-												<c:forEach items="${allemployeenames}" var="department">
-													<option value="${department.empId}">(${department.empId}) ${department.empName}</option>
-												</c:forEach>
-											</select>
-											<div id="selected-employees"></div>
+											<input type="text" id="empList" class="input"
+												placeholder="Type employee name or ID">
+											<div class="dropdown-container">
+												<ul id="suggestions" class="dropdown-menu"></ul>
+											</div>
+											<div id="selectedEmployees"
+												class="selected-employees-container"></div>
 										</div>
 										<br>
 										<div class="cut"></div>
@@ -617,67 +779,66 @@ $(document).ready(function() {
 											<button type="submit" class="btn btn-primary">Submit</button>
 										</div>
 									</form>
+								</div>
 							</div>
 						</div>
+
+
+
+						<!-- Delete Modal HTML -->
+						<div id="deleteEmployeeModal" class="modal fade">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<form action="editStatus" method="post">
+										<div class="modal-header">
+											<h4 class="modal-title">Edit Status</h4>
+											<button type="button" class="close" data-dismiss="modal"
+												aria-hidden="true">&times;</button>
+										</div>
+										<div class="modal-body">
+											<p>Edit status for this employee?</p>
+
+										</div>
+										<div class="modal-footer">
+											<input type="submit" class="btn btn-primary" value="Active">
+											<input type="submit" class="btn btn-danger" value="Inactive">
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+
+
 					</div>
 
 
-
-					<!-- Delete Modal HTML -->
-					<div id="deleteEmployeeModal" class="modal fade">
-						<div class="modal-dialog">
-							<div class="modal-content">
-								<form action="editStatus" method="post">
-									<div class="modal-header">
-										<h4 class="modal-title">Edit Status</h4>
-										<button type="button" class="close" data-dismiss="modal"
-											aria-hidden="true">&times;</button>
-									</div>
-									<div class="modal-body">
-										<p>Edit status for this employee?</p>
-										
-									</div>
-									<div class="modal-footer">
-										<input type="submit" class="btn btn-primary" value="Active"> 
-										<input type="submit" class="btn btn-danger" value="Inactive">
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
+					<!---footer---->
 
 
 				</div>
 
-
-				<!---footer---->
-
-
+				<footer class="footer">
+					<div class="container-fluid">
+						<div class="footer-in">
+							<p class="mb-0">NRI FinTech - All Rights Reserved.</p>
+						</div>
+					</div>
+				</footer>
 			</div>
-
-			<footer class="footer">
-				<div class="container-fluid">
-					<div class="footer-in">
-						<p class="mb-0">NRI FinTech - All Rights Reserved.</p>
-					</div>
-				</div>
-			</footer>
 		</div>
-	</div>
 
 
-	<!----------html code complete----------->
-
-
+		<!----------html code complete----------->
 
 
 
 
 
 
-	<!-- Optional JavaScript -->
-	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
 
+
+		<!-- Optional JavaScript -->
+		<!-- jQuery first, then Popper.js, then Bootstrap JS -->
 </body>
 <script src="../resources/lib/jquery/jquery-3.3.1.min.js"
 	type="text/javascript" />

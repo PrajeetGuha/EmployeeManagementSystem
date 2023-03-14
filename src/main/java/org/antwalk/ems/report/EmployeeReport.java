@@ -98,7 +98,7 @@ public class EmployeeReport {
         );
 
         for(int i = 0; i < valueList.size(); i++){
-            valueList.set(i, valueList.get(i) == null ? null : valueList.get(i));
+            valueList.set(i, valueList.get(i) == null ? "null" : valueList.get(i));
         }
 
         for(int i = 2+rowIterator; i < fieldnames.size(); i++){
