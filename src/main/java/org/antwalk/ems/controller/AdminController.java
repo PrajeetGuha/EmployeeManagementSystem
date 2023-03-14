@@ -232,8 +232,6 @@ public class AdminController {
         Long empId = Long.parseLong(request.getParameter("empId"));
         String pageNo = request.getParameter("pg");
         String search = request.getParameter("search");
-        response.setContentType("application/octet-stream");
-        response.setHeader("Content-Disposition", null);
         reportService.generateEmployeeReport(response, empId);
         return "redirect:/admin/dashboard?search="+ search + "&pg="+ pageNo;
     }

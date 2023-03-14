@@ -1,7 +1,6 @@
 package org.antwalk.ems.report;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -59,32 +58,32 @@ public class EmployeeReport {
             "Aadhaar Card Number", 
             "Passport Number");
 
-        List<String> valueList = Arrays.asList(
-            employee.getEmpId().toString(),
+        List<Object> valueList = Arrays.asList(
+            employee.getEmpId(),
             employee.getEmpName(),
             employee.getGender(),
             employee.getGradeLevel(),
-            employee.getDoj().toString(),
+            employee.getDoj(),
             employee.getDesignation(),
             employee.getEmptype(),
             employee.getEmpstatus(),
-            employee.getProbPeriod().toString(),
-            employee.getProbCompDate().toString(),
-            employee.getTrainPeriod().toString(),
-            employee.getContractEndDate().toString(),
-            employee.getServPeriod().toString(),
+            employee.getProbPeriod(),
+            employee.getProbCompDate(),
+            employee.getTrainPeriod(),
+            employee.getContractEndDate(),
+            employee.getServPeriod(),
             employee.getWorkEmail(),
             employee.getBranch(),
             employee.getOffice(),
             employee.getWorkstationId(),
-            employee.getClLeft().toString(),
-            employee.getPlLeft().toString(),
-            employee.getSlLeft().toString(),
-            employee.getMoreLeave().toString(),
-            employee.getTotalLeave().toString(),
-            employee.getCtc().toString(),
+            employee.getClLeft(),
+            employee.getPlLeft(),
+            employee.getSlLeft(),
+            employee.getMoreLeave(),
+            employee.getTotalLeave(),
+            employee.getCtc(),
             employee.getDepartment().getDepartmentName(),
-            employee.getTeam().getTeamName(),
+            ( employee.getTeam() == null ? "" : employee.getTeam().getTeamName()),
             employee.getEmployeeDetails().getMaritalStatus(),
             employee.getEmployeeDetails().getPermaAddress(),
             employee.getEmployeeDetails().getEmergencyContactno(),
@@ -97,14 +96,16 @@ public class EmployeeReport {
             employee.getEmployeeDetails().getPassportno()
         );
 
+        List<String> nonullValueList = new ArrayList<>();
+
         for(int i = 0; i < valueList.size(); i++){
-            valueList.set(i, valueList.get(i) == null ? null : valueList.get(i));
+            nonullValueList.add( valueList.get(i) == null ? "" : valueList.get(i).toString());
         }
 
         for(int i = 2+rowIterator; i < fieldnames.size(); i++){
             XSSFRow row = sheet.createRow(i);
             row.createCell(0).setCellValue(fieldnames.get(rowIterator));
-            row.createCell(1).setCellValue(valueList.get(rowIterator));
+            row.createCell(1).setCellValue(nonullValueList.get(rowIterator));
             rowIterator += 1;
         }
 
