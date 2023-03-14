@@ -567,15 +567,11 @@ $('#search-form').attr('action', initialUrl + '?search=null&pg=1');
 												</a></td>
 
 												<td><c:out value="${employee.empstatus}" /></td> --%>
-												<td><a href="#editEmployeeModal" class="edit"
-													data-toggle="modal"> <i class="material-icons"
-														data-toggle="tooltip" title="View">&#xE853;</i></a> <a
-													href="report?empId=${employee.empId}&pg=1&search=${search}" class="analytics"
-													> <i class="material-icons"
-														data-toggle="tooltip" title="Analytics">summarize</i></a> <a
+												<td><a href="editemployeedetails?empId=${employee.empId}" class="edit"
+													 > <i class="material-icons"
+														data-toggle="tooltip" title="Edit">&#xE254;</i></a> <a
 													href="#deleteEmployeeModal" class="delete"
-													data-toggle="modal"
-													onclick="selectedEmpstatus(${employee.empId},'${employee.empName}', '${employee.empstatus}')">
+													data-toggle="modal">
 														<i class="material-icons" data-toggle="tooltip"
 														title="Status">new_releases</i>
 												</a></td>

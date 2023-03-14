@@ -52,7 +52,11 @@ public class ReportService {
         XSSFWorkbook workbook = new XSSFWorkbook();
 
         Employee employee = employeeRepository.getById(id);
-        employeeReport.generateReport(workbook, employee);
-        
+        response.setContentType("application/octet-stream");
+        response.setHeader("Content-Disposition", "attachment;filename=employeeReport.xlsx");
+        workbook = employeeReport.generateReport(workbook, employee);
+        ServletOutputStream ops = response.getOutputStream();
+        workbook.write(ops);
+        ops.close();
     }
 }

@@ -33,13 +33,15 @@ public class Employee {
     @Column(length = 2)
     private String gradeLevel;
 
+   
+
     @Column
     private Date doj;
 
     @Column(length = 50)
     private String designation = "unassigned";
 
-    @Column
+    @Column(length = 255)
     private String emptype;
 
     @Column
@@ -112,6 +114,9 @@ public class Employee {
 
     public Employee() {
     }
+    
+
+
 
     public Employee(Long empId, String empName, String gender, String gradeLevel, Date doj, String designation,
             String emptype, String empstatus, Integer probPeriod, Date probCompDate, Integer trainPeriod, Date contractEndDate,
