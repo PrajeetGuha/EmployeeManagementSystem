@@ -6,4 +6,6 @@ public interface EmployeeListView {
     public String getWorkEmail();
     public String getDesignation();
     public String getEmpstatus();
+    public String getGradeLevel();
+    public String getEmptype();
 }
