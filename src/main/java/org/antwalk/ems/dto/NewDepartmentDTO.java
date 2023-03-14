@@ -22,6 +22,10 @@ public class NewDepartmentDTO {
     public void setHod(Long hod) {
         this.hod = hod;
     }
+    @Override
+    public String toString() {
+        return "NewDepartmentDTO [departmentName=" + departmentName + ", hod=" + hod + "]";
+    }
 
     
 }

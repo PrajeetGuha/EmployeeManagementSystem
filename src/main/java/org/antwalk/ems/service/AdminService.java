@@ -224,6 +224,7 @@ public class AdminService {
 		Department department = new Department();
         department.setDepartmentName(newDepartment.getDepartmentName());
         department.setHod(employee);
+        departmentRepository.save(department);
 	}
 
 

@@ -17,12 +17,12 @@ public interface UserRepository extends JpaRepository<User,Long> {
 
     @Transactional
     @Modifying
-    @Query("update User u set u.isEnabled = 0 where tablePk = :empId")
+    @Query("update User u set u.isEnabled = 0 where tablePk = :empId and u.role = 'ROLE_EMP'")
     public void disableUserById(Long empId);
 
     @Transactional
     @Modifying
-    @Query("update User u set u.isEnabled = 1 where tablePk = :empId")
+    @Query("update User u set u.isEnabled = 1 where tablePk = :empId and u.role = 'ROLE_EMP'")
     public void enableUserById(Long empId);
 
     @Query("select u.username from User u")
