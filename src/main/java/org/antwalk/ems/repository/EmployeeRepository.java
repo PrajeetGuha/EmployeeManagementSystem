@@ -4,8 +4,10 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import org.antwalk.ems.model.Department;
 import org.antwalk.ems.model.Employee;
 import org.antwalk.ems.view.EmployeeListView;
+import org.antwalk.ems.view.EmployeeSelectionView;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -16,13 +18,15 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface EmployeeRepository extends JpaRepository<Employee,Long> {
     
-    @Query("select e.empId as empId, e.empName as empName, e.workEmail as workEmail, e.designation as designation, e.empstatus as empstatus from Employee e")
+    @Query("select e.empId as empId, e.empName as empName, e.workEmail as workEmail, e.designation as designation, e.empstatus as empstatus, e.gradeLevel as gradeLevel, e.emptype as emptype from Employee e")
     public Page<EmployeeListView> findAllEmployeeListViews(Pageable pageable);
 
-    @Query("select e.empName as empName from Employee e")
-    public List<String> findAllEmployeeNames();
 
-    @Query("select e.empId as empId, e.empName as empName, e.workEmail as workEmail, e.designation as designation, e.empstatus as empstatus from Employee e where e.empName like :search%")
+    @Query("select e.empId as empId, e.empName as empName from Employee e")
+    public List<EmployeeSelectionView> findAllEmployeeNames();
+
+
+    @Query("select e.empId as empId, e.empName as empName, e.workEmail as workEmail, e.designation as designation, e.empstatus as empstatus, e.gradeLevel as gradeLevel, e.emptype as emptype from Employee e where e.empName like :search%")
     public Page<EmployeeListView> findAllEmployeeListViewsWithSearch(Pageable pageable, String search);
 
     @Query("select e from Employee e where e.empName like :search%")
@@ -46,4 +50,5 @@ public interface EmployeeRepository extends JpaRepository<Employee,Long> {
 
     @Query("select empName from Employee e where empId = :empId")
     public String getEmpNameByEmpId(Long empId);
+
 }

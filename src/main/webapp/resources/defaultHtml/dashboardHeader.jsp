@@ -160,39 +160,47 @@
               <li class="active"><a href="#" class="dashboard"><i class="material-icons">dashboard</i>
                   <span>Dashboard</span></a></li>
               <li><a href="#homeSubmenu1" data-toggle="collapse" aria-expanded="false"> <i
-                    class="material-icons">playlist_add_check</i>Leave
-                  Approval
+                    class="material-icons">playlist_add_check</i>Apply Leave
+                  
                 </a></li>
 
-              <li><a href="projectallocation"> <i class="material-icons">laptop</i>Project
-                  Allocation
-                </a></li>
-              <li><a href="teamallocation"> <i class="material-icons">groups</i>Team
-                  Allocation
-                </a></li>
-              <li><a href="departmentallocation"> <i class="material-icons">work</i>Department Allocation
-                </a></li>
-              <li><a href="#hike" data-toggle="modal" aria-expanded="false">
-                  <i class="material-icons">currency_rupee</i>Appraisal
-                </a></li>
+                
+                <li><a href="#empresignation" data-toggle="modal" aria-expanded="false"> <i
+                  class="material-icons">directions_walk</i>Resignation
+              approval
 
 
+          </a></li>
+                
+              <li ><a href="employeepersonaldetails" >
+                <!-- <i class='fas fa-user-alt-slash' >Resignation</i> -->
+                <span>Personal Details</span></a></li>
+                
+                
+              <li ><a href="professionaldetails" >
+                <!-- <i class='fas fa-user-alt-slash' >Resignation</i> -->
+                <span>Professional Details</span></a></li>
+                
+              <li ><a href="qualificationdetails" >
+                <!-- <i class='fas fa-user-alt-slash' >Resignation</i> -->
+                <span>Qualification Details</span></a></li>
+              <li ><a href="familyDetails" >
+                <!-- <i class='fas fa-user-alt-slash' >Resignation</i> -->
+                <span>Family Details</span></a></li>
 
-              <li><a href="#adminprofile" data-toggle="modal" aria-expanded="false"> <i
-                    class="material-icons">account_circle</i>Profile
-                </a></li>
+             
 
 
             </ul>
 
 
           </nav>
-          
- 
 
 
-          
-      
+
+
+
+
 
 
 
@@ -244,27 +252,27 @@
 
             <!--------main-content------------->
 
-                
 
 
 
 
-               
-              <!---footer---->
 
+                <!---footer---->
+
+
+              </div>
 
             </div>
-
           </div>
+
+
+          <!----------html code complete----------->
+
+
+
+
+
         </div>
-
-
-        <!----------html code complete----------->
-
-
-
-
-
 
 
 

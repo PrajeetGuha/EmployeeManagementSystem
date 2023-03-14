@@ -81,6 +81,18 @@ public class EmployeeDetails {
     public EmployeeDetails() {
     }
 
+    @Override
+    public String toString() {
+        return "EmployeeDetails [empDetId=" + empDetId + ", profilePicDoc=" + profilePicDoc + ", maritalStatus="
+                + maritalStatus + ", permaAddress=" + permaAddress + ", primaryContactno=" + primaryContactno
+                + ", emergencyContactno=" + emergencyContactno + ", emailId=" + emailId + ", presentAddress="
+                + presentAddress + ", nationality=" + nationality + ", bloodGrp=" + bloodGrp + ", pancardDoc="
+                + pancardDoc + ", pancardnno=" + pancardnno + ", adhaarDoc=" + adhaarDoc + ", adhaarno=" + adhaarno
+                + ", passportDoc=" + passportDoc + ", passportno=" + passportno + ", listQualificationDetails="
+                + listQualificationDetails + ", listFamilyDetails=" + listFamilyDetails + ", listProfDetails="
+                + listProfDetails + "]";
+    }
+
     public EmployeeDetails(Long empDetId, DocFile profilePicDoc, String permaAddress, String primaryContactno,
             String emergencyContactno, @Email String emailId, String presentAddress, String nationality,
             String bloodGrp, DocFile pancardDoc, String pancardnno, DocFile adhaarDoc, String adhaarno,
@@ -248,6 +260,14 @@ public class EmployeeDetails {
 
     public void setListProfDetails(List<ProfDetails> listProfDetails) {
         this.listProfDetails = listProfDetails;
+    }
+
+    public String getMaritalStatus() {
+        return maritalStatus;
+    }
+
+    public void setMaritalStatus(String maritalStatus) {
+        this.maritalStatus = maritalStatus;
     }
 
     

@@ -5,16 +5,25 @@ import java.util.Optional;
 
 import javax.transaction.Transactional;
 
+import org.antwalk.ems.dto.NewDepartmentDTO;
 import org.antwalk.ems.dto.NewEmployeeDTO;
+import org.antwalk.ems.exception.DepartmentNotFoundException;
 import org.antwalk.ems.exception.UserNotFoundException;
 import org.antwalk.ems.model.Admin;
+import org.antwalk.ems.model.Department;
 import org.antwalk.ems.model.Employee;
 import org.antwalk.ems.model.EmployeeDetails;
+import org.antwalk.ems.model.Project;
+import org.antwalk.ems.model.Team;
 import org.antwalk.ems.model.User;
 import org.antwalk.ems.repository.AdminRepository;
+import org.antwalk.ems.repository.DepartmentRepository;
 import org.antwalk.ems.repository.EmployeeDetailsRepository;
 import org.antwalk.ems.repository.EmployeeRepository;
+import org.antwalk.ems.repository.ProjectRepository;
+import org.antwalk.ems.repository.TeamRepository;
 import org.antwalk.ems.view.EmployeeListView;
+import org.antwalk.ems.view.EmployeeSelectionView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
@@ -33,7 +42,7 @@ public class AdminService {
     @Autowired
     UserRepository UserRepository;
 
-    @Value("${employees.fetch.pagesize}")
+    @Value("${fetch.pagesize}")
     private int PAGE_SIZE;
 
     @Autowired
@@ -47,6 +56,15 @@ public class AdminService {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    DepartmentRepository departmentRepository;
+
+    @Autowired
+    TeamRepository teamRepository;
+
+    @Autowired
+    ProjectRepository projectRepository;
 
     @Autowired
     MailService mailService;
@@ -77,7 +95,7 @@ public class AdminService {
         if (employeeRepository.existsById(empId)){
             employeeRepository.deactivateEmpById(empId);
             userRepository.disableUserById(empId);
-            mailService.sendDeactivationMail(employeeRepository.getWorkEmailByEmpId(empId), employeeRepository.getEmpNameByEmpId(empId));
+            //mailService.sendDeactivationMail(employeeRepository.getWorkEmailByEmpId(empId), employeeRepository.getEmpNameByEmpId(empId));
         }
         else{
             throw new UserNotFoundException("User with id: " + empId + " not found");
@@ -88,7 +106,7 @@ public class AdminService {
         if (employeeRepository.existsById(empId)){
             employeeRepository.activateEmpById(empId);
             userRepository.enableUserById(empId);
-            mailService.sendActivationMail(employeeRepository.getWorkEmailByEmpId(empId), employeeRepository.getEmpNameByEmpId(empId));
+            //mailService.sendActivationMail(employeeRepository.getWorkEmailByEmpId(empId), employeeRepository.getEmpNameByEmpId(empId));
         }
         else{
             throw new UserNotFoundException("User with id: " + empId + " not found");
@@ -103,15 +121,30 @@ public class AdminService {
     }
 
     @Transactional
-    public void addEmployee(NewEmployeeDTO newEmployeeDTO){
+    public void addEmployee(NewEmployeeDTO newEmployeeDTO) throws DepartmentNotFoundException{
 
         EmployeeDetails employeeDetails = new EmployeeDetails();
-        employeeDetails.setEmailId(newEmployeeDTO.getPersonalEmail());
+        employeeDetails.setEmailId(newEmployeeDTO.getEmail());
         employeeDetailsRepository.save(employeeDetails);
 
         Employee employee = new Employee();
         employee.setEmpName(newEmployeeDTO.getName());
-        employee.setWorkEmail(newEmployeeDTO.getWorkEmail());
+        employee.setDesignation(newEmployeeDTO.getDesignation());
+        employee.setGender(newEmployeeDTO.getGender());
+        Department department = departmentRepository.findByDepartmentName(newEmployeeDTO.getDepartment()).orElseThrow(
+            () -> new DepartmentNotFoundException("Department with name" + newEmployeeDTO.getDepartment() + " not found")
+        );
+        employee.setDepartment(department);
+        employee.setGradeLevel(newEmployeeDTO.getGradeLevel());
+        employee.setDoj(newEmployeeDTO.getDoj());
+        employee.setEmptype(newEmployeeDTO.getEmptype());
+
+        if (department.getDepartmentName().toLowerCase() == "trainee"){
+            employee.setWorkEmail(newEmployeeDTO.getUsername()+"@trainee.nrifintech.com");
+        }
+        else{
+            employee.setWorkEmail(newEmployeeDTO.getUsername()+"@nrifintech.com");
+        }
         employee.setEmployeeDetails(employeeDetails);
         Employee persistedEmployee = employeeRepository.save(employee);
         
@@ -123,11 +156,72 @@ public class AdminService {
         user.setUsername(newEmployeeDTO.getUsername());
         User persistedUser = userRepository.save(user);
 
-        mailService.sendNewEmployeeMail(newEmployeeDTO.getPersonalEmail(),newEmployeeDTO.getName(),newEmployeeDTO.getWorkEmail(),newEmployeeDTO.getUsername(),newEmployeeDTO.getPassword());
+        //mailService.sendNewEmployeeMail(newEmployeeDTO.getPersonalEmail(),newEmployeeDTO.getName(),persistedEmployee.getWorkEmail(),newEmployeeDTO.getUsername(),newEmployeeDTO.getPassword());
     }
     
-    public List<String> listAllEmployees(){
+    public List<EmployeeSelectionView> listAllEmployees(){
         return employeeRepository.findAllEmployeeNames();
     }
+
+    public List<String> listAllEmails(){
+        return employeeDetailsRepository.listOfEmails();
+    }
+
+    public List<String> listAllUsernames(){
+        return userRepository.listAllUsernames();
+    }
+
+    public List<String> listDepartments() {
+        return departmentRepository.findAllDepartments();
+    }
+
+    public List<Department> getAllDepartments(int pageNo){
+        Pageable pageable = PageRequest.of(pageNo-1, PAGE_SIZE, Sort.by("deptId"));
+        return departmentRepository.findAll(pageable).getContent();
+    }
+
+    public Long countAllDepartments(){
+        return departmentRepository.count();
+    }
+    
+    public int countPagesOfDepartments(){
+        Pageable pageable = PageRequest.of(0, PAGE_SIZE, Sort.by("deptId"));
+        return departmentRepository.findAll(pageable).getTotalPages();
+    }
+
+    public List<Team> getAllTeams(int pageNo) {
+        Pageable pageable = PageRequest.of(pageNo-1, PAGE_SIZE, Sort.by("teamId"));
+        return teamRepository.findAll(pageable).getContent();
+    }
+
+    public Long countAllTeams() {
+        return teamRepository.count();
+    }
+
+    public int countPagesofTeams() {
+        Pageable pageable = PageRequest.of(0, PAGE_SIZE, Sort.by("teamId"));
+        return teamRepository.findAll(pageable).getTotalPages();
+    }
+
+    public List<Project> getAllProjects(int pageNo) {
+    	Pageable pageable = PageRequest.of(pageNo-1, PAGE_SIZE, Sort.by("projId"));
+        return projectRepository.findAll(pageable).getContent();
+    }
+
+    public Long countAllProjects() {
+    	return projectRepository.count();
+    }
+
+    public int countPagesofProjects() {
+    	Pageable pageable = PageRequest.of(0, PAGE_SIZE, Sort.by("projId"));
+    	return projectRepository.findAll(pageable).getTotalPages();
+    }
+
+	public void addDepartment(NewDepartmentDTO newDepartment) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
     
 }

@@ -62,6 +62,10 @@ body {
     border: 1px solid rgba(0,0,0,.125);
     border-radius: 0.25rem;
 }
+.card-title {
+    background: linear-gradient(120deg, #0cf9e5, #5a84eb);
+    align-items: center;
+}
 
 .sidebar .closebtn {
     position: absolute;
@@ -92,7 +96,7 @@ body {
 
 
 .card-body{
-	background-color: #C4EAE1;
+	background-color: lightcyan;
 }
 .card{
 	background-color: #C4EAE1;

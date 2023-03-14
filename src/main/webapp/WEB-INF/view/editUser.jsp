@@ -36,7 +36,7 @@
         <script src="/resources/javascript/user.js"></script>
 
 
-        <%@ include file="/resources/defaultHtml/dashboardHeader.jsp" %>
+        <%@ include file="/resources/defaultHtml/adminDashboardHeader.jsp" %>
 
             <br>
             <br>
@@ -360,21 +360,6 @@
                                                     </tr>
 
                                                     <tr>
-                                                        <td>
-                                                            EMPLOYEE ROLE :
-                                                        </td>
-                                                        <td>
-                                                            <div class="input-group ">
-                                                                <input type="text" class="form-control"
-                                                                    placeholder="EMPLOYEE ROLE"
-                                                                    aria-label="EMPLOYEE ROLE"
-                                                                    aria-describedby="basic-addon1"
-                                                                    pattern="[a-zA-Z0-9]{1,4}" name="empRole"
-                                                                    value="${employee.empRole}">
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
                                                         <td><br></td>
                                                     </tr>
                                                     <tr>
@@ -386,7 +371,7 @@
                                                                 <input type="number" class="form-control"
                                                                     placeholder="CTC"
                                                                     aria-label="CTC"
-                                                                    aria-describedby="basic-addon1" name="servPeriod"
+                                                                    aria-describedby="basic-addon1" name="ctc"
                                                                     value="${employee.ctc}" />
                                                             </div>
                                                         </td>

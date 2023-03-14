@@ -33,18 +33,7 @@ public class Employee {
     @Column(length = 2)
     private String gradeLevel;
 
-    @Override
-    public String toString() {
-        return "Employee [empId=" + empId + ", empName=" + empName + ", gender=" + gender + ", gradeLevel=" + gradeLevel
-                + ", doj=" + doj + ", designation=" + designation + ", emptype=" + emptype + ", empstatus=" + empstatus
-                + ", probPeriod=" + probPeriod + ", probCompDate=" + probCompDate + ", trainPeriod=" + trainPeriod
-                + ", contractEndDate=" + contractEndDate + ", servPeriod=" + servPeriod + ", workEmail=" + workEmail
-                + ", branch=" + branch + ", office=" + office + ", workstationId=" + workstationId + ", empRole="
-                + empRole + ", clLeft=" + clLeft + ", plLeft=" + plLeft + ", slLeft=" + slLeft + ", moreLeave="
-                + moreLeave + ", totalLeave=" + totalLeave + ", ctc=" + ctc + ", department=" + department + ", team="
-                + team + ", employeeDetails=" + employeeDetails + ", payrolls=" + payrolls + ", attendances="
-                + attendances + "]";
-    }
+   
 
     @Column
     private Date doj;
@@ -85,9 +74,6 @@ public class Employee {
 
     @Column(length = 5)
     private String workstationId;
-
-    @Column(length = 4)
-    private String empRole;
 
     @Column
     private Integer clLeft;
@@ -130,34 +116,11 @@ public class Employee {
     }
     
 
-    public Employee(Long empId, String empName, String gender, String gradeLevel, Date doj, String designation,
-            String emptype, String empstatus, Integer probPeriod, Date probCompDate, Integer trainPeriod,
-            Date contractEndDate, Integer servPeriod, @Email String workEmail, String branch, String office,
-            String workstationId, String empRole) {
-        this.empId = empId;
-        this.empName = empName;
-        this.gender = gender;
-        this.gradeLevel = gradeLevel;
-        this.doj = doj;
-        this.designation = designation;
-        this.emptype = emptype;
-        this.empstatus = empstatus;
-        this.probPeriod = probPeriod;
-        this.probCompDate = probCompDate;
-        this.trainPeriod = trainPeriod;
-        this.contractEndDate = contractEndDate;
-        this.servPeriod = servPeriod;
-        this.workEmail = workEmail;
-        this.branch = branch;
-        this.office = office;
-        this.workstationId = workstationId;
-        this.empRole = empRole;
-    }
 
 
     public Employee(Long empId, String empName, String gender, String gradeLevel, Date doj, String designation,
             String emptype, String empstatus, Integer probPeriod, Date probCompDate, Integer trainPeriod, Date contractEndDate,
-            Integer servPeriod, @Email String workEmail, String branch, String office, String workstationId, String empRole,
+            Integer servPeriod, @Email String workEmail, String branch, String office, String workstationId,
             Integer clLeft, Integer plLeft, Integer slLeft, Integer moreLeave, Integer totalLeave, Double ctc, Department department,
             Team team, EmployeeDetails employeeDetails, List<Payroll> payrolls, List<Attendance> attendances) {
         this.empId = empId;
@@ -177,7 +140,6 @@ public class Employee {
         this.branch = branch;
         this.office = office;
         this.workstationId = workstationId;
-        this.empRole = empRole;
         this.clLeft = clLeft;
         this.plLeft = plLeft;
         this.slLeft = slLeft;
@@ -325,14 +287,6 @@ public class Employee {
 
     public void setWorkstationId(String workstationId) {
         this.workstationId = workstationId;
-    }
-
-    public String getEmpRole() {
-        return empRole;
-    }
-
-    public void setEmpRole(String empRole) {
-        this.empRole = empRole;
     }
 
     public Integer getClLeft() {

@@ -44,38 +44,39 @@
 				</h3>
 			</div>
 			<ul class="list-unstyled components">
-				<li><a href="dashboard?pg=1" class="dashboard"><i
+				<li ><a href="dashboard?search=null&pg=1" class="dashboard"><i
 						class="material-icons">dashboard</i> <span>Dashboard</span></a></li>
 				<li><a href="#homeSubmenu1" data-toggle="collapse"
 					aria-expanded="false"> <i class="material-icons">playlist_add_check</i>Leave
 						Approval
-				</a> </li>
-				
-				<li class="active"><a href="#"> <i class="material-icons">laptop</i>Project
-						Allocation
-				</a> </li>
-				<li><a href="teamallocation">
-						<i class="material-icons">groups</i>Team Allocation
-				</a> </li>
-				<li><a href="departmentallocation"> <i class="material-icons">work</i>Department
-						Allocation
-				</a> </li>
-				<li><a href="#hike" data-toggle="modal" aria-expanded="false">
-						<i class="material-icons">currency_rupee</i>Appraisal
-				</a> </li>
+				</a></li>
 
-				
-		
+				<li class="active"><a href="projectallocation?pg=1"> <i class="material-icons">laptop</i>Project
+				</a></li>
+				<li><a href="teamallocation?pg=1"> <i class="material-icons">groups</i>Team
+				</a></li>
+				<li><a href="departmentallocation?pg=1"> <i
+						class="material-icons">work</i>Department
+				</a></li>
+				<!-- <li><a href="#hike" data-toggle="modal" aria-expanded="false">
+						<i class="material-icons">currency_rupee</i>Appraisal
+				</a></li> -->
+				<li><a href="#empresignation" data-toggle="modal" aria-expanded="false">
+						<i class="material-icons">directions_walk</i>Resignation approval
+				</a></li>
+				<li><a href="analytics" data-toggle="modal" aria-expanded="false">
+						<i class="material-icons">analytics</i>Analytics
+				</a></li>
 				<li><a href="#adminprofile" data-toggle="modal"
 					aria-expanded="false"> <i class="material-icons">account_circle</i>Profile
-				</a> </li>
+				</a></li>
 
 
 			</ul>
 
 
 		</nav>
-		<div id="project" class="modal fade">
+		<!-- <div id="project" class="modal fade">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<form action="proAlloc" method="post">
@@ -93,7 +94,7 @@
 								<label>Project Name</label> <input type="text"
 									class="form-control" required>
 							</div>
-							
+
 						</div>
 						<div class="modal-footer">
 							<input type="button" class="btn btn-default" data-dismiss="modal"
@@ -123,7 +124,7 @@
 								<label>Team Name</label> <input type="text" class="form-control"
 									required>
 							</div>
-						
+
 						</div>
 						<div class="modal-footer">
 							<input type="button" class="btn btn-default" data-dismiss="modal"
@@ -153,7 +154,7 @@
 								<label>Department Name</label> <input type="text"
 									class="form-control" required>
 							</div>
-							
+
 						</div>
 						<div class="modal-footer">
 							<input type="button" class="btn btn-default" data-dismiss="modal"
@@ -187,7 +188,7 @@
 								<label>Hike Date</label> <input type="date" class="form-control"
 									required>
 							</div>
-							
+
 						</div>
 						<div class="modal-footer">
 							<input type="button" class="btn btn-default" data-dismiss="modal"
@@ -197,7 +198,7 @@
 					</form>
 				</div>
 			</div>
-		</div>
+		</div> -->
 
 		<div id="adminprofile" class="modal fade">
 			<div class="modal-dialog">
@@ -242,7 +243,6 @@
 
 
 
-
 		<!--------page-content---------------->
 
 		<div id="content">
@@ -253,19 +253,19 @@
 				<div class="xp-topbar">
 
 					<!-- Start XP Row -->
-					<div class="row">
+					<div class="row justify-content-end">
 						<!-- Start XP Col -->
-						<div
+						<!-- <div
 							class="col-2 col-md-1 col-lg-1 order-2 order-md-1 align-self-center">
 							<div class="xp-menubar">
 								<span class="material-icons text-white">signal_cellular_alt
 								</span>
 							</div>
-						</div>
+						</div> -->
 						<!-- End XP Col -->
 
 						<!-- Start XP Col -->
-						<div class="col-md-5 col-lg-3 order-3 order-md-2">
+						<!-- <div class="col-md-5 col-lg-3 order-3 order-md-2">
 							<div class="xp-searchbar">
 								<form>
 									<div class="input-group">
@@ -276,63 +276,17 @@
 									</div>
 								</form>
 							</div>
-						</div>
+						</div> -->
 						<!-- End XP Col -->
 
 						<!-- Start XP Col -->
-						<div class="col-10 col-md-6 col-lg-8 order-1 order-md-3">
-							<div class="xp-profilebar text-right">
+						<div class="col-md-3 col-lg-2 order-1 order-md-3 ">
+							<div class="xp-profilebar text-right" align="right">
 								<nav class="navbar p-0">
 									<ul class="nav navbar-nav flex-row ml-auto">
-										<li><a href="../logout"><span class="material-icons">logout</span>
-												Logout</a></li>
-										<!--  <li class="dropdown nav-item active">
-                                <a href="#" class="nav-link" data-toggle="dropdown">
-                                   <span class="material-icons">notifications</span>
-								   <span class="notification">4</span>
-                               </a>
-                                <ul class="dropdown-menu">
-                                    <li>
-                                        <a href="#">You have 5 new messages</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">You're now friend with Mike</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Wish Mary on her birthday!</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">5 warnings in Server Console</a>
-                                    </li>
-                                  
-                                </ul>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">
-								<span class="material-icons">question_answer</span>
-
-								</a>
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link" href="#" data-toggle="dropdown">
-								<img src="img/user.jpg" style="width:40px; border-radius:50%;"/>
-								<span class="xp-user-live"></span>
-								</a>
-								<ul class="dropdown-menu small-menu">
-                                    <li>
-                                        <a href="#">
-										  <span class="material-icons">person_outline</span>Profile
-
-										</a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><span class="material-icons">settings</span>Settings</a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><span class="material-icons">logout</span>Logout</a>
-                                    </li>
-                                </ul>
-                            </li>-->
+										<li class="align-right"><a href="../logout" class="nav-link"><span
+												class="material-icons">logout</span> Logout</a></li>
+										
 									</ul>
 
 
@@ -342,12 +296,13 @@
 						</div>
 						<!-- End XP Col -->
 
+
 					</div>
 					<!-- End XP Row -->
 
 				</div>
 				<div class="xp-breadcrumbbar text-center">
-					<h4 class="page-title">Project Dashboard</h4>
+					<h4 class="page-title">Manage Projects</h4>
 					<!-- <ol class="breadcrumb">
 						<li class="breadcrumb-item"><a href="#">Booster</a></li>
 						<li class="breadcrumb-item active" aria-current="page">Dashboard</li>
@@ -373,14 +328,14 @@
 									</div>
 									<div
 										class="col-sm-6 p-0 d-flex justify-content-lg-end justify-content-center">
-										<a href="javascript: void(0)" onclick="window.open('addproject','_blank','width=900,height=300');"  class="btn btn-success"
+										<a href="#addProjectModal"  class="btn btn-success" data-toggle="modal"
 											> <i class="material-icons">&#xE147;</i>
 											<span>Add New Project</span></a>
 										<!--  <a href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal">
 		  <i class="material-icons">&#xE15C;</i> <span>Delete</span></a>-->
-		  <a href="javascript: void(0)" onclick="window.open('allocateproject','_blank','width=900,height=300');" class="btn btn-success"
+		  <!-- <a href="javascript: void(0)" onclick="window.open('allocateproject','_blank','width=900,height=300');" class="btn btn-success"
 											> <i class="material-icons">&#xE147;</i>
-											<span>Allocate Project</span></a>
+											<span>Allocate Project</span></a> -->
 									</div>
 								</div>
 							</div>
@@ -390,26 +345,28 @@
 
 										<th>ID</th>
 										<th>PROJECT NAME</th>
-										<th>TEAM NAME</th>
-										<th>Actions</th>
+										<th>PROJECT MANAGER</th>
+										<th>START TIME</th>
+										<th>END TIME</th>
+										<th>ACTIONS</th>
 									</tr>
 								</thead>
 								<tbody>
 									<tr>
 
-										<c:forEach items="${employees}" var="employee">
+										<c:forEach items="${listprojects}" var="project">
 											<tr>
-												<td><c:out value="${employee.empId}" /></td>
-												<td><c:out value="${employee.empName}" /></td>
-												<td><c:out value="${employee.workEmail}" /></td>
-												<td><c:out value="${employee.designation}" /></td>
-												<td><c:out value="${employee.empstatus}" /></td>
-												<td><a href="#editEmployeeModal" class="edit"
+												<td><c:out value="${project.projId}" /></td>
+												<td><c:out value="${project.projectName}" /></td>
+												<td><c:out value="${project.pm}" /></td>
+												<td><c:out value="${project.startDate}" /></td>
+												<td><c:out value="${project.endDate}" /></td>
+												<td><a href="#editProjectModal" class="edit"
 													data-toggle="modal"> <i class="material-icons"
 														data-toggle="tooltip" title="Edit">&#xE254;</i></a> <a
-													href="#deleteEmployeeModal" class="delete"
+													href="#generateProjectReportModal" class="report"
 													data-toggle="modal"> <i class="material-icons"
-														data-toggle="tooltip" title="Status">&#xE152;</i></a></td>
+														data-toggle="tooltip" title="Report">summarize</i></a></td>
 											</tr>
 										</c:forEach>
 
@@ -491,8 +448,8 @@
 							
 							<div class="clearfix">
 								<div class="hint-text">
-									Total number of entries <b>${empCount}</b><br> Showing
-									page <b>${pageNo}</b>
+									Total number of entries <b>${countOfprojects}</b><br> Showing
+									page <b>${pageNo}</b> of <b>${countPages}</b>
 								</div>
 								<ul class="pagination">
 										
@@ -501,7 +458,7 @@
 											<a href="?pg=${pageNo-1}" class="page-link">Previous</a> 
 											</li>
 										</c:if>
-										<c:if test="${ pageNo < pageCount}"> 
+										<c:if test="${ pageNo < countPages}"> 
 											<li class="page-item">
 											<a href="?pg=${pageNo+1}" class="page-link">Next</a> 
 											</li>

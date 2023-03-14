@@ -63,9 +63,9 @@ public class EmployeeController {
     @GetMapping("editemployeedetails")
     public String editemployeedetails(HttpServletRequest request, Model model){
         String id = request.getParameter("empId");
-        Long id=Long
+        Long id_val=Long.getLong(id);
         System.out.println(id);
-        Employee employee = employeeRepository.getById((id));
+        Employee employee = employeeRepository.getById(id_val);
         model.addAttribute("employee",employee);
         return "myProfile";
     }
@@ -74,10 +74,20 @@ public class EmployeeController {
     public String personaldetails(HttpServletRequest request, Model model){
         Long id = AuthenticationSystem.getId();
         System.out.println(id);
-        EmployeeDetails employeeDetails = employeeDetailsRepository.(id);
+        EmployeeDetails employeeDetails = employeeDetailsRepository.getById(id);
         model.addAttribute("employeeinfo",employeeDetails);
         return "myProfile";
     }
+    
+    @GetMapping("professionaldetails")
+   	public String professionaldetails() {
+          		return "myProfession";
+   	}
+    
+       @GetMapping("qualificationdetails")
+   	public String qualificationdetails() {
+          		return "myQualification";
+   	}
 
     @GetMapping("dashboards")
     public String employeesdashboard(HttpServletRequest request, Model model){
@@ -110,10 +120,20 @@ public class EmployeeController {
     	return "editUser";
     }
 
+    @GetMapping("employeepersonaldetails")
+    public String employeepersonaldetails(HttpServletRequest request, Model model) {
+    	Long id = AuthenticationSystem.getId();
+        System.out.println("Emp details  "+id);
+    	EmployeeDetails employeeDetails = employeeService.EmployeeInfo(id);
+    	model.addAttribute("employeeinfomation",employeeDetails);
+        System.out.println(employeeDetails);
+        // model.addAttribute("familyDetails", new ArrayList<FamilyDetails>());
+    	return "personalDetails";
+    }
+
 
     @PostMapping("postfamilydetails")
     public String postfamilydetails(@ModelAttribute("listOfFamily") List<FamilyDetails> families,BindingResult result) {
-        System.out.println("Hi Done");
             // familyDetailsRepository.saveAll(families); // save all updated users to the database
             // if(result.hasErrors()){
             //     return "error";
@@ -122,19 +142,14 @@ public class EmployeeController {
             return "redirect:/familyDetails";
     }
     
-    @PostMapping("editemployee")
-    public String editemployee(@ModelAttribute("employeeinfo") Employee employee, BindingResult result, RedirectAttributes redirectAttrs) throws UserNotFoundException{
+    @PostMapping("personaldetailsofemployee")
+    public String editemployee(@ModelAttribute("emppersonaldetails") EmployeeDetails employeeDetails, BindingResult result, RedirectAttributes redirectAttrs) throws UserNotFoundException{
             // familyDetailsRepository.saveAll(families); // save all updated users to the database
-            System.out.println("Started");
-            System.out.println("Id of employee "+employee.getEmpId());
-            System.out.println(employee);
+           
             Long id = AuthenticationSystem.getId();
-            // System.out.println(employees);
-            employeeRepository.save(employee);
-            System.out.println(employee.getEmpId());
-            System.out.println(employee.getEmpName());
-            System.out.println(employee.getBranch());
-            System.out.println("Done");
-            return "redirect:/employee/dashboard";
+            System.out.println("hello "+id);
+            System.out.println(employeeDetails);
+            employeeDetailsRepository.save(employeeDetails);
+            return "redirect:/employee/employeepersonaldetails";
     }
 }
