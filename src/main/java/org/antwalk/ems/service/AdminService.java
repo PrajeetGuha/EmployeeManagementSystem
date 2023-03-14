@@ -21,6 +21,7 @@ import org.antwalk.ems.repository.EmployeeRepository;
 import org.antwalk.ems.repository.ProjectRepository;
 import org.antwalk.ems.repository.TeamRepository;
 import org.antwalk.ems.view.EmployeeListView;
+import org.antwalk.ems.view.EmployeeSelectionView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
@@ -141,7 +142,7 @@ public class AdminService {
         //mailService.sendNewEmployeeMail(newEmployeeDTO.getPersonalEmail(),newEmployeeDTO.getName(),persistedEmployee.getWorkEmail(),newEmployeeDTO.getUsername(),newEmployeeDTO.getPassword());
     }
     
-    public List<String> listAllEmployees(){
+    public List<EmployeeSelectionView> listAllEmployees(){
         return employeeRepository.findAllEmployeeNames();
     }
 
