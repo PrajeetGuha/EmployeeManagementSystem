@@ -217,9 +217,13 @@ public class AdminService {
     	return projectRepository.findAll(pageable).getTotalPages();
     }
 
-	public void addDepartment(NewDepartmentDTO newDepartment) {
-		// TODO Auto-generated method stub
-		
+	public void addDepartment(NewDepartmentDTO newDepartment) throws DepartmentNotFoundException {
+		Employee employee = employeeRepository.findById(newDepartment.getHod()).orElseThrow(
+            () -> new DepartmentNotFoundException("The department not found.")
+        );
+		Department department = new Department();
+        department.setDepartmentName(newDepartment.getDepartmentName());
+        department.setHod(employee);
 	}
 
 
