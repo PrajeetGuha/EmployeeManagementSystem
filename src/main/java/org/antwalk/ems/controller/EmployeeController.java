@@ -55,17 +55,15 @@ public class EmployeeController {
     public String employeedashboard(HttpServletRequest request, Model model){
         Long id = AuthenticationSystem.getId();
         System.out.println(id);
-        Employee employee = employeeRepository.getById(id);
+        Employee employee = employeeService.findEmployee(id);
         model.addAttribute("employee",employee);
         return "myProfile";
     }
 
     @GetMapping("editemployeedetails")
     public String editemployeedetails(HttpServletRequest request, Model model){
-        String id = request.getParameter("empId");
-        Long id_val=Long.getLong(id);
-        System.out.println(id);
-        Employee employee = employeeRepository.getById(id_val);
+        Long id = AuthenticationSystem.getId();
+        Employee employee = employeeService.findEmployee(id);
         model.addAttribute("employee",employee);
         return "myProfile";
     }
@@ -74,7 +72,7 @@ public class EmployeeController {
     public String personaldetails(HttpServletRequest request, Model model){
         Long id = AuthenticationSystem.getId();
         System.out.println(id);
-        EmployeeDetails employeeDetails = employeeDetailsRepository.getById(id);
+        EmployeeDetails employeeDetails = employeeService.employeeInfo(id);
         model.addAttribute("employeeinfo",employeeDetails);
         return "myProfile";
     }
@@ -124,7 +122,7 @@ public class EmployeeController {
     public String employeepersonaldetails(HttpServletRequest request, Model model) {
     	Long id = AuthenticationSystem.getId();
         System.out.println("Emp details  "+id);
-    	EmployeeDetails employeeDetails = employeeService.EmployeeInfo(id);
+    	EmployeeDetails employeeDetails = employeeService.employeeInfo(id);
     	model.addAttribute("employeeinfomation",employeeDetails);
         System.out.println(employeeDetails);
         // model.addAttribute("familyDetails", new ArrayList<FamilyDetails>());

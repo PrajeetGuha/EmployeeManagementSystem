@@ -5,13 +5,18 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.antwalk.ems.model.Employee;
+import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class EmployeeReport {
+
+    @Autowired
+    private Style style;
     
     public XSSFWorkbook generateReport(XSSFWorkbook workbook, Employee employee){
         XSSFSheet sheet = workbook.createSheet(employee.getEmpName() + "-Employee Details");
@@ -106,9 +111,16 @@ public class EmployeeReport {
 
         for(int i = 2+rowIterator; i < fieldnames.size(); i++){
             XSSFRow row = sheet.createRow(i);
-            row.createCell(0).setCellValue(fieldnames.get(rowIterator));
+            XSSFCell descriptorCell = row.createCell(0);
+            descriptorCell.setCellStyle(style.descriptorFieldStyle(workbook));
+            descriptorCell.setCellValue(fieldnames.get(rowIterator));
             row.createCell(1).setCellValue(nonullValueList.get(rowIterator));
             rowIterator += 1;
+        }
+
+        int numCol = 2;
+        for(int i = 0; i < numCol; i++){
+            sheet.autoSizeColumn(i);
         }
 
         return workbook;
