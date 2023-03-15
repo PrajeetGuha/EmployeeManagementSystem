@@ -69,6 +69,7 @@ private EmployeeRepository employeeRepository;
         model.addAttribute("empCount",empCount);
         model.addAttribute("pageNo",pageNo);
         model.addAttribute("allemployeenames",allemployees);
+        
         model.addAttribute("usernames",usernames);
         model.addAttribute("emailIds", emailIds);
         model.addAttribute("departments", listOfdepartments);

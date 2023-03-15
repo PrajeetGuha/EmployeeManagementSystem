@@ -387,13 +387,13 @@ $('#search-form').attr('action', initialUrl + '?search=null&pg=1');
 		<div id="adminprofile" class="modal fade">
 			<div class="modal-dialog">
 				<div class="modal-content">
-					<form action="hike" method="post">
+					
 						<div class="modal-header">
 							<h4 class="modal-title">ADMIN PROFILE</h4>
-							<button type="button" class="close" data-dismiss="modal"
-								aria-hidden="true">&times;</button>
+							
 						</div>
 						<div class="modal-body">
+							<form >
 							<ul>
 								<li>
 									<p>
@@ -414,7 +414,7 @@ $('#search-form').attr('action', initialUrl + '?search=null&pg=1');
 						</div>
 
 						<div class="modal-footer">
-							<input type="button" class="btn btn-default" data-dismiss="modal"
+							<input type="button" class="btn btn-secondary" data-dismiss="modal"
 								value="Close">
 
 						</div>
@@ -736,6 +736,7 @@ $('#search-form').attr('action', initialUrl + '?search=null&pg=1');
 											<div class="cut cut-short"></div>
 											<select id="department" name="department"
 												class="input required" placeholder="Deparment" required>
+												<option value="">Unassigned</option>
 												<c:forEach items="${departments}" var="department">
 													<option value="${department}">${department}</option>
 												</c:forEach>

@@ -179,6 +179,24 @@
   });
 </script>
 
+<script>
+var aniket=null;
+function getdeptId(deptId) {
+	
+	  // Store the value in the deptIdInput hidden field
+	  $("#deptIdInput").attr("value",deptId);
+		
+	  console.log(deptId);
+	  console.log(document.getElementById("deptIdInput").value);
+	  aniket=deptId;
+
+	}
+	
+function getmeId() {
+	
+	  return aniket;
+	}
+</script>
 
 <style>
 .dropdown-container {
@@ -541,13 +559,93 @@
 												<td><c:out
 														value="${fn:toUpperCase(fn:substring(dept.departmentName, 0, 1))}${fn:toLowerCase(fn:substring(dept.departmentName, 1,fn:length(dept.departmentName)))}" /></td>
 												<td><c:out value="${dept.hod.empName}" /></td>
-												<td><a href="#editDepartmentModal" class="edit"
-													data-toggle="modal"> <i class="material-icons"
+												<td><a href="#editDepartmentModal${dept.deptId }" class="edit"
+													data-toggle="modal" onclick="getdeptId('${dept.deptId}')"> <i class="material-icons"
 														data-toggle="tooltip" title="Edit">&#xE254;</i></a> <a
 													href="#generateDepartmentReportModal" class="report"
 													data-toggle="modal"> <i class="material-icons"
 														data-toggle="tooltip" title="Report">summarize</i></a></td>
 											</tr>
+											
+											
+											
+					<!-- Edit Modal HTML -->
+					<div id="editDepartmentModal${dept.deptId }" class="modal fade">
+						<div class="modal-dialog">
+							<div class="modal-content">
+
+								<div class="modal-header">
+									<h4 class="modal-title">Edit Department</h4>
+									<!-- <button type="button" class="close" data-dismiss="modal"
+											aria-hidden="true">&times;</button> -->
+								</div>
+								<div class="modal-body">
+									<form action="editDepartment" method="post"
+										modelAttribute="newuser">
+										<input type="hidden" id="deptIdInput" name="deptId" />
+
+										<div class="input-container ic2">
+											<label for="departmentName" class="placeholder">Change
+												Department Name</label>
+											<div class="cut"></div>
+											<input id="departmentName" name="departmentName"
+												class="input required" type="text" placeholder=" " />
+
+										</div>
+										<div class="input-container ic2">
+											<label for="department" class="placeholder">Change
+												HOD</label>
+											<div class="cut cut-short"></div>
+											<select id="hod" name="hod" class="input required"
+												placeholder=" " required>
+												<c:forEach items="${allemployeenames}" var="department">
+													<option value="${department.empId}">(${department.empId})
+														${department.empName}</option>
+												</c:forEach>
+											</select>
+										</div>
+										<div class="input-container ic2">
+											<label for="employeelist" class="placeholder">Add
+												Employees</label>
+											<div class="cut cut-short"></div>
+											<input type="text" id="empList" class="input"
+												placeholder="Type employee name or ID">
+											<div class="dropdown-container">
+												<ul id="suggestions" class="dropdown-menu"></ul>
+											</div>
+											<div id="selectedEmployees"
+												class="selected-employees-container"></div>
+										</div>
+										<div class="input-container ic2">
+											<label for="empindept" class="placeholder">Employees
+												in Department</label>
+											<div class="cut"></div>
+											<select id="emplist" name="emplist" class="input required"
+												placeholder=" " disabled>
+											
+												
+														<c:forEach items="${dept.employees}" var="emp" >
+													<option value="${emp.empId}">(${emp.empId})
+														${emp.empName}</option>
+														</c:forEach>
+											
+											</select>
+											
+
+										</div>
+										<br>
+										<div class="cut"></div>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-secondary"
+												data-dismiss="modal">Close</button>
+											<button type="submit" class="btn btn-primary">Submit</button>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+											
+											
 										</c:forEach>
 
 									</tr>
@@ -672,9 +770,12 @@
 											<div class="cut cut-short"></div>
 											<select id="hod" name="hod" class="input required"
 												placeholder=" " required>
-												<c:forEach items="${allemployeenames}" var="department">
+												<option value="">Unassigned</option>
+												<c:forEach items="${allemployeenames}" var="department">	
 													<option value="${department.empId}">(${department.empId})
 														${department.empName}</option>
+														
+														
 												</c:forEach>
 											</select>
 										</div>
@@ -689,156 +790,36 @@
 								</div>
 							</div>
 						</div>
-						<!-- <div id="allocateDepartmentModal" class="modal fade">
-						<div class="modal-dialog">
-							<div class="modal-content">
-								<form>
-									<div class="modal-header">
-										<h4 class="modal-title">Allocate Department</h4>
-										<button type="button" class="close" data-dismiss="modal"
-											aria-hidden="true">&times;</button>
-									</div>
-									<div class="modal-body">
-										<div class="form-group">
-											<label>Employee Name</label> <input type="text" class="form-control"
-												required>
-										</div>
-										<div class="form-group">
-											<label>Department Name</label> <input type="text" class="form-control"
-												required>
-										</div>
-										
-										 <div class="form-group">
-											<label>Address</label>
-											<textarea class="form-control" required></textarea>
-										</div>
-										<div class="form-group">
-											<label>Phone</label> <input type="text" class="form-control"
-												required>
-										</div>
-									</div>
-									<div class="modal-footer">
-										<input type="button" class="btn btn-default"
-											data-dismiss="modal" value="Cancel"> <input
-											type="submit" class="btn btn-success" value="Add">
-									</div>
-								</form>
-							</div>
-						</div> -->
 					</div>
-					<!-- Edit Modal HTML -->
-					<div id="editDepartmentModal" class="modal fade">
-						<div class="modal-dialog">
-							<div class="modal-content">
-
-								<div class="modal-header">
-									<h4 class="modal-title">Edit Employee</h4>
-									<!-- <button type="button" class="close" data-dismiss="modal"
-											aria-hidden="true">&times;</button> -->
-								</div>
-								<div class="modal-body">
-									<form action="editDepartment" method="post"
-										modelAttribute="newuser">
-										<div class="input-container ic2">
-											<label for="departmentName" class="placeholder">Change
-												Department Name</label>
-											<div class="cut"></div>
-											<input id="departmentName" name="departmentName"
-												class="input required" type="text" placeholder=" " />
-
-										</div>
-										<div class="input-container ic2">
-											<label for="department" class="placeholder">Change
-												HOD</label>
-											<div class="cut cut-short"></div>
-											<select id="hod" name="hod" class="input required"
-												placeholder=" " required>
-												<c:forEach items="${allemployeenames}" var="department">
-													<option value="${department.empId}">(${department.empId})
-														${department.empName}</option>
-												</c:forEach>
-											</select>
-										</div>
-										<div class="input-container ic2">
-											<label for="employeelist" class="placeholder">Add
-												Employees</label>
-											<div class="cut cut-short"></div>
-											<input type="text" id="empList" class="input"
-												placeholder="Type employee name or ID">
-											<div class="dropdown-container">
-												<ul id="suggestions" class="dropdown-menu"></ul>
-											</div>
-											<div id="selectedEmployees"
-												class="selected-employees-container"></div>
-										</div>
-										<br>
-										<div class="cut"></div>
-										<div class="modal-footer">
-											<button type="button" class="btn btn-secondary"
-												data-dismiss="modal">Close</button>
-											<button type="submit" class="btn btn-primary">Submit</button>
-										</div>
-									</form>
-								</div>
-							</div>
-						</div>
 
 
-
-						<!-- Delete Modal HTML -->
-						<div id="deleteEmployeeModal" class="modal fade">
-							<div class="modal-dialog">
-								<div class="modal-content">
-									<form action="editStatus" method="post">
-										<div class="modal-header">
-											<h4 class="modal-title">Edit Status</h4>
-											<button type="button" class="close" data-dismiss="modal"
-												aria-hidden="true">&times;</button>
-										</div>
-										<div class="modal-body">
-											<p>Edit status for this employee?</p>
-
-										</div>
-										<div class="modal-footer">
-											<input type="submit" class="btn btn-primary" value="Active">
-											<input type="submit" class="btn btn-danger" value="Inactive">
-										</div>
-									</form>
-								</div>
-							</div>
-						</div>
+						<!---footer---->
 
 
 					</div>
 
-
-					<!---footer---->
-
-
+					<footer class="footer">
+						<div class="container-fluid">
+							<div class="footer-in">
+								<p class="mb-0">NRI FinTech - All Rights Reserved.</p>
+							</div>
+						</div>
+					</footer>
 				</div>
-
-				<footer class="footer">
-					<div class="container-fluid">
-						<div class="footer-in">
-							<p class="mb-0">NRI FinTech - All Rights Reserved.</p>
-						</div>
-					</div>
-				</footer>
 			</div>
-		</div>
 
 
-		<!----------html code complete----------->
-
-
+			<!----------html code complete----------->
 
 
 
 
 
 
-		<!-- Optional JavaScript -->
-		<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
+
+			<!-- Optional JavaScript -->
+			<!-- jQuery first, then Popper.js, then Bootstrap JS -->
 </body>
 <script src="../resources/lib/jquery/jquery-3.3.1.min.js"
 	type="text/javascript" />
