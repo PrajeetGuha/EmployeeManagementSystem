@@ -166,18 +166,6 @@
                                                     </tr>
 
                                                     <tr>
-                                                        <td>
-                                                            EMPLOYEE STATUS :
-                                                        </td>
-                                                        <td>
-                                                            <select class="form-select"
-                                                                aria-label="Default select example" name="empstatus">
-                                                                <option value="active" selected>ACTIVE</option>
-                                                                <option value="inactive">INACTIVE</option>
-                                                            </select>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
                                                         <td><br></td>
                                                     </tr>
 
