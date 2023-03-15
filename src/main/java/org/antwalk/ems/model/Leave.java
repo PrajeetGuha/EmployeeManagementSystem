@@ -13,7 +13,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table
-public class Attendance {
+public class Leave {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,10 +36,10 @@ public class Attendance {
     @JsonIgnoreProperties("attendance")
     private Admin admin;
 
-    public Attendance() {
+    public Leave() {
     }
 
-    public Attendance(Long empAttId, String isApproved, String leaveType, String leaveReason, Employee employee,
+    public Leave(Long empAttId, String isApproved, String leaveType, String leaveReason, Employee employee,
             Admin admin) {
         this.empAttId = empAttId;
         this.isApproved = isApproved;

@@ -110,7 +110,7 @@ public class Employee {
 
     @OneToMany(mappedBy = "employee")
     @JsonIgnoreProperties("employee")
-    private List<Attendance> attendances;
+    private List<Leave> leaves;
 
     public Employee() {
     }
@@ -122,7 +122,7 @@ public class Employee {
             String emptype, String empstatus, Integer probPeriod, Date probCompDate, Integer trainPeriod, Date contractEndDate,
             Integer servPeriod, @Email String workEmail, String branch, String office, String workstationId,
             Integer clLeft, Integer plLeft, Integer slLeft, Integer moreLeave, Integer totalLeave, Double ctc, Department department,
-            Team team, EmployeeDetails employeeDetails, List<Payroll> payrolls, List<Attendance> attendances) {
+            Team team, EmployeeDetails employeeDetails, List<Payroll> payrolls, List<Leave> leaves) {
         this.empId = empId;
         this.empName = empName;
         this.gender = gender;
@@ -150,7 +150,7 @@ public class Employee {
         this.team = team;
         this.employeeDetails = employeeDetails;
         this.payrolls = payrolls;
-        this.attendances = attendances;
+        this.leaves = leaves;
     }
 
     public Long getEmpId() {
@@ -369,12 +369,12 @@ public class Employee {
         this.payrolls = payrolls;
     }
 
-    public List<Attendance> getAttendances() {
-        return attendances;
+    public List<Leave> getAttendances() {
+        return leaves;
     }
 
-    public void setAttendances(List<Attendance> attendances) {
-        this.attendances = attendances;
+    public void setAttendances(List<Leave> leaves) {
+        this.leaves = leaves;
     }
 
     
