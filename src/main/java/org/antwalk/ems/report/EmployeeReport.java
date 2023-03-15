@@ -99,7 +99,9 @@ public class EmployeeReport {
         List<String> nonullValueList = new ArrayList<>();
 
         for(int i = 0; i < valueList.size(); i++){
+
             nonullValueList.add( valueList.get(i) == null ? "" : valueList.get(i).toString());
+
         }
 
         for(int i = 2+rowIterator; i < fieldnames.size(); i++){
