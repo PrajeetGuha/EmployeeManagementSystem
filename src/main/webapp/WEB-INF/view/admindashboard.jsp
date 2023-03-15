@@ -786,7 +786,7 @@ $('#search-form').attr('action', initialUrl + '?search=null&pg=1');
 												type="password" placeholder=" " required /> <span
 												id="password-error" class="error-text"></span>
 										</div>
-										<br>
+										<br><div class="cut"></div>
 										<div class="modal-footer">
 											<button type="button" class="btn btn-secondary"
 												data-dismiss="modal">Close</button>
@@ -849,15 +849,15 @@ $('#search-form').attr('action', initialUrl + '?search=null&pg=1');
 
 									<div class="modal-header">
 										<h4 class="modal-title">Edit Status</h4>
-										<button type="button" class="close" data-dismiss="modal"
-											aria-hidden="true">&times;</button>
+										<!-- <button type="button" class="close" data-dismiss="modal"
+											aria-hidden="true">&times;</button> -->
 									</div>
 									<div class="modal-body">
 
 										<!-- <p>Edit status for this employee?</p> -->
 
 										<p>
-											Edit status of <span id="empstatusname"></span>
+											Edit status of <span id="empstatusname"></span> ?
 										</p>
 
 
@@ -870,7 +870,10 @@ $('#search-form').attr('action', initialUrl + '?search=null&pg=1');
  -->
 										<!-- <input type="submit" class="btn btn-primary" value="Active" id = "activate"> 
 										<input type="submit" class="btn btn-danger" value="Inactive" id = "deactivate"> -->
+										<button type="button" class="btn btn-secondary"
+												data-dismiss="modal">Close</button>
 										<input type="submit" id="changestatusbtn" />
+										
 
 									</div>
 								</form:form>
