@@ -261,7 +261,7 @@ $('#search-form').attr('action', initialUrl + '?search=null&pg=1');
 						</div>
 						<div class="modal-body">
 							<div class="form-group">
-								<label>Team Name</label> <input type="text" class="form-control"
+								<label>Team Name</label> <input type="text" class="form-control" pattern=""
 									required>
 							</div>
 							<div class="form-group">
@@ -557,12 +557,12 @@ $('#search-form').attr('action', initialUrl + '?search=null&pg=1');
 												</a></td>
 
 												<td><c:out value="${employee.empstatus}" /></td> --%>
-												<td><a
-													href="editemployeedetails?empId=${employee.empId}"> <i
-														class="material-icons" data-toggle="tooltip" title="View">&#xE853;</i>
-												</a> <a
-													href="report?empId=${employee.empId}&pg=1&search=${search}"
-													class="analytics"> <i class="material-icons"
+
+												<td><a href="editemployeedetails?empId=${employee.empId}&pg=1&search=${search}" 
+													> <i class="material-icons"
+														data-toggle="tooltip" title="View">&#xE853;</i></a> <a
+													href="report?empId=${employee.empId}&pg=1&search=${search}" class="analytics"
+													> <i class="material-icons"
 														data-toggle="tooltip" title="Analytics">summarize</i></a> <a
 													href="#deleteEmployeeModal" class="delete"
 													data-toggle="modal"
@@ -698,7 +698,7 @@ $('#search-form').attr('action', initialUrl + '?search=null&pg=1');
 											<input id="name" name="name" class="input required"
 												type="text" placeholder=" " required />
 										</div>
-										<div class="input-container ic2">
+										<br><br>										<div class="input-container ic2">
 											<label for="email" class="placeholder">Personal Email</label>
 											<div class="cut cut-short"></div>
 											<input id="email" name="personalEmail" class="input required"
@@ -786,7 +786,10 @@ $('#search-form').attr('action', initialUrl + '?search=null&pg=1');
 												required />
 										</div>
 										<br>
+<<<<<<< HEAD
 										<div class="cut"></div>
+=======
+>>>>>>> dc1648cf40ca9b2a9c430c5f88ddccc1eac5550f
 										<div class="modal-footer">
 											<button type="button" class="btn btn-secondary"
 												data-dismiss="modal">Close</button>

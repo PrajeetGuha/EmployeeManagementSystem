@@ -3,6 +3,7 @@
 
 
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
     <!DOCTYPE html>
     <html>
 
@@ -158,6 +159,33 @@
                                                     <input type="file" class="form-control" id="inputGroupFile01">
                                                 </div>
                                                 <br>
+                                                
+                                                <div class="input-group mb-3">
+                                                    <label class="input-group-text" for="inputGroupFile01">Marital status</label>
+
+                                                        <c:set var="maritalstatus"
+                                                            value="${['married', 'single', 'divorced']}" />
+                                                            
+                                                        <select class="form-select"
+                                                        aria-label="Default select example" name="maritalStatus">
+                                                            <c:forEach items="${maritalstatus}" var="option">
+                                                                <c:if test="${option!=employee.maritalStatus}">
+                                                                <option value="${option}" ><b>${fn:toUpperCase(option)}</b></option>
+                                                             
+                                                           
+                                                           
+                                                            </c:if>
+                                                                <c:if test="${option==employee.maritalStatus}">
+                                                                    <option value="${option}" selected><b>${fn:toUpperCase(option)}</b></option>
+                                                                 
+                                                               
+                                                               
+                                                                </c:if>
+                                                                    
+                                                            </c:forEach>
+                                                        </select>
+                                                        
+                                                </div>
                                                 <input type="hidden" name="empDetId"  value="${employeeinfomation.empDetId}">
                                                 <!-- <input type="hidden" name="empDetId" value="${employeeinfomation.empDetId}"> -->
                                                 <center><input type="submit" class="btn btn-primary"></button></center>
