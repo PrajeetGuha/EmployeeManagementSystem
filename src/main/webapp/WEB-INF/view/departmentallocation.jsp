@@ -243,10 +243,7 @@ function getmeId() {
 			<ul class="list-unstyled components">
 				<li><a href="dashboard?search=null&pg=1" class="dashboard"><i
 						class="material-icons">dashboard</i> <span>Dashboard</span></a></li>
-				<li><a href="#homeSubmenu1" data-toggle="collapse"
-					aria-expanded="false"> <i class="material-icons">playlist_add_check</i>Leave
-						Approval
-				</a></li>
+				
 
 				<li><a href="projectallocation?pg=1"> <i
 						class="material-icons">laptop</i>Project
@@ -257,15 +254,19 @@ function getmeId() {
 				<li class="active"><a href="departmentallocation?pg=1"> <i
 						class="material-icons">work</i>Department
 				</a></li>
-				<!-- <li><a href="#hike" data-toggle="modal" aria-expanded="false">
-						<i class="material-icons">currency_rupee</i>Appraisal
-				</a></li> -->
+				<li><a href="#homeSubmenu1" data-toggle="collapse"
+					aria-expanded="false"> <i class="material-icons">playlist_add_check</i>Leave
+						Approval
+				</a></li>
 				<li><a href="#empresignation" data-toggle="modal"
 					aria-expanded="false"> <i class="material-icons">directions_walk</i>Resignation
 						approval
 				</a></li>
 				<li><a href="analytics" data-toggle="modal"
 					aria-expanded="false"> <i class="material-icons">analytics</i>Analytics
+				</a></li>
+				<li><a href="#changePasswordModal" data-toggle="modal"
+					aria-expanded="false"> <i class="material-icons">vpn_key</i>Change Password
 				</a></li>
 				<li><a href="#adminprofile" data-toggle="modal"
 					aria-expanded="false"> <i class="material-icons">account_circle</i>Profile
@@ -276,129 +277,7 @@ function getmeId() {
 
 
 		</nav>
-		<!-- <div id="project" class="modal fade">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<form action="proAlloc" method="post">
-						<div class="modal-header">
-							<h4 class="modal-title">PROJECT ALLOCATION</h4>
-							<button type="button" class="close" data-dismiss="modal"
-								aria-hidden="true">&times;</button>
-						</div>
-						<div class="modal-body">
-							<div class="form-group">
-								<label>Team Name</label> <input type="text" class="form-control"
-									required>
-							</div>
-							<div class="form-group">
-								<label>Project Name</label> <input type="text"
-									class="form-control" required>
-							</div>
 
-						</div>
-						<div class="modal-footer">
-							<input type="button" class="btn btn-default" data-dismiss="modal"
-								value="Cancel"> <input type="submit"
-								class="btn btn-success" value="Add">
-						</div>
-					</form>
-				</div>
-			</div>
-		</div>
-
-		<div id="team" class="modal fade">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<form action="teamAlloc" method="post">
-						<div class="modal-header">
-							<h4 class="modal-title">TEAM ALLOCATION</h4>
-							<button type="button" class="close" data-dismiss="modal"
-								aria-hidden="true">&times;</button>
-						</div>
-						<div class="modal-body">
-							<div class="form-group">
-								<label>Employee Name</label> <input type="text"
-									class="form-control" required>
-							</div>
-							<div class="form-group">
-								<label>Team Name</label> <input type="text" class="form-control"
-									required>
-							</div>
-
-						</div>
-						<div class="modal-footer">
-							<input type="button" class="btn btn-default" data-dismiss="modal"
-								value="Cancel"> <input type="submit"
-								class="btn btn-success" value="Add">
-						</div>
-					</form>
-				</div>
-			</div>
-		</div>
-
-		<div id="department" class="modal fade">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<form action="deptAlloc" method="post">
-						<div class="modal-header">
-							<h4 class="modal-title">DEPARTMENT ALLOCATION</h4>
-							<button type="button" class="close" data-dismiss="modal"
-								aria-hidden="true">&times;</button>
-						</div>
-						<div class="modal-body">
-							<div class="form-group">
-								<label>Employee Name</label> <input type="text"
-									class="form-control" required>
-							</div>
-							<div class="form-group">
-								<label>Department Name</label> <input type="text"
-									class="form-control" required>
-							</div>
-
-						</div>
-						<div class="modal-footer">
-							<input type="button" class="btn btn-default" data-dismiss="modal"
-								value="Cancel"> <input type="submit"
-								class="btn btn-success" value="Add">
-						</div>
-					</form>
-				</div>
-			</div>
-		</div>
-
-		<div id="hike" class="modal fade">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<form action="hike" method="post">
-						<div class="modal-header">
-							<h4 class="modal-title">APPRAISAL</h4>
-							<button type="button" class="close" data-dismiss="modal"
-								aria-hidden="true">&times;</button>
-						</div>
-						<div class="modal-body">
-							<div class="form-group">
-								<label>Employee Name</label> <input type="text"
-									class="form-control" required>
-							</div>
-							<div class="form-group">
-								<label>Hike</label> <input type="text" class="form-control"
-									required>
-							</div>
-							<div class="form-group">
-								<label>Hike Date</label> <input type="date" class="form-control"
-									required>
-							</div>
-
-						</div>
-						<div class="modal-footer">
-							<input type="button" class="btn btn-default" data-dismiss="modal"
-								value="Cancel"> <input type="submit"
-								class="btn btn-success" value="Add">
-						</div>
-					</form>
-				</div>
-			</div>
-		</div> -->
 
 		<div id="adminprofile" class="modal fade">
 			<div class="modal-dialog">
@@ -559,168 +438,92 @@ function getmeId() {
 												<td><c:out
 														value="${fn:toUpperCase(fn:substring(dept.departmentName, 0, 1))}${fn:toLowerCase(fn:substring(dept.departmentName, 1,fn:length(dept.departmentName)))}" /></td>
 												<td><c:out value="${dept.hod.empName}" /></td>
-												<td><a href="#editDepartmentModal${dept.deptId }" class="edit"
-													data-toggle="modal" onclick="getdeptId('${dept.deptId}')"> <i class="material-icons"
-														data-toggle="tooltip" title="Edit">&#xE254;</i></a> <a
-													href="#generateDepartmentReportModal" class="report"
+												<td><a href="#editDepartmentModal${dept.deptId }"
+													class="edit" data-toggle="modal"
+													onclick="getdeptId('${dept.deptId}')"> <i
+														class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+													<a href="#generateDepartmentReportModal" class="report"
 													data-toggle="modal"> <i class="material-icons"
 														data-toggle="tooltip" title="Report">summarize</i></a></td>
 											</tr>
-											
-											
-											
-					<!-- Edit Modal HTML -->
-					<div id="editDepartmentModal${dept.deptId }" class="modal fade">
-						<div class="modal-dialog">
-							<div class="modal-content">
 
-								<div class="modal-header">
-									<h4 class="modal-title">Edit Department</h4>
-									<!-- <button type="button" class="close" data-dismiss="modal"
+
+
+											<!-- Edit Modal HTML -->
+											<div id="editDepartmentModal${dept.deptId }"
+												class="modal fade">
+												<div class="modal-dialog">
+													<div class="modal-content">
+
+														<div class="modal-header">
+															<h4 class="modal-title">Edit Department</h4>
+															<!-- <button type="button" class="close" data-dismiss="modal"
 											aria-hidden="true">&times;</button> -->
-								</div>
-								<div class="modal-body">
-									<form action="editDepartment" method="post"
-										modelAttribute="newuser">
-										<input type="hidden" id="deptIdInput" name="deptId" />
+														</div>
+														<div class="modal-body">
+															<form action="editDepartment" method="post"
+																modelAttribute="newuser">
+																<input type="hidden" id="deptIdInput" name="deptId" />
 
-										<div class="input-container ic2">
-											<label for="departmentName" class="placeholder">Change
-												Department Name</label>
-											<div class="cut"></div>
-											<input id="departmentName" name="departmentName"
-												class="input required" type="text" placeholder=" " />
+																<div class="input-container ic2">
+																	<label for="departmentName" class="placeholder">Change
+																		Department Name</label>
+																	<div class="cut"></div>
+																	<input id="departmentName" name="departmentName"
+																		class="input required" type="text" placeholder=" " />
 
-										</div>
-										<div class="input-container ic2">
-											<label for="department" class="placeholder">Change
-												HOD</label>
-											<div class="cut cut-short"></div>
-											<select id="hod" name="hod" class="input required"
-												placeholder=" " required>
-												<c:forEach items="${allemployeenames}" var="department">
-													<option value="${department.empId}">(${department.empId})
-														${department.empName}</option>
-												</c:forEach>
-											</select>
-										</div>
-										<div class="input-container ic2">
-											<label for="employeelist" class="placeholder">Add
-												Employees</label>
-											<div class="cut cut-short"></div>
-											<input type="text" id="empList" class="input"
-												placeholder="Type employee name or ID">
-											<div class="dropdown-container">
-												<ul id="suggestions" class="dropdown-menu"></ul>
-											</div>
-											<div id="selectedEmployees"
-												class="selected-employees-container"></div>
-										</div>
-										<div class="input-container ic2">
-											<label for="empindept" class="placeholder">Employees
-												in Department</label>
-											<div class="cut"></div>
-											<select id="emplist" name="emplist" class="input required"
-												placeholder=" " disabled>
-											
-												
-														<c:forEach items="${dept.employees}" var="emp" >
-													<option value="${emp.empId}">(${emp.empId})
-														${emp.empName}</option>
-														</c:forEach>
-											
-											</select>
-											
+																</div>
+																<div class="input-container ic2">
+																	<label for="department" class="placeholder">Change
+																		HOD</label>
+																	<div class="cut cut-short"></div>
+																	<select id="hod" name="hod" class="input required"
+																		placeholder=" " required>
+																		<c:forEach items="${allemployeenames}"
+																			var="department">
+																			<option value="${department.empId}">(${department.empId})
+																				${department.empName}</option>
+																		</c:forEach>
+																	</select>
+																</div>
+																<div class="input-container ic2">
+																	<label for="employeelist" class="placeholder">Add
+																		Employees</label>
+																	<div class="cut cut-short"></div>
+																	<input type="text" id="empList" class="input"
+																		placeholder="Type employee name or ID">
+																	<div class="dropdown-container">
+																		<ul id="suggestions" class="dropdown-menu"></ul>
+																	</div>
+																	<div id="selectedEmployees"
+																		class="selected-employees-container"></div>
+																</div>
+																<div class="input-container ic2">
+																	<label for="empindept" class="placeholder">Employees
+																		in Department</label>
+																	<div class="cut"></div>
+																	<ul class="list-group" id="emplist">
+																		<c:forEach items="${dept.employees}" var="emp">
+																			<li class="list-group-item">(${emp.empId}) ${emp.empName}
+																				</li>
+																		</c:forEach>
+																	</ul>
 
-										</div>
-										<br>
-										<div class="cut"></div>
-										<div class="modal-footer">
-											<button type="button" class="btn btn-secondary"
-												data-dismiss="modal">Close</button>
-											<button type="submit" class="btn btn-primary">Submit</button>
-										</div>
-									</form>
-								</div>
-							</div>
-						</div>
-											
-											
+
+
+																</div>
+																<br>
+																<div class="cut"></div>
+																<div class="modal-footer">
+																	<button type="button" class="btn btn-secondary"
+																		data-dismiss="modal">Close</button>
+																	<button type="submit" class="btn btn-primary">Submit</button>
+																</div>
+															</form>
+														</div>
+													</div>
+												</div>
 										</c:forEach>
-
-									</tr>
-									<!--  <tr>
-                      <td>
-                        <span class="custom-checkbox">
-                          <input type="checkbox" id="checkbox2" name="options[]" value="1">
-                          <label for="checkbox2"></label>
-                        </span>
-                      </td>
-                      <td>Dominique Perrier</td>
-                      <td>dominiqueperrier@mail.com</td>
-                      <td>Obere Str. 57, Berlin, Germany</td>
-                      <td>(313) 555-5735</td>
-                      <td>
-                        <a href="#editEmployeeModal" class="edit" data-toggle="modal">
-                          <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                        <a href="#deleteEmployeeModal" class="delete" data-toggle="modal">
-                          <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <span class="custom-checkbox">
-                          <input type="checkbox" id="checkbox3" name="options[]" value="1">
-                          <label for="checkbox3"></label>
-                        </span>
-                      </td>
-                      <td>Maria Anders</td>
-                      <td>mariaanders@mail.com</td>
-                      <td>25, rue Lauriston, Paris, France</td>
-                      <td>(503) 555-9931</td>
-                      <td>
-                        <a href="#editEmployeeModal" class="edit" data-toggle="modal">
-                          <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                        <a href="#deleteEmployeeModal" class="delete" data-toggle="modal">
-                          <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <span class="custom-checkbox">
-                          <input type="checkbox" id="checkbox4" name="options[]" value="1">
-                          <label for="checkbox4"></label>
-                        </span>
-                      </td>
-                      <td>Fran Wilson</td>
-                      <td>franwilson@mail.com</td>
-                      <td>C/ Araquil, 67, Madrid, Spain</td>
-                      <td>(204) 619-5731</td>
-                      <td>
-                        <a href="#editEmployeeModal" class="edit" data-toggle="modal">
-                          <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                        <a href="#deleteEmployeeModal" class="delete" data-toggle="modal">
-                          <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <span class="custom-checkbox">
-                          <input type="checkbox" id="checkbox5" name="options[]" value="1">
-                          <label for="checkbox5"></label>
-                        </span>
-                      </td>
-                      <td>Martin Blank</td>
-                      <td>martinblank@mail.com</td>
-                      <td>Via Monte Bianco 34, Turin, Italy</td>
-                      <td>(480) 631-2097</td>
-                      <td>
-                        <a href="#editEmployeeModal" class="edit" data-toggle="modal">
-                          <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                         <a href="#deleteEmployeeModal" class="delete" data-toggle="modal">
-			<i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-                      </td>
-                    </tr>-->
 								</tbody>
 							</table>
 
@@ -745,7 +548,7 @@ function getmeId() {
 							</div>
 						</div>
 					</div>
-					<!-- Edit Modal HTML -->
+					<!-- Add Modal HTML -->
 					<div id="addDepartmentModal" class="modal fade">
 						<div class="modal-dialog">
 							<div class="modal-content">
@@ -771,11 +574,11 @@ function getmeId() {
 											<select id="hod" name="hod" class="input required"
 												placeholder=" " required>
 												<option value="">Unassigned</option>
-												<c:forEach items="${allemployeenames}" var="department">	
+												<c:forEach items="${allemployeenames}" var="department">
 													<option value="${department.empId}">(${department.empId})
 														${department.empName}</option>
-														
-														
+
+
 												</c:forEach>
 											</select>
 										</div>
@@ -791,35 +594,83 @@ function getmeId() {
 							</div>
 						</div>
 					</div>
+					
+					<!-- Password Modal HTML -->
+				<div id="changePasswordModal" class="modal fade">
+					<div class="modal-dialog">
+						<div class="modal-content">
 
+							<div class="modal-header">
+								<h4 class="modal-title">Change Password</h4>
+								<!-- <button type="button" class="close" data-dismiss="modal"
+											aria-hidden="true">&times;</button> -->
+							</div>
+							<div class="modal-body">
+								<form action="changePassword" method="post"
+									modelAttribute="newpass">
+									<div class="input-container ic1">
+										<label for="empId" class="placeholder">Employee Name</label>
+										<div class="cut"></div>
+										<select id="empId" name="empId" class="input required"
+											placeholder=" " required>
+											<c:forEach items="${allemployeenames}" var="department">
+												<option value="${department.empId}">(${department.empId})
+													${department.empName}</option>
+											</c:forEach>
+										</select>
+									</div>
+									<div class="input-container ic2">
+										<label for="hod" class="placeholder">New Password</label>
+										<div class="cut cut-short"></div>
+										<input id="changedpassword" name="changedpassword" class="input required"
+											type="password" placeholder=" "
+											pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+]).{8,}$"
+											oninput="setCustomValidity('')"
+											oninvalid="setCustomValidity('Password must be of 8 characters and contain at least one capital character, one number, and a special character.')"
+											required />
+									</div>
 
-						<!---footer---->
-
-
-					</div>
-
-					<footer class="footer">
-						<div class="container-fluid">
-							<div class="footer-in">
-								<p class="mb-0">NRI FinTech - All Rights Reserved.</p>
+									<br>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-secondary"
+											data-dismiss="modal">Close</button>
+										<button type="submit" class="btn btn-primary">Submit</button>
+									</div>
+								</form>
 							</div>
 						</div>
-					</footer>
+					</div>
 				</div>
+					
+
+
+					<!---footer---->
+
+
+				</div>
+
+				<footer class="footer">
+					<div class="container-fluid">
+						<div class="footer-in">
+							<p class="mb-0">NRI FinTech - All Rights Reserved.</p>
+						</div>
+					</div>
+				</footer>
 			</div>
+		</div>
 
 
-			<!----------html code complete----------->
-
-
-
-
+		<!----------html code complete----------->
 
 
 
 
-			<!-- Optional JavaScript -->
-			<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
+
+
+
+		<!-- Optional JavaScript -->
+		<!-- jQuery first, then Popper.js, then Bootstrap JS -->
 </body>
 <script src="../resources/lib/jquery/jquery-3.3.1.min.js"
 	type="text/javascript" />
@@ -833,19 +684,5 @@ function getmeId() {
 	type="text/javascript" />
 
 
-<!-- <script type="text/javascript">
-        
-		$(document).ready(function(){
-		  $(".xp-menubar").on('click',function(){
-		    $('#sidebar').toggleClass('active');
-			$('#content').toggleClass('active');
-		  });
-		  
-		   $(".xp-menubar,.body-overlay").on('click',function(){
-		     $('#sidebar,.body-overlay').toggleClass('show-nav');
-		   });
-		  
-		});
-		
-</script> -->
+
 </html>

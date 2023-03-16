@@ -2,6 +2,7 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 
@@ -174,19 +175,6 @@ $('#search-form').attr('action', initialUrl + '?search=null&pg=1');
         isValid = false;
     }
     
-    // Validate password field
-    var password = $("#password").val();
-    var passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+]).{8,}$/;
-    if (password === "") {
-        $("#password").addClass("error");
-        $("#password-error").text("Password is required");
-        isValid = false;
-    } else if (!passwordRegex.test(password)) {
-        $("#password").addClass("error");
-        $("#password-error").text("Password must contain at least 8 characters including an uppercase letter, a number and a special character");
-        isValid = false;
-    }
-    
     return isValid;
   }
 </script>
@@ -227,10 +215,7 @@ $('#search-form').attr('action', initialUrl + '?search=null&pg=1');
 			<ul class="list-unstyled components">
 				<li class="active"><a href="dashboard?search=null&pg=1"
 					class="dashboard"><i class="material-icons">dashboard</i> <span>Dashboard</span></a></li>
-				<li><a href="#homeSubmenu1" data-toggle="collapse"
-					aria-expanded="false"> <i class="material-icons">playlist_add_check</i>Leave
-						Approval
-				</a></li>
+
 
 				<li><a href="projectallocation?pg=1"> <i
 						class="material-icons">laptop</i>Project
@@ -241,15 +226,20 @@ $('#search-form').attr('action', initialUrl + '?search=null&pg=1');
 				<li><a href="departmentallocation?pg=1"> <i
 						class="material-icons">work</i>Department
 				</a></li>
-				<!-- <li><a href="#hike" data-toggle="modal" aria-expanded="false">
-						<i class="material-icons">currency_rupee</i>Appraisal
-				</a></li> -->
+				<li><a href="#homeSubmenu1" data-toggle="collapse"
+					aria-expanded="false"> <i class="material-icons">playlist_add_check</i>Leave
+						Approval
+				</a></li>
 				<li><a href="#empresignation" data-toggle="modal"
 					aria-expanded="false"> <i class="material-icons">directions_walk</i>Resignation
 						approval
 				</a></li>
 				<li><a href="analytics" data-toggle="modal"
 					aria-expanded="false"> <i class="material-icons">analytics</i>Analytics
+				</a></li>
+				<li><a href="#changePasswordModal" data-toggle="modal"
+					aria-expanded="false"> <i class="material-icons">vpn_key</i>Change
+						Password
 				</a></li>
 				<li><a href="#adminprofile" data-toggle="modal"
 					aria-expanded="false"> <i class="material-icons">account_circle</i>Profile
@@ -387,13 +377,13 @@ $('#search-form').attr('action', initialUrl + '?search=null&pg=1');
 		<div id="adminprofile" class="modal fade">
 			<div class="modal-dialog">
 				<div class="modal-content">
-					
-						<div class="modal-header">
-							<h4 class="modal-title">ADMIN PROFILE</h4>
-							
-						</div>
-						<div class="modal-body">
-							<form >
+
+					<div class="modal-header">
+						<h4 class="modal-title">ADMIN PROFILE</h4>
+
+					</div>
+					<div class="modal-body">
+						<form>
 							<ul>
 								<li>
 									<p>
@@ -411,13 +401,13 @@ $('#search-form').attr('action', initialUrl + '?search=null&pg=1');
 									</p>
 								</li>
 							</ul>
-						</div>
+					</div>
 
-						<div class="modal-footer">
-							<input type="button" class="btn btn-secondary" data-dismiss="modal"
-								value="Close">
+					<div class="modal-footer">
+						<input type="button" class="btn btn-secondary"
+							data-dismiss="modal" value="Close">
 
-						</div>
+					</div>
 					</form>
 				</div>
 			</div>
@@ -567,11 +557,12 @@ $('#search-form').attr('action', initialUrl + '?search=null&pg=1');
 												</a></td>
 
 												<td><c:out value="${employee.empstatus}" /></td> --%>
-												<td><a href="editemployeedetails?empId=${employee.empId}" 
-													> <i class="material-icons"
-														data-toggle="tooltip" title="View">&#xE853;</i></a> <a
-													href="report?empId=${employee.empId}&pg=1&search=${search}" class="analytics"
-													> <i class="material-icons"
+												<td><a
+													href="editemployeedetails?empId=${employee.empId}"> <i
+														class="material-icons" data-toggle="tooltip" title="View">&#xE853;</i>
+												</a> <a
+													href="report?empId=${employee.empId}&pg=1&search=${search}"
+													class="analytics"> <i class="material-icons"
 														data-toggle="tooltip" title="Analytics">summarize</i></a> <a
 													href="#deleteEmployeeModal" class="delete"
 													data-toggle="modal"
@@ -718,12 +709,12 @@ $('#search-form').attr('action', initialUrl + '?search=null&pg=1');
 											<label for="gender" class="placeholder">Gender</label>
 											<div class="cut cut-short"></div>
 											<div class="wrapper-class">
-											<input id="gender-male" name="gender" class="input required"
-												type="radio" value="male" required /><label
-												for="gender-male">Male</label> <input id="gender-female"
-												name="gender" class="input" type="radio" value="female"
-												required /><label for="gender-female">Female</label>
-												</div>
+												<input id="gender-male" name="gender" class="input required"
+													type="radio" value="male" required /><label
+													for="gender-male">Male</label> <input id="gender-female"
+													name="gender" class="input" type="radio" value="female"
+													required /><label for="gender-female">Female</label>
+											</div>
 										</div>
 										<div class="input-container ic2">
 											<label for="designation" class="placeholder">Designation</label>
@@ -788,10 +779,14 @@ $('#search-form').attr('action', initialUrl + '?search=null&pg=1');
 											<label for="password" class="placeholder">Password</label>
 											<div class="cut"></div>
 											<input id="password" name="password" class="input required"
-												type="password" placeholder=" " required /> <span
-												id="password-error" class="error-text"></span>
+												type="password" placeholder=" "
+												pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+]).{8,}$"
+												oninput="setCustomValidity('')"
+												oninvalid="setCustomValidity('Password must be of 8 characters and contain at least one capital character, one number, and a special character.')"
+												required />
 										</div>
-										<br><div class="cut"></div>
+										<br>
+										<div class="cut"></div>
 										<div class="modal-footer">
 											<button type="button" class="btn btn-secondary"
 												data-dismiss="modal">Close</button>
@@ -805,7 +800,7 @@ $('#search-form').attr('action', initialUrl + '?search=null&pg=1');
 
 
 
-					<!-- Edit Modal HTML -->
+					<%-- <!-- Edit Modal HTML -->
 					<div id="editEmployeeModal" class="modal fade">
 						<div class="modal-dialog">
 							<div class="modal-content">
@@ -841,7 +836,7 @@ $('#search-form').attr('action', initialUrl + '?search=null&pg=1');
 								</form>
 							</div>
 						</div>
-					</div>
+					</div> --%>
 
 
 					<!-- <!-- Delete Modal HTML -->
@@ -876,20 +871,63 @@ $('#search-form').attr('action', initialUrl + '?search=null&pg=1');
 										<!-- <input type="submit" class="btn btn-primary" value="Active" id = "activate"> 
 										<input type="submit" class="btn btn-danger" value="Inactive" id = "deactivate"> -->
 										<button type="button" class="btn btn-secondary"
-												data-dismiss="modal">Close</button>
+											data-dismiss="modal">Close</button>
 										<input type="submit" id="changestatusbtn" />
-										
+
 
 									</div>
 								</form:form>
 							</div>
 						</div>
 					</div>
-
-
-
 				</div>
 
+				<!-- Password Modal HTML -->
+				<div id="changePasswordModal" class="modal fade">
+					<div class="modal-dialog">
+						<div class="modal-content">
+
+							<div class="modal-header">
+								<h4 class="modal-title">Change Password</h4>
+								<!-- <button type="button" class="close" data-dismiss="modal"
+											aria-hidden="true">&times;</button> -->
+							</div>
+							<div class="modal-body">
+								<form action="changePassword" method="post"
+									modelAttribute="newpass">
+									<div class="input-container ic1">
+										<label for="empId" class="placeholder">Employee Name</label>
+										<div class="cut"></div>
+										<select id="empId" name="empId" class="input required"
+											placeholder=" " required>
+											<c:forEach items="${allemployeenames}" var="department">
+												<option value="${department.empId}">(${department.empId})
+													${department.empName}</option>
+											</c:forEach>
+										</select>
+									</div>
+									<div class="input-container ic2">
+										<label for="hod" class="placeholder">New Password</label>
+										<div class="cut cut-short"></div>
+										<input id="changedpassword" name="changedpassword" class="input required"
+											type="password" placeholder=" "
+											pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+]).{8,}$"
+											oninput="setCustomValidity('')"
+											oninvalid="setCustomValidity('Password must be of 8 characters and contain at least one capital character, one number, and a special character.')"
+											required />
+									</div>
+
+									<br>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-secondary"
+											data-dismiss="modal">Close</button>
+										<button type="submit" class="btn btn-primary">Submit</button>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
 
 				<!---footer---->
 
