@@ -69,6 +69,7 @@ private EmployeeRepository employeeRepository;
         model.addAttribute("empCount",empCount);
         model.addAttribute("pageNo",pageNo);
         model.addAttribute("allemployeenames",allemployees);
+        
         model.addAttribute("usernames",usernames);
         model.addAttribute("emailIds", emailIds);
         model.addAttribute("departments", listOfdepartments);
@@ -259,7 +260,7 @@ private EmployeeRepository employeeRepository;
     //     return "editUser";
     // }
     @PostMapping("editemployee")
-    public String editemployee(@ModelAttribute("employeeinfo") Employee employee, BindingResult result, RedirectAttributes redirectAttrs) throws UserNotFoundException{
+    public String editemployee(@ModelAttribute("employeeinfo") Employee employee, BindingResult result, RedirectAttributes redirectAttrs, @RequestParam String search, @RequestParam int pg) throws UserNotFoundException{
             employeeRepository.save(employee);
             // ?search="+search+"&pg="+pg
             return "redirect:/admin/dashboard?search=null&pg=1";

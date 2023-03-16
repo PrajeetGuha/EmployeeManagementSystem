@@ -139,12 +139,7 @@ public class AdminService {
         employee.setDoj(newEmployeeDTO.getDoj());
         employee.setEmptype(newEmployeeDTO.getEmptype());
 
-        if (department.getDepartmentName().toLowerCase() == "trainee"){
-            employee.setWorkEmail(newEmployeeDTO.getUsername()+"@trainee.nrifintech.com");
-        }
-        else{
-            employee.setWorkEmail(newEmployeeDTO.getUsername()+"@nrifintech.com");
-        }
+        employee.setWorkEmail(newEmployeeDTO.getUsername()+"@nrifintech.com");
         employee.setEmployeeDetails(employeeDetails);
         Employee persistedEmployee = employeeRepository.save(employee);
         
