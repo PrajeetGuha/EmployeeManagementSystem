@@ -46,7 +46,7 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<h5 class="modal-title" id="exampleModalLabel">Success!</h5>
-					
+
 				</div>
 				<div class="modal-body">${successMessage}</div>
 			</div>
@@ -596,9 +596,8 @@ $('#search-form').attr('action', initialUrl + '?search=null&pg=1');
 														title="View">&#xE853;</i>
 												</a> <a
 													href="report?empId=${employee.empId}&pg=1&search=${search}"
-													class="analytics"> <i
-														class="material-icons" data-toggle="tooltip"
-														title="Analytics">summarize</i></a> <a
+													class="analytics"> <i class="material-icons"
+														data-toggle="tooltip" title="Analytics">summarize</i></a> <a
 													href="#deleteEmployeeModal" class="delete"
 													data-toggle="modal"
 													onclick="selectedEmpstatus(${employee.empId},'${employee.empName}', '${employee.empstatus}')">
@@ -734,8 +733,7 @@ $('#search-form').attr('action', initialUrl + '?search=null&pg=1');
 											<input id="name" name="name" class="input required"
 												type="text" placeholder=" " required />
 										</div>
-										<br>
-										<br>
+										<br> <br>
 										<div class="input-container ic2">
 											<label for="email" class="placeholder">Personal Email</label>
 											<div class="cut cut-short"></div>

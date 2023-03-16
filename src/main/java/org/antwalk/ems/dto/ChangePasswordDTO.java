@@ -1,23 +1,23 @@
 package org.antwalk.ems.dto;
 
 public class ChangePasswordDTO {
-    private Long empId;
-    private String newPassword;
+    private Long tablePk;
+    private String password;
 
     // getters and setters
     public Long getEmpId() {
-        return empId;
+        return tablePk;
     }
 
     public void setEmpId(Long empId) {
-        this.empId = empId;
+        this.tablePk = empId;
     }
 
-    public String getNewPassword() {
-        return newPassword;
+    public String getPassword() {
+        return password;
     }
 
-    public void setNewPassword(String newPassword) {
-        this.newPassword = newPassword;
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

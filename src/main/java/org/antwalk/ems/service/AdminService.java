@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import javax.transaction.Transactional;
 
+import org.antwalk.ems.dto.ChangePasswordDTO;
 import org.antwalk.ems.dto.NewDepartmentDTO;
 import org.antwalk.ems.dto.NewEmployeeDTO;
 import org.antwalk.ems.exception.DepartmentNotFoundException;
@@ -221,6 +222,19 @@ public class AdminService {
         department.setHod(employee);
         departmentRepository.save(department);
 	}
+	
+	public void changePassword(ChangePasswordDTO changePasswordDTO) {
+	    // retrieve user entity from database using empId
+	    User user = userRepository.findByTablePk(changePasswordDTO.getEmpId())
+	            .orElseThrow(() -> new RuntimeException("User not found"));
+
+	    // set new password for user
+	    user.setPassword((changePasswordDTO.getPassword()));
+
+	    // save updated user entity to database
+	    userRepository.save(user);
+	}
+
 
 
     
