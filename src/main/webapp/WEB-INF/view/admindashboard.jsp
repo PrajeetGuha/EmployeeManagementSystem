@@ -786,10 +786,7 @@ $('#search-form').attr('action', initialUrl + '?search=null&pg=1');
 												required />
 										</div>
 										<br>
-<<<<<<< HEAD
-										<div class="cut"></div>
-=======
->>>>>>> dc1648cf40ca9b2a9c430c5f88ddccc1eac5550f
+
 										<div class="modal-footer">
 											<button type="button" class="btn btn-secondary"
 												data-dismiss="modal">Close</button>
