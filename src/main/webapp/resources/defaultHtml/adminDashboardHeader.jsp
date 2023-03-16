@@ -425,22 +425,7 @@
                                 <!-- End XP Col -->
 
                                 <!-- Start XP Col -->
-                                <div class="col-md-5 col-lg-2 order-3 order-md-2">
-                                    <div class="xp-searchbar">
-                                        <form id="search-form" action="" method="get">
-                                            <input type="hidden" name="search" value="">
-                                            <div class="input-group">
-                                                <input type="search" class="form-control" placeholder="Search"
-                                                    id="search-input">
-                                                <div class="input-group-append">
-                                                    <button class="btn" type="submit" id="button-addon2">GO</button>
-                                                </div>
-                                            </div>
-                                        </form>
-                                        <ul class="dropdown-menu" id="search-results" style="display: none;">
-                                        </ul>
-                                    </div>
-                                </div>
+
 
 
                                 <!-- End XP Col -->
@@ -480,213 +465,207 @@
 
 
                     <!--------main-content------------->
-                    <!-- - Edit Modal HTML --> 
-                            <div class="modal fade" id="addEmployeeModal" tabindex="-1" role="dialog"
-                                aria-labelledby="addEmployeeModalLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
+                    <!-- - Edit Modal HTML -->
+                    <div class="modal fade" id="addEmployeeModal" tabindex="-1" role="dialog"
+                        aria-labelledby="addEmployeeModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
 
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="addEmployeeModalLabel">Add New
-                                                Employee</h5>
-                                            <!-- <button type="button" class="close" data-dismiss="modal"
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="addEmployeeModalLabel">Add New
+                                        Employee</h5>
+                                    <!-- <button type="button" class="close" data-dismiss="modal"
 										aria-label="Close">
 										<span aria-hidden="true">&times;</span>
 									</button> -->
+                                </div>
+                                <div class="modal-body">
+                                    <form action="addUser" method="post" modelAttribute="newuser"
+                                        onsubmit="return validateForm()">
+                                        <div class="input-container ic1">
+                                            <label for="name" class="placeholder">Name</label>
+                                            <div class="cut"></div>
+                                            <input id="name" name="name" class="input required" type="text"
+                                                placeholder=" " required />
                                         </div>
-                                        <div class="modal-body">
-                                            <form action="addUser" method="post" modelAttribute="newuser"
-                                                onsubmit="return validateForm()">
-                                                <div class="input-container ic1">
-                                                    <label for="name" class="placeholder">Name</label>
-                                                    <div class="cut"></div>
-                                                    <input id="name" name="name" class="input required" type="text"
-                                                        placeholder=" " required />
-                                                </div>
-                                                <div class="input-container ic2">
-                                                    <label for="email" class="placeholder">Personal Email</label>
-                                                    <div class="cut cut-short"></div>
-                                                    <input id="email" name="personalEmail" class="input required"
-                                                        type="email" placeholder=" " required /> <span id="email-error"
-                                                        class="error-text"></span>
-                                                </div>
-                                                <div class="input-container ic3">
-                                                    <label for="gender" class="placeholder">Gender</label>
-                                                    <div class="cut cut-short"></div>
-                                                    <div class="wrapper-class">
-                                                        <input id="gender-male" name="gender" class="input required"
-                                                            type="radio" value="male" required /><label
-                                                            for="gender-male">Male</label> <input id="gender-female"
-                                                            name="gender" class="input" type="radio" value="female"
-                                                            required /><label for="gender-female">Female</label>
-                                                    </div>
-                                                </div>
-                                                <div class="input-container ic2">
-                                                    <label for="designation" class="placeholder">Designation</label>
-                                                    <div class="cut cut-short"></div>
-                                                    <input id="designation" name="designation" class="input" type="text"
-                                                        placeholder=" " />
-                                                </div>
-                                                <div class="input-container ic2">
-                                                    <label for="department" class="placeholder">Department</label>
-                                                    <div class="cut cut-short"></div>
-                                                    <select id="department" name="department" class="input required"
-                                                        placeholder="Deparment" required>
-                                                        <c:forEach items="${departments}" var="department">
-                                                            <option value="${department}">${department}</option>
-                                                        </c:forEach>
-                                                    </select>
-                                                </div>
-                                                <div class="input-container ic2">
-                                                    <label for="gradelevel" class="placeholder">Grade
-                                                        Level</label>
-                                                    <div class="cut cut-short"></div>
-                                                    <select id="gradelevel" name="gradeLevel" class="input required"
-                                                        required>
-                                                        <option value="1">1</option>
-                                                        <option value="2">2</option>
-                                                        <option value="3">3</option>
-                                                        <option value="4">4</option>
-                                                        <option value="5">5</option>
-                                                        <option value="6">6</option>
-                                                        <option value="7">7</option>
-                                                        <option value="8">8</option>
-                                                    </select>
-                                                </div>
-                                                <div class="input-container ic2">
-                                                    <label for="dateofjoining" class="placeholder">Date
-                                                        of Joining</label>
-                                                    <div class="cut cut-short"></div>
-                                                    <input id="dateofjoining" name="doj" class="input required"
-                                                        type="date" placeholder=" " required />
-                                                </div>
-                                                <div class="input-container ic2">
-                                                    <label for="employeetype" class="placeholder">Employee
-                                                        Type</label>
-                                                    <div class="cut cut-short"></div>
-                                                    <select id="employeetype" name="emptype" class="input required"
-                                                        required>
-                                                        <option value="full time">Full Time</option>
-                                                        <option value="part time">Part Time</option>
-                                                        <option value="contract">Contract</option>
-                                                    </select>
-                                                </div>
+                                        <div class="input-container ic2">
+                                            <label for="email" class="placeholder">Personal Email</label>
+                                            <div class="cut cut-short"></div>
+                                            <input id="email" name="personalEmail" class="input required" type="email"
+                                                placeholder=" " required /> <span id="email-error"
+                                                class="error-text"></span>
+                                        </div>
+                                        <div class="input-container ic3">
+                                            <label for="gender" class="placeholder">Gender</label>
+                                            <div class="cut cut-short"></div>
+                                            <div class="wrapper-class">
+                                                <input id="gender-male" name="gender" class="input required"
+                                                    type="radio" value="male" required /><label
+                                                    for="gender-male">Male</label> <input id="gender-female"
+                                                    name="gender" class="input" type="radio" value="female"
+                                                    required /><label for="gender-female">Female</label>
+                                            </div>
+                                        </div>
+                                        <div class="input-container ic2">
+                                            <label for="designation" class="placeholder">Designation</label>
+                                            <div class="cut cut-short"></div>
+                                            <input id="designation" name="designation" class="input" type="text"
+                                                placeholder=" " />
+                                        </div>
+                                        <div class="input-container ic2">
+                                            <label for="department" class="placeholder">Department</label>
+                                            <div class="cut cut-short"></div>
+                                            <select id="department" name="department" class="input required"
+                                                placeholder="Deparment" required>
+                                                <c:forEach items="${departments}" var="department">
+                                                    <option value="${department}">${department}</option>
+                                                </c:forEach>
+                                            </select>
+                                        </div>
+                                        <div class="input-container ic2">
+                                            <label for="gradelevel" class="placeholder">Grade
+                                                Level</label>
+                                            <div class="cut cut-short"></div>
+                                            <select id="gradelevel" name="gradeLevel" class="input required" required>
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
+                                                <option value="6">6</option>
+                                                <option value="7">7</option>
+                                                <option value="8">8</option>
+                                            </select>
+                                        </div>
+                                        <div class="input-container ic2">
+                                            <label for="dateofjoining" class="placeholder">Date
+                                                of Joining</label>
+                                            <div class="cut cut-short"></div>
+                                            <input id="dateofjoining" name="doj" class="input required" type="date"
+                                                placeholder=" " required />
+                                        </div>
+                                        <div class="input-container ic2">
+                                            <label for="employeetype" class="placeholder">Employee
+                                                Type</label>
+                                            <div class="cut cut-short"></div>
+                                            <select id="employeetype" name="emptype" class="input required" required>
+                                                <option value="full time">Full Time</option>
+                                                <option value="part time">Part Time</option>
+                                                <option value="contract">Contract</option>
+                                            </select>
+                                        </div>
 
-                                                <div class="input-container ic2">
-                                                    <label for="username" class="placeholder">Username</label>
-                                                    <div class="cut"></div>
-                                                    <input id="username" name="username" class="input required"
-                                                        type="text" placeholder=" " required /> <span
-                                                        id="username-error" class="error-text"></span>
-                                                </div>
-                                                <div class="input-container ic2">
-                                                    <label for="password" class="placeholder">Password</label>
-                                                    <div class="cut"></div>
-                                                    <input id="password" name="password" class="input required"
-                                                        type="password" placeholder=" " required /> <span
-                                                        id="password-error" class="error-text"></span>
-                                                </div>
-                                                <br>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary"
-                                                        data-dismiss="modal">Close</button>
-                                                    <button type="submit" class="btn btn-primary">Submit</button>
-                                                </div>
-                                            </form>
+                                        <div class="input-container ic2">
+                                            <label for="username" class="placeholder">Username</label>
+                                            <div class="cut"></div>
+                                            <input id="username" name="username" class="input required" type="text"
+                                                placeholder=" " required /> <span id="username-error"
+                                                class="error-text"></span>
                                         </div>
-                                    </div>
+                                        <div class="input-container ic2">
+                                            <label for="password" class="placeholder">Password</label>
+                                            <div class="cut"></div>
+                                            <input id="password" name="password" class="input required" type="password"
+                                                placeholder=" " required /> <span id="password-error"
+                                                class="error-text"></span>
+                                        </div>
+                                        <br>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
+                        </div>
+                    </div>
 
 
 
-                            <!-- Edit Modal HTML -->
-                            <div id="editEmployeeModal" class="modal fade">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <form>
-                                            <div class="modal-header">
-                                                <h4 class="modal-title">Edit Employee</h4>
-                                                <button type="button" class="close" data-dismiss="modal"
-                                                    aria-hidden="true">&times;</button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <div class="form-group">
-                                                    <label>Name</label> <input type="text" class="form-control"
-                                                        required>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label>Email</label> <input type="email" class="form-control"
-                                                        required>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label>Address</label>
-                                                    <textarea class="form-control" required></textarea>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label>Phone</label> <input type="text" class="form-control"
-                                                        required>
-                                                </div>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <input type="button" class="btn btn-default" data-dismiss="modal"
-                                                    value="Cancel"> <input type="submit" class="btn btn-info"
-                                                    value="Save">
-                                            </div>
-                                        </form>
+                    <!-- Edit Modal HTML -->
+                    <div id="editEmployeeModal" class="modal fade">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <form>
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">Edit Employee</h4>
+                                        <button type="button" class="close" data-dismiss="modal"
+                                            aria-hidden="true">&times;</button>
                                     </div>
-                                </div>
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            <label>Name</label> <input type="text" class="form-control" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Email</label> <input type="email" class="form-control" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Address</label>
+                                            <textarea class="form-control" required></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Phone</label> <input type="text" class="form-control" required>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <input type="button" class="btn btn-default" data-dismiss="modal"
+                                            value="Cancel"> <input type="submit" class="btn btn-info" value="Save">
+                                    </div>
+                                </form>
                             </div>
+                        </div>
+                    </div>
 
 
-                            <!-- <!-- Delete Modal HTML -->
-                            <div id="deleteEmployeeModal" class="modal fade">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
+                    <!-- <!-- Delete Modal HTML -->
+                    <div id="deleteEmployeeModal" class="modal fade">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
 
-                                        <form:form action="editStatus" method="post" id="status-modal-form"
-                                            modelAttribute="employee">
+                                <form:form action="editStatus" method="post" id="status-modal-form"
+                                    modelAttribute="employee">
 
-                                            <div class="modal-header">
-                                                <h4 class="modal-title">Edit Status</h4>
-                                                <button type="button" class="close" data-dismiss="modal"
-                                                    aria-hidden="true">&times;</button>
-                                            </div>
-                                            <div class="modal-body">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">Edit Status</h4>
+                                        <button type="button" class="close" data-dismiss="modal"
+                                            aria-hidden="true">&times;</button>
+                                    </div>
+                                    <div class="modal-body">
 
-                                                <!-- <p>Edit status for this employee?</p> -->
+                                        <!-- <p>Edit status for this employee?</p> -->
 
-                                                <p>
-                                                    Edit status of <span id="empstatusname"></span>
-                                                </p>
+                                        <p>
+                                            Edit status of <span id="empstatusname"></span>
+                                        </p>
 
 
-                                            </div>
-                                            <input type="hidden" name="empId" id="empIdStatus" />
-                                            <div class="modal-footer">
+                                    </div>
+                                    <input type="hidden" name="empId" id="empIdStatus" />
+                                    <div class="modal-footer">
 
-                                                <!-- <input type="submit" class="btn btn-danger" value="Inactive">
+                                        <!-- <input type="submit" class="btn btn-danger" value="Inactive">
 										<input type="submit" class="btn btn-primary" value="Active">
  -->
-                                                <!-- <input type="submit" class="btn btn-primary" value="Active" id = "activate"> 
+                                        <!-- <input type="submit" class="btn btn-primary" value="Active" id = "activate"> 
 										<input type="submit" class="btn btn-danger" value="Inactive" id = "deactivate"> -->
-                                                <input type="submit" id="changestatusbtn" />
+                                        <input type="submit" id="changestatusbtn" />
 
-                                            </div>
-                                        </form:form>
                                     </div>
-                                </div>
+                                </form:form>
                             </div>
-
-
-
                         </div>
-
-
-                        <!---footer---->
-
-
                     </div>
+
+
+
+                </div>
+
+
+                <!---footer---->
+
+
+                </div>
 
                 </div>
                 </div>

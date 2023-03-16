@@ -243,15 +243,26 @@ private EmployeeRepository employeeRepository;
     @GetMapping("editemployeedetails")
     public String editemployeedetails(HttpServletRequest request, Model model){
         String id = request.getParameter("empId");
+        String search =request.getParameter("search");
+        String pg=request.getParameter("pg");
         Long id_val=Long.parseLong(id);
         Employee employee = employeeRepository.getById(id_val);
         model.addAttribute("employee",employee);
+        model.addAttribute("search",search);
+        model.addAttribute("pg",pg);
         return "editUser";
     }
 
+    // @GetMapping("editempdata")
+    // public String editempdata(HttpServletRequest request, Model model){
+    //     model
+    //     return "editUser";
+    // }
     @PostMapping("editemployee")
     public String editemployee(@ModelAttribute("employeeinfo") Employee employee, BindingResult result, RedirectAttributes redirectAttrs) throws UserNotFoundException{
             employeeRepository.save(employee);
+            // ?search="+search+"&pg="+pg
             return "redirect:/admin/dashboard?search=null&pg=1";
     }
+
 }
