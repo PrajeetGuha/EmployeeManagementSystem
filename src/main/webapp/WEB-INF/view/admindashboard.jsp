@@ -945,7 +945,7 @@ $('#search-form').attr('action', initialUrl + '?search=null&pg=1');
 									<div class="input-container ic2">
 										<label for="hod" class="placeholder">New Password</label>
 										<div class="cut cut-short"></div>
-										<input id="changedpassword" name="changedpassword"
+										<input id="changedpassword" name="changedPassword"
 											class="input required" type="password" placeholder=" "
 											pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+]).{8,}$"
 											oninput="setCustomValidity('')"

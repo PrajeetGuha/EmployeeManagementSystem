@@ -223,13 +223,14 @@ public class AdminService {
         departmentRepository.save(department);
 	}
 	
-	public void changePassword(ChangePasswordDTO changePasswordDTO) {
+	public void changePassword(ChangePasswordDTO changePasswordDTO) throws RuntimeException {
 	    // retrieve user entity from database using empId
 	    User user = userRepository.findByTablePk(changePasswordDTO.getEmpId())
 	            .orElseThrow(() -> new RuntimeException("User not found"));
 
 	    // set new password for user
-	    user.setPassword((changePasswordDTO.getPassword()));
+	    System.out.println("\n\n\n\n\n\n\n\n\n"+user.getPassword()+"\n\n\n\n\n\n\n\n\n\n");
+	    user.setPassword(passwordEncoder.encode(changePasswordDTO.getChangedPassword()));
 
 	    // save updated user entity to database
 	    userRepository.save(user);

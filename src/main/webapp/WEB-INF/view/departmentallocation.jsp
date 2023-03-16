@@ -179,25 +179,6 @@
   });
 </script>
 
-<script>
-var aniket=null;
-function getdeptId(deptId) {
-	
-	  // Store the value in the deptIdInput hidden field
-	  $("#deptIdInput").attr("value",deptId);
-		
-	  console.log(deptId);
-	  console.log(document.getElementById("deptIdInput").value);
-	  aniket=deptId;
-
-	}
-	
-function getmeId() {
-	
-	  return aniket;
-	}
-</script>
-
 <style>
 .dropdown-container {
 	position: relative;
@@ -243,7 +224,7 @@ function getmeId() {
 			<ul class="list-unstyled components">
 				<li><a href="dashboard?search=null&pg=1" class="dashboard"><i
 						class="material-icons">dashboard</i> <span>Dashboard</span></a></li>
-				
+
 
 				<li><a href="projectallocation?pg=1"> <i
 						class="material-icons">laptop</i>Project
@@ -266,7 +247,8 @@ function getmeId() {
 					aria-expanded="false"> <i class="material-icons">analytics</i>Analytics
 				</a></li>
 				<li><a href="#changePasswordModal" data-toggle="modal"
-					aria-expanded="false"> <i class="material-icons">vpn_key</i>Change Password
+					aria-expanded="false"> <i class="material-icons">vpn_key</i>Change
+						Password
 				</a></li>
 				<li><a href="#adminprofile" data-toggle="modal"
 					aria-expanded="false"> <i class="material-icons">account_circle</i>Profile
@@ -503,14 +485,18 @@ function getmeId() {
 																		in Department</label>
 																	<div class="cut"></div>
 																	<ul class="list-group" id="emplist">
-																		<c:forEach items="${dept.employees}" var="emp">
-																			<li class="list-group-item">(${emp.empId}) ${emp.empName}
-																				</li>
-																		</c:forEach>
+																		<c:choose>
+																			<c:when test="${empty dept.employees}">
+																				<li class="list-group-item">No Employees listed</li>
+																			</c:when>
+																			<c:otherwise>
+																				<c:forEach items="${dept.employees}" var="emp">
+																					<li class="list-group-item">(${emp.empId})
+																						${emp.empName}</li>
+																				</c:forEach>
+																			</c:otherwise>
+																		</c:choose>
 																	</ul>
-
-
-
 																</div>
 																<br>
 																<div class="cut"></div>
@@ -523,6 +509,7 @@ function getmeId() {
 														</div>
 													</div>
 												</div>
+											</div>
 										</c:forEach>
 								</tbody>
 							</table>
@@ -595,54 +582,54 @@ function getmeId() {
 							</div>
 						</div>
 					</div>
-					
+
 					<!-- Password Modal HTML -->
-				<div id="changePasswordModal" class="modal fade">
-					<div class="modal-dialog">
-						<div class="modal-content">
+					<div id="changePasswordModal" class="modal fade">
+						<div class="modal-dialog">
+							<div class="modal-content">
 
-							<div class="modal-header">
-								<h4 class="modal-title">Change Password</h4>
-								<!-- <button type="button" class="close" data-dismiss="modal"
+								<div class="modal-header">
+									<h4 class="modal-title">Change Password</h4>
+									<!-- <button type="button" class="close" data-dismiss="modal"
 											aria-hidden="true">&times;</button> -->
-							</div>
-							<div class="modal-body">
-								<form action="changePassword" method="post"
-									modelAttribute="newpass">
-									<div class="input-container ic1">
-										<label for="empId" class="placeholder">Employee Name</label>
-										<div class="cut"></div>
-										<select id="empId" name="empId" class="input required"
-											placeholder=" " required>
-											<c:forEach items="${allemployeenames}" var="department">
-												<option value="${department.empId}">(${department.empId})
-													${department.empName}</option>
-											</c:forEach>
-										</select>
-									</div>
-									<div class="input-container ic2">
-										<label for="hod" class="placeholder">New Password</label>
-										<div class="cut cut-short"></div>
-										<input id="changedpassword" name="changedpassword" class="input required"
-											type="password" placeholder=" "
-											pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+]).{8,}$"
-											oninput="setCustomValidity('')"
-											oninvalid="setCustomValidity('Password must be of 8 characters and contain at least one capital character, one number, and a special character.')"
-											required />
-									</div>
+								</div>
+								<div class="modal-body">
+									<form action="changePassword" method="post"
+										modelAttribute="newpass">
+										<div class="input-container ic1">
+											<label for="empId" class="placeholder">Employee Name</label>
+											<div class="cut"></div>
+											<select id="empId" name="empId" class="input required"
+												placeholder=" " required>
+												<c:forEach items="${allemployeenames}" var="department">
+													<option value="${department.empId}">(${department.empId})
+														${department.empName}</option>
+												</c:forEach>
+											</select>
+										</div>
+										<div class="input-container ic2">
+											<label for="hod" class="placeholder">New Password</label>
+											<div class="cut cut-short"></div>
+											<input id="changedpassword" name="changedpassword"
+												class="input required" type="password" placeholder=" "
+												pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+]).{8,}$"
+												oninput="setCustomValidity('')"
+												oninvalid="setCustomValidity('Password must be of 8 characters and contain at least one capital character, one number, and a special character.')"
+												required />
+										</div>
 
-									<br>
-									<div class="modal-footer">
-										<button type="button" class="btn btn-secondary"
-											data-dismiss="modal">Close</button>
-										<button type="submit" class="btn btn-primary">Submit</button>
-									</div>
-								</form>
+										<br>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-secondary"
+												data-dismiss="modal">Close</button>
+											<button type="submit" class="btn btn-primary">Submit</button>
+										</div>
+									</form>
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-					
+
 
 
 					<!---footer---->

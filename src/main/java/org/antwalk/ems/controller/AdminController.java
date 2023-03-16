@@ -270,6 +270,7 @@ private EmployeeRepository employeeRepository;
     @PostMapping("/changePassword")
     public String changePassword(@ModelAttribute("newpass") ChangePasswordDTO changePasswordDTO, RedirectAttributes redirectAttributes) {
         // code to change the password here
+    	adminService.changePassword(changePasswordDTO);
         redirectAttributes.addFlashAttribute("successMessage", "Password changed successfully!");
         return "redirect:/admin/dashboard?search=null&pg=1";
     }
