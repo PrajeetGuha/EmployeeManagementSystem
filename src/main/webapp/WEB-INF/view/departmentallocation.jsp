@@ -179,6 +179,42 @@
   });
 </script>
 
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var departmentNameInput = document.getElementById('departmentName');
+    var listdept = [
+        <c:forEach var="department" items="${listdepartments}">
+          "${department.departmentName}",
+        </c:forEach> // assuming "listdepartments" is a model attribute
+	];
+    
+    var defaultValue = departmentNameInput.value;
+    
+    // add an "oninput" event listener to clear custom validity message
+    departmentNameInput.addEventListener('input', function() {
+        this.setCustomValidity('');
+    });
+
+    document.querySelector('form#editDept').addEventListener('submit', function(e) {
+        // check if department name already exists
+        if (departmentNameInput.value == defaultValue )
+        {
+        	departmentNameInput.setCustomValidity('');
+        	}
+        else if (departmentNameInput.value == "") {
+            departmentNameInput.setCustomValidity('Department name cannot be empty.');
+            e.preventDefault(); // prevent form submission
+        }
+        else if (listdept.includes(departmentNameInput.value)) {
+            departmentNameInput.setCustomValidity('Department name already exists. Please choose a different name.');
+            e.preventDefault(); // prevent form submission
+        }
+    });
+});
+
+
+</script>
+
 <style>
 .dropdown-container {
 	position: relative;
@@ -421,8 +457,7 @@
 														value="${fn:toUpperCase(fn:substring(dept.departmentName, 0, 1))}${fn:toLowerCase(fn:substring(dept.departmentName, 1,fn:length(dept.departmentName)))}" /></td>
 												<td><c:out value="${dept.hod.empName}" /></td>
 												<td><a href="#editDepartmentModal${dept.deptId }"
-													class="edit" data-toggle="modal"
-													onclick="getdeptId('${dept.deptId}')"> <i
+													class="edit" data-toggle="modal"> <i
 														class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
 													<a href="#generateDepartmentReportModal" class="report"
 													data-toggle="modal"> <i class="material-icons"
@@ -443,7 +478,7 @@
 											aria-hidden="true">&times;</button> -->
 														</div>
 														<div class="modal-body">
-															<form action="editDepartment" method="post"
+															<form id="editDept" action="editDepartment" method="post"
 																modelAttribute="newuser">
 																<input type="hidden" id="deptIdInput" name="deptId" />
 
@@ -452,7 +487,9 @@
 																		Department Name</label>
 																	<div class="cut"></div>
 																	<input id="departmentName" name="departmentName"
-																		class="input required" type="text" placeholder=" " />
+																		class="input required" type="text"
+																		placeholder="${dept.departmentName }"
+																		value=${dept.departmentName } />
 
 																</div>
 																<div class="input-container ic2">
@@ -461,6 +498,7 @@
 																	<div class="cut cut-short"></div>
 																	<select id="hod" name="hod" class="input required"
 																		placeholder=" " required>
+																		<option value="">Unassigned</option>
 																		<c:forEach items="${allemployeenames}"
 																			var="department">
 																			<option value="${department.empId}">(${department.empId})
