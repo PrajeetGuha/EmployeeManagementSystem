@@ -7,6 +7,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.antwalk.ems.dto.ChangePasswordDTO;
 import org.antwalk.ems.dto.NewDepartmentDTO;
 import org.antwalk.ems.dto.NewEmployeeDTO;
 import org.antwalk.ems.exception.DepartmentNotFoundException;
@@ -265,5 +266,13 @@ private EmployeeRepository employeeRepository;
             // ?search="+search+"&pg="+pg
             return "redirect:/admin/dashboard?search=null&pg=1";
     }
+    
+    @PostMapping("/changePassword")
+    public String changePassword(@ModelAttribute("newpass") ChangePasswordDTO changePasswordDTO, RedirectAttributes redirectAttributes) {
+        // code to change the password here
+        redirectAttributes.addFlashAttribute("successMessage", "Password changed successfully!");
+        return "redirect:/admin/dashboard?search=null&pg=1";
+    }
+
 
 }

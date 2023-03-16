@@ -33,6 +33,41 @@
 
 <c:set var="pageNo" value="${pageNo}" />
 <c:set var="pageCount" value="${pageCount}" />
+<c:if test="${not empty successMessage}">
+	<!-- Button trigger modal -->
+	<button type="button" class="btn btn-primary d-none"
+		data-toggle="modal" data-target="#exampleModal">Launch demo
+		modal</button>
+
+	<!-- Modal -->
+	<div class="modal fade show" id="exampleModal" tabindex="-1"
+		role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Success!</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">${successMessage}</div>
+			</div>
+		</div>
+	</div>
+
+	<script>
+    $.noConflict();
+    jQuery(document).ready(function($) {
+        $('#exampleModal').modal('show');
+        setTimeout(function() {
+            $('#exampleModal').modal('hide');
+        }, 1000); // hide the popup after 3 seconds
+    
+    });
+    </script>
+</c:if>
+
 <script>
 	$(document)
 			.ready(
@@ -558,12 +593,15 @@ $('#search-form').attr('action', initialUrl + '?search=null&pg=1');
 
 												<td><c:out value="${employee.empstatus}" /></td> --%>
 
-												<td><a href="editemployeedetails?empId=${employee.empId}&pg=1&search=${search}" 
-													> <i class="material-icons"
-														data-toggle="tooltip" title="View">&#xE853;</i></a> <a
-													href="report?empId=${employee.empId}&pg=1&search=${search}" class="analytics"
-													> <i class="material-icons"
-														data-toggle="tooltip" title="Analytics">summarize</i></a> <a
+												<td><a
+													href="editemployeedetails?empId=${employee.empId}&pg=1&search=${search}">
+														<i class="material-icons" data-toggle="tooltip"
+														title="View">&#xE853;</i>
+												</a> <a
+													href="report?empId=${employee.empId}&pg=1&search=${search}"
+													class="analytics"> <i
+														class="material-icons" data-toggle="tooltip"
+														title="Analytics">summarize</i></a> <a
 													href="#deleteEmployeeModal" class="delete"
 													data-toggle="modal"
 													onclick="selectedEmpstatus(${employee.empId},'${employee.empName}', '${employee.empstatus}')">
@@ -654,7 +692,8 @@ $('#search-form').attr('action', initialUrl + '?search=null&pg=1');
 							<div class="clearfix">
 								<div class="hint-text">
 									Total number of entries <b>${empCount}</b><br> Showing
-									page <b>${pageNo}</b> of <b>${pageCount }</b>
+									page <b>${pageNo}</b> of <b>${pageCount eq 0 ? 1 : pageCount}</b>
+
 								</div>
 								<ul class="pagination">
 
@@ -698,7 +737,9 @@ $('#search-form').attr('action', initialUrl + '?search=null&pg=1');
 											<input id="name" name="name" class="input required"
 												type="text" placeholder=" " required />
 										</div>
-										<br><br>										<div class="input-container ic2">
+										<br>
+										<br>
+										<div class="input-container ic2">
 											<label for="email" class="placeholder">Personal Email</label>
 											<div class="cut cut-short"></div>
 											<input id="email" name="personalEmail" class="input required"
@@ -909,8 +950,8 @@ $('#search-form').attr('action', initialUrl + '?search=null&pg=1');
 									<div class="input-container ic2">
 										<label for="hod" class="placeholder">New Password</label>
 										<div class="cut cut-short"></div>
-										<input id="changedpassword" name="changedpassword" class="input required"
-											type="password" placeholder=" "
+										<input id="changedpassword" name="changedpassword"
+											class="input required" type="password" placeholder=" "
 											pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+]).{8,}$"
 											oninput="setCustomValidity('')"
 											oninvalid="setCustomValidity('Password must be of 8 characters and contain at least one capital character, one number, and a special character.')"

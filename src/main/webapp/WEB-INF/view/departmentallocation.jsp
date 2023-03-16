@@ -530,7 +530,8 @@ function getmeId() {
 							<div class="clearfix">
 								<div class="hint-text">
 									Total number of entries <b>${countOfDepartments}</b><br>
-									Showing page <b>${pageNo}</b> of <b>${countPages }</b>
+									Showing page <b>${pageNo}</b> of <b>${countPages eq 0 ? 1 : countPages}</b>
+
 								</div>
 								<ul class="pagination">
 
