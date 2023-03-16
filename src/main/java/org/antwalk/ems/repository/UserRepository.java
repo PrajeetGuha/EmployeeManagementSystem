@@ -14,6 +14,9 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserRepository extends JpaRepository<User,Long> {
     public Optional<User> findByUsername(String username);
+    
+    
+
 
     @Transactional
     @Modifying
@@ -27,4 +30,7 @@ public interface UserRepository extends JpaRepository<User,Long> {
 
     @Query("select u.username from User u")
     public List<String> listAllUsernames();
+    
+    @Query("from User u where tablePk = :tablePk and role = 'ROLE_EMP'")
+    public Optional<User> findByTablePk(Long tablePk);
 }

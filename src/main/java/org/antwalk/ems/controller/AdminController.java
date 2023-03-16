@@ -7,6 +7,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.antwalk.ems.dto.ChangePasswordDTO;
 import org.antwalk.ems.dto.NewDepartmentDTO;
 import org.antwalk.ems.dto.NewEmployeeDTO;
 import org.antwalk.ems.exception.DepartmentNotFoundException;
@@ -70,6 +71,7 @@ private EmployeeRepository employeeRepository;
         model.addAttribute("empCount",empCount);
         model.addAttribute("pageNo",pageNo);
         model.addAttribute("allemployeenames",allemployees);
+        
         model.addAttribute("usernames",usernames);
         model.addAttribute("emailIds", emailIds);
         model.addAttribute("departments", listOfdepartments);
@@ -265,17 +267,35 @@ private EmployeeRepository employeeRepository;
     @GetMapping("editemployeedetails")
     public String editemployeedetails(HttpServletRequest request, Model model){
         String id = request.getParameter("empId");
-        String search = request.getParameter("search");
-        String pgNo = request.getParameter("pg");
+        String search =request.getParameter("search");
+        String pg=request.getParameter("pg");
         Long id_val=Long.parseLong(id);
         Employee employee = employeeRepository.getById(id_val);
         model.addAttribute("employee",employee);
+        model.addAttribute("search",search);
+        model.addAttribute("pg",pg);
         return "editUser";
     }
-    
+
+    // @GetMapping("editempdata")
+    // public String editempdata(HttpServletRequest request, Model model){
+    //     model
+    //     return "editUser";
+    // }
     @PostMapping("editemployee")
     public String editemployee(@ModelAttribute("employeeinfo") Employee employee, BindingResult result, RedirectAttributes redirectAttrs, @RequestParam String search, @RequestParam int pg) throws UserNotFoundException{
             employeeRepository.save(employee);
-            return "redirect:/admin/dashboard?search="+"search"+"&pg="+pg;
+            // ?search="+search+"&pg="+pg
+            return "redirect:/admin/dashboard?search=null&pg=1";
     }
+    
+    @PostMapping("/changePassword")
+    public String changePassword(@ModelAttribute("newpass") ChangePasswordDTO changePasswordDTO, RedirectAttributes redirectAttributes) {
+        // code to change the password here
+    	adminService.changePassword(changePasswordDTO);
+        redirectAttributes.addFlashAttribute("successMessage", "Password changed successfully!");
+        return "redirect:/admin/dashboard?search=null&pg=1";
+    }
+
+
 }
