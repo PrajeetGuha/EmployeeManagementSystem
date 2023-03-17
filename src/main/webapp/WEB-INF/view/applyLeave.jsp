@@ -1,228 +1,472 @@
-<!-- EMP_DET_ID INT PRIMARY KEY AUTO_INCREMENT ON DELETE CASCADE,
-PROFILE_PIC_DOC VARCHAR(255),
-PERMA_ADDR VARCHAR(100),
-PRIMARY_CONTACTNO VARCHAR(10),
-EMERGENCY_CONTACTNO VARCHAR(10),
-EMAIL_ID VARCHAR(30),
-DOB DATE,
-PRESENT_ADDR VARCHAR(100),
-NATIONALITY VARCHAR(20),
-BLOOD_GRP VARCHAR(3),
-PANCARD_DOC VARCHAR(255),
-PANCARDNO VARCHAR(10),
-ADHAAR_DOC VARCHAR(255),
-ADHAARNO VARCHAR(12),
-PASSPORT_DOC VARCHAR(255),
-PASSPORTNO VARACHAR(10)
-); -->
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+		<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+			<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+				<!DOCTYPE html>
+				<html>
+
+				<head>
+					<meta charset="utf-8">
+					<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+					<meta name="viewport"
+						content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+					<title>ADMIN DASHBOARD</title>
+					<link rel="stylesheet" href="../resources/lib/bootstrap/css/bootstrap.min.css">
+					<link rel="stylesheet" href="../resources/custom/css/admin-dashboard/custom.css">
+					<link rel="preconnect" href="https://fonts.googleapis.com">
+					<link rel="preconnect" href="https://fonts.gstatic.com">
+					<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap"
+						rel="stylesheet">
+					<link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
+
+					<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+					<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
+					<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+
+					<c:set var="pageNo" value="${pageNo}" />
+					<c:set var="pageCount" value="${pageCount}" />
+					<script>
+						$(document)
+							.ready(
+								function () {
+									// Loop through each cell in the highlight-column class
+									$('.highlight-column')
+										.each(
+											function () {
+												var status = $(this).text(); // Get the cell's text value
+
+												// Set a different background color based on the status value
+												if (status === 'active') {
+
+
+													$(this).css('color', 'limegreen');
+
+												} else if (status === 'inactive') {
+
+
+													$(this).css('color', 'red');
+												}
+											});
+								});
+					</script>
+
+				</head>
+
+				<c:set var="pageNo" value="${pageNo}" />
+				<c:set var="pageCount" value="${pageCount}" />
+				</head>
+
+
+				<body>
+					<!-- <div>${result.getBody().getStatus()}</div> -->
+
+					<div class="wrapper">
+						<div class="body-overlay" />
+						<nav id="sidebar">
+							<div class="sidebar-header">
+								<h3>
+									<img src="../resources/assets/logo.png" class="img-fluid" /><span>NRI
+										Fintech</span>
+								</h3>
+							</div>
+							<ul class="list-unstyled components">
+								<li><a href="dashboard" class="dashboard"><i class="material-icons">dashboard</i>
+										<span>Dashboard</span></a></li>
+								<li class="active"><a href="leaveApplication?pg=1" data-toggle="collapse"
+										aria-expanded="false"> <i class="material-icons">playlist_add_check</i>Apply
+										Leave
+
+									</a></li>
 
 
 
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html>
-<html>
-
-<head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- Bootstrap CSS -->
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
-	crossorigin="anonymous">
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-<link rel="stylesheet" href="/resources/user-css/user.css">
-
-<title>Apply Leave</title>
-</head>
-
-<body>
-
-	<!-- Option 1: Bootstrap Bundle with Popper -->
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-		crossorigin="anonymous"></script>
-	<script src="/resources/javascript/user.js"></script>
+								<li><a href="#applyresignation"  data-toggle="modal"
+									aria-expanded="false" > <i class="material-icons">directions_walk</i>Apply
+										Resignation
 
 
 
-	<%@ include file="/resources/defaultHtml/dashboardHeader.jsp"%>
-	<nav class="navbar navbar-light ">
-		<div class="container-fluid">*/
-			<!-- <a class="navbar-brand" href="#">Offcanvas dark navbar</a>
-             -->
+									</a></li>
 
-					<button class="navbar-toggler" type="button"
-						data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar"
-						aria-controls="offcanvasDarkNavbar">
-						<span class="navbar-toggler-icon"></span>
-					</button>
-			<div class="offcanvas offcanvas-end dark" tabindex="-1"
-				id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
-				<div class="offcanvas-header">
-					<h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Dark
-						offcanvas</h5>
-					<button type="button" class="btn-close btn-close-dark"
-						data-bs-dismiss="offcanvas" aria-label="Close"></button>
-				</div>
-				<div class="offcanvas-body">
-					<ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-						<li class="nav-item">My Profile</li>
-						<br>
-						<li class="nav-item">Personal details</li>
-						<br>
-						<li class="nav-item">My Family</li>
-						<br>
-						<li class="nav-item">Qualification</a></li>
-						<br>
-						<li class="nav-item">Professional
-								Details</li>
-					</ul>
-				</div>
-			</div>
-		</div>
-	</nav>
-<!-- 
-    LEAVE_DATE DATE,
-    IS_APPROVED ENUM('Y','N'),
-    APPROVAL_DONE_BY_ID REFERENCES ADMIN(ADMIN_ID),
-    LEAVE_TYPE ENUM('CL','PL','SL','OL')
-    LEAVE_REASON VARCHAR(255), -->
-
-	<div class="container-fluid ">
-
-		<div class="row align-items-start">
-			<div class="col-1 "></div>
+								<li><a href="employeepersonaldetails">
+										<!-- <i class='fas fa-user-alt-slash' >Resignation</i> -->
+										<span>Personal Details</span></a></li>
 
 
-			<div class="col-12">
-				<div class="container-fluid">
-					<div class="row">
-						<div class="col">
-							<form id="familyForm">
+								<li><a href="professionaldetails">
+										<!-- <i class='fas fa-user-alt-slash' >Resignation</i> -->
+										<span>Professional Details</span></a></li>
+
+								<li><a href="qualificationdetails">
+										<!-- <i class='fas fa-user-alt-slash' >Resignation</i> -->
+										<span>Qualification Details</span></a></li>
+								<li><a href="familyDetails">
+										<!-- <i class='fas fa-user-alt-slash' >Resignation</i> -->
+										<span>Family Details</span></a></li>
 
 
 
-								<div class="main-content">
-									<div class="row">
 
-										<div class="col-mb-12">
-											<div class="table-wrapper">
-												<div class="table-title">
-													<div class="row">
-														<div
-															class="col-sm-6 p-0 d-flex justify-content-lg-start justify-content-center">
-															<h2 class="ml-lg-2">Family Details</h2>
-														</div>
-														<div
-															class="col-sm-6 p-0 d-flex justify-content-lg-end justify-content-center">
+							</ul>
 
-															<button type="button" class="btn btn-success"
-																onClick="addLeaveTableElement()">
-																<i class="fa fa-plus-circle" aria-hidden="true"></i>New Leave
-															</button>
-														</div>
-													</div>
+
+						</nav>
+
+
+
+
+
+          
+						<div id="applyresignation" class="modal fade">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<form action="deptAlloc" method="post">
+										<div class="modal-header">
+											<h4 class="modal-title">APPLY RESIGNATION</h4>
+											
+										</div>
+										<div class="modal-body">
+											<div class="form-group">
+												<label> REASON FOR RESIGNATION</label> <textarea class="form-control" name="reason" required></textarea>
+											</div>
+										<br><br>
+										<div>
+											<div class
+											<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+											<input type="submit" class="btn btn-success" value="Apply"></div>
+										
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+		
+
+
+
+
+
+
+						<!--------page-content---------------->
+
+						<div id="content">
+
+							<!--top--navbar----design--------->
+							<div class="top-navbar">
+								<div class="xp-topbar">
+
+									<!-- Start XP Row -->
+									<div class="row justify-content-end">
+										<!-- Start XP Col -->
+										<!-- <div
+    class="col-2 col-md-1 col-lg-1 order-2 order-md-1 align-self-center">
+    <div class="xp-menubar">
+      <span class="material-icons text-white">signal_cellular_alt
+      </span>
+    </div>
+  </div> -->
+										<!-- End XP Col -->
+
+										<!-- Start XP Col -->
+
+
+
+										<!-- End XP Col -->
+
+										<!-- Start XP Col -->
+										<div class="col-md-3 col-lg-2 order-1 order-md-3 ">
+											<div class="xp-profilebar text-right" align="right">
+												<nav class="navbar p-0">
+													<ul class="nav navbar-nav flex-row ml-auto">
+														<li class="align-right">
+															<a href="../logout" class="nav-link"><span
+																	class="material-icons">logout</span>
+																Logout
+															</a>
+														</li>
+
+													</ul>
+
+
+												</nav>
+
+											</div>
+										</div>
+										<!-- End XP Col -->
+
+									</div>
+									<!-- End XP Row -->
+
+								</div>
+								<div class="xp-breadcrumbbar text-center">
+									<h4 class="page-title">Dashboard</h4>
+									<!--  <ol class="breadcrumb">
+						<li class="breadcrumb-item"><a href="#">Booster</a></li>
+						<li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+					</ol>-->
+								</div>
+
+							</div>
+
+
+
+							<!--------main-content------------->
+
+
+							<div class="row">
+								<div class="col-1"></div>
+								<div class="col-10">
+									<div class="table-wrapper">
+										<div class="table-title">
+											<div class="row">
+												<div
+													class="col-sm-6 p-0 d-flex justify-content-lg-start justify-content-center">
+													<h2 class="ml-lg-2">Manage Leave</h2>
 												</div>
-												<table class="table table-striped table-hover">
-													<thead>
+												<div
+													class="col-sm-6 p-0 d-flex justify-content-lg-end justify-content-center">
+													<a href="#applyLeaveModal" class="btn btn-success"
+														data-toggle="modal">
+														<i class="material-icons">&#xE147;</i>
+														<span>Apply For Leave</span></a>
+
+												</div>
+
+											</div>
+										</div>
+										<table class="table table-striped table-hover">
+											<thead>
+												<tr>
+													<th>Leave Type</th>
+													<th>Leave Reason</th>
+													<th>Is Approved</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+
+													<c:forEach items="${leavelist}" var="leave">
+												<tr>
+													<td>
+														<c:out value="${leave.leaveType}" />
+													</td>
+													<td>
+														<c:out value="${leave.leaveReason}" />
+													</td>
+													<td>
+														<c:out value="${leave.isApproved}" />
+													</td>
+												</tr>
+
+
+
+
+
+
+												</c:forEach>
+
+												</tr>
+											</tbody>
+										</table>
+
+										<!-- <div class="clearfix">
+										<div class="hint-text">
+											Total number of entries <b>${countOfDepartments}</b><br>
+											Showing page <b>${pageNo}</b> of <b>${countPages }</b>
+										</div>
+										<ul class="pagination">
+
+											<c:if test="${ pageNo > 1}">
+												<li class="page-item"><a href="?pg=${pageNo-1}"
+														class="page-link">Previous</a></li>
+											</c:if>
+											<c:if test="${ pageNo < countPages}">
+												<li class="page-item"><a href="?pg=${pageNo+1}"
+														class="page-link">Next</a></li>
+											</c:if>
+
+
+										</ul>
+									</div> -->
+									</div>
+								</div>
+
+								<div class="col-1"></div>
+								<!-- Edit Modal HTML -->
+								<div id="applyLeaveModal" class="modal fade">
+									<div class="modal-dialog">
+										<div class="modal-content">
+
+											<div class="modal-header">
+												<h4 class="modal-title">Apply Leave</h4>
+											</div>
+											<div class="modal-body">
+
+
+												<table>
+													<form action="applyLeave" method="post" modelAttribute="leave">
 														<tr>
-															<th>APPLY</th>
-															<th>LEAVE TYPE</th>
-															<th>LEAVE REASON</th>
-															<th>LEAVE DATE</th>
-															<th>IS APPROVED</th>
-														</tr>
-													</thead>
-													<tbody id="tableOfLeaveDetails">
-														<tr id="RowOfLeaveDetails">
-															<td><button type="submit" class="btn btn-success">APPLY</button></td>
-															<td><select class="form-select"
-																aria-label="Default select example">
-																	<option value="SL">SL</option>
-																	<option value="PL" >PL</option>
-																	<option value="CL" selected>CL</option>
-																	<option value="OL" >OL</option>
-															</select></td>
-                                                            <td>
-
-																<div class="input-group ">
-																	<input type="text" class="form-control"
-																		placeholder="REASON" aria-label="REASON"
-																		aria-describedby="basic-addon1"
-																		pattern="[a-zA-Z]{4,254}" required>
+															<td>
+																<div class="input-group mb-3">
+																	<div class="input-group-prepend">
+																		<label class="input-group-text"
+																			for="inputGroupSelect01">Leave Type</label>
+																	</div>
+																	<select class="custom-select"
+																		id="inputGroupSelect01" name="leaveType">
+																		<option value="SL">SL </option>
+																		<option value="PL">PL</option>
+																		<option value="CL" selected>CL</option>
+																	</select>
 																</div>
-
 															</td>
-                                                            
-															<td><input type="date" class="form-control"
-																aria-describedby="basic-addon1" required></td>
-															
-
-                                                                <td><select class="form-select"
-                                                                    aria-label="Default select example">
-                                                                        <option value="YES">YES</option>
-                                                                        <option value="NO" selected>NO</option>
-                                                                </select></td>
-
 														</tr>
-													</tbody>
+														<tr>
+															<td><br></td>
+														</tr>
+														<tr>
+															<td>
+
+
+																<div class="input-group">
+																	<div class="input-group-prepend">
+																		<span class="input-group-text">Reason for
+																			leave</span>
+																	</div>
+																	<textarea class="form-control"
+																		aria-label="With textarea" name="leaveReason"
+																		required></textarea>
+																</div>
+															</td>
+														</tr>
+														<tr>
+															<td><br></td>
+														</tr>
+														<tr>
+															<td>
+
+
+																<div class="input-group">
+																	<div class="input-group-prepend">
+																		<span class="input-group-text">Applied
+																			for</span>
+																	</div><input type="date" class="form-control"
+																		aria-label="Small"
+																		aria-describedby="inputGroup-sizing-sm"
+																		name="leaveAppliedFor" required>
+																</div>
+															</td>
+														</tr>
+														<tr>
+															<td><br></td>
+														</tr>
+														<tr>
+															<td>
+
+																<button type="button" class="btn btn-secondary"
+																	data-dismiss="modal">Close</button>
+																<button type="submit"
+																	class="btn btn-primary">Submit</button>
+															</td>
+														</tr>
+
+														<!-- <div class="input-container ic2">  
+													<div class="input-group-prepend">
+													<span class="input-group-text" id="basic-addon1">Leave Type</span>
+												  </div>
+													<div class="cut cut-short"></div>
+
+													<c:set var="leaveTypes" value="${['SL', 'PL', 'CL']}" />
+
+													<select class="form-select" aria-label="Default select example"
+														name="leaveType">
+														<c:forEach items="{leaveTypes}" var="value">
+															<option value="${value}"> <b>${fn:toUpperCase(value)}</b>
+															</option>
+
+
+														</c:forEach>
+													</select>
+												</div> -->
+
+														<!-- 													
+													<div class="input-group ">
+														<label for="Leave Reason" class="placeholder">Leave Reason</label>
+														<input type="text" class="form-control"
+															placeholder="Leave Reason"
+															aria-label="Leave Reason"
+															aria-describedby="basic-addon1"
+															pattern="^.{1,255}$"
+															name="leaveReason">
+													</div>
+
+												<br>
+												<div class="input-group ">
+													<label for="departmentName" class="placeholder">
+														Applied For</label>
+													<input type="date" class="form-control"
+														placeholder="Applied For" aria-label="Applied For"
+														aria-describedby="basic-addon1" name="leaveAppliedFor" />
+												</div>
+												<button type="button" class="btn btn-secondary"
+													data-dismiss="modal">Close</button>
+												<button type="submit" class="btn btn-primary">Submit</button> -->
+													</form>
 												</table>
-							</form>
+											</div>
+										</div>
+									</div>
+								</div>
 
 
+
+
+
+
+								<!---footer---->
+
+
+							</div>
 
 						</div>
 					</div>
 
-				</div>
-			</div>
-		</div>
-	</div>
-	</div>
-	<br>
-	<br>
 
-	<footer class="footer">
-		<div class="container-fluid">
-			<div class="footer-in">
-				<p class="mb-0">NRI FinTech - All Rights Reserved.</p>
-			</div>
-		</div>
-	</footer>
-	<script>
-		function removeTableRow(button) {
-			var th = button.parentNode;
-			var th1 = th.parentNode;
-			var tableCount = th1.parentNode.parentNode.rows.length;
+					<!----------html code complete----------->
 
-			if (tableCount > 2) {
-				th1.remove();
 
-			} else {
-				alert("Ooop!! you cannot have no family details.")
-			}
-		}
-		function addLeaveTableElement() {
-			// Create a new element
-			var tableOfFmailyDetails = document
-					.getElementById("tableOfLeaveDetails");
-			var rowOfFmailyDetails = document
-					.getElementById("RowOfLeaveDetails");
-			var noOfRow = tableOfFmailyDetails.rows.length;
 
-			// Clone the last row and update its data
 
-			var newRow = rowOfFmailyDetails.cloneNode(true);// Insert the new row into the table
-			tableOfFmailyDetails.appendChild(newRow);
 
-		}
-	</script>
-</body>
+					</div>
 
-</html>
 
+
+					<!-- Optional JavaScript -->
+					<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
+				</body>
+				<script src="../resources/lib/jquery/jquery-3.3.1.min.js" type="text/javascript" />
+				<script src="../resources/lib/jquery/jquery-3.3.1.slim.min.js" type="text/javascript" />
+				<script src="../resources/custom/js/admin-dashboard/navtoggle.js" type="text/javascript" />
+				<script src="../resources/lib/popper/popper.min.js" type="text/javascript" />
+				<script src="../resources/lib/bootstrap/js/bootstrap.bundle.min.js" type="text/javascript" />
+
+
+				<script type="text/javascript">
+
+					$(document).ready(function () {
+						$(".xp-menubar").on('click', function () {
+							$('#sidebar').toggleClass('active');
+							$('#content').toggleClass('active');
+						});
+
+						$(".xp-menubar,.body-overlay").on('click', function () {
+							$('#sidebar,.body-overlay').toggleClass('show-nav');
+						});
+
+					});
+
+				</script>
+
+				</html>

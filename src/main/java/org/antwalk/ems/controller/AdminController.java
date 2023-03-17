@@ -254,16 +254,13 @@ private EmployeeRepository employeeRepository;
         return "editUser";
     }
 
-    // @GetMapping("editempdata")
-    // public String editempdata(HttpServletRequest request, Model model){
-    //     model
-    //     return "editUser";
-    // }
     @PostMapping("editemployee")
     public String editemployee(@ModelAttribute("employeeinfo") Employee employee, BindingResult result, RedirectAttributes redirectAttrs, @RequestParam String search, @RequestParam int pg) throws UserNotFoundException{
             employeeRepository.save(employee);
             // ?search="+search+"&pg="+pg
             return "redirect:/admin/dashboard?search=null&pg=1";
     }
+
+
 
 }

@@ -157,17 +157,18 @@
               </h3>
             </div>
             <ul class="list-unstyled components">
-              <li class="active"><a href="#" class="dashboard"><i class="material-icons">dashboard</i>
+              <li class="active"><a href="dashboard" class="dashboard"><i class="material-icons">dashboard</i>
                   <span>Dashboard</span></a></li>
-              <li><a href="#homeSubmenu1" data-toggle="collapse" aria-expanded="false"> <i
+              <li ><a href="leaveApplication?pg=1" > <i
                     class="material-icons">playlist_add_check</i>Apply Leave
                   
                 </a></li>
 
                 
-                <li><a href="#empresignation" data-toggle="modal" aria-expanded="false"> <i
-                  class="material-icons">directions_walk</i>Resignation
-              approval
+                <li><a href="#applyresignation"  data-toggle="modal"
+                  aria-expanded="false" > <i
+                  class="material-icons">directions_walk</i>Apply Resignation
+              
 
 
           </a></li>
@@ -195,6 +196,30 @@
 
 
           </nav>
+        
+          
+				<div id="applyresignation" class="modal fade">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<form action="deptAlloc" method="post">
+								<div class="modal-header">
+									<h4 class="modal-title">APPLY RESIGNATION</h4>
+									<button type="button" class="close" data-dismiss="modal"
+										aria-hidden="true">&times;</button>
+								</div>
+								<div class="modal-body">
+									<div class="form-group">
+										<label> REASON FOR RESIGNATION</label> <textarea class="form-control" name="reason" required></textarea>
+									</div>
+								</div>
+								<div class="modal-footer">
+									<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+									<input type="submit" class="btn btn-success" value="Add">
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
 
 
 

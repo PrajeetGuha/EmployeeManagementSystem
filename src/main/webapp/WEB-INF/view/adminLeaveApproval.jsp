@@ -513,15 +513,9 @@
 											<div class="row">
 												<div
 													class="col-sm-6 p-0 d-flex justify-content-lg-start justify-content-center">
-													<h2 class="ml-lg-2">Manage Departments</h2>
+													<h2 class="ml-lg-2">Manage Leaves</h2>
 												</div>
-												<div
-													class="col-sm-6 p-0 d-flex justify-content-lg-end justify-content-center">
-													<a href="#addDepartmentModal" class="btn btn-success"
-														data-toggle="modal"> <i class="material-icons">&#xE147;</i>
-														<span>Add New Department</span></a>
-
-												</div>
+												
 
 											</div>
 										</div>
@@ -529,34 +523,30 @@
 											<thead>
 												<tr>
 
-													<th>ID</th>
-													<th>DEPARTMENT NAME</th>
-													<th>HEAD OF DEPARTMENT</th>
+													<th>Leave type</th>
+													<th>Leave Reason</th>
+													<th>Leave For</th>
 													<th>ACTIONS</th>
 												</tr>
 											</thead>
 											<tbody>
 												<tr>
 
-													<c:forEach items="${listdepartments}" var="dept">
+													<c:forEach items="${leavelist}" var="leave">
 												<tr>
 													<td>
-														<c:out value="${dept.deptId}" />
+														<c:out value="${leave.leaveType}" />
 													</td>
 													<td>
 														<c:out
-															value="${fn:toUpperCase(fn:substring(dept.departmentName, 0, 1))}${fn:toLowerCase(fn:substring(dept.departmentName, 1,fn:length(dept.departmentName)))}" />
+															value="${fn:toUpperCase(leave.leaveAppliedFor)}" />
 													</td>
 													<td>
-														<c:out value="${dept.hod.empName}" />
-													</td>
-													<td><a href="#editDepartmentModal${dept.deptId }" class="edit"
-															data-toggle="modal" onclick="getdeptId('${dept.deptId}')">
-															<i class="material-icons" data-toggle="tooltip"
-																title="Edit">&#xE254;</i></a> <a
-															href="#generateDepartmentReportModal" class="report"
-															data-toggle="modal"> <i class="material-icons"
-																data-toggle="tooltip" title="Report">summarize</i></a>
+                                                        <form action="" method="post">
+                                                            
+                                                            <button  type="submit" class="btn btn-success" formaction="leaveAction?lid=${leave.empLeaveId}&pg=1&approve=false">Approve</button>
+                                                            <button type="submit" class="btn btn-danger" formaction="leaveAction?lid=${leave.empLeaveId}&pg=1&approve=false">Discard</button>
+                                                        </form>
 													</td>
 												</tr>
 
@@ -659,75 +649,9 @@
 											</tbody>
 										</table>
 
-										<div class="clearfix">
-											<div class="hint-text">
-												Total number of entries <b>${countOfDepartments}</b><br>
-												Showing page <b>${pageNo}</b> of <b>${countPages }</b>
-											</div>
-											<ul class="pagination">
-
-												<c:if test="${ pageNo > 1}">
-													<li class="page-item"><a href="?pg=${pageNo-1}"
-															class="page-link">Previous</a></li>
-												</c:if>
-												<c:if test="${ pageNo < countPages}">
-													<li class="page-item"><a href="?pg=${pageNo+1}"
-															class="page-link">Next</a></li>
-												</c:if>
-
-
-											</ul>
-										</div>
 									</div>
 								</div>
-								<!-- Edit Modal HTML -->
-								<div id="addDepartmentModal" class="modal fade">
-									<div class="modal-dialog">
-										<div class="modal-content">
-
-											<div class="modal-header">
-												<h4 class="modal-title">Add Department</h4>
-												<!-- <button type="button" class="close" data-dismiss="modal"
-											aria-hidden="true">&times;</button> -->
-											</div>
-											<div class="modal-body">
-												<form action="addDept" method="post" modelAttribute="newdept"
-													onsubmit="return validateForm()">
-													<div class="input-container ic1">
-														<label for="departmentName" class="placeholder">Department
-															Name</label>
-														<div class="cut"></div>
-														<input id="departmentName" name="departmentName"
-															class="input required" type="text" placeholder=" "
-															required />
-													</div>
-													<div class="input-container ic2">
-														<label for="hod" class="placeholder">HOD</label>
-														<div class="cut cut-short"></div>
-														<select id="hod" name="hod" class="input required"
-															placeholder=" " required>
-															<option value="">Unassigned</option>
-															<c:forEach items="${allemployeenames}" var="department">
-																<option value="${department.empId}">
-																	(${department.empId})
-																	${department.empName}</option>
-
-
-															</c:forEach>
-														</select>
-													</div>
-
-													<br>
-													<div class="modal-footer">
-														<button type="button" class="btn btn-secondary"
-															data-dismiss="modal">Close</button>
-														<button type="submit" class="btn btn-primary">Submit</button>
-													</div>
-												</form>
-											</div>
-										</div>
-									</div>
-								</div>
+								
 
 
 								<!---footer---->

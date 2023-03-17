@@ -37,40 +37,8 @@
                 <div class="container-fluid ">
 
                     <div class="row align-items-start">
-                        <div class="col-1 ">
 
-                            <div class="card " style="width: 15rem;">
-
-                                <div class="cardside">
-                                    <img src="/resources/image/profile.jpg" class="card-img-top">
-                                    <b>
-                                        <h4 class="card-title">&nbsp;&nbsp;John moosewala</h4>
-                                    </b>
-                                    <div class="container">
-                                        <div class="card-body">
-                                            <div class="input-group mb-3">
-                                                <input type="file" class="form-control" id="inputGroupFile02">
-                                                <label class="input-group-text" for="inputGroupFile02">Image</label>
-                                            </div>
-                                            <div class="row">
-                                                <p class="card-text">
-
-                                                <div class="col-6">
-                                                    <i class="fa fa-phone" style="font-size:24px;color:black"></i>
-                                                </div>
-                                                <div class="col-6">
-                                                    <i class="fa fa-envelope" style="font-size:24px;color:black"></i>
-                                                </div>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-2"></div>
+                        <div class="col-3"></div>
 
                         <!-- <div class="main-content">
                             <div class="row">
@@ -87,7 +55,9 @@
 
                         <div class="col-9">
                             <div class="card">
-                                <center><h2 class="card-title">My Profile</h2></center>
+                                <center>
+                                    <h2 class="card-title">My Profile</h2>
+                                </center>
                                 <div class="card-body">
                                     <div class="container-fluid">
                                         <div class="row">
@@ -366,13 +336,14 @@
                                             </div>
                                         </div>
                                     </div>
-                                    </div>
                                 </div>
-                                <div class="col-2"></div>
                             </div>
-
                         </div>
+                        <div class="col-2"></div>
                     </div>
+
+                </div>
+                </div>
 
                 </div>
                 </div>
