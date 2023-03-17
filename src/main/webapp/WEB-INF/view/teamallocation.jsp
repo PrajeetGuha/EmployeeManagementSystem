@@ -764,8 +764,8 @@ document.addEventListener('DOMContentLoaded', function() {
 									<div class="input-container ic2">
 										<label for="hod" class="placeholder">New Password</label>
 										<div class="cut cut-short"></div>
-										<input id="changedpassword" name="changedpassword" class="input required"
-											type="password" placeholder=" "
+										<input id="changedpassword" name="changedPassword"
+											class="input required" type="password" placeholder=" "
 											pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+]).{8,}$"
 											oninput="setCustomValidity('')"
 											oninvalid="setCustomValidity('Password must be of 8 characters and contain at least one capital character, one number, and a special character.')"
@@ -783,6 +783,7 @@ document.addEventListener('DOMContentLoaded', function() {
 						</div>
 					</div>
 				</div>
+
 
 
 
