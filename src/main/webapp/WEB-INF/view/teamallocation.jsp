@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 
@@ -29,7 +30,41 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
 	<c:set var="pageNo" value="${pageNo}" />
-							<c:set var="pageCount" value="${pageCount}" />
+							<c:set var="pageCount" value="${countPages}" />
+
+<script>
+
+document.addEventListener('DOMContentLoaded', function() {
+    var departmentNameInput = document.getElementById('teamName');
+
+    var listdept = [
+        <c:forEach var="team" items="${listteams}">
+          "${team.teamName.toLowerCase()}",
+        </c:forEach> // assuming "listdepartments" is a model attribute
+    ];
+
+    // add an "oninput" event listener to clear custom validity message
+    departmentNameInput.addEventListener('input', function() {
+        this.setCustomValidity('');
+    });
+
+    document.querySelector('form[modelAttribute="newteam"]').addEventListener('submit', function(e) {
+        // check if department name already exists
+        var departmentName = departmentNameInput.value.toLowerCase();
+        if (departmentName == "") {
+            departmentNameInput.setCustomValidity('Team name cannot be empty.');
+            e.preventDefault(); // prevent form submission
+        } else if (listdept.includes(departmentName)) {
+            departmentNameInput.setCustomValidity('Team already exists. Please choose a different name.');
+            e.preventDefault(); // prevent form submission
+        } else {
+            departmentNameInput.value = departmentName; // set value to lowercase
+        }
+    });
+});
+
+  </script>
+				
 </head>
 
 <body>
@@ -46,10 +81,7 @@
 			<ul class="list-unstyled components">
 				<li ><a href="dashboard?search=null&pg=1" class="dashboard"><i
 						class="material-icons">dashboard</i> <span>Dashboard</span></a></li>
-				<li><a href="#homeSubmenu1" data-toggle="collapse"
-					aria-expanded="false"> <i class="material-icons">playlist_add_check</i>Leave
-						Approval
-				</a></li>
+				
 
 				<li><a href="projectallocation?pg=1"> <i class="material-icons">laptop</i>Project
 				</a></li>
@@ -58,14 +90,18 @@
 				<li><a href="departmentallocation?pg=1"> <i
 						class="material-icons">work</i>Department
 				</a></li>
-				<!-- <li><a href="#hike" data-toggle="modal" aria-expanded="false">
-						<i class="material-icons">currency_rupee</i>Appraisal
-				</a></li> -->
+				<li><a href="#homeSubmenu1" data-toggle="collapse"
+					aria-expanded="false"> <i class="material-icons">playlist_add_check</i>Leave
+						Approval
+				</a></li>
 				<li><a href="#empresignation" data-toggle="modal" aria-expanded="false">
 						<i class="material-icons">directions_walk</i>Resignation approval
 				</a></li>
 				<li><a href="analytics" data-toggle="modal" aria-expanded="false">
 						<i class="material-icons">analytics</i>Analytics
+				</a></li>
+				<li><a href="#changePasswordModal" data-toggle="modal"
+					aria-expanded="false"> <i class="material-icons">vpn_key</i>Change Password
 				</a></li>
 				<li><a href="#adminprofile" data-toggle="modal"
 					aria-expanded="false"> <i class="material-icons">account_circle</i>Profile
@@ -206,8 +242,8 @@
 					<form action="hike" method="post">
 						<div class="modal-header">
 							<h4 class="modal-title">ADMIN PROFILE</h4>
-							<button type="button" class="close" data-dismiss="modal"
-								aria-hidden="true">&times;</button>
+							<!-- <button type="button" class="close" data-dismiss="modal"
+								aria-hidden="true">&times;</button> -->
 						</div>
 						<div class="modal-body">
 							<ul>
@@ -230,7 +266,7 @@
 						</div>
 
 						<div class="modal-footer">
-							<input type="button" class="btn btn-default" data-dismiss="modal"
+							<input type="button" class="btn btn-secondary" data-dismiss="modal"
 								value="Close">
 
 						</div>
@@ -328,14 +364,10 @@
 									</div>
 									<div
 										class="col-sm-6 p-0 d-flex justify-content-lg-end justify-content-center">
-										<a href="javascript: void(0)" onclick="window.open('addteam','_blank','width=900,height=300');" class="btn btn-success"
+										<a href="#addTeamModal" class="btn btn-success" data-toggle="modal"
 											> <i class="material-icons">&#xE147;</i>
 											<span>Add New Team</span></a>
-										<!--  <a href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal">
-		  <i class="material-icons">&#xE15C;</i> <span>Delete</span></a>-->
-		  <a href="javascript: void(0)" onclick="window.open('allocateteam','_blank','width=900,height=300');" class="btn btn-success"
-											> <i class="material-icons">&#xE147;</i>
-											<span>Allocate Team</span></a>
+										
 									</div>
 								</div>
 							</div>
@@ -345,26 +377,24 @@
 
 										<th>ID</th>
 										<th>TEAM NAME</th>
-										<th>EMPLOYEE NAME</th>
+										<th>TEAM MANAGER</th>
 										<th>Actions</th>
 									</tr>
 								</thead>
 								<tbody>
 									<tr>
 
-										<c:forEach items="${employees}" var="employee">
+										<c:forEach items="${listteams}" var="team">
 											<tr>
-												<td><c:out value="${employee.empId}" /></td>
-												<td><c:out value="${employee.empName}" /></td>
-												<td><c:out value="${employee.workEmail}" /></td>
-												<td><c:out value="${employee.designation}" /></td>
-												<td><c:out value="${employee.empstatus}" /></td>
-												<td><a href="#editEmployeeModal" class="edit"
+												<td><c:out value="${team.teamId }" /></td>
+												<td><c:out value="${fn:toUpperCase(fn:substring(team.teamName, 0, 1))}${fn:toLowerCase(fn:substring(team.teamName, 1,fn:length(team.teamName)))}" /></td>
+												<td><c:out value="${team.tm.empName}" /></td>
+												<td><a href="#editTeamModal${team.teamId }" class="edit"
 													data-toggle="modal"> <i class="material-icons"
 														data-toggle="tooltip" title="Edit">&#xE254;</i></a> <a
-													href="#deleteEmployeeModal" class="delete"
+													href="#generateTeamReportModal" class="report"
 													data-toggle="modal"> <i class="material-icons"
-														data-toggle="tooltip" title="Status">&#xE152;</i></a></td>
+														data-toggle="tooltip" title="Report">summarize</i></a></td>
 											</tr>
 										</c:forEach>
 
@@ -446,8 +476,8 @@
 							
 							<div class="clearfix">
 								<div class="hint-text">
-									Total number of entries <b>${empCount}</b><br> Showing
-									page <b>${pageNo}</b>
+									Total number of entries <b>${countOfteams}</b><br> Showing
+									page <b>${pageNo}</b> of <b>${countPages eq 0 ? 1 : countPages}</b>
 								</div>
 								<ul class="pagination">
 										
@@ -456,7 +486,7 @@
 											<a href="?pg=${pageNo-1}" class="page-link">Previous</a> 
 											</li>
 										</c:if>
-										<c:if test="${ pageNo < pageCount}"> 
+										<c:if test="${ pageNo < countPages}"> 
 											<li class="page-item">
 											<a href="?pg=${pageNo+1}" class="page-link">Next</a> 
 											</li>
@@ -471,74 +501,48 @@
 					<div id="addTeamModal" class="modal fade">
 						<div class="modal-dialog">
 							<div class="modal-content">
-								<form>
+								
 									<div class="modal-header">
 										<h4 class="modal-title">Add Team</h4>
-										<button type="button" class="close" data-dismiss="modal"
-											aria-hidden="true">&times;</button>
+										<!-- <button type="button" class="close" data-dismiss="modal"
+											aria-hidden="true">&times;</button> -->
 									</div>
 									<div class="modal-body">
-										<div class="form-group">
-											<label>Team Name</label> <input type="text" class="form-control"
-												required>
+										<form action="addTeam" method="post" modelAttribute="newteam"
+										>
+										<div class="input-container ic1">
+											<label for="teamName" class="placeholder">Team
+												Name</label>
+											<div class="cut"></div>
+											<input id="teamName" name="teamName"
+												class="input required" type="text" placeholder=" "  required />
 										</div>
-										
-										
-										<!--  <div class="form-group">
-											<label>Address</label>
-											<textarea class="form-control" required></textarea>
+										<div class="input-container ic2">
+											<label for="tm" class="placeholder">Team Manager</label>
+											<div class="cut cut-short"></div>
+											<select id="tm" name="tm" class="input required"
+												placeholder=" " >
+												<option value="0">Unassigned</option>
+												<c:forEach items="${allemployeenames}" var="department">
+													<option value="${department.empId}">(${department.empId})
+														${department.empName}</option>
+
+
+												</c:forEach>
+											</select>
 										</div>
-										<div class="form-group">
-											<label>Phone</label> <input type="text" class="form-control"
-												required>
-										</div>-->
-									</div>
-									<div class="modal-footer">
-										<input type="button" class="btn btn-default"
-											data-dismiss="modal" value="Cancel"> <input
-											type="submit" class="btn btn-success" value="Add">
-									</div>
-								</form>
+
+										<br>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-secondary"
+												data-dismiss="modal">Close</button>
+											<button type="submit" class="btn btn-primary">Submit</button>
+										</div>
+									</form>
 							</div>
 						</div>
 					</div>
-					<div id="allocateTeamModal" class="modal fade">
-						<div class="modal-dialog">
-							<div class="modal-content">
-								<form>
-									<div class="modal-header">
-										<h4 class="modal-title">Allocate Team</h4>
-										<button type="button" class="close" data-dismiss="modal"
-											aria-hidden="true">&times;</button>
-									</div>
-									<div class="modal-body">
-										<div class="form-group">
-											<label>Team Name</label> <input type="text" class="form-control"
-												required>
-										</div>
-										<div class="form-group">
-											<label>Employee Name</label> <input type="text" class="form-control"
-												required>
-										</div>
-										
-										<!--  <div class="form-group">
-											<label>Address</label>
-											<textarea class="form-control" required></textarea>
-										</div>
-										<div class="form-group">
-											<label>Phone</label> <input type="text" class="form-control"
-												required>
-										</div>-->
-									</div>
-									<div class="modal-footer">
-										<input type="button" class="btn btn-default"
-											data-dismiss="modal" value="Cancel"> <input
-											type="submit" class="btn btn-success" value="Add">
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
+					
 					<!-- Edit Modal HTML -->
 					<div id="editEmployeeModal" class="modal fade">
 						<div class="modal-dialog">
@@ -579,31 +583,53 @@
 
 
 
-					<!-- Delete Modal HTML -->
-					<div id="deleteEmployeeModal" class="modal fade">
-						<div class="modal-dialog">
-							<div class="modal-content">
-								<form action="editStatus" method="post">
-									<div class="modal-header">
-										<h4 class="modal-title">Edit Status</h4>
-										<button type="button" class="close" data-dismiss="modal"
-											aria-hidden="true">&times;</button>
+					<!-- Password Modal HTML -->
+				<div id="changePasswordModal" class="modal fade">
+					<div class="modal-dialog">
+						<div class="modal-content">
+
+							<div class="modal-header">
+								<h4 class="modal-title">Change Password</h4>
+								<!-- <button type="button" class="close" data-dismiss="modal"
+											aria-hidden="true">&times;</button> -->
+							</div>
+							<div class="modal-body">
+								<form action="changePassword" method="post"
+									modelAttribute="newpass">
+									<div class="input-container ic1">
+										<label for="empId" class="placeholder">Employee Name</label>
+										<div class="cut"></div>
+										<select id="empId" name="empId" class="input required"
+											placeholder=" " required>
+											<c:forEach items="${allemployeenames}" var="department">
+												<option value="${department.empId}">(${department.empId})
+													${department.empName}</option>
+											</c:forEach>
+										</select>
 									</div>
-									<div class="modal-body">
-										<p>Edit status for this employee?</p>
-										
+									<div class="input-container ic2">
+										<label for="hod" class="placeholder">New Password</label>
+										<div class="cut cut-short"></div>
+										<input id="changedpassword" name="changedpassword" class="input required"
+											type="password" placeholder=" "
+											pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+]).{8,}$"
+											oninput="setCustomValidity('')"
+											oninvalid="setCustomValidity('Password must be of 8 characters and contain at least one capital character, one number, and a special character.')"
+											required />
 									</div>
+
+									<br>
 									<div class="modal-footer">
-										<input type="submit" class="btn btn-primary" value="Active"> 
-										<input type="submit" class="btn btn-danger" value="Inactive">
+										<button type="button" class="btn btn-secondary"
+											data-dismiss="modal">Close</button>
+										<button type="submit" class="btn btn-primary">Submit</button>
 									</div>
 								</form>
 							</div>
 						</div>
 					</div>
-
-
 				</div>
+
 
 
 				<!---footer---->

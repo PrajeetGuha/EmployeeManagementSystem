@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import javax.transaction.Transactional;
 
+import org.antwalk.ems.dto.ChangePasswordDTO;
 import org.antwalk.ems.dto.NewDepartmentDTO;
 import org.antwalk.ems.dto.NewEmployeeDTO;
 import org.antwalk.ems.exception.DepartmentNotFoundException;
@@ -74,6 +75,7 @@ public class AdminService {
             () -> new UserNotFoundException("User with id: " + id + " not found")
         );
     }
+  
 
     public List<EmployeeListView> listEmployees(int pageNo, String search){
         Pageable pageable = PageRequest.of(pageNo-1, PAGE_SIZE, Sort.by("empId"));
@@ -157,6 +159,7 @@ public class AdminService {
     public List<EmployeeSelectionView> listAllEmployees(){
         return employeeRepository.findAllEmployeeNames();
     }
+  
 
     public List<String> listAllEmails(){
         return employeeDetailsRepository.listOfEmails();
@@ -170,9 +173,19 @@ public class AdminService {
         return departmentRepository.findAllDepartments();
     }
 
+    
+  //public List<Integer> employeesInDepartment()
+  //{
+	  
+  //}
+
     public List<Department> getAllDepartments(int pageNo){
         Pageable pageable = PageRequest.of(pageNo-1, PAGE_SIZE, Sort.by("deptId"));
         return departmentRepository.findAll(pageable).getContent();
+    }
+    
+    public Long countAllEmployees(){
+        return employeeRepository.count();
     }
 
     public Long countAllDepartments(){
@@ -221,6 +234,20 @@ public class AdminService {
         department.setHod(employee);
         departmentRepository.save(department);
 	}
+	
+	public void changePassword(ChangePasswordDTO changePasswordDTO) throws RuntimeException {
+	    // retrieve user entity from database using empId
+	    User user = userRepository.findByTablePk(changePasswordDTO.getEmpId())
+	            .orElseThrow(() -> new RuntimeException("User not found"));
+
+	    // set new password for user
+	    System.out.println("\n\n\n\n\n\n\n\n\n"+user.getPassword()+"\n\n\n\n\n\n\n\n\n\n");
+	    user.setPassword(passwordEncoder.encode(changePasswordDTO.getChangedPassword()));
+
+	    // save updated user entity to database
+	    userRepository.save(user);
+	}
+
 
 
     

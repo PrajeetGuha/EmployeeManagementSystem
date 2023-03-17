@@ -1,8 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
-	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-		<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-			<!DOCTYPE html>
-			<html>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<!DOCTYPE html>
+<html>
 
 			<head>
 				<meta charset="utf-8">
@@ -21,16 +23,48 @@
 				<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
 				<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
 
-				<c:set var="pageNo" value="${pageNo}" />
-				<c:set var="pageCount" value="${pageCount}" />
-				<script>
-					$(document)
-						.ready(
-							function () {
-								// Loop through each cell in the highlight-column class
-								$('.highlight-column')
-									.each(
-										function () {
+<c:set var="pageNo" value="${pageNo}" />
+<c:set var="pageCount" value="${pageCount}" />
+<c:if test="${not empty successMessage}">
+	<!-- Button trigger modal -->
+	<button type="button" class="btn btn-primary d-none"
+		data-toggle="modal" data-target="#exampleModal">Launch demo
+		modal</button>
+
+	<!-- Modal -->
+	<div class="modal fade show" id="exampleModal" tabindex="-1"
+		role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Success!</h5>
+
+				</div>
+				<div class="modal-body">${successMessage}</div>
+			</div>
+		</div>
+	</div>
+
+	<script>
+    $.noConflict();
+    jQuery(document).ready(function($) {
+        $('#exampleModal').modal('show');
+        setTimeout(function() {
+            $('#exampleModal').modal('hide');
+        }, 2000); // hide the popup after 3 seconds
+    
+    });
+    </script>
+</c:if>
+
+<script>
+	$(document)
+			.ready(
+					function() {
+						// Loop through each cell in the highlight-column class
+						$('.highlight-column')
+								.each(
+										function() {
 											var status = $(this).text(); // Get the cell's text value
 
 											// Set a different background color based on the status value
@@ -119,84 +153,82 @@
 
 
 
-					});
-				</script>
-				<script>
-					// Get emailIds and usernames from model attributes using JSTL
-					var emails = [
-						<c:forEach var="email" items="${emailIds}">
-							"${email}",
-						</c:forEach>
-					];
+});
+</script>
+<script>
+  // Get emailIds and usernames from model attributes using JSTL
+  var emails = [
+  <c:forEach var="email" items="${emailIds}">
+   "${email}",
+  </c:forEach>
+  ];
+  
+  var unames = [
+  <c:forEach var="username" items="${usernames}">
+    "${username}",
+  </c:forEach>
+  ];
+  
+  function validateForm() {
+    var isValid = true;
+    
+ // Remove any existing error styles and validity messages
+ // Remove any existing error styles and validity messages
+    $(".required").removeClass("error");
+    $(".required").each(function() {
+        this.setCustomValidity('');
+    });
 
-					var unames = [
-						<c:forEach var="username" items="${usernames}">
-							"${username}",
-						</c:forEach>
-					];
+    // Validate personal email field
+    var email = $("#email").val();
+    if (email === "") {
+       
+        $("#email")[0].setCustomValidity("Email is required");
+        isValid = false;
+    } else if (emails.includes(email)) {
+        
+        $("#email")[0].setCustomValidity("Email already exists");
+        isValid = false;
+    }
 
-					function validateForm() {
-						var isValid = true;
+    // Validate username field
+    var username = $("#username").val();
+    if (username === "") {
+       
+        $("#username")[0].setCustomValidity("Username is required");
+        isValid = false;
+    } else if (unames.includes(username)) {
+       
+        $("#username")[0].setCustomValidity("Username already taken");
+        isValid = false;
+    }
 
-						// Remove any existing error styles
-						$(".required").removeClass("error");
+    // Add event listener to clear custom validity messages on input
+    $(".required").on("input", function() {
+        this.setCustomValidity('');
+    });
 
-						// Validate personal email field
-						var email = $("#email").val();
-						if (email === "") {
-							$("#email").addClass("error");
-							$("#email-error").text("Email is required");
-							isValid = false;
-						} else if (emails.includes(email)) {
-							$("#email").addClass("error");
-							$("#email-error").text("Email already exists");
-							isValid = false;
-						}
+    return isValid;
 
-						// Validate username field
-						var username = $("#username").val();
-						if (username === "") {
-							$("#username").addClass("error");
-							$("#username-error").text("Username is required");
-							isValid = false;
-						} else if (unames.includes(username)) {
-							$("#username").addClass("error");
-							$("#username-error").text("Username already taken");
-							isValid = false;
-						}
 
-						// Validate password field
-						var password = $("#password").val();
-						var passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+]).{8,}$/;
-						if (password === "") {
-							$("#password").addClass("error");
-							$("#password-error").text("Password is required");
-							isValid = false;
-						} else if (!passwordRegex.test(password)) {
-							$("#password").addClass("error");
-							$("#password-error").text("Password must contain at least 8 characters including an uppercase letter, a number and a special character");
-							isValid = false;
-						}
-
-						return isValid;
-					}
-				</script>
-				<script>
-					function selectedEmpstatus(id, name, status) {
-						document.getElementById("empstatusname").innerHTML = name;
-						$("#empIdStatus").attr("value", id);
-						if (status == "inactive") {
-							$("#status-modal-form").attr("action", "activateUser?search=${search}&pgNo=${pageNo}");
-							$("#changestatusbtn").attr("class", "btn btn-primary");
-							$("#changestatusbtn").attr("value", "Activate");
-						}
-						else {
-							$("#status-modal-form").attr("action", "deactivateUser?search=${search}&pgNo=${pageNo}");
-							$("#changestatusbtn").attr("class", "btn btn-danger");
-							$("#changestatusbtn").attr("value", "Deactivate");
-						}
-					}
-				</script>
+  }
+</script>
+<script>
+	function selectedEmpstatus(id,name,status){
+		document.getElementById("empstatusname").innerHTML = name;
+		$("#empIdStatus").attr("value",id);
+		if (status == "inactive"){
+			$("#status-modal-form").attr("action","activateUser?search=${search}&pgNo=${pageNo}");
+			$("#changestatusbtn").attr("class", "btn btn-primary");
+			$("#changestatusbtn").attr("value", "Activate");
+		}
+		else{
+			$("#status-modal-form").attr("action","deactivateUser?search=${search}&pgNo=${pageNo}");
+			$("#changestatusbtn").attr("class", "btn btn-danger");
+			$("#changestatusbtn").attr("value", "Deactivate");
+		}
+	}
+</script>
 
 				<c:set var="pageNo" value="${pageNo}" />
 				<c:set var="pageCount" value="${pageCount}" />
@@ -206,42 +238,46 @@
 			<body>
 				<!-- <div>${result.getBody().getStatus()}</div> -->
 
-				<div class="wrapper">
-					<div class="body-overlay" />
-					<nav id="sidebar">
-						<div class="sidebar-header">
-							<h3>
-								<img src="../resources/assets/logo.png" class="img-fluid" /><span>NRI
-									Fintech</span>
-							</h3>
-						</div>
-						<ul class="list-unstyled components">
-							<li class="active"><a href="dashboard?search=null&pg=1" class="dashboard"><i
-										class="material-icons">dashboard</i> <span>Dashboard</span></a></li>
-							<li><a href="#homeSubmenu1" data-toggle="collapse" aria-expanded="false"> <i
-										class="material-icons">playlist_add_check</i>Leave
-									Approval
-								</a></li>
+	<div class="wrapper">
+		<div class="body-overlay" />
+		<nav id="sidebar">
+			<div class="sidebar-header">
+				<h3>
+					<img src="../resources/assets/logo.png" class="img-fluid" /><span>NRI
+						Fintech</span>
+				</h3>
+			</div>
+			<ul class="list-unstyled components">
+				<li class="active"><a href="dashboard?search=null&pg=1"
+					class="dashboard"><i class="material-icons">dashboard</i> <span>Dashboard</span></a></li>
 
-							<li><a href="projectallocation?pg=1"> <i class="material-icons">laptop</i>Project
-								</a></li>
-							<li><a href="teamallocation?pg=1"> <i class="material-icons">groups</i>Team
-								</a></li>
-							<li><a href="departmentallocation?pg=1"> <i class="material-icons">work</i>Department
-								</a></li>
-							<!-- <li><a href="#hike" data-toggle="modal" aria-expanded="false">
-						<i class="material-icons">currency_rupee</i>Appraisal
-				</a></li> -->
-							<li><a href="#empresignation" data-toggle="modal" aria-expanded="false"> <i
-										class="material-icons">directions_walk</i>Resignation
-									approval
-								</a></li>
-							<li><a href="analytics" data-toggle="modal" aria-expanded="false"> <i
-										class="material-icons">analytics</i>Analytics
-								</a></li>
-							<li><a href="#adminprofile" data-toggle="modal" aria-expanded="false"> <i
-										class="material-icons">account_circle</i>Profile
-								</a></li>
+
+				<li><a href="projectallocation?pg=1"> <i
+						class="material-icons">laptop</i>Project
+				</a></li>
+				<li><a href="teamallocation?pg=1"> <i
+						class="material-icons">groups</i>Team
+				</a></li>
+				<li><a href="departmentallocation?pg=1"> <i
+						class="material-icons">work</i>Department
+				</a></li>
+				<li><a href="#homeSubmenu1" data-toggle="collapse"
+					aria-expanded="false"> <i class="material-icons">playlist_add_check</i>Leave
+						Approval
+				</a></li>
+				<li><a href="#empresignation" data-toggle="modal"
+					aria-expanded="false"> <i class="material-icons">directions_walk</i>Resignation
+						approval
+				</a></li>
+				<li><a href="analytics"> <i class="material-icons">analytics</i>Analytics
+				</a></li>
+				<li><a href="#changePasswordModal" data-toggle="modal"
+					aria-expanded="false"> <i class="material-icons">vpn_key</i>Change
+						Password
+				</a></li>
+				<li><a href="#adminprofile" data-toggle="modal"
+					aria-expanded="false"> <i class="material-icons">account_circle</i>Profile
+				</a></li>
 
 
 						</ul>
@@ -361,43 +397,44 @@
 					</div>
 				</div> --%>
 
-				<div id="adminprofile" class="modal fade">
-					<div class="modal-dialog">
-						<div class="modal-content">
+		<div id="adminprofile" class="modal fade">
+			<div class="modal-dialog">
+				<div class="modal-content">
 
-							<div class="modal-header">
-								<h4 class="modal-title">ADMIN PROFILE</h4>
+					<div class="modal-header">
+						<h4 class="modal-title">ADMIN PROFILE</h4>
 
-							</div>
-							<div class="modal-body">
-								<form>
-									<ul>
-										<li>
-											<p>
-												<b>Admin id:</b> ${admin.adminId}
-											</p>
-										</li>
-										<li>
-											<p>
-												<b>Admin name:</b> ${admin.adminName}
-											</p>
-										</li>
-										<li>
-											<p>
-												<b>Admin email:</b> ${admin.adminEmail}
-											</p>
-										</li>
-									</ul>
-							</div>
-
-							<div class="modal-footer">
-								<input type="button" class="btn btn-secondary" data-dismiss="modal" value="Close">
-
-							</div>
-							</form>
-						</div>
 					</div>
+					<div class="modal-body">
+						<form>
+							<ul>
+								<li>
+									<p>
+										<b>Admin id:</b> ${admin.adminId}
+									</p>
+								</li>
+								<li>
+									<p>
+										<b>Admin name:</b> ${admin.adminName}
+									</p>
+								</li>
+								<li>
+									<p>
+										<b>Admin email:</b> ${admin.adminEmail}
+									</p>
+								</li>
+							</ul>
+					</div>
+
+						<div class="modal-footer">
+							<input type="button" class="btn btn-secondary" data-dismiss="modal"
+								value="Close">
+
+					</div>
+					</form>
 				</div>
+			</div>
+		</div>
 
 
 
@@ -555,23 +592,22 @@
 																title="Status">&#xE152;</i>
 															</a></td>
 
-															<td>
-																<c:out value="${employee.empstatus}" />
-															</td> --%>
-															<td><a
-																	href="editemployeedetails?empId=${employee.empId}&pg=1&search=${search}">
-																	<i class="material-icons" data-toggle="tooltip"
-																		title="View">&#xE853;</i></a> <a
-																	href="report?empId=${employee.empId}&pg=1&search=${search}"
-																	class="analytics"> <i class="material-icons"
-																		data-toggle="tooltip"
-																		title="Analytics">summarize</i></a> <a
-																	href="#deleteEmployeeModal" class="delete"
-																	data-toggle="modal"
-																	onclick="selectedEmpstatus(${employee.empId},'${employee.empName}', '${employee.empstatus}')">
-																	<i class="material-icons" data-toggle="tooltip"
-																		title="Status">new_releases</i>
-																</a></td>
+												<td><c:out value="${employee.empstatus}" /></td> --%>
+
+												<td><a
+													href="editemployeedetails?empId=${employee.empId}&pg=1&search=${search}">
+														<i class="material-icons" data-toggle="tooltip"
+														title="View">&#xE853;</i>
+												</a> <a
+													href="report?empId=${employee.empId}&pg=1&search=${search}"
+													class="analytics"> <i class="material-icons"
+														data-toggle="tooltip" title="Analytics">summarize</i></a> <a
+													href="#deleteEmployeeModal" class="delete"
+													data-toggle="modal"
+													onclick="selectedEmpstatus(${employee.empId},'${employee.empName}', '${employee.empstatus}')">
+														<i class="material-icons" data-toggle="tooltip"
+														title="Status">new_releases</i>
+												</a></td>
 
 											</tr>
 											</c:forEach>
@@ -653,12 +689,13 @@
 										</tbody>
 									</table>
 
-									<div class="clearfix">
-										<div class="hint-text">
-											Total number of entries <b>${empCount}</b><br> Showing
-											page <b>${pageNo}</b> of <b>${pageCount }</b>
-										</div>
-										<ul class="pagination">
+							<div class="clearfix">
+								<div class="hint-text">
+									Total number of entries <b>${empCount}</b><br> Showing
+									page <b>${pageNo}</b> of <b>${pageCount eq 0 ? 1 : pageCount}</b>
+
+								</div>
+								<ul class="pagination">
 
 											<c:if test="${ pageNo > 1}">
 												<li class="page-item"><a href="?search=${search}&pg=${pageNo-1}"
@@ -689,152 +726,156 @@
 										aria-label="Close">
 										<span aria-hidden="true">&times;</span>
 									</button> -->
+								</div>
+								<div class="modal-body">
+									<form action="addUser" method="post" modelAttribute="newuser"
+										onsubmit="return validateForm()">
+										<div class="input-container ic1">
+											<label for="name" class="placeholder">Name</label>
+											<div class="cut"></div>
+											<input id="name" name="name" class="input required"
+												type="text" placeholder=" " required />
 										</div>
-										<div class="modal-body">
-											<form action="addUser" method="post" modelAttribute="newuser"
-												onsubmit="return validateForm()">
-												<div class="input-container ic1">
-													<label for="name" class="placeholder">Name</label>
-													<div class="cut"></div>
-													<input id="name" name="name" class="input required" type="text"
-														placeholder=" " required />
-												</div>
-												<br><br>
-												<div class="input-container ic2">
-													<label for="email" class="placeholder">Personal Email</label>
-													<div class="cut cut-short"></div>
-													<input id="email" name="personalEmail" class="input required"
-														type="email" placeholder=" " required /> <span id="email-error"
-														class="error-text"></span>
-												</div>
-												<div class="input-container ic3">
-													<label for="gender" class="placeholder">Gender</label>
-													<div class="cut cut-short"></div>
-													<div class="wrapper-class">
-														<input id="gender-male" name="gender" class="input required"
-															type="radio" value="male" required /><label
-															for="gender-male">Male</label> <input id="gender-female"
-															name="gender" class="input" type="radio" value="female"
-															required /><label for="gender-female">Female</label>
-													</div>
-												</div>
-												<div class="input-container ic2">
-													<label for="designation" class="placeholder">Designation</label>
-													<div class="cut cut-short"></div>
-													<input id="designation" name="designation" class="input" type="text"
-														placeholder=" " />
-												</div>
-												<div class="input-container ic2">
-													<label for="department" class="placeholder">Department</label>
-													<div class="cut cut-short"></div>
-													<select id="department" name="department" class="input required"
-														placeholder="Deparment" required>
-														<option value="">Unassigned</option>
-														<c:forEach items="${departments}" var="department">
-															<option value="${department}">${department}</option>
-														</c:forEach>
-													</select>
-												</div>
-												<div class="input-container ic2">
-													<label for="gradelevel" class="placeholder">Grade
-														Level</label>
-													<div class="cut cut-short"></div>
-													<select id="gradelevel" name="gradeLevel" class="input required"
-														required>
-														<option value="1">1</option>
-														<option value="2">2</option>
-														<option value="3">3</option>
-														<option value="4">4</option>
-														<option value="5">5</option>
-														<option value="6">6</option>
-														<option value="7">7</option>
-														<option value="8">8</option>
-													</select>
-												</div>
-												<div class="input-container ic2">
-													<label for="dateofjoining" class="placeholder">Date
-														of Joining</label>
-													<div class="cut cut-short"></div>
-													<input id="dateofjoining" name="doj" class="input required"
-														type="date" placeholder=" " required />
-												</div>
-												<div class="input-container ic2">
-													<label for="employeetype" class="placeholder">Employee
-														Type</label>
-													<div class="cut cut-short"></div>
-													<select id="employeetype" name="emptype" class="input required"
-														required>
-														<option value="full time">Full Time</option>
-														<option value="part time">Part Time</option>
-														<option value="contract">Contract</option>
-													</select>
-												</div>
+										<br> <br>
+										<div class="input-container ic2">
+											<label for="email" class="placeholder">Personal Email</label>
+											<div class="cut cut-short"></div>
+											<input id="email" name="personalEmail" class="input required"
+												type="email" placeholder=" " required /> <span
+												id="email-error" class="error-text"></span>
+										</div>
+										<div class="input-container ic3">
+											<label for="gender" class="placeholder">Gender</label>
+											<div class="cut cut-short"></div>
+											<div class="wrapper-class">
+												<input id="gender-male" name="gender" class="input required"
+													type="radio" value="male" required /><label
+													for="gender-male">Male</label> <input id="gender-female"
+													name="gender" class="input" type="radio" value="female"
+													required /><label for="gender-female">Female</label>
+											</div>
+										</div>
+										<div class="input-container ic2">
+											<label for="designation" class="placeholder">Designation</label>
+											<div class="cut cut-short"></div>
+											<input id="designation" name="designation" class="input"
+												type="text" placeholder=" " />
+										</div>
+										<div class="input-container ic2">
+											<label for="department" class="placeholder">Department</label>
+											<div class="cut cut-short"></div>
+											<select id="department" name="department"
+												class="input required" placeholder="Deparment" >
+												<option value="0">Unassigned</option>
+												<c:forEach items="${departments}" var="department">
+													<option value="${department}">${department}</option>
+												</c:forEach>
+											</select>
+										</div>
+										<div class="input-container ic2">
+											<label for="gradelevel" class="placeholder">Grade
+												Level</label>
+											<div class="cut cut-short"></div>
+											<select id="gradelevel" name="gradeLevel"
+												class="input required" required>
+												<option value="1">1</option>
+												<option value="2">2</option>
+												<option value="3">3</option>
+												<option value="4">4</option>
+												<option value="5">5</option>
+												<option value="6">6</option>
+												<option value="7">7</option>
+												<option value="8">8</option>
+											</select>
+										</div>
+										<div class="input-container ic2">
+											<label for="dateofjoining" class="placeholder">Date
+												of Joining</label>
+											<div class="cut cut-short"></div>
+											<input id="dateofjoining" name="doj" class="input required"
+												type="date" placeholder=" " required />
+										</div>
+										<div class="input-container ic2">
+											<label for="employeetype" class="placeholder">Employee
+												Type</label>
+											<div class="cut cut-short"></div>
+											<select id="employeetype" name="emptype"
+												class="input required" required>
+												<option value="full time">Full Time</option>
+												<option value="part time">Part Time</option>
+												<option value="contract">Contract</option>
+											</select>
+										</div>
 
-												<div class="input-container ic2">
-													<label for="username" class="placeholder">Username</label>
-													<div class="cut"></div>
-													<input id="username" name="username" class="input required"
-														type="text" placeholder=" " required /> <span
-														id="username-error" class="error-text"></span>
-												</div>
-												<div class="input-container ic2">
-													<label for="password" class="placeholder">Password</label>
-													<div class="cut"></div>
-													<input id="password" name="password" class="input required"
-														type="password" placeholder=" " required /> <span
-														id="password-error" class="error-text"></span>
-												</div>
-												<br>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary"
-														data-dismiss="modal">Close</button>
-													<button type="submit" class="btn btn-primary">Submit</button>
-												</div>
-											</form>
+										<div class="input-container ic2">
+											<label for="username" class="placeholder">Username</label>
+											<div class="cut"></div>
+											<input id="username" name="username" class="input required"
+												type="text" placeholder=" " required /> <span
+												id="username-error" class="error-text"></span>
 										</div>
-									</div>
+										<div class="input-container ic2">
+											<label for="password" class="placeholder">Password</label>
+											<div class="cut"></div>
+											<input id="password" name="password" class="input required"
+												type="password" placeholder=" "
+												pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+]).{8,}$"
+												oninput="setCustomValidity('')"
+												oninvalid="setCustomValidity('Password must be of 8 characters and contain at least one capital character, one number, and a special character.')"
+												required />
+										</div>
+										<br>
+
+										<div class="modal-footer">
+											<button type="button" class="btn btn-secondary"
+												data-dismiss="modal">Close</button>
+											<button type="submit" class="btn btn-primary">Submit</button>
+										</div>
+									</form>
 								</div>
 							</div>
+						</div>
+					</div>
 
 
 
-							<!-- Edit Modal HTML -->
-							<div id="editEmployeeModal" class="modal fade">
-								<div class="modal-dialog">
-									<div class="modal-content">
-										<form>
-											<div class="modal-header">
-												<h4 class="modal-title">Edit Employee</h4>
-												<button type="button" class="close" data-dismiss="modal"
-													aria-hidden="true">&times;</button>
-											</div>
-											<div class="modal-body">
-												<div class="form-group">
-													<label>Name</label> <input type="text" class="form-control"
-														required>
-												</div>
-												<div class="form-group">
-													<label>Email</label> <input type="email" class="form-control"
-														required>
-												</div>
-												<div class="form-group">
-													<label>Address</label>
-													<textarea class="form-control" required></textarea>
-												</div>
-												<div class="form-group">
-													<label>Phone</label> <input type="text" class="form-control"
-														required>
-												</div>
-											</div>
-											<div class="modal-footer">
-												<input type="button" class="btn btn-default" data-dismiss="modal"
-													value="Cancel"> <input type="submit" class="btn btn-info"
-													value="Save">
-											</div>
-										</form>
+					<%-- <!-- Edit Modal HTML -->
+					<div id="editEmployeeModal" class="modal fade">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<form>
+									<div class="modal-header">
+										<h4 class="modal-title">Edit Employee</h4>
+										<button type="button" class="close" data-dismiss="modal"
+											aria-hidden="true">&times;</button>
 									</div>
-								</div>
+									<div class="modal-body">
+										<div class="form-group">
+											<label>Name</label> <input type="text" class="form-control"
+												required>
+										</div>
+										<div class="form-group">
+											<label>Email</label> <input type="email" class="form-control"
+												required>
+										</div>
+										<div class="form-group">
+											<label>Address</label>
+											<textarea class="form-control" required></textarea>
+										</div>
+										<div class="form-group">
+											<label>Phone</label> <input type="text" class="form-control"
+												required>
+										</div>
+									</div>
+									<div class="modal-footer">
+										<input type="button" class="btn btn-default"
+											data-dismiss="modal" value="Cancel"> <input
+											type="submit" class="btn btn-info" value="Save">
+									</div>
+								</form>
 							</div>
+						</div>
+					</div> --%>
 
 
 							<!-- <!-- Delete Modal HTML -->
@@ -868,21 +909,64 @@
  -->
 												<!-- <input type="submit" class="btn btn-primary" value="Active" id = "activate"> 
 										<input type="submit" class="btn btn-danger" value="Inactive" id = "deactivate"> -->
-												<button type="button" class="btn btn-secondary"
-													data-dismiss="modal">Close</button>
-												<input type="submit" id="changestatusbtn" />
+										<button type="button" class="btn btn-secondary"
+											data-dismiss="modal">Close</button>
+										<input type="submit" id="changestatusbtn" />
 
 
-											</div>
-										</form:form>
 									</div>
-								</div>
+								</form:form>
 							</div>
-
-
-
 						</div>
+					</div>
+				</div>
 
+				<!-- Password Modal HTML -->
+				<div id="changePasswordModal" class="modal fade">
+					<div class="modal-dialog">
+						<div class="modal-content">
+
+							<div class="modal-header">
+								<h4 class="modal-title">Change Password</h4>
+								<!-- <button type="button" class="close" data-dismiss="modal"
+											aria-hidden="true">&times;</button> -->
+							</div>
+							<div class="modal-body">
+								<form action="changePassword" method="post"
+									modelAttribute="newpass">
+									<div class="input-container ic1">
+										<label for="empId" class="placeholder">Employee Name</label>
+										<div class="cut"></div>
+										<select id="empId" name="empId" class="input required"
+											placeholder=" " required>
+											<c:forEach items="${allemployeenames}" var="department">
+												<option value="${department.empId}">(${department.empId})
+													${department.empName}</option>
+											</c:forEach>
+										</select>
+									</div>
+									<div class="input-container ic2">
+										<label for="hod" class="placeholder">New Password</label>
+										<div class="cut cut-short"></div>
+										<input id="changedpassword" name="changedPassword"
+											class="input required" type="password" placeholder=" "
+											pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+]).{8,}$"
+											oninput="setCustomValidity('')"
+											oninvalid="setCustomValidity('Password must be of 8 characters and contain at least one capital character, one number, and a special character.')"
+											required />
+									</div>
+
+											<br>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-secondary"
+											data-dismiss="modal">Close</button>
+										<button type="submit" class="btn btn-primary">Submit</button>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
 
 						<!---footer---->
 

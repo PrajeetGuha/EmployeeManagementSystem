@@ -170,24 +170,74 @@
 					});
 				</script>
 
-				<script>
-					var aniket = null;
-					function getdeptId(deptId) {
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var departmentNameInput = document.getElementById('deptName');
+    var listdept = [
+        <c:forEach var="department" items="${listdepartments}">
+          "${department.departmentName}",
+        </c:forEach> // assuming "listdepartments" is a model attribute
+	];
+    
+    var defaultValue = departmentNameInput.value;
+    
+    // add an "oninput" event listener to clear custom validity message
+    departmentNameInput.addEventListener('input', function() {
+        this.setCustomValidity('');
+    });
 
-						// Store the value in the deptIdInput hidden field
-						$("#deptIdInput").attr("value", deptId);
+    document.querySelector('form#editDept').addEventListener('submit', function(e) {
+        // check if department name already exists
+        if (departmentNameInput.value == defaultValue )
+        {
+        	departmentNameInput.setCustomValidity('');
+        	}
+        else if (departmentNameInput.value == "") {
+            departmentNameInput.setCustomValidity('Department name cannot be empty.');
+            e.preventDefault(); // prevent form submission
+        }
+        else if (listdept.includes(departmentNameInput.value)) {
+            departmentNameInput.setCustomValidity('Department name already exists. Please choose a different name.');
+            e.preventDefault(); // prevent form submission
+        }
+    });
+});
 
-						console.log(deptId);
-						console.log(document.getElementById("deptIdInput").value);
-						aniket = deptId;
 
-					}
+</script>
 
-					function getmeId() {
+<script>
 
-						return aniket;
-					}
-				</script>
+document.addEventListener('DOMContentLoaded', function() {
+    var departmentNameInput = document.getElementById('departmentName');
+
+    var listdept = [
+        <c:forEach var="department" items="${listdepartments}">
+          "${department.departmentName.toLowerCase()}",
+        </c:forEach> // assuming "listdepartments" is a model attribute
+    ];
+
+    // add an "oninput" event listener to clear custom validity message
+    departmentNameInput.addEventListener('input', function() {
+        this.setCustomValidity('');
+    });
+
+    document.querySelector('form[modelAttribute="newdept"]').addEventListener('submit', function(e) {
+        // check if department name already exists
+        var departmentName = departmentNameInput.value.toLowerCase();
+        if (departmentName == "") {
+            departmentNameInput.setCustomValidity('Department name cannot be empty.');
+            e.preventDefault(); // prevent form submission
+        } else if (listdept.includes(departmentName)) {
+            departmentNameInput.setCustomValidity('Department name already exists. Please choose a different name.');
+            e.preventDefault(); // prevent form submission
+        } else {
+            departmentNameInput.value = departmentName; // set value to lowercase
+        }
+    });
+});
+
+  </script>
 
 				<style>
 					.dropdown-container {
@@ -223,204 +273,87 @@
 
 			<body>
 
-				<div class="wrapper">
-					<div class="body-overlay" />
-					<nav id="sidebar">
-						<div class="sidebar-header">
-							<h3>
-								<img src="../resources/assets/logo.png" class="img-fluid" /><span>NRI
-									Fintech</span>
-							</h3>
-						</div>
-						<ul class="list-unstyled components">
-							<li><a href="dashboard?search=null&pg=1" class="dashboard"><i
-										class="material-icons">dashboard</i> <span>Dashboard</span></a></li>
-							<li><a href="#homeSubmenu1" data-toggle="collapse" aria-expanded="false"> <i
-										class="material-icons">playlist_add_check</i>Leave
-									Approval
-								</a></li>
+	<div class="wrapper">
+		<div class="body-overlay" />
+		<nav id="sidebar">
+			<div class="sidebar-header">
+				<h3>
+					<img src="../resources/assets/logo.png" class="img-fluid" /><span>NRI
+						Fintech</span>
+				</h3>
+			</div>
+			<ul class="list-unstyled components">
+				<li><a href="dashboard?search=null&pg=1" class="dashboard"><i
+						class="material-icons">dashboard</i> <span>Dashboard</span></a></li>
 
-							<li><a href="projectallocation?pg=1"> <i class="material-icons">laptop</i>Project
-								</a></li>
-							<li><a href="teamallocation?pg=1"> <i class="material-icons">groups</i>Team
-								</a></li>
-							<li class="active"><a href="departmentallocation?pg=1"> <i
-										class="material-icons">work</i>Department
-								</a></li>
-							<!-- <li><a href="#hike" data-toggle="modal" aria-expanded="false">
-						<i class="material-icons">currency_rupee</i>Appraisal
-				</a></li> -->
-							<li><a href="#empresignation" data-toggle="modal" aria-expanded="false"> <i
-										class="material-icons">directions_walk</i>Resignation
-									approval
-								</a></li>
-							<li><a href="analytics" data-toggle="modal" aria-expanded="false"> <i
-										class="material-icons">analytics</i>Analytics
-								</a></li>
-							<li><a href="#adminprofile" data-toggle="modal" aria-expanded="false"> <i
-										class="material-icons">account_circle</i>Profile
-								</a></li>
+
+				<li><a href="projectallocation?pg=1"> <i
+						class="material-icons">laptop</i>Project
+				</a></li>
+				<li><a href="teamallocation?pg=1"> <i
+						class="material-icons">groups</i>Team
+				</a></li>
+				<li class="active"><a href="departmentallocation?pg=1"> <i
+						class="material-icons">work</i>Department
+				</a></li>
+				<li><a href="#homeSubmenu1" data-toggle="collapse"
+					aria-expanded="false"> <i class="material-icons">playlist_add_check</i>Leave
+						Approval
+				</a></li>
+				<li><a href="#empresignation" data-toggle="modal"
+					aria-expanded="false"> <i class="material-icons">directions_walk</i>Resignation
+						approval
+				</a></li>
+				<li><a href="analytics" data-toggle="modal"
+					aria-expanded="false"> <i class="material-icons">analytics</i>Analytics
+				</a></li>
+				<li><a href="#changePasswordModal" data-toggle="modal"
+					aria-expanded="false"> <i class="material-icons">vpn_key</i>Change
+						Password
+				</a></li>
+				<li><a href="#adminprofile" data-toggle="modal"
+					aria-expanded="false"> <i class="material-icons">account_circle</i>Profile
+				</a></li>
 
 
 						</ul>
 
 
-					</nav>
-					<!-- <div id="project" class="modal fade">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<form action="proAlloc" method="post">
-						<div class="modal-header">
-							<h4 class="modal-title">PROJECT ALLOCATION</h4>
-							<button type="button" class="close" data-dismiss="modal"
-								aria-hidden="true">&times;</button>
-						</div>
-						<div class="modal-body">
-							<div class="form-group">
-								<label>Team Name</label> <input type="text" class="form-control"
-									required>
-							</div>
-							<div class="form-group">
-								<label>Project Name</label> <input type="text"
-									class="form-control" required>
-							</div>
+		</nav>
 
-						</div>
-						<div class="modal-footer">
-							<input type="button" class="btn btn-default" data-dismiss="modal"
-								value="Cancel"> <input type="submit"
-								class="btn btn-success" value="Add">
-						</div>
-					</form>
-				</div>
-			</div>
-		</div>
 
-		<div id="team" class="modal fade">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<form action="teamAlloc" method="post">
-						<div class="modal-header">
-							<h4 class="modal-title">TEAM ALLOCATION</h4>
-							<button type="button" class="close" data-dismiss="modal"
-								aria-hidden="true">&times;</button>
-						</div>
-						<div class="modal-body">
-							<div class="form-group">
-								<label>Employee Name</label> <input type="text"
-									class="form-control" required>
-							</div>
-							<div class="form-group">
-								<label>Team Name</label> <input type="text" class="form-control"
-									required>
-							</div>
-
-						</div>
-						<div class="modal-footer">
-							<input type="button" class="btn btn-default" data-dismiss="modal"
-								value="Cancel"> <input type="submit"
-								class="btn btn-success" value="Add">
-						</div>
-					</form>
-				</div>
-			</div>
-		</div>
-
-		<div id="department" class="modal fade">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<form action="deptAlloc" method="post">
-						<div class="modal-header">
-							<h4 class="modal-title">DEPARTMENT ALLOCATION</h4>
-							<button type="button" class="close" data-dismiss="modal"
-								aria-hidden="true">&times;</button>
-						</div>
-						<div class="modal-body">
-							<div class="form-group">
-								<label>Employee Name</label> <input type="text"
-									class="form-control" required>
-							</div>
-							<div class="form-group">
-								<label>Department Name</label> <input type="text"
-									class="form-control" required>
-							</div>
-
-						</div>
-						<div class="modal-footer">
-							<input type="button" class="btn btn-default" data-dismiss="modal"
-								value="Cancel"> <input type="submit"
-								class="btn btn-success" value="Add">
-						</div>
-					</form>
-				</div>
-			</div>
-		</div>
-
-		<div id="hike" class="modal fade">
+		<div id="adminprofile" class="modal fade">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<form action="hike" method="post">
 						<div class="modal-header">
-							<h4 class="modal-title">APPRAISAL</h4>
-							<button type="button" class="close" data-dismiss="modal"
-								aria-hidden="true">&times;</button>
+							<h4 class="modal-title">ADMIN PROFILE</h4>
+							<!-- <button type="button" class="close" data-dismiss="modal"
+								aria-hidden="true">&times;</button> -->
 						</div>
 						<div class="modal-body">
-							<div class="form-group">
-								<label>Employee Name</label> <input type="text"
-									class="form-control" required>
-							</div>
-							<div class="form-group">
-								<label>Hike</label> <input type="text" class="form-control"
-									required>
-							</div>
-							<div class="form-group">
-								<label>Hike Date</label> <input type="date" class="form-control"
-									required>
-							</div>
-
+							<ul>
+								<li>
+									<p>
+										<b>Admin id:</b> ${admin.adminId}
+									</p>
+								</li>
+								<li>
+									<p>
+										<b>Admin name:</b> ${admin.adminName}
+									</p>
+								</li>
+								<li>
+									<p>
+										<b>Admin email:</b> ${admin.adminEmail}
+									</p>
+								</li>
+							</ul>
 						</div>
+
 						<div class="modal-footer">
-							<input type="button" class="btn btn-default" data-dismiss="modal"
-								value="Cancel"> <input type="submit"
-								class="btn btn-success" value="Add">
-						</div>
-					</form>
-				</div>
-			</div>
-		</div> -->
-
-					<div id="adminprofile" class="modal fade">
-						<div class="modal-dialog">
-							<div class="modal-content">
-								<form action="hike" method="post">
-									<div class="modal-header">
-										<h4 class="modal-title">ADMIN PROFILE</h4>
-										<button type="button" class="close" data-dismiss="modal"
-											aria-hidden="true">&times;</button>
-									</div>
-									<div class="modal-body">
-										<ul>
-											<li>
-												<p>
-													<b>Admin id:</b> ${admin.adminId}
-												</p>
-											</li>
-											<li>
-												<p>
-													<b>Admin name:</b> ${admin.adminName}
-												</p>
-											</li>
-											<li>
-												<p>
-													<b>Admin email:</b> ${admin.adminEmail}
-												</p>
-											</li>
-										</ul>
-									</div>
-
-									<div class="modal-footer">
-										<input type="button" class="btn btn-default" data-dismiss="modal" value="Close">
+							<input type="button" class="btn btn-secondary" data-dismiss="modal"
+								value="Close">
 
 									</div>
 								</form>
@@ -538,133 +471,115 @@
 											<tbody>
 												<tr>
 
-													<c:forEach items="${listdepartments}" var="dept">
-												<tr>
-													<td>
-														<c:out value="${dept.deptId}" />
-													</td>
-													<td>
-														<c:out
-															value="${fn:toUpperCase(fn:substring(dept.departmentName, 0, 1))}${fn:toLowerCase(fn:substring(dept.departmentName, 1,fn:length(dept.departmentName)))}" />
-													</td>
-													<td>
-														<c:out value="${dept.hod.empName}" />
-													</td>
-													<td><a href="#editDepartmentModal${dept.deptId }" class="edit"
-															data-toggle="modal" onclick="getdeptId('${dept.deptId}')">
-															<i class="material-icons" data-toggle="tooltip"
-																title="Edit">&#xE254;</i></a> <a
-															href="#generateDepartmentReportModal" class="report"
-															data-toggle="modal"> <i class="material-icons"
-																data-toggle="tooltip" title="Report">summarize</i></a>
-													</td>
-												</tr>
+										<c:forEach items="${listdepartments}" var="dept">
+											<tr>
+												<td><c:out value="${dept.deptId}" /></td>
+												<td><c:out
+														value="${fn:toUpperCase(fn:substring(dept.departmentName, 0, 1))}${fn:toLowerCase(fn:substring(dept.departmentName, 1,fn:length(dept.departmentName)))}" /></td>
+												<td><c:out value="${dept.hod.empName}" /></td>
+												<td><a href="#editDepartmentModal${dept.deptId}"
+													class="edit" data-toggle="modal"> <i
+														class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+													<a href="#generateDepartmentReportModal" class="report"
+													data-toggle="modal"> <i class="material-icons"
+														data-toggle="tooltip" title="Report">summarize</i></a></td>
+											</tr>
 
 
 
-												<!-- Edit Modal HTML -->
-												<div id="editDepartmentModal${dept.deptId }" class="modal fade">
-													<div class="modal-dialog">
-														<div class="modal-content">
+											<!-- Edit Modal HTML -->
+											<div id="editDepartmentModal${dept.deptId }"
+												class="modal fade">
+												<div class="modal-dialog">
+													<div class="modal-content">
 
-															<div class="modal-header">
-																<h4 class="modal-title">Edit Department</h4>
-																<!-- <button type="button" class="close" data-dismiss="modal"
+														<div class="modal-header">
+															<h4 class="modal-title">Edit Department</h4>
+															<!-- <button type="button" class="close" data-dismiss="modal"
 											aria-hidden="true">&times;</button> -->
-															</div>
-															<div class="modal-body">
-																<form action="editDepartment" method="post"
-																	modelAttribute="newuser">
-																	<input type="hidden" id="deptIdInput"
-																		name="deptId" />
+														</div>
+														<div class="modal-body">
+															<form id="editDept" action="editDepartment" method="post"
+																modelAttribute="modifydept">
+																<input type="hidden" id="deptIdInput" name="deptId" />
 
-																	<div class="input-container ic2">
-																		<label for="departmentName"
-																			class="placeholder">Change
-																			Department Name</label>
-																		<div class="cut"></div>
-																		<input id="departmentName" name="departmentName"
-																			class="input required" type="text"
-																			placeholder=" " />
-
-																	</div>
-																	<div class="input-container ic2">
-																		<label for="department"
-																			class="placeholder">Change
-																			HOD</label>
-																		<div class="cut cut-short"></div>
-																		<select id="hod" name="hod"
-																			class="input required" placeholder=" "
-																			required>
-																			<c:forEach items="${allemployeenames}"
-																				var="department">
-																				<option value="${department.empId}">
-																					(${department.empId})
-																					${department.empName}</option>
-																			</c:forEach>
-																		</select>
-																	</div>
-																	<div class="input-container ic2">
-																		<label for="employeelist"
-																			class="placeholder">Add
-																			Employees</label>
-																		<div class="cut cut-short"></div>
-																		<input type="text" id="empList" class="input"
-																			placeholder="Type employee name or ID">
-																		<div class="dropdown-container">
-																			<ul id="suggestions" class="dropdown-menu">
-																			</ul>
-																		</div>
-																		<div id="selectedEmployees"
-																			class="selected-employees-container"></div>
-																	</div>
-																	<div class="input-container ic2">
-																		<label for="empindept"
-																			class="placeholder">Employees
-																			in Department</label>
-																		<div class="cut"></div>
-																		<select id="emplist" name="emplist"
-																			class="input required" placeholder=" "
-																			disabled>
-
-
-																			<c:forEach items="${dept.employees}"
-																				var="emp">
-																				<option value="${emp.empId}">
-																					(${emp.empId})
-																					${emp.empName}</option>
-																			</c:forEach>
-
-																		</select>
-
-
-																	</div>
-																	<br>
+																<div class="input-container ic2">
+																	<label for="deptName" class="placeholder">Change
+																		Department Name</label>
 																	<div class="cut"></div>
-																	<div class="modal-footer">
-																		<button type="button" class="btn btn-secondary"
-																			data-dismiss="modal">Close</button>
-																		<button type="submit"
-																			class="btn btn-primary">Submit</button>
+																	<input id="deptName" name="deptName"
+																		class="input required" type="text"
+																		placeholder="${dept.departmentName }"
+																		value=${dept.departmentName } />
+
+																</div>
+																<div class="input-container ic2">
+																	<label for="department" class="placeholder">Change
+																		HOD</label>
+																	<div class="cut cut-short"></div>
+																	<select id="hod" name="hod" class="input required"
+																		placeholder=" " >
+																		<option value="null">Unassigned</option>
+																		<c:forEach items="${allemployeenames}"
+																			var="department">
+																			<option value="${department.empId}">(${department.empId})
+																				${department.empName}</option>
+																		</c:forEach>
+																	</select>
+																</div>
+																<div class="input-container ic2">
+																	<label for="employeelist" class="placeholder">Add
+																		Employees</label>
+																	<div class="cut cut-short"></div>
+																	<input type="text" id="empList" class="input"
+																		placeholder="Type employee name or ID">
+																	<div class="dropdown-container">
+																		<ul id="suggestions" class="dropdown-menu"></ul>
 																	</div>
-																</form>
-															</div>
+																	<div id="selectedEmployees"
+																		class="selected-employees-container"></div>
+																</div>
+																<div class="input-container ic2">
+																	<label for="empindept" class="placeholder">Employees
+																		in Department</label>
+																	<div class="cut"></div>
+																	<ul class="list-group" id="emplist">
+																		<c:choose>
+																			<c:when test="${empty dept.employees}">
+																				<li class="list-group-item">No Employees listed</li>
+																			</c:when>
+																			<c:otherwise>
+																				<c:forEach items="${dept.employees}" var="emp">
+																					<li class="list-group-item">(${emp.empId})
+																						${emp.empName}</li>
+																				</c:forEach>
+																			</c:otherwise>
+																		</c:choose>
+																	</ul>
+																</div>
+																<br>
+																<div class="cut"></div>
+																<div class="modal-footer">
+																	<button type="button" class="btn btn-secondary"
+																		data-dismiss="modal">Close</button>
+																	<button type="submit" class="btn btn-primary">Submit</button>
+																</div>
+															</form>
 														</div>
 													</div>
-
-
-													</c:forEach>
-
-													</tr>
-											</tbody>
-										</table>
-
-										<div class="clearfix">
-											<div class="hint-text">
-												Total number of entries <b>${countOfDepartments}</b><br>
-												Showing page <b>${pageNo}</b> of <b>${countPages }</b>
+												</div>
 											</div>
-											<ul class="pagination">
+										</c:forEach>
+								</tbody>
+							</table>
+
+							<div class="clearfix">
+								<div class="hint-text">
+									Total number of entries <b>${countOfDepartments}</b><br>
+									Showing page <b>${pageNo}</b> of <b>${countPages eq 0 ? 1 : countPages}</b>
+
+								</div>
+								<ul class="pagination">
 
 												<c:if test="${ pageNo > 1}">
 													<li class="page-item"><a href="?pg=${pageNo-1}"
@@ -676,77 +591,101 @@
 												</c:if>
 
 
-											</ul>
-										</div>
-									</div>
-								</div>
-								<!-- Edit Modal HTML -->
-								<div id="addDepartmentModal" class="modal fade">
-									<div class="modal-dialog">
-										<div class="modal-content">
+								</ul>
+							</div>
+						</div>
+					</div>
+					<!-- Add Modal HTML -->
+					<div id="addDepartmentModal" class="modal fade">
+						<div class="modal-dialog">
+							<div class="modal-content">
 
 											<div class="modal-header">
 												<h4 class="modal-title">Add Department</h4>
 												<!-- <button type="button" class="close" data-dismiss="modal"
 											aria-hidden="true">&times;</button> -->
-											</div>
-											<div class="modal-body">
-												<form action="addDept" method="post" modelAttribute="newdept"
-													onsubmit="return validateForm()">
-													<div class="input-container ic1">
-														<label for="departmentName" class="placeholder">Department
-															Name</label>
-														<div class="cut"></div>
-														<input id="departmentName" name="departmentName"
-															class="input required" type="text" placeholder=" "
-															required />
-													</div>
-													<div class="input-container ic2">
-														<label for="hod" class="placeholder">HOD</label>
-														<div class="cut cut-short"></div>
-														<select id="hod" name="hod" class="input required"
-															placeholder=" " required>
-															<option value="">Unassigned</option>
-															<c:forEach items="${allemployeenames}" var="department">
-																<option value="${department.empId}">
-																	(${department.empId})
-																	${department.empName}</option>
-
-
-															</c:forEach>
-														</select>
-													</div>
-
-													<br>
-													<div class="modal-footer">
-														<button type="button" class="btn btn-secondary"
-															data-dismiss="modal">Close</button>
-														<button type="submit" class="btn btn-primary">Submit</button>
-													</div>
-												</form>
-											</div>
+								</div>
+								<div class="modal-body">
+									<form action="addDept" method="post" modelAttribute="newdept"
+										>
+										<div class="input-container ic1">
+											<label for="departmentName" class="placeholder">Department
+												Name</label>
+											<div class="cut"></div>
+											<input id="departmentName" name="departmentName"
+												class="input required" type="text" placeholder=" "  required />
 										</div>
-									</div>
+										<div class="input-container ic2">
+											<label for="hod" class="placeholder">HOD</label>
+											<div class="cut cut-short"></div>
+											<select id="hod" name="hod" class="input required"
+												placeholder=" " >
+												<option value="0">Unassigned</option>
+												<c:forEach items="${allemployeenames}" var="department">
+													<option value="${department.empId}">(${department.empId})
+														${department.empName}</option>
+
+
+												</c:forEach>
+											</select>
+										</div>
+
+										<br>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-secondary"
+												data-dismiss="modal">Close</button>
+											<button type="submit" class="btn btn-primary">Submit</button>
+										</div>
+									</form>
 								</div>
-
-
-								<!---footer---->
-
-
 							</div>
+						</div>
+					</div>
 
-							<footer class="footer">
-								<div class="container-fluid">
-									<div class="footer-in">
-										<p class="mb-0">NRI FinTech - All Rights Reserved.</p>
-									</div>
+										<br>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-secondary"
+												data-dismiss="modal">Close</button>
+											<button type="submit" class="btn btn-primary">Submit</button>
+										</div>
+									</form>
 								</div>
-							</footer>
+							</div>
 						</div>
 					</div>
 
 
-					<!----------html code complete----------->
+										<br>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-secondary"
+												data-dismiss="modal">Close</button>
+											<button type="submit" class="btn btn-primary">Submit</button>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+
+
+
+					<!---footer---->
+
+
+				</div>
+
+				<footer class="footer">
+					<div class="container-fluid">
+						<div class="footer-in">
+							<p class="mb-0">NRI FinTech - All Rights Reserved.</p>
+						</div>
+					</div>
+				</footer>
+			</div>
+		</div>
+
+
+		<!----------html code complete----------->
 
 
 
@@ -755,30 +694,20 @@
 
 
 
-					<!-- Optional JavaScript -->
-					<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-			</body>
-			<script src="../resources/lib/jquery/jquery-3.3.1.min.js" type="text/javascript" />
-			<script src="../resources/lib/jquery/jquery-3.3.1.slim.min.js" type="text/javascript" />
-			<script src="../resources/custom/js/admin-dashboard/navtoggle.js" type="text/javascript" />
-			<script src="../resources/lib/popper/popper.min.js" type="text/javascript" />
-			<script src="../resources/lib/bootstrap/js/bootstrap.bundle.min.js" type="text/javascript" />
+		<!-- Optional JavaScript -->
+		<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+</body>
+<script src="../resources/lib/jquery/jquery-3.3.1.min.js"
+	type="text/javascript" />
+<script src="../resources/lib/jquery/jquery-3.3.1.slim.min.js"
+	type="text/javascript" />
+<script src="../resources/custom/js/admin-dashboard/navtoggle.js"
+	type="text/javascript" />
+<script src="../resources/lib/popper/popper.min.js"
+	type="text/javascript" />
+<script src="../resources/lib/bootstrap/js/bootstrap.bundle.min.js"
+	type="text/javascript" />
 
 
-			<!-- <script type="text/javascript">
-        
-		$(document).ready(function(){
-		  $(".xp-menubar").on('click',function(){
-		    $('#sidebar').toggleClass('active');
-			$('#content').toggleClass('active');
-		  });
-		  
-		   $(".xp-menubar,.body-overlay").on('click',function(){
-		     $('#sidebar,.body-overlay').toggleClass('show-nav');
-		   });
-		  
-		});
-		
-</script> -->
 
-			</html>
+</html>
