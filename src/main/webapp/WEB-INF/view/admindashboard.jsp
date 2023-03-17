@@ -791,14 +791,14 @@ $('#search-form').attr('action', initialUrl + '?search=null&pg=1');
 											<div class="cut"></div>
 											<input id="name" name="name" class="input required"
 												type="text" placeholder=" " required
-												pattern="^[a-zA-Z_][a-zA-Z_\\s]*"
+												pattern="^[a-zA-Z_][[\\s]a-zA-Z_]*"
 												$"
 												oninvalid="setCustomValidity('Name can only contain alphabetic characters, underscores, and one whitespace between each word')"
 												onchange="setCustomValidity('')" />
 										</div>
 
 
-										<br> <br>
+										
 										<div class="input-container ic2">
 											<label for="email" class="placeholder">Personal Email</label>
 											<div class="cut cut-short"></div>
