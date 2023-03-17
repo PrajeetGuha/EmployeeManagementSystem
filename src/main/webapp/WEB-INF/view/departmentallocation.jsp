@@ -749,5 +749,19 @@ document.addEventListener('DOMContentLoaded', function() {
 	type="text/javascript" />
 
 
-
+<script type="text/javascript">
+        
+		$(document).ready(function(){
+		  $(".xp-menubar").on('click',function(){
+		    $('#sidebar').toggleClass('active');
+			$('#content').toggleClass('active');
+		  });
+		  
+		   $(".xp-menubar,.body-overlay").on('click',function(){
+		     $('#sidebar,.body-overlay').toggleClass('show-nav');
+		   });
+		  
+		});
+		
+</script>
 </html>

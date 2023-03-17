@@ -857,7 +857,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	type="text/javascript" />
 
 
-<!-- <script type="text/javascript">
+<script type="text/javascript">
         
 		$(document).ready(function(){
 		  $(".xp-menubar").on('click',function(){
@@ -871,5 +871,5 @@ document.addEventListener('DOMContentLoaded', function() {
 		  
 		});
 		
-</script> -->
+</script>
 </html>
