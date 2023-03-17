@@ -180,34 +180,45 @@ $('#search-form').attr('action', initialUrl + '?search=null&pg=1');
   function validateForm() {
     var isValid = true;
     
-    // Remove any existing error styles
+ // Remove any existing error styles and validity messages
+ // Remove any existing error styles and validity messages
     $(".required").removeClass("error");
-    
+    $(".required").each(function() {
+        this.setCustomValidity('');
+    });
+
     // Validate personal email field
     var email = $("#email").val();
     if (email === "") {
-        $("#email").addClass("error");
-        $("#email-error").text("Email is required");
+       
+        $("#email")[0].setCustomValidity("Email is required");
         isValid = false;
     } else if (emails.includes(email)) {
-        $("#email").addClass("error");
-        $("#email-error").text("Email already exists");
+        
+        $("#email")[0].setCustomValidity("Email already exists");
         isValid = false;
     }
-    
+
     // Validate username field
     var username = $("#username").val();
     if (username === "") {
-        $("#username").addClass("error");
-        $("#username-error").text("Username is required");
+       
+        $("#username")[0].setCustomValidity("Username is required");
         isValid = false;
     } else if (unames.includes(username)) {
-        $("#username").addClass("error");
-        $("#username-error").text("Username already taken");
+       
+        $("#username")[0].setCustomValidity("Username already taken");
         isValid = false;
     }
-    
+
+    // Add event listener to clear custom validity messages on input
+    $(".required").on("input", function() {
+        this.setCustomValidity('');
+    });
+
     return isValid;
+
+
   }
 </script>
 <script>
@@ -762,8 +773,8 @@ $('#search-form').attr('action', initialUrl + '?search=null&pg=1');
 											<label for="department" class="placeholder">Department</label>
 											<div class="cut cut-short"></div>
 											<select id="department" name="department"
-												class="input required" placeholder="Deparment" required>
-												<option value="">Unassigned</option>
+												class="input required" placeholder="Deparment" >
+												<option value="0">Unassigned</option>
 												<c:forEach items="${departments}" var="department">
 													<option value="${department}">${department}</option>
 												</c:forEach>
