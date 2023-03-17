@@ -234,8 +234,12 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelector('form[modelAttribute="newdept"]').addEventListener('submit', function(e) {
         // check if department name already exists
         var departmentName = departmentNameInput.value.toLowerCase();
+        var pattern = /^[_a-zA-Z][_a-zA-Z0-9]*(\s[_a-zA-Z][_a-zA-Z0-9]*)*$/;
         if (departmentName == "") {
             departmentNameInput.setCustomValidity('Department name cannot be empty.');
+            e.preventDefault(); // prevent form submission
+        } else if (!pattern.test(departmentName)) {
+            departmentNameInput.setCustomValidity('Department name can only contain alphabetic characters, underscores, and numbers, with at most one space between each word.');
             e.preventDefault(); // prevent form submission
         } else if (listdept.includes(departmentName)) {
             departmentNameInput.setCustomValidity('Department name already exists. Please choose a different name.');
@@ -245,6 +249,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+
 
   </script>
 

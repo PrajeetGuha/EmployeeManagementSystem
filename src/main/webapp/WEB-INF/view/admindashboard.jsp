@@ -741,8 +741,13 @@ $('#search-form').attr('action', initialUrl + '?search=null&pg=1');
 											<label for="name" class="placeholder">Name</label>
 											<div class="cut"></div>
 											<input id="name" name="name" class="input required"
-												type="text" placeholder=" " required />
+												type="text" placeholder=" " required
+												pattern="^[a-zA-Z_][a-zA-Z_\\s]*"$"
+												oninvalid="setCustomValidity('Name can only contain alphabetic characters, underscores, and one whitespace between each word')"
+												onchange="setCustomValidity('')" />
 										</div>
+
+
 										<br> <br>
 										<div class="input-container ic2">
 											<label for="email" class="placeholder">Personal Email</label>
@@ -772,7 +777,7 @@ $('#search-form').attr('action', initialUrl + '?search=null&pg=1');
 											<label for="department" class="placeholder">Department</label>
 											<div class="cut cut-short"></div>
 											<select id="department" name="department"
-												class="input required" placeholder="Deparment" >
+												class="input required" placeholder="Deparment">
 												<option value="0">Unassigned</option>
 												<c:forEach items="${departments}" var="department">
 													<option value="${department}">${department}</option>
