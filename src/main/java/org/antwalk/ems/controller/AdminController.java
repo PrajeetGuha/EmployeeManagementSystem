@@ -132,7 +132,7 @@ private EmployeeRepository employeeRepository;
         List<Integer> sexratio=adminService.sexratio();
 
         List<Double> totalcost=adminService.totalcost();
-
+        
     	model.addAttribute("admin",admin);
         model.addAttribute("countOfEmployees", count);
         model.addAttribute("countOfDepartments", countdept);

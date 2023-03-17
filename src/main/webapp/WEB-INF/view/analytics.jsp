@@ -396,10 +396,11 @@ var barChartOptions = {
 		barChart.render();
 
 
-		 var chartOptions = {
+		/* var chartOptions = {
 			        chart: {
 			            type: 'pie',
-			            height: 350
+			            height: 350,
+			            
 			        },
 			        series: [<c:forEach var="item" items="${sexratio}">
 				      "${item}",
@@ -407,13 +408,82 @@ var barChartOptions = {
 			        labels: ['Male', 'Female','Other'],
 			        colors: ['#008FFB', '#00E396', '#4f35a1'],
 			        
+			        
 			        dataLabels: {
-					    enabled: true
-					  }
+			            enabled: true
+			          }
 			    }
 			    
 			    var chart = new ApexCharts(document.querySelector("#chart"), chartOptions);
-			    chart.render();
+			    chart.render();*/
+			    
+			    var options = {
+			            series: [${sexratio[0]}, ${sexratio[1]}, ${sexratio[2]}],
+			            chart: {
+			            width: 400,
+			            type: 'donut',
+			            dropShadow: {
+			              enabled: true,
+			              color: '#111',
+			              top: -1,
+			              left: 3,
+			              blur: 3,
+			              opacity: 0.2
+			            }
+			          },
+			          stroke: {
+			            width: 0,
+			          },
+			          plotOptions: {
+			            pie: {
+			              donut: {
+			                labels: {
+			                  show: true,
+			                  total: {
+			                    showAlways: true,
+			                    show: true
+			                  }
+			                }
+			              }
+			            }
+			          },
+			          labels: ["Male", "Female", "Other"],
+			          dataLabels: {
+			            dropShadow: {
+			              blur: 3,
+			              opacity: 0.8
+			            }
+			          },
+			          fill: {
+			          type: 'pattern',
+			            opacity: 1,
+			            pattern: {
+			              enabled: true,
+			              style: ['verticalLines', 'squares', 'horizontalLines'],
+			            },
+			          },
+			          states: {
+			            hover: {
+			              filter: 'none'
+			            }
+			          },
+			          theme: {
+			            palette: 'palette2'
+			          },
+			        
+			          responsive: [{
+			            breakpoint: 480,
+			            options: {
+			              chart: {
+			                width: 200
+			              },
+			              
+			            }
+			          }]
+			          };
+
+			          var chart = new ApexCharts(document.querySelector("#chart"), options);
+			          chart.render();
 			    
 			    var barChart2Options = {
 			  		  series: [{
