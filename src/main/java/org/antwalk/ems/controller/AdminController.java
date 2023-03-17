@@ -125,6 +125,7 @@ private EmployeeRepository employeeRepository;
         List<String> alldepartments = adminService.listDepartments();
         List<Integer> countemployeeindepartment=adminService.employeesInDepartment();
         List<Integer> sexratio=adminService.sexratio();
+        List<Double> totalcost=adminService.totalcost();
     	model.addAttribute("admin",admin);
         model.addAttribute("countOfEmployees", count);
         model.addAttribute("countOfDepartments", countdept);
@@ -133,6 +134,7 @@ private EmployeeRepository employeeRepository;
         model.addAttribute("alldepartmentnames",alldepartments);
         model.addAttribute("countOfEmployeesInDepartment", countemployeeindepartment);
         model.addAttribute("sexratio",sexratio);
+        model.addAttribute("totalcost",totalcost);
    		return "analytics";
 
    	}

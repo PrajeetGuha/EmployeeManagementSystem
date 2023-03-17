@@ -255,6 +255,10 @@
             <p class="chart-title">Sex Ratio</p>
             <div id="chart"></div>
           </div> 
+           <div class="charts-card">
+            <p class="chart-title">Total Cost Distribution of Each Department</p>
+            <div id="bar-chart2"></div>
+          </div> 
 
         </div>
         
@@ -356,8 +360,9 @@ var barChartOptions = {
 			        series: [<c:forEach var="item" items="${sexratio}">
 				      "${item}",
 				      </c:forEach>],
-			        labels: ['Male', 'Female'],
-			        colors: ['#008FFB', '#00E396'],
+			        labels: ['Male', 'Female','Other'],
+			        colors: ['#008FFB', '#00E396', '#4f35a1'],
+			        
 			        dataLabels: {
 					    enabled: true
 					  }
@@ -365,6 +370,58 @@ var barChartOptions = {
 			    
 			    var chart = new ApexCharts(document.querySelector("#chart"), chartOptions);
 			    chart.render();
+			    
+			    var barChart2Options = {
+			  		  series: [{
+			  		    data: [<c:forEach var="item" items="${totalcost}">
+			  		      "${item}",
+			  		      </c:forEach>]
+			  		  }],
+			  		  chart: {
+			  		    type: 'bar',
+			  		    height: 350,
+			  		    toolbar: {
+			  		      show: false
+			  		    },
+			  		  },
+			  		  colors: [
+			  		    "#246dec",
+			  		    "#cc3c43",
+			  		    "#367952",
+			  		    "#f5b74f",
+			  		    "#4f35a1"
+			  		  ],
+			  		  plotOptions: {
+			  		    bar: {
+			  		      distributed: true,
+			  		      borderRadius: 4,
+			  		      horizontal: true,
+			  		      columnWidth: '40%',
+			  		    }
+			  		  },
+			  		  dataLabels: {
+			  		    enabled: false
+			  		  },
+			  		  legend: {
+			  		    show: false
+			  		  },
+			  		  xaxis: {
+			  		    categories: [ <c:forEach var="item" items="${alldepartmentnames}">
+			  		      "${item}",
+			  		      </c:forEach>],
+			  		  },
+			  		  yaxis: {
+			  		    title: {
+			  		      text: "Count"
+			  		    }
+			  		  }
+			  		};
+
+			  		var barChart2 = new ApexCharts(document.querySelector("#bar-chart2"), barChart2Options);
+			  		barChart2.render();
+
+			    
+		
 		// AREA CHART
 		/*var areaChartOptions = {
 		  series: [{
@@ -414,5 +471,6 @@ var barChartOptions = {
 		var areaChart = new ApexCharts(document.querySelector("#area-chart"), areaChartOptions);
 		areaChart.render();*/
 </script>
+
 
 </html>

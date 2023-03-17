@@ -651,7 +651,7 @@ background-color:rgba(0,0,0,0.09);
 .charts {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 20px;
+   gap: 20px;
 }
 
 .charts-card {
