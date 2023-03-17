@@ -194,7 +194,7 @@ document.addEventListener('DOMContentLoaded', function() {
 					aria-expanded="false"> <i class="material-icons">directions_walk</i>Resignation
 						approval
 				</a></li>
-				<li><a href="analytics" data-toggle="modal"
+				<li><a href="analytics" 
 					aria-expanded="false"> <i class="material-icons">analytics</i>Analytics
 				</a></li>
 				<li><a href="#changePasswordModal" data-toggle="modal"
