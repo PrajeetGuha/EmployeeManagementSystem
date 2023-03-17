@@ -48,10 +48,9 @@
 				</h3>
 			</div>
 			<ul class="list-unstyled components">
+
 				<li ><a href="dashboard?search=null&pg=1" class="dashboard"><i
 						class="material-icons">dashboard</i> <span>Dashboard</span></a></li>
-				
-
 				<li><a href="projectallocation?pg=1"> <i class="material-icons">laptop</i>Project
 				</a></li>
 				<li ><a href="teamallocation?pg=1"> <i class="material-icons">groups</i>Team
@@ -63,6 +62,7 @@
 					aria-expanded="false"> <i class="material-icons">playlist_add_check</i>Leave
 						Approval
 				</a></li>
+
 				<li><a href="#empresignation" data-toggle="modal" aria-expanded="false">
 						<i class="material-icons">directions_walk</i>Resignation approval
 				</a></li>
@@ -71,6 +71,7 @@
 				</a></li>
 				<li><a href="#changePasswordModal" data-toggle="modal"
 					aria-expanded="false"> <i class="material-icons">vpn_key</i>Change Password
+
 				</a></li>
 				<li><a href="#adminprofile" data-toggle="modal"
 					aria-expanded="false"> <i class="material-icons">account_circle</i>Profile
@@ -231,6 +232,14 @@
             </div>
             <span class="text-primary font-weight-bold">${countOfTeams}</span>
           </div>
+          
+          <div class="card">
+            <div class="card-inner">
+              <p class="text-primary">PROJECTS</p>
+              <span class="material-icons">laptop</span>
+            </div>
+            <span class="text-primary font-weight-bold">${countOfProjects}</span>
+          </div>
 
 
         </div>
@@ -241,10 +250,10 @@
             <div id="bar-chart"></div>
           </div>
 
-          <!-- <div class="charts-card">
-            <p class="chart-title">Purchase and Sales Orders</p>
-            <div id="area-chart"></div>
-          </div> -->
+           <div class="charts-card">
+            <p class="chart-title">Sex Ratio</p>
+            <div id="chart"></div>
+          </div> 
 
         </div>
         
@@ -335,7 +344,9 @@
 <script type="text/javascript">
 var barChartOptions = {
 		  series: [{
-		    data: [10, 8, 6, 4, 2]
+		    data: [<c:forEach var="item" items="${countOfEmployeesInDepartment}">
+		      "${item}",
+		      </c:forEach>]
 		  }],
 		  chart: {
 		    type: 'bar',
@@ -381,6 +392,23 @@ var barChartOptions = {
 		barChart.render();
 
 
+		 var chartOptions = {
+			        chart: {
+			            type: 'pie',
+			            height: 350
+			        },
+			        series: [<c:forEach var="item" items="${sexratio}">
+				      "${item}",
+				      </c:forEach>],
+			        labels: ['Male', 'Female'],
+			        colors: ['#008FFB', '#00E396'],
+			        dataLabels: {
+					    enabled: true
+					  }
+			    }
+			    
+			    var chart = new ApexCharts(document.querySelector("#chart"), chartOptions);
+			    chart.render();
 		// AREA CHART
 		/*var areaChartOptions = {
 		  series: [{
