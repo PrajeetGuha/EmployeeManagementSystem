@@ -93,6 +93,9 @@ public class Employee {
     @Column
     private Double ctc;
 
+    @OneToOne
+    private Resignation resignation;
+
     @ManyToOne
     @JsonIgnoreProperties("employees")
     private Department department;
@@ -114,15 +117,13 @@ public class Employee {
 
     public Employee() {
     }
-    
-
-
 
     public Employee(Long empId, String empName, String gender, String gradeLevel, Date doj, String designation,
-            String emptype, String empstatus, Integer probPeriod, Date probCompDate, Integer trainPeriod, Date contractEndDate,
-            Integer servPeriod, @Email String workEmail, String branch, String office, String workstationId,
-            Integer clLeft, Integer plLeft, Integer slLeft, Integer moreLeave, Integer totalLeave, Double ctc, Department department,
-            Team team, EmployeeDetails employeeDetails, List<Payroll> payrolls, List<LeaveApplication> leaves) {
+            String emptype, String empstatus, Integer probPeriod, Date probCompDate, Integer trainPeriod,
+            Date contractEndDate, Integer servPeriod, @Email String workEmail, String branch, String office,
+            String workstationId, Integer clLeft, Integer plLeft, Integer slLeft, Integer moreLeave, Integer totalLeave,
+            Double ctc, Resignation resignation, Department department, Team team, EmployeeDetails employeeDetails,
+            List<Payroll> payrolls, List<LeaveApplication> leaves) {
         this.empId = empId;
         this.empName = empName;
         this.gender = gender;
@@ -146,6 +147,7 @@ public class Employee {
         this.moreLeave = moreLeave;
         this.totalLeave = totalLeave;
         this.ctc = ctc;
+        this.resignation = resignation;
         this.department = department;
         this.team = team;
         this.employeeDetails = employeeDetails;
@@ -337,6 +339,14 @@ public class Employee {
         this.ctc = ctc;
     }
 
+    public Resignation getResignation() {
+        return resignation;
+    }
+
+    public void setResignation(Resignation resignation) {
+        this.resignation = resignation;
+    }
+
     public Department getDepartment() {
         return department;
     }
@@ -376,6 +386,11 @@ public class Employee {
     public void setLeaves(List<LeaveApplication> leaves) {
         this.leaves = leaves;
     }
+    
+
+
+
+    
 
     
 }

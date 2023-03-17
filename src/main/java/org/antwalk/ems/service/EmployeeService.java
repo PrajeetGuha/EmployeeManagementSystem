@@ -1,13 +1,15 @@
 package org.antwalk.ems.service;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
+import org.antwalk.ems.exception.EmployeeNotFoundException;
 import org.antwalk.ems.model.Employee;
 import org.antwalk.ems.model.EmployeeDetails;
 import org.antwalk.ems.model.FamilyDetails;
 import org.antwalk.ems.model.LeaveApplication;
+import org.antwalk.ems.model.Resignation;
 import org.antwalk.ems.repository.EmployeeDetailsRepository;
 import org.antwalk.ems.repository.EmployeeRepository;
 import org.antwalk.ems.repository.FamilyDetailsRepository;
@@ -52,8 +54,23 @@ public class EmployeeService {
             () -> new RuntimeException("No details found")
         );
 		leaveApplication.setEmployee(employee);
-        leaveApplication.setApplicationDate(new Date());
+        leaveApplication.setApplicationDate(new Date(System.currentTimeMillis()));
         leaveApplicationRepository.save(leaveApplication);
     }
+
+	public Resignation resign(Long id) throws EmployeeNotFoundException {
+		Employee employee = employeeRepository.findById(id).orElseThrow(
+			() -> new EmployeeNotFoundException("Employee not found")
+		);
+		return employee.getResignation();
+	}
+
+	public void applyForResignation(Long id, Resignation resignation) throws EmployeeNotFoundException {
+		Employee employee = employeeRepository.findById(id).orElseThrow(
+			() -> new EmployeeNotFoundException("The employee is not found")
+		);
+		employee.setResignation(resignation);
+		employeeRepository.save(employee);
+	}
 
 }

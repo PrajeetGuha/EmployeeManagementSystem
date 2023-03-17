@@ -235,7 +235,7 @@
 						<ul class="list-unstyled components">
 							<li><a href="dashboard?search=null&pg=1" class="dashboard"><i
 										class="material-icons">dashboard</i> <span>Dashboard</span></a></li>
-							<li><a href="#homeSubmenu1" data-toggle="collapse" aria-expanded="false"> <i
+							<li><a href="leaveApproval?pg=1" data-toggle="collapse" aria-expanded="false"> <i
 										class="material-icons">playlist_add_check</i>Leave
 									Approval
 								</a></li>
@@ -501,7 +501,6 @@
 						</div>
 
 
-
 						<!--------main-content------------->
 
 						<div class="main-content">
@@ -523,9 +522,11 @@
 											<thead>
 												<tr>
 
-													<th>Leave type</th>
+													<th>Leave Type</th>
+													<th>Leave Applied By</th>
 													<th>Leave Reason</th>
-													<th>Leave For</th>
+													<th>Leave Applied On</th>
+													<th>Leave Applied For</th>
 													<th>ACTIONS</th>
 												</tr>
 											</thead>
@@ -539,12 +540,24 @@
 													</td>
 													<td>
 														<c:out
-															value="${fn:toUpperCase(leave.leaveAppliedFor)}" />
+															value="${leave.employee.empName}" />
+													</td>
+													<td>
+														<c:out
+															value="${leave.leaveReason}" />
+													</td>
+													<td>
+														<c:out
+															value="${leave.applicationDate}" />
+													</td>
+													<td>
+														<c:out
+															value="${leave.leaveAppliedFor}" />
 													</td>
 													<td>
                                                         <form action="" method="post">
                                                             
-                                                            <button  type="submit" class="btn btn-success" formaction="leaveAction?lid=${leave.empLeaveId}&pg=1&approve=false">Approve</button>
+                                                            <button  type="submit" class="btn btn-success" formaction="leaveAction?lid=${leave.empLeaveId}&pg=1&approve=true">Approve</button>
                                                             <button type="submit" class="btn btn-danger" formaction="leaveAction?lid=${leave.empLeaveId}&pg=1&approve=false">Discard</button>
                                                         </form>
 													</td>

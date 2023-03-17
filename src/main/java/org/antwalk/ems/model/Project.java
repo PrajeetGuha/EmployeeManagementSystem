@@ -44,18 +44,18 @@ public class Project {
             name = "team_project",
             joinColumns = @JoinColumn(name = "proj_id"),
             inverseJoinColumns = @JoinColumn(name = "team_id"))
-    private Set<Project> projects;
+    private Set<Team> teams;
 
     public Project() {
     }
 
-    public Project(Long projId, String projectName, Date startDate, Date endDate, Employee pm, Set<Project> projects) {
+    public Project(Long projId, String projectName, Date startDate, Date endDate, Employee pm, Set<Team> teams) {
         this.projId = projId;
         this.projectName = projectName;
         this.startDate = startDate;
         this.endDate = endDate;
         this.pm = pm;
-        this.projects = projects;
+        this.teams = teams;
     }
 
     public Long getProjId() {
@@ -98,14 +98,13 @@ public class Project {
         this.pm = pm;
     }
 
-    public Set<Project> getProjects() {
-        return projects;
+    public Set<Team> getTeams() {
+        return teams;
     }
 
-    public void setProjects(Set<Project> projects) {
-        this.projects = projects;
+    public void setTeams(Set<Team> teams) {
+        this.teams = teams;
     }
 
-   
     
 }

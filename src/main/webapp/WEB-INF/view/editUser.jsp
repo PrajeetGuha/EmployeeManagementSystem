@@ -443,7 +443,7 @@
                                     <div class="row">
                                         <div class="col-2"></div>
                                         <div class="col-4">
-                                            <a href="dashboard?search=${search}&pg=${pg}"><button class="btn btn-primary" >Back</button></a>
+                                            <a href="dashboard?search=${search}&pg=${pg}"><button class="btn btn-primary" type="button">Back</button></a>
                                         </div>
                                         <div class="col-4">
                                             <input type="submit" class="btn btn-primary">

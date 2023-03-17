@@ -11,6 +11,7 @@ import org.antwalk.ems.dto.ChangePasswordDTO;
 import org.antwalk.ems.dto.NewDepartmentDTO;
 import org.antwalk.ems.dto.NewEmployeeDTO;
 import org.antwalk.ems.exception.DepartmentNotFoundException;
+import org.antwalk.ems.exception.EmployeeNotFoundException;
 import org.antwalk.ems.exception.UserNotFoundException;
 import org.antwalk.ems.model.Admin;
 import org.antwalk.ems.model.Department;
@@ -57,6 +58,7 @@ private EmployeeRepository employeeRepository;
         Long id = AuthenticationSystem.getId();
         int pageNo = Integer.parseInt(request.getParameter("pg"));
         String search = request.getParameter("search");
+        
         Admin admin = adminService.fetchAdminData(id);
         int pageCount = adminService.countPagesOfEmployees(search);
         Long empCount = adminService.countEmployees(search);
@@ -218,6 +220,16 @@ private EmployeeRepository employeeRepository;
         return "redirect:/admin/dashboard?search=null&pg="+pgNo;
     }
 
+    @PostMapping("/leaveAction")
+    public String leaveAction(HttpServletRequest request) throws Exception{
+        Long adminId = AuthenticationSystem.getId();
+        Long lid = Long.parseLong(request.getParameter("lid"));
+        int pg = Integer.parseInt(request.getParameter("pg"));
+        String approve = request.getParameter("approve");
+
+        adminService.leaveAction(lid,adminId,approve);
+        return "redirect:/admin/leaveApproval?pg="+pg;
+    }
 
     @PostMapping("/addUser")
     public String addUser(@ModelAttribute("newuser") NewEmployeeDTO newEmployee, BindingResult result, RedirectAttributes redirectAttrs ) throws DepartmentNotFoundException{
@@ -238,7 +250,7 @@ private EmployeeRepository employeeRepository;
 
     // departmentName, hod
     @PostMapping("/addDept")
-    public String addDepartment(@ModelAttribute("newdept") NewDepartmentDTO newDepartment, BindingResult result, RedirectAttributes redirectAttrs ) throws DepartmentNotFoundException{
+    public String addDepartment(@ModelAttribute("newdept") NewDepartmentDTO newDepartment, BindingResult result, RedirectAttributes redirectAttrs ) throws DepartmentNotFoundException, EmployeeNotFoundException{
         // return ResponseEntity.ok().body();
         System.out.println(newDepartment);
         adminService.addDepartment(newDepartment);
@@ -255,14 +267,18 @@ private EmployeeRepository employeeRepository;
         return "redirect:/admin/departmentallocation?pg=1";
     }
 
+    @GetMapping("leaveApproval")
+    public String leaveApprovaldashboard(HttpServletRequest request,Model model){
+        int pg = Integer.parseInt(request.getParameter("pg"));
 
-    @GetMapping("/report")
-    public String generateEmployeeReport(HttpServletResponse response, HttpServletRequest request) throws IOException{
+        model.addAttribute("leavelist", adminService.listAllLeaves(pg));
+        return "leaveApproval";
+    }
+
+    @GetMapping("report")
+    public void generateEmployeeReport(HttpServletResponse response, HttpServletRequest request) throws IOException, EmployeeNotFoundException{
         Long empId = Long.parseLong(request.getParameter("empId"));
-        String pageNo = request.getParameter("pg");
-        String search = request.getParameter("search");
         reportService.generateEmployeeReport(response, empId);
-        return "redirect:/admin/dashboard?search="+ search + "&pg="+ pageNo;
     }
 
     @GetMapping("editemployeedetails")
@@ -281,8 +297,9 @@ private EmployeeRepository employeeRepository;
     @PostMapping("editemployee")
     public String editemployee(@ModelAttribute("employeeinfo") Employee employee, BindingResult result, RedirectAttributes redirectAttrs, @RequestParam String search, @RequestParam int pg) throws UserNotFoundException{
             employeeRepository.save(employee);
+            
             // ?search="+search+"&pg="+pg
-            return "redirect:/admin/dashboard?search=null&pg=1";
+            return "redirect:/admin/dashboard?search="+search+"&pg="+pg;
     }
     
     @PostMapping("/changePassword")

@@ -6,11 +6,13 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.antwalk.ems.exception.EmployeeNotFoundException;
 import org.antwalk.ems.exception.UserNotFoundException;
 import org.antwalk.ems.model.Employee;
 import org.antwalk.ems.model.EmployeeDetails;
 import org.antwalk.ems.model.FamilyDetails;
 import org.antwalk.ems.model.LeaveApplication;
+import org.antwalk.ems.model.Resignation;
 import org.antwalk.ems.repository.EmployeeDetailsRepository;
 import org.antwalk.ems.repository.EmployeeRepository;
 import org.antwalk.ems.repository.FamilyDetailsRepository;
@@ -91,10 +93,10 @@ public class EmployeeController {
 
     @PostMapping("/applyLeave")
     public String editemployee(@ModelAttribute("leave") LeaveApplication leaveApplication, BindingResult result, RedirectAttributes redirectAttrs) throws UserNotFoundException{
-           
+        
         Long id = AuthenticationSystem.getId();
         employeeService.applyLeave(id,leaveApplication);
-        System.out.println(leaveApplication);
+        
 
         // if (result.hasErrors()){
         //     redirectAttrs.addFlashAttribute("result", result);
@@ -106,7 +108,7 @@ public class EmployeeController {
         //         "New leave is added"
         //     )));
         // }
-        return "redirect:/leaveApplication?pg=1";
+        return "redirect:leaveApplication?pg=1";
     }
 
     @GetMapping("leaveApplication")
@@ -185,5 +187,20 @@ public class EmployeeController {
         System.out.println(employeeDetails);
         employeeDetailsRepository.save(employeeDetails);
         return "redirect:/employee/employeepersonaldetails";
+    }
+
+    @GetMapping("resign")
+    public String resign(HttpServletRequest request, Model model) throws EmployeeNotFoundException{
+        Long id = AuthenticationSystem.getId();
+        Resignation resign = employeeService.resign(id);
+        model.addAttribute("resign", resign);
+        return "applyResignation";
+    }
+
+    @PostMapping("applyResignation")
+    public String applyResignation(@ModelAttribute("resignform") Resignation resignation, HttpServletRequest request) throws EmployeeNotFoundException{
+        Long id = AuthenticationSystem.getId();
+        employeeService.applyForResignation(id, resignation);
+        return "redirect:dashboard";
     }
 }

@@ -8,6 +8,7 @@ import java.util.List;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
+import org.antwalk.ems.exception.EmployeeNotFoundException;
 import org.antwalk.ems.model.Employee;
 import org.antwalk.ems.report.EmployeeReport;
 import org.antwalk.ems.repository.DepartmentRepository;
@@ -48,15 +49,18 @@ public class ReportService {
     @Autowired
     private EmployeeReport employeeReport;
     
-    public void generateEmployeeReport(HttpServletResponse response, Long id) throws IOException{
+    public void generateEmployeeReport(HttpServletResponse response, Long id) throws IOException, EmployeeNotFoundException{
         XSSFWorkbook workbook = new XSSFWorkbook();
 
-        Employee employee = employeeRepository.getById(id);
+        Employee employee = employeeRepository.findById(id).orElseThrow(
+            () -> new EmployeeNotFoundException("The employee is not found")
+        );
         response.setContentType("application/octet-stream");
         response.setHeader("Content-Disposition", "attachment;filename=employeeReport.xlsx");
-        workbook = employeeReport.generateReport(workbook, employee);
+        employeeReport.generateReport(workbook, employee);
         ServletOutputStream ops = response.getOutputStream();
         workbook.write(ops);
+        workbook.close();
         ops.close();
     }
 }

@@ -1,4 +1,5 @@
 package org.antwalk.ems.model;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -10,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -38,15 +40,19 @@ public class Team {
         inverseJoinColumns = @JoinColumn(name = "proj_id"))
     private Set<Project> projects;
 
+    @OneToMany
+    private List<Employee> employees;
+
     public Team(){
     	
     }
-    
-    public Team(Long teamId, String teamName, Employee tm, Set<Project> projects) {
+
+    public Team(Long teamId, String teamName, Employee tm, Set<Project> projects, List<Employee> employees) {
         this.teamId = teamId;
         this.teamName = teamName;
         this.tm = tm;
         this.projects = projects;
+        this.employees = employees;
     }
 
     public Long getTeamId() {
@@ -80,6 +86,16 @@ public class Team {
     public void setProjects(Set<Project> projects) {
         this.projects = projects;
     }
+
+    public List<Employee> getEmployees() {
+        return employees;
+    }
+
+    public void setEmployees(List<Employee> employees) {
+        this.employees = employees;
+    }
+    
+    
 
     
 }

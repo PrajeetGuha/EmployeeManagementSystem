@@ -261,7 +261,7 @@
 				<li><a href="departmentallocation?pg=1"> <i
 						class="material-icons">work</i>Department
 				</a></li>
-				<li><a href="#homeSubmenu1" data-toggle="collapse"
+				<li><a href="leaveApproval?pg=1" data-toggle="collapse"
 					aria-expanded="false"> <i class="material-icons">playlist_add_check</i>Leave
 						Approval
 				</a></li>
@@ -599,7 +599,7 @@
 														<i class="material-icons" data-toggle="tooltip"
 														title="View">&#xE853;</i>
 												</a> <a
-													href="report?empId=${employee.empId}&pg=1&search=${search}"
+													href="report?empId=${employee.empId}"
 													class="analytics"> <i class="material-icons"
 														data-toggle="tooltip" title="Analytics">summarize</i></a> <a
 													href="#deleteEmployeeModal" class="delete"

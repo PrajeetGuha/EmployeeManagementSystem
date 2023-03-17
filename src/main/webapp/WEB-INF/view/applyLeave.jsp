@@ -80,8 +80,8 @@
 
 
 
-								<li><a href="#applyresignation"  data-toggle="modal"
-									aria-expanded="false" > <i class="material-icons">directions_walk</i>Apply
+								<li><a href="#applyresignation" data-toggle="modal" aria-expanded="false"> <i
+											class="material-icons">directions_walk</i>Apply
 										Resignation
 
 
@@ -116,8 +116,8 @@
 
 
 
-          
-						<div id="applyresignation" class="modal fade">
+
+						<!-- <div id="applyresignation" class="modal fade">
 							<div class="modal-dialog">
 								<div class="modal-content">
 									<form action="deptAlloc" method="post">
@@ -139,8 +139,8 @@
 									</form>
 								</div>
 							</div>
-						</div>
-		
+						</div> -->
+
 
 
 
@@ -300,11 +300,42 @@
 											<div class="modal-header">
 												<h4 class="modal-title">Apply Leave</h4>
 											</div>
+											<form action="applyLeave" method="post" modelAttribute="leave">
 											<div class="modal-body">
+													<div class="form-group">
+														<label>Leave Type</label>
+														<select class="form-control" name="leaveType">
+															<option value="SL">SL </option>
+															<option value="PL">PL</option>
+															<option value="CL" selected>CL</option>
+														</select>
+													</div>
+													<div class="form-group">
+														<label>Reason for
+															leave</label> <textarea  class="form-control" name="leaveReason"
+															required></textarea>
+													</div>
+													
+													<!-- <div class="form-group">
+														<label>Applied for </label> <input type="date" class="form-control" name="leaveAppliedFor"
+															required>
+													</div> -->
+													<!-- <div class="input-group ">
+														<input type="date" class="form-control"
+															placeholder="Date of Joining"
+															aria-label="Date of Joining"
+															aria-describedby="basic-addon1" name="leaveAppliedFor"/>
+													</div> -->
+													<input type="date" name="leaveAppliedFor"/>
+											</div>
+											<div class="modal-footer">
+												<input type="button" class="btn btn-danger" data-dismiss="modal"
+													value="Cancel"> <input type="submit" class="btn btn-success"
+													value="Apply">
+											</div>
+											</form>
 
-
-												<table>
-													<form action="applyLeave" method="post" modelAttribute="leave">
+											<!-- <table>
 														<tr>
 															<td>
 																<div class="input-group mb-3">
@@ -368,9 +399,9 @@
 																<button type="submit"
 																	class="btn btn-primary">Submit</button>
 															</td>
-														</tr>
+														</tr> -->
 
-														<!-- <div class="input-container ic2">  
+											<!-- <div class="input-container ic2">  
 													<div class="input-group-prepend">
 													<span class="input-group-text" id="basic-addon1">Leave Type</span>
 												  </div>
@@ -389,7 +420,7 @@
 													</select>
 												</div> -->
 
-														<!-- 													
+											<!-- 													
 													<div class="input-group ">
 														<label for="Leave Reason" class="placeholder">Leave Reason</label>
 														<input type="text" class="form-control"
@@ -411,24 +442,24 @@
 												<button type="button" class="btn btn-secondary"
 													data-dismiss="modal">Close</button>
 												<button type="submit" class="btn btn-primary">Submit</button> -->
-													</form>
-												</table>
-											</div>
+											<!-- </form>
+												</table> -->
 										</div>
 									</div>
 								</div>
-
-
-
-
-
-
-								<!---footer---->
-
-
 							</div>
 
+
+
+
+
+
+							<!---footer---->
+
+
 						</div>
+
+					</div>
 					</div>
 
 

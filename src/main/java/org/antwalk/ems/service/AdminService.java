@@ -9,11 +9,13 @@ import org.antwalk.ems.dto.ChangePasswordDTO;
 import org.antwalk.ems.dto.NewDepartmentDTO;
 import org.antwalk.ems.dto.NewEmployeeDTO;
 import org.antwalk.ems.exception.DepartmentNotFoundException;
+import org.antwalk.ems.exception.EmployeeNotFoundException;
 import org.antwalk.ems.exception.UserNotFoundException;
 import org.antwalk.ems.model.Admin;
 import org.antwalk.ems.model.Department;
 import org.antwalk.ems.model.Employee;
 import org.antwalk.ems.model.EmployeeDetails;
+import org.antwalk.ems.model.LeaveApplication;
 import org.antwalk.ems.model.Project;
 import org.antwalk.ems.model.Team;
 import org.antwalk.ems.model.User;
@@ -21,6 +23,7 @@ import org.antwalk.ems.repository.AdminRepository;
 import org.antwalk.ems.repository.DepartmentRepository;
 import org.antwalk.ems.repository.EmployeeDetailsRepository;
 import org.antwalk.ems.repository.EmployeeRepository;
+import org.antwalk.ems.repository.LeaveApplicationRepository;
 import org.antwalk.ems.repository.ProjectRepository;
 import org.antwalk.ems.repository.TeamRepository;
 import org.antwalk.ems.view.EmployeeListView;
@@ -60,6 +63,8 @@ public class AdminService {
 
     @Autowired
     DepartmentRepository departmentRepository;
+    @Autowired
+    LeaveApplicationRepository leaveApplicationRepository;
 
     @Autowired
     TeamRepository teamRepository;
@@ -133,10 +138,15 @@ public class AdminService {
         employee.setEmpName(newEmployeeDTO.getName());
         employee.setDesignation(newEmployeeDTO.getDesignation());
         employee.setGender(newEmployeeDTO.getGender());
-        Department department = departmentRepository.findByDepartmentName(newEmployeeDTO.getDepartment()).orElseThrow(
-            () -> new DepartmentNotFoundException("Department with name" + newEmployeeDTO.getDepartment() + " not found")
-        );
-        employee.setDepartment(department);
+        if (newEmployeeDTO.getDepartment().equals("0")){
+            employee.setDepartment(null);
+        }
+        else{
+            Department department = departmentRepository.findByDepartmentName(newEmployeeDTO.getDepartment()).orElseThrow(
+                () -> new DepartmentNotFoundException("Department with name" + newEmployeeDTO.getDepartment() + " not found")
+            );
+            employee.setDepartment(department);
+        }
         employee.setGradeLevel(newEmployeeDTO.getGradeLevel());
         employee.setDoj(newEmployeeDTO.getDoj());
         employee.setEmptype(newEmployeeDTO.getEmptype());
@@ -151,11 +161,10 @@ public class AdminService {
         user.setPassword(passwordEncoder.encode(newEmployeeDTO.getPassword()));
         user.setTablePk(persistedEmployee.getEmpId());
         user.setUsername(newEmployeeDTO.getUsername());
-        User persistedUser = userRepository.save(user);
+        userRepository.save(user);
 
         //mailService.sendNewEmployeeMail(newEmployeeDTO.getPersonalEmail(),newEmployeeDTO.getName(),persistedEmployee.getWorkEmail(),newEmployeeDTO.getUsername(),newEmployeeDTO.getPassword());
-    }
-    
+    }  
     public List<EmployeeSelectionView> listAllEmployees(){
         return employeeRepository.findAllEmployeeNames();
     }
@@ -228,16 +237,29 @@ public class AdminService {
     	Pageable pageable = PageRequest.of(0, PAGE_SIZE, Sort.by("projId"));
     	return projectRepository.findAll(pageable).getTotalPages();
     }
+    public void addDepartment(NewDepartmentDTO newDepartment) throws EmployeeNotFoundException {
+        Department department = new Department();
+        if (newDepartment.getHod() == 0){
+            newDepartment.setHod(null);
+        }
+        else{
+            Employee employee = employeeRepository.findById(newDepartment.getHod()).orElseThrow(
+            () -> new EmployeeNotFoundException("The employee not found.")
+            );
+            department.setHod(employee);
+            // employee.setDepartment(department);
 
-	public void addDepartment(NewDepartmentDTO newDepartment) throws DepartmentNotFoundException {
-		Employee employee = employeeRepository.findById(newDepartment.getHod()).orElseThrow(
-            () -> new DepartmentNotFoundException("The department not found.")
-        );
-		Department department = new Department();
+        }
         department.setDepartmentName(newDepartment.getDepartmentName());
-        department.setHod(employee);
-        departmentRepository.save(department);
-	}
+        Department persistedDepartment = departmentRepository.save(department);
+        if(newDepartment.getHod() != null){
+            Employee employee = employeeRepository.findById(newDepartment.getHod()).orElseThrow(
+            () -> new EmployeeNotFoundException("The employee not found.")
+            );
+            employee.setDepartment(persistedDepartment);
+            employeeRepository.save(employee);
+        }
+    }
 	
 	public void changePassword(ChangePasswordDTO changePasswordDTO) throws RuntimeException {
 	    // retrieve user entity from database using empId
@@ -251,6 +273,23 @@ public class AdminService {
 	    // save updated user entity to database
 	    userRepository.save(user);
 	}
+    public void leaveAction(Long lid, Long adminId, String approve) throws Exception {
+        LeaveApplication leaveApplication = leaveApplicationRepository.findById(lid).orElseThrow(
+            () -> new Exception("Leave not found")
+        );
+        Admin admin = adminRepository.findById(adminId).orElseThrow(
+        () -> new Exception("admin not found")
+        );
+        leaveApplication.setAdmin(admin);
+        leaveApplication.setIsApproved(approve.equals("true") ? true : false);
+        leaveApplicationRepository.save(leaveApplication);
+        }
+        
+        
+        public List<LeaveApplication> listAllLeaves(int pg) {
+            Pageable pageable = PageRequest.of(pg, PAGE_SIZE, Sort.by("applicationDate"));
+            return leaveApplicationRepository.findAll();
+        }
 
 
 
