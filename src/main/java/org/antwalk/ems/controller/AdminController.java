@@ -123,18 +123,31 @@ private EmployeeRepository employeeRepository;
         Long countteam = adminService.countAllTeams();
         Long countproject=adminService.countAllProjects();
         List<String> alldepartments = adminService.listDepartments();
+
+        List<EmployeeSelectionView> allemployees = adminService.listAllEmployees();
+       
+        //List<Integer> countemployeeindepartment=adminService.employeesInDepartment();
+
         List<Integer> countemployeeindepartment=adminService.employeesInDepartment();
         List<Integer> sexratio=adminService.sexratio();
+
         List<Double> totalcost=adminService.totalcost();
+
     	model.addAttribute("admin",admin);
         model.addAttribute("countOfEmployees", count);
         model.addAttribute("countOfDepartments", countdept);
         model.addAttribute("countOfTeams", countteam);
         model.addAttribute("countOfProjects",countproject);
         model.addAttribute("alldepartmentnames",alldepartments);
+
+        model.addAttribute("allemployeenames",allemployees);
+        //model.addAttribute("countOfEmployeesInDepartment", countemployeeindepartment);
+
         model.addAttribute("countOfEmployeesInDepartment", countemployeeindepartment);
         model.addAttribute("sexratio",sexratio);
+
         model.addAttribute("totalcost",totalcost);
+
    		return "analytics";
 
    	}

@@ -51,8 +51,12 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelector('form[modelAttribute="newteam"]').addEventListener('submit', function(e) {
         // check if department name already exists
         var departmentName = departmentNameInput.value.toLowerCase();
+        var pattern = /^[_a-zA-Z][_a-zA-Z0-9]*(\s[_a-zA-Z][_a-zA-Z0-9]*)*$/;
         if (departmentName == "") {
             departmentNameInput.setCustomValidity('Team name cannot be empty.');
+            e.preventDefault(); // prevent form submission
+        }else if (!pattern.test(departmentName)) {
+            departmentNameInput.setCustomValidity('Department name can only contain alphabetic characters, underscores, and numbers, with at most one space between each word.');
             e.preventDefault(); // prevent form submission
         } else if (listdept.includes(departmentName)) {
             departmentNameInput.setCustomValidity('Team already exists. Please choose a different name.');
@@ -64,6 +68,182 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
   </script>
+  
+  <script>
+  document.addEventListener("DOMContentLoaded", function() {
+    // Get employee names and ids from model attribute using JSTL
+    var employees = [
+      <c:forEach var="employee" items="${allemployeenames}">
+        {
+          id: "${employee.empId}",
+          name: "${employee.empName}"
+        },
+      </c:forEach>
+    ];
+
+ // Get department names from model attribute using JSTL
+    var listdepartments = [
+      <c:forEach var="department" items="${listteams}">
+        "${department.tm.empName}",
+      </c:forEach>
+    ];
+    
+    // Create a list to store selected employee names
+    var selectedEmployees = [];
+
+    // Get references to DOM elements
+    var empList = document.getElementById("empList");
+    var suggestionList = document.getElementById("suggestions");
+
+    
+    
+    // Function to render the list of selected employees
+    function renderSelectedEmployees() {
+  var names = selectedEmployees.map(function(employee) {
+    return employee.name;
+  });
+  empList.value = names.join(", ");
+}
+
+
+
+
+    // Function to filter employee names based on input text
+    function filterEmployees(text) {
+      return employees.filter(function(employee) {
+        // Exclude names that are already in the list of selected employees
+        if (selectedEmployees.some(function(selectedEmployee) {
+          return selectedEmployee.name.toLowerCase() === employee.name.toLowerCase();
+        })) {
+          return false;
+        }
+        // Exclude names that match any department name
+        if (listdepartments.some(function(department) {
+          return department.toLowerCase() === employee.name.toLowerCase();
+        })) {
+          return false;
+        }
+        return employee.name.toLowerCase().includes(text.toLowerCase());
+      });
+    }
+
+    // Function to handle input events on empList
+    function handleInput() {
+      var text = empList.value.trim();
+      suggestionList.innerHTML = "";
+
+      if (text) {
+        // Split the input by commas
+        var names = text.split(",");
+        for (var i = 0; i < names.length; i++) {
+          var name = names[i].trim();
+          if (name) {
+            // Filter employee names based on input text
+            var filteredEmployees = filterEmployees(name);
+
+            // Create a new suggestion element for each filtered employee
+            filteredEmployees.forEach(function(employee) {
+              var suggestionElement = document.createElement("li");
+              suggestionElement.innerText = employee.name;
+              suggestionElement.setAttribute("data-employee-id", employee.id);
+
+              suggestionElement.addEventListener("click", function() {
+                // Add selected employee to list
+                var employeeId = this.getAttribute("data-employee-id");
+                selectedEmployees.push({
+                  id: employeeId,
+                  name: employee.name
+                });
+
+                
+                
+                renderSelectedEmployees();
+                suggestionList.innerHTML = "";
+              });
+
+              suggestionList.appendChild(suggestionElement);
+            });
+          }
+        }
+      }
+    }
+    
+ // Function to handle keydown events on empList
+    function handleKeydown(event) {
+  if (event.key === "Backspace") {
+    if (empList.selectionStart === empList.selectionEnd && empList.selectionStart === 0 && selectedEmployees.length > 0) {
+      // Remove last name from selected employees list
+      selectedEmployees.pop();
+      renderSelectedEmployees();
+      
+    } else if (empList.value.length < prevLength) {
+      // Remove last name from selected employees list
+      selectedEmployees.pop();
+      renderSelectedEmployees();
+    }
+  }
+
+  prevLength = empList.value.length;
+
+  console.log(selectedEmployees);
+  console.log(empList.value);
+}
+
+
+
+    // Add keydown event listener to empList
+    empList.addEventListener("keydown", handleKeydown);
+
+    // Add input event listener to empList
+    empList.addEventListener("input", handleInput);
+
+    // Add keydown event listener to empList to handle keyboard shortcuts
+    empList.addEventListener("keydown", function(event) {
+      if (event.key === "Escape") {
+        suggestionList.innerHTML = "";
+      } else if (event.key === "Enter") {
+        var firstSuggestion = suggestionList.querySelector("li");
+        if (firstSuggestion) {
+          firstSuggestion.click();
+        }
+      }
+    });
+
+    // Render the list of selected employees
+    renderSelectedEmployees();
+  });
+</script>
+
+<style>
+.dropdown-container {
+	position: relative;
+}
+
+.dropdown-menu {
+	position: absolute;
+	top: 100%;
+	left: 0;
+	z-index: 1;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	background-color: #fff;
+	border: 1px solid #ccc;
+	border-top: none;
+	overflow-y: scroll;
+	max-height: 150px;
+	display: block;
+}
+
+.dropdown-menu li {
+	padding: 5px;
+	cursor: pointer;
+}
+
+.dropdown-menu li:hover {
+	background-color: #f2f2f2;
+}
+</style>
 				
 </head>
 
@@ -97,7 +277,7 @@ document.addEventListener('DOMContentLoaded', function() {
 				<li><a href="#empresignation" data-toggle="modal" aria-expanded="false">
 						<i class="material-icons">directions_walk</i>Resignation approval
 				</a></li>
-				<li><a href="analytics" data-toggle="modal" aria-expanded="false">
+				<li><a href="analytics"  aria-expanded="false">
 						<i class="material-icons">analytics</i>Analytics
 				</a></li>
 				<li><a href="#changePasswordModal" data-toggle="modal"
@@ -396,81 +576,92 @@ document.addEventListener('DOMContentLoaded', function() {
 													data-toggle="modal"> <i class="material-icons"
 														data-toggle="tooltip" title="Report">summarize</i></a></td>
 											</tr>
+											
+											<!-- Edit Modal HTML -->
+					<div id="editTeamModal${team.teamId }" class="modal fade">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								
+									<div class="modal-header">
+										<h4 class="modal-title">Edit Team</h4>
+										<!-- <button type="button" class="close" data-dismiss="modal"
+											aria-hidden="true">&times;</button> -->
+									</div>
+									<div class="modal-body">
+										<form id="editTeam" action="editTeam" method="post"
+																modelAttribute="modifyteam">
+																<input type="hidden" id="deptIdInput" name="deptId" />
+
+																<div class="input-container ic2">
+																	<label for="tName" class="placeholder">Change
+																		Team Name</label>
+																	<div class="cut"></div>
+																	<input id="tName" name="tName"
+																		class="input required" type="text"
+																		placeholder="${team.teamName }"
+																		value=${team.teamName } />
+
+																</div>
+																<div class="input-container ic2">
+																	<label for="changetm" class="placeholder">Change
+																		Team Manager</label>
+																	<div class="cut cut-short"></div>
+																	<select id="changetm" name="changetm" class="input required"
+																		placeholder=" " >
+																		<option value="null">Unassigned</option>
+																		<c:forEach items="${allemployeenames}"
+																			var="department">
+																			<option value="${department.empId}">(${department.empId})
+																				${department.empName}</option>
+																		</c:forEach>
+																	</select>
+																</div>
+																<div class="input-container ic2">
+																	<label for="employeelist" class="placeholder">Add
+																		Employees</label>
+																	<div class="cut cut-short"></div>
+																	<input type="text" id="empList" class="input"
+																		placeholder="Type employee name or ID">
+																	<div class="dropdown-container">
+																		<ul id="suggestions" class="dropdown-menu"></ul>
+																	</div>
+																	<div id="selectedEmployees"
+																		class="selected-employees-container"></div>
+																</div>
+																<%-- <div class="input-container ic2">
+																	<label for="empindept" class="placeholder">Employees
+																		in Team</label>
+																	<div class="cut"></div>
+																	<ul class="list-group" id="emplist">
+																		<c:choose>
+																			<c:when test="${empty team.employees}">
+																				<li class="list-group-item">No Employees listed</li>
+																			</c:when>
+																			<c:otherwise>
+																				<c:forEach items="${team.employees}" var="emp">
+																					<li class="list-group-item">(${emp.empId})
+																						${emp.empName}</li>
+																				</c:forEach>
+																			</c:otherwise>
+																		</c:choose>
+																	</ul>
+																</div> --%>
+																<br>
+																<div class="cut"></div>
+																<div class="modal-footer">
+																	<button type="button" class="btn btn-secondary"
+																		data-dismiss="modal">Close</button>
+																	<button type="submit" class="btn btn-primary">Submit</button>
+																</div>
+															</form>
+							</div>
+						</div>
+					</div>
+											
+											
 										</c:forEach>
 
-									</tr>
-									<!--  <tr>
-                      <td>
-                        <span class="custom-checkbox">
-                          <input type="checkbox" id="checkbox2" name="options[]" value="1">
-                          <label for="checkbox2"></label>
-                        </span>
-                      </td>
-                      <td>Dominique Perrier</td>
-                      <td>dominiqueperrier@mail.com</td>
-                      <td>Obere Str. 57, Berlin, Germany</td>
-                      <td>(313) 555-5735</td>
-                      <td>
-                        <a href="#editEmployeeModal" class="edit" data-toggle="modal">
-                          <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                        <a href="#deleteEmployeeModal" class="delete" data-toggle="modal">
-                          <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <span class="custom-checkbox">
-                          <input type="checkbox" id="checkbox3" name="options[]" value="1">
-                          <label for="checkbox3"></label>
-                        </span>
-                      </td>
-                      <td>Maria Anders</td>
-                      <td>mariaanders@mail.com</td>
-                      <td>25, rue Lauriston, Paris, France</td>
-                      <td>(503) 555-9931</td>
-                      <td>
-                        <a href="#editEmployeeModal" class="edit" data-toggle="modal">
-                          <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                        <a href="#deleteEmployeeModal" class="delete" data-toggle="modal">
-                          <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <span class="custom-checkbox">
-                          <input type="checkbox" id="checkbox4" name="options[]" value="1">
-                          <label for="checkbox4"></label>
-                        </span>
-                      </td>
-                      <td>Fran Wilson</td>
-                      <td>franwilson@mail.com</td>
-                      <td>C/ Araquil, 67, Madrid, Spain</td>
-                      <td>(204) 619-5731</td>
-                      <td>
-                        <a href="#editEmployeeModal" class="edit" data-toggle="modal">
-                          <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                        <a href="#deleteEmployeeModal" class="delete" data-toggle="modal">
-                          <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <span class="custom-checkbox">
-                          <input type="checkbox" id="checkbox5" name="options[]" value="1">
-                          <label for="checkbox5"></label>
-                        </span>
-                      </td>
-                      <td>Martin Blank</td>
-                      <td>martinblank@mail.com</td>
-                      <td>Via Monte Bianco 34, Turin, Italy</td>
-                      <td>(480) 631-2097</td>
-                      <td>
-                        <a href="#editEmployeeModal" class="edit" data-toggle="modal">
-                          <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                         <a href="#deleteEmployeeModal" class="delete" data-toggle="modal">
-			<i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-                      </td>
-                    </tr>-->
+									
 								</tbody>
 							</table>
 							
@@ -543,44 +734,7 @@ document.addEventListener('DOMContentLoaded', function() {
 						</div>
 					</div>
 					
-					<!-- Edit Modal HTML -->
-					<div id="editEmployeeModal" class="modal fade">
-						<div class="modal-dialog">
-							<div class="modal-content">
-								<form>
-									<div class="modal-header">
-										<h4 class="modal-title">Edit Employee</h4>
-										<button type="button" class="close" data-dismiss="modal"
-											aria-hidden="true">&times;</button>
-									</div>
-									<div class="modal-body">
-										<div class="form-group">
-											<label>Name</label> <input type="text" class="form-control"
-												required>
-										</div>
-										<div class="form-group">
-											<label>Email</label> <input type="email" class="form-control"
-												required>
-										</div>
-										<div class="form-group">
-											<label>Address</label>
-											<textarea class="form-control" required></textarea>
-										</div>
-										<div class="form-group">
-											<label>Phone</label> <input type="text" class="form-control"
-												required>
-										</div>
-									</div>
-									<div class="modal-footer">
-										<input type="button" class="btn btn-default"
-											data-dismiss="modal" value="Cancel"> <input
-											type="submit" class="btn btn-info" value="Save">
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
-
+					
 
 
 					<!-- Password Modal HTML -->
