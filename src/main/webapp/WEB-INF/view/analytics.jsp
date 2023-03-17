@@ -384,6 +384,9 @@ var barChartOptions = {
 		    categories: [ <c:forEach var="item" items="${alldepartmentnames}">
 		      "${item}",
 		      </c:forEach>],
+		      title: {
+			      text: "Department"
+			    }
 		  },
 		  yaxis: {
 		    title: {
@@ -523,10 +526,13 @@ var barChartOptions = {
 			  		    categories: [ <c:forEach var="item" items="${alldepartmentnames}">
 			  		      "${item}",
 			  		      </c:forEach>],
+			  		    title: {
+				  		      text: "Total cost"
+				  		    }
 			  		  },
 			  		  yaxis: {
 			  		    title: {
-			  		      text: "Count"
+			  		      text: "Department"
 			  		    }
 			  		  }
 			  		};
