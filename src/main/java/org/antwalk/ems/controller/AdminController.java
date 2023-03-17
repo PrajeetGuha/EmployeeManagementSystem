@@ -18,6 +18,7 @@ import org.antwalk.ems.model.Employee;
 import org.antwalk.ems.model.Project;
 import org.antwalk.ems.model.Team;
 import org.antwalk.ems.pojo.SuccessDetails;
+import org.antwalk.ems.repository.DepartmentRepository;
 import org.antwalk.ems.repository.EmployeeRepository;
 import org.antwalk.ems.security.AuthenticationSystem;
 import org.antwalk.ems.service.AdminService;
@@ -109,6 +110,27 @@ private EmployeeRepository employeeRepository;
 
    	public String allocatedepartment(HttpServletRequest request, Model model) {
           		return "allocatedepartment";
+
+   	}
+    @GetMapping("/analytics")
+
+   	public String analytics(HttpServletRequest request, Model model) throws UserNotFoundException{
+        
+    	Long id = AuthenticationSystem.getId();
+    	Admin admin = adminService.fetchAdminData(id);
+        Long count = adminService.countAllEmployees();
+        Long countdept = adminService.countAllDepartments();
+        Long countteam = adminService.countAllTeams();
+        List<String> alldepartments = adminService.listDepartments();
+       
+        //List<Integer> countemployeeindepartment=adminService.employeesInDepartment();
+    	model.addAttribute("admin",admin);
+        model.addAttribute("countOfEmployees", count);
+        model.addAttribute("countOfDepartments", countdept);
+        model.addAttribute("countOfTeams", countteam);
+        model.addAttribute("alldepartmentnames",alldepartments);
+        //model.addAttribute("countOfEmployeesInDepartment", countemployeeindepartment);
+   		return "analytics";
 
    	}
     @GetMapping("/projectallocation")

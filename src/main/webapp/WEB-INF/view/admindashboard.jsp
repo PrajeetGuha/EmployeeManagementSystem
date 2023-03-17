@@ -277,8 +277,7 @@ $('#search-form').attr('action', initialUrl + '?search=null&pg=1');
 					aria-expanded="false"> <i class="material-icons">directions_walk</i>Resignation
 						approval
 				</a></li>
-				<li><a href="analytics" data-toggle="modal"
-					aria-expanded="false"> <i class="material-icons">analytics</i>Analytics
+				<li><a href="analytics"> <i class="material-icons">analytics</i>Analytics
 				</a></li>
 				<li><a href="#changePasswordModal" data-toggle="modal"
 					aria-expanded="false"> <i class="material-icons">vpn_key</i>Change
