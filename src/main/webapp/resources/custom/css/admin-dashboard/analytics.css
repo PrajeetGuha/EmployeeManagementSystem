@@ -624,6 +624,9 @@ background-color:rgba(0,0,0,0.09);
 .card:nth-child(3) {
   border-left: 7px solid #367952;
 }
+.card:nth-child(4) {
+  border-left: 7px solid #ff2227;
+}
 
 
 
@@ -648,7 +651,7 @@ background-color:rgba(0,0,0,0.09);
 .charts {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 20px;
+   gap: 20px;
 }
 
 .charts-card {

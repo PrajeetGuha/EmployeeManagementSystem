@@ -191,6 +191,11 @@ public class AdminService {
   {
 	  return departmentRepository.sexratio();
   }
+  
+  public List<Double> totalcost()
+  {
+	  return departmentRepository.totalcost();
+  }
 
     public List<Department> getAllDepartments(int pageNo){
         Pageable pageable = PageRequest.of(pageNo-1, PAGE_SIZE, Sort.by("deptId"));

@@ -83,8 +83,12 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelector('form[modelAttribute="newproj"]').addEventListener('submit', function(e) {
         // check if department name already exists
         var departmentName = departmentNameInput.value.toLowerCase();
+        var pattern = /^[_a-zA-Z][_a-zA-Z0-9]*(\s[_a-zA-Z][_a-zA-Z0-9]*)*$/;
         if (departmentName == "") {
             departmentNameInput.setCustomValidity('Project name cannot be empty.');
+            e.preventDefault(); // prevent form submission
+        }else if (!pattern.test(departmentName)) {
+            departmentNameInput.setCustomValidity('Department name can only contain alphabetic characters, underscores, and numbers, with at most one space between each word.');
             e.preventDefault(); // prevent form submission
         } else if (listdept.includes(departmentName)) {
             departmentNameInput.setCustomValidity('Project already exists. Please choose a different name.');
@@ -190,7 +194,7 @@ document.addEventListener('DOMContentLoaded', function() {
 					aria-expanded="false"> <i class="material-icons">directions_walk</i>Resignation
 						approval
 				</a></li>
-				<li><a href="analytics" data-toggle="modal"
+				<li><a href="analytics" 
 					aria-expanded="false"> <i class="material-icons">analytics</i>Analytics
 				</a></li>
 				<li><a href="#changePasswordModal" data-toggle="modal"
@@ -766,51 +770,52 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 						<!-- Password Modal HTML -->
-						<div id="changePasswordModal" class="modal fade">
-							<div class="modal-dialog">
-								<div class="modal-content">
+				<div id="changePasswordModal" class="modal fade">
+					<div class="modal-dialog">
+						<div class="modal-content">
 
-									<div class="modal-header">
-										<h4 class="modal-title">Change Password</h4>
-										<!-- <button type="button" class="close" data-dismiss="modal"
+							<div class="modal-header">
+								<h4 class="modal-title">Change Password</h4>
+								<!-- <button type="button" class="close" data-dismiss="modal"
 											aria-hidden="true">&times;</button> -->
+							</div>
+							<div class="modal-body">
+								<form action="changePassword" method="post"
+									modelAttribute="newpass">
+									<div class="input-container ic1">
+										<label for="empId" class="placeholder">Employee Name</label>
+										<div class="cut"></div>
+										<select id="empId" name="empId" class="input required"
+											placeholder=" " required>
+											<c:forEach items="${allemployeenames}" var="department">
+												<option value="${department.empId}">(${department.empId})
+													${department.empName}</option>
+											</c:forEach>
+										</select>
 									</div>
-									<div class="modal-body">
-										<form action="changePassword" method="post"
-											modelAttribute="newpass">
-											<div class="input-container ic1">
-												<label for="empId" class="placeholder">Employee Name</label>
-												<div class="cut"></div>
-												<select id="empId" name="empId" class="input required"
-													placeholder=" " required>
-													<c:forEach items="${allemployeenames}" var="department">
-														<option value="${department.empId}">(${department.empId})
-															${department.empName}</option>
-													</c:forEach>
-												</select>
-											</div>
-											<div class="input-container ic2">
-												<label for="hod" class="placeholder">New Password</label>
-												<div class="cut cut-short"></div>
-												<input id="changedpassword" name="changedpassword"
-													class="input required" type="password" placeholder=" "
-													pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+]).{8,}$"
-													oninput="setCustomValidity('')"
-													oninvalid="setCustomValidity('Password must be of 8 characters and contain at least one capital character, one number, and a special character.')"
-													required />
-											</div>
+									<div class="input-container ic2">
+										<label for="hod" class="placeholder">New Password</label>
+										<div class="cut cut-short"></div>
+										<input id="changedpassword" name="changedPassword"
+											class="input required" type="password" placeholder=" "
+											pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+]).{8,}$"
+											oninput="setCustomValidity('')"
+											oninvalid="setCustomValidity('Password must be of 8 characters and contain at least one capital character, one number, and a special character.')"
+											required />
+									</div>
 
-											<br>
-											<div class="modal-footer">
-												<button type="button" class="btn btn-secondary"
-													data-dismiss="modal">Close</button>
-												<button type="submit" class="btn btn-primary">Submit</button>
-											</div>
-										</form>
+									<br>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-secondary"
+											data-dismiss="modal">Close</button>
+										<button type="submit" class="btn btn-primary">Submit</button>
 									</div>
-								</div>
+								</form>
 							</div>
 						</div>
+					</div>
+				</div>
+
 
 						<!---footer---->
 

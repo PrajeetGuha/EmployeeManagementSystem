@@ -48,30 +48,30 @@
 				</h3>
 			</div>
 			<ul class="list-unstyled components">
-				<li><a href="dashboard?search=null&pg=1"
-					class="dashboard"><i class="material-icons">dashboard</i> <span>Dashboard</span></a></li>
+
+				<li ><a href="dashboard?search=null&pg=1" class="dashboard"><i
+						class="material-icons">dashboard</i> <span>Dashboard</span></a></li>
+				<li><a href="projectallocation?pg=1"> <i class="material-icons">laptop</i>Project
+				</a></li>
+				<li ><a href="teamallocation?pg=1"> <i class="material-icons">groups</i>Team
+				</a></li>
+				<li><a href="departmentallocation?pg=1"> <i
+						class="material-icons">work</i>Department
+				</a></li>
 				<li><a href="#homeSubmenu1" data-toggle="collapse"
 					aria-expanded="false"> <i class="material-icons">playlist_add_check</i>Leave
 						Approval
 				</a></li>
 
-				<li><a href="projectallocation?pg=1"> <i
-						class="material-icons">laptop</i>Project
+				<li><a href="#empresignation" data-toggle="modal" aria-expanded="false">
+						<i class="material-icons">directions_walk</i>Resignation approval
 				</a></li>
-				<li><a href="teamallocation?pg=1"> <i
-						class="material-icons">groups</i>Team
+				<li class="active"><a href="analytics"  aria-expanded="false">
+						<i class="material-icons">analytics</i>Analytics
 				</a></li>
-				<li><a href="departmentallocation?pg=1"> <i
-						class="material-icons">work</i>Department
-				</a></li>
-				<!-- <li><a href="#hike" data-toggle="modal" aria-expanded="false">
-						<i class="material-icons">currency_rupee</i>Appraisal
-				</a></li> -->
-				<li><a href="#empresignation" data-toggle="modal"
-					aria-expanded="false"> <i class="material-icons">directions_walk</i>Resignation
-						approval
-				</a></li>
-				<li  class="active"><a href="analytics"> <i class="material-icons">analytics</i>Analytics
+				<li><a href="#changePasswordModal" data-toggle="modal"
+					aria-expanded="false"> <i class="material-icons">vpn_key</i>Change Password
+
 				</a></li>
 				<li><a href="#adminprofile" data-toggle="modal"
 					aria-expanded="false"> <i class="material-icons">account_circle</i>Profile
@@ -90,8 +90,7 @@
 					<form action="hike" method="post">
 						<div class="modal-header">
 							<h4 class="modal-title">ADMIN PROFILE</h4>
-							<button type="button" class="close" data-dismiss="modal"
-								aria-hidden="true">&times;</button>
+							
 						</div>
 						<div class="modal-body">
 							<ul>
@@ -114,7 +113,7 @@
 						</div>
 
 						<div class="modal-footer">
-							<input type="button" class="btn btn-default" data-dismiss="modal"
+							<input type="button" class="btn btn-secondary" data-dismiss="modal"
 								value="Close">
 
 						</div>
@@ -150,7 +149,7 @@
 						<!-- End XP Col -->
 
 						<!-- Start XP Col -->
-						<div class="col-md-5 col-lg-2 order-3 order-md-2">
+						<%-- <div class="col-md-5 col-lg-2 order-3 order-md-2">
 							<div class="xp-searchbar">
 								<form id="search-form" action="" method="get">
 									<input type="hidden" name="search" value="">
@@ -166,7 +165,7 @@
 									style="display: none;">
 								</ul>
 							</div>
-						</div>
+						</div> --%>
 
 
 						<!-- End XP Col -->
@@ -233,6 +232,14 @@
             </div>
             <span class="text-primary font-weight-bold">${countOfTeams}</span>
           </div>
+          
+          <div class="card">
+            <div class="card-inner">
+              <p class="text-primary">PROJECTS</p>
+              <span class="material-icons">laptop</span>
+            </div>
+            <span class="text-primary font-weight-bold">${countOfProjects}</span>
+          </div>
 
 
         </div>
@@ -247,6 +254,10 @@
             <p class="chart-title">Sex Ratio</p>
             <div id="chart"></div>
           </div> 
+           <div class="charts-card">
+            <p class="chart-title">Total Cost Distribution of Each Department</p>
+            <div id="bar-chart2"></div>
+          </div> 
 
         </div>
         
@@ -256,7 +267,52 @@
 
 
 
+		<!-- Password Modal HTML -->
+					<div id="changePasswordModal" class="modal fade">
+						<div class="modal-dialog">
+							<div class="modal-content">
 
+								<div class="modal-header">
+									<h4 class="modal-title">Change Password</h4>
+									<!-- <button type="button" class="close" data-dismiss="modal"
+											aria-hidden="true">&times;</button> -->
+								</div>
+								<div class="modal-body">
+									<form action="changePassword" method="post"
+										modelAttribute="newpass">
+										<div class="input-container ic1">
+											<label for="empId" class="placeholder">Employee Name</label>
+											<div class="cut"></div>
+											<select id="empId" name="empId" class="input required"
+												placeholder=" " required>
+												<c:forEach items="${allemployeenames}" var="department">
+													<option value="${department.empId}">(${department.empId})
+														${department.empName}</option>
+												</c:forEach>
+											</select>
+										</div>
+										<div class="input-container ic2">
+											<label for="hod" class="placeholder">New Password</label>
+											<div class="cut cut-short"></div>
+											<input id="changedpassword" name="changedpassword"
+												class="input required" type="password" placeholder=" "
+												pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+]).{8,}$"
+												oninput="setCustomValidity('')"
+												oninvalid="setCustomValidity('Password must be of 8 characters and contain at least one capital character, one number, and a special character.')"
+												required />
+										</div>
+
+										<br>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-secondary"
+												data-dismiss="modal">Close</button>
+											<button type="submit" class="btn btn-primary">Submit</button>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
 
 	<!-- Optional JavaScript -->
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -328,6 +384,9 @@ var barChartOptions = {
 		    categories: [ <c:forEach var="item" items="${alldepartmentnames}">
 		      "${item}",
 		      </c:forEach>],
+		      title: {
+			      text: "Department"
+			    }
 		  },
 		  yaxis: {
 		    title: {
@@ -340,23 +399,149 @@ var barChartOptions = {
 		barChart.render();
 
 
-		 var chartOptions = {
+		/* var chartOptions = {
 			        chart: {
 			            type: 'pie',
-			            height: 350
+			            height: 350,
+			            
 			        },
 			        series: [<c:forEach var="item" items="${sexratio}">
 				      "${item}",
 				      </c:forEach>],
-			        labels: ['Male', 'Female'],
-			        colors: ['#008FFB', '#00E396'],
+			        labels: ['Male', 'Female','Other'],
+			        colors: ['#008FFB', '#00E396', '#4f35a1'],
+			        
+			        
 			        dataLabels: {
-					    enabled: true
-					  }
+			            enabled: true
+			          }
 			    }
 			    
 			    var chart = new ApexCharts(document.querySelector("#chart"), chartOptions);
-			    chart.render();
+			    chart.render();*/
+			    
+			    var options = {
+			            series: [${sexratio[0]}, ${sexratio[1]}, ${sexratio[2]}],
+			            chart: {
+			            width: 400,
+			            type: 'donut',
+			            dropShadow: {
+			              enabled: true,
+			              color: '#111',
+			              top: -1,
+			              left: 3,
+			              blur: 3,
+			              opacity: 0.2
+			            }
+			          },
+			          stroke: {
+			            width: 0,
+			          },
+			          plotOptions: {
+			            pie: {
+			              donut: {
+			                labels: {
+			                  show: true,
+			                  total: {
+			                    showAlways: true,
+			                    show: true
+			                  }
+			                }
+			              }
+			            }
+			          },
+			          labels: ["Male", "Female", "Other"],
+			          dataLabels: {
+			            dropShadow: {
+			              blur: 3,
+			              opacity: 0.8
+			            }
+			          },
+			          fill: {
+			          type: 'pattern',
+			            opacity: 1,
+			            pattern: {
+			              enabled: true,
+			              style: ['verticalLines', 'squares', 'horizontalLines'],
+			            },
+			          },
+			          states: {
+			            hover: {
+			              filter: 'none'
+			            }
+			          },
+			          theme: {
+			            palette: 'palette2'
+			          },
+			        
+			          responsive: [{
+			            breakpoint: 480,
+			            options: {
+			              chart: {
+			                width: 200
+			              },
+			              
+			            }
+			          }]
+			          };
+
+			          var chart = new ApexCharts(document.querySelector("#chart"), options);
+			          chart.render();
+			    
+			    var barChart2Options = {
+			  		  series: [{
+			  		    data: [<c:forEach var="item" items="${totalcost}">
+			  		      "${item}",
+			  		      </c:forEach>]
+			  		  }],
+			  		  chart: {
+			  		    type: 'bar',
+			  		    height: 350,
+			  		    toolbar: {
+			  		      show: false
+			  		    },
+			  		  },
+			  		  colors: [
+			  		    "#246dec",
+			  		    "#cc3c43",
+			  		    "#367952",
+			  		    "#f5b74f",
+			  		    "#4f35a1"
+			  		  ],
+			  		  plotOptions: {
+			  		    bar: {
+			  		      distributed: true,
+			  		      borderRadius: 4,
+			  		      horizontal: true,
+			  		      columnWidth: '40%',
+			  		    }
+			  		  },
+			  		  dataLabels: {
+			  		    enabled: false
+			  		  },
+			  		  legend: {
+			  		    show: false
+			  		  },
+			  		  xaxis: {
+			  		    categories: [ <c:forEach var="item" items="${alldepartmentnames}">
+			  		      "${item}",
+			  		      </c:forEach>],
+			  		    title: {
+				  		      text: "Total cost"
+				  		    }
+			  		  },
+			  		  yaxis: {
+			  		    title: {
+			  		      text: "Department"
+			  		    }
+			  		  }
+			  		};
+
+			  		var barChart2 = new ApexCharts(document.querySelector("#bar-chart2"), barChart2Options);
+			  		barChart2.render();
+
+			    
+		
 		// AREA CHART
 		/*var areaChartOptions = {
 		  series: [{
@@ -406,5 +591,6 @@ var barChartOptions = {
 		var areaChart = new ApexCharts(document.querySelector("#area-chart"), areaChartOptions);
 		areaChart.render();*/
 </script>
+
 
 </html>
