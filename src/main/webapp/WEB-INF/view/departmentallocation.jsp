@@ -181,7 +181,7 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    var departmentNameInput = document.getElementById('departmentName');
+    var departmentNameInput = document.getElementById('deptName');
     var listdept = [
         <c:forEach var="department" items="${listdepartments}">
           "${department.departmentName}",
@@ -214,6 +214,39 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 </script>
+
+<script>
+
+document.addEventListener('DOMContentLoaded', function() {
+    var departmentNameInput = document.getElementById('departmentName');
+
+    var listdept = [
+        <c:forEach var="department" items="${listdepartments}">
+          "${department.departmentName.toLowerCase()}",
+        </c:forEach> // assuming "listdepartments" is a model attribute
+    ];
+
+    // add an "oninput" event listener to clear custom validity message
+    departmentNameInput.addEventListener('input', function() {
+        this.setCustomValidity('');
+    });
+
+    document.querySelector('form[modelAttribute="newdept"]').addEventListener('submit', function(e) {
+        // check if department name already exists
+        var departmentName = departmentNameInput.value.toLowerCase();
+        if (departmentName == "") {
+            departmentNameInput.setCustomValidity('Department name cannot be empty.');
+            e.preventDefault(); // prevent form submission
+        } else if (listdept.includes(departmentName)) {
+            departmentNameInput.setCustomValidity('Department name already exists. Please choose a different name.');
+            e.preventDefault(); // prevent form submission
+        } else {
+            departmentNameInput.value = departmentName; // set value to lowercase
+        }
+    });
+});
+
+  </script>
 
 <style>
 .dropdown-container {
@@ -303,8 +336,8 @@ document.addEventListener('DOMContentLoaded', function() {
 					<form action="hike" method="post">
 						<div class="modal-header">
 							<h4 class="modal-title">ADMIN PROFILE</h4>
-							<button type="button" class="close" data-dismiss="modal"
-								aria-hidden="true">&times;</button>
+							<!-- <button type="button" class="close" data-dismiss="modal"
+								aria-hidden="true">&times;</button> -->
 						</div>
 						<div class="modal-body">
 							<ul>
@@ -327,7 +360,7 @@ document.addEventListener('DOMContentLoaded', function() {
 						</div>
 
 						<div class="modal-footer">
-							<input type="button" class="btn btn-default" data-dismiss="modal"
+							<input type="button" class="btn btn-secondary" data-dismiss="modal"
 								value="Close">
 
 						</div>
@@ -456,7 +489,7 @@ document.addEventListener('DOMContentLoaded', function() {
 												<td><c:out
 														value="${fn:toUpperCase(fn:substring(dept.departmentName, 0, 1))}${fn:toLowerCase(fn:substring(dept.departmentName, 1,fn:length(dept.departmentName)))}" /></td>
 												<td><c:out value="${dept.hod.empName}" /></td>
-												<td><a href="#editDepartmentModal${dept.deptId }"
+												<td><a href="#editDepartmentModal${dept.deptId}"
 													class="edit" data-toggle="modal"> <i
 														class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
 													<a href="#generateDepartmentReportModal" class="report"
@@ -479,14 +512,14 @@ document.addEventListener('DOMContentLoaded', function() {
 														</div>
 														<div class="modal-body">
 															<form id="editDept" action="editDepartment" method="post"
-																modelAttribute="newuser">
+																modelAttribute="modifydept">
 																<input type="hidden" id="deptIdInput" name="deptId" />
 
 																<div class="input-container ic2">
-																	<label for="departmentName" class="placeholder">Change
+																	<label for="deptName" class="placeholder">Change
 																		Department Name</label>
 																	<div class="cut"></div>
-																	<input id="departmentName" name="departmentName"
+																	<input id="deptName" name="deptName"
 																		class="input required" type="text"
 																		placeholder="${dept.departmentName }"
 																		value=${dept.departmentName } />
@@ -497,8 +530,8 @@ document.addEventListener('DOMContentLoaded', function() {
 																		HOD</label>
 																	<div class="cut cut-short"></div>
 																	<select id="hod" name="hod" class="input required"
-																		placeholder=" " required>
-																		<option value="">Unassigned</option>
+																		placeholder=" " >
+																		<option value="null">Unassigned</option>
 																		<c:forEach items="${allemployeenames}"
 																			var="department">
 																			<option value="${department.empId}">(${department.empId})
@@ -586,20 +619,20 @@ document.addEventListener('DOMContentLoaded', function() {
 								</div>
 								<div class="modal-body">
 									<form action="addDept" method="post" modelAttribute="newdept"
-										onsubmit="return validateForm()">
+										>
 										<div class="input-container ic1">
 											<label for="departmentName" class="placeholder">Department
 												Name</label>
 											<div class="cut"></div>
 											<input id="departmentName" name="departmentName"
-												class="input required" type="text" placeholder=" " required />
+												class="input required" type="text" placeholder=" "  required />
 										</div>
 										<div class="input-container ic2">
 											<label for="hod" class="placeholder">HOD</label>
 											<div class="cut cut-short"></div>
 											<select id="hod" name="hod" class="input required"
-												placeholder=" " required>
-												<option value="">Unassigned</option>
+												placeholder=" " >
+												<option value="0">Unassigned</option>
 												<c:forEach items="${allemployeenames}" var="department">
 													<option value="${department.empId}">(${department.empId})
 														${department.empName}</option>
@@ -619,7 +652,7 @@ document.addEventListener('DOMContentLoaded', function() {
 								</div>
 							</div>
 						</div>
-					</div>
+					
 
 					<!-- Password Modal HTML -->
 					<div id="changePasswordModal" class="modal fade">

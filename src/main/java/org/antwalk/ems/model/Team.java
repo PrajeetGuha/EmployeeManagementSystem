@@ -38,6 +38,10 @@ public class Team {
         inverseJoinColumns = @JoinColumn(name = "proj_id"))
     private Set<Project> projects;
 
+    public Team(){
+    	
+    }
+    
     public Team(Long teamId, String teamName, Employee tm, Set<Project> projects) {
         this.teamId = teamId;
         this.teamName = teamName;
