@@ -233,6 +233,14 @@
             </div>
             <span class="text-primary font-weight-bold">${countOfTeams}</span>
           </div>
+          
+          <div class="card">
+            <div class="card-inner">
+              <p class="text-primary">PROJECTS</p>
+              <span class="material-icons">laptop</span>
+            </div>
+            <span class="text-primary font-weight-bold">${countOfProjects}</span>
+          </div>
 
 
         </div>
