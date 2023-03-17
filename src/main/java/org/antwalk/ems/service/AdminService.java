@@ -174,10 +174,14 @@ public class AdminService {
     }
 
     
-  //public List<Integer> employeesInDepartment()
-  //{
-	  
-  //}
+  public List<Integer> employeesInDepartment()
+  {
+	  return departmentRepository.findemployeecount();
+  }
+  public List<Integer> sexratio()
+  {
+	  return departmentRepository.sexratio();
+  }
 
     public List<Department> getAllDepartments(int pageNo){
         Pageable pageable = PageRequest.of(pageNo-1, PAGE_SIZE, Sort.by("deptId"));

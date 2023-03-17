@@ -48,7 +48,7 @@
 				</h3>
 			</div>
 			<ul class="list-unstyled components">
-				<li class="active"><a href="dashboard?search=null&pg=1"
+				<li><a href="dashboard?search=null&pg=1"
 					class="dashboard"><i class="material-icons">dashboard</i> <span>Dashboard</span></a></li>
 				<li><a href="#homeSubmenu1" data-toggle="collapse"
 					aria-expanded="false"> <i class="material-icons">playlist_add_check</i>Leave
@@ -71,7 +71,7 @@
 					aria-expanded="false"> <i class="material-icons">directions_walk</i>Resignation
 						approval
 				</a></li>
-				<li><a href="analytics"> <i class="material-icons">analytics</i>Analytics
+				<li  class="active"><a href="analytics"> <i class="material-icons">analytics</i>Analytics
 				</a></li>
 				<li><a href="#adminprofile" data-toggle="modal"
 					aria-expanded="false"> <i class="material-icons">account_circle</i>Profile
@@ -243,10 +243,10 @@
             <div id="bar-chart"></div>
           </div>
 
-          <!-- <div class="charts-card">
-            <p class="chart-title">Purchase and Sales Orders</p>
-            <div id="area-chart"></div>
-          </div> -->
+           <div class="charts-card">
+            <p class="chart-title">Sex Ratio</p>
+            <div id="chart"></div>
+          </div> 
 
         </div>
         
@@ -292,7 +292,9 @@
 <script type="text/javascript">
 var barChartOptions = {
 		  series: [{
-		    data: [10, 8, 6, 4, 2]
+		    data: [<c:forEach var="item" items="${countOfEmployeesInDepartment}">
+		      "${item}",
+		      </c:forEach>]
 		  }],
 		  chart: {
 		    type: 'bar',
@@ -338,6 +340,23 @@ var barChartOptions = {
 		barChart.render();
 
 
+		 var chartOptions = {
+			        chart: {
+			            type: 'pie',
+			            height: 350
+			        },
+			        series: [<c:forEach var="item" items="${sexratio}">
+				      "${item}",
+				      </c:forEach>],
+			        labels: ['Male', 'Female'],
+			        colors: ['#008FFB', '#00E396'],
+			        dataLabels: {
+					    enabled: true
+					  }
+			    }
+			    
+			    var chart = new ApexCharts(document.querySelector("#chart"), chartOptions);
+			    chart.render();
 		// AREA CHART
 		/*var areaChartOptions = {
 		  series: [{

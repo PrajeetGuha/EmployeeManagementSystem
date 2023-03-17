@@ -16,5 +16,9 @@ public interface DepartmentRepository extends JpaRepository<Department,Long> {
     
     public Optional<Department> findByDepartmentName(String departmentName);
     
-  
+   @Query("SELECT COUNT(*) as employeecount FROM Employee  GROUP BY department_dept_id")
+   List<Integer> findemployeecount();
+   
+   @Query("SELECT COUNT(*) as count FROM Employee GROUP BY gender")
+   List<Integer> sexratio();
 }
