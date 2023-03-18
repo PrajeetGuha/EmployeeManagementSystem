@@ -50,5 +50,8 @@ public interface EmployeeRepository extends JpaRepository<Employee,Long> {
 
     @Query("select empName from Employee e where empId = :empId")
     public String getEmpNameByEmpId(Long empId);
+    
+    @Query("SELECT COUNT(*) as count FROM Employee GROUP BY emptype")
+    List<String> emptype();
 
 }

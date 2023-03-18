@@ -187,6 +187,10 @@ public class AdminService {
   {
 	  return departmentRepository.totalcost();
   }
+  public List<String> emptype()
+  {
+	  return employeeRepository.emptype();
+  }
 
     public List<Department> getAllDepartments(int pageNo){
         Pageable pageable = PageRequest.of(pageNo-1, PAGE_SIZE, Sort.by("deptId"));
