@@ -311,10 +311,10 @@
 				<li><a href="analytics"
 					aria-expanded="false"> <i class="material-icons">analytics</i>Analytics
 				</a></li>
-				<li><a href="#changePasswordModal" data-toggle="modal"
+				<!-- <li><a href="#changePasswordModal" data-toggle="modal"
 					aria-expanded="false"> <i class="material-icons">vpn_key</i>Change
 						Password
-				</a></li>
+				</a></li> -->
 				<li><a href="#adminprofile" data-toggle="modal"
 					aria-expanded="false"> <i class="material-icons">account_circle</i>Profile
 				</a></li>
@@ -756,5 +756,19 @@
 			<script src="../resources/lib/bootstrap/js/bootstrap.bundle.min.js" type="text/javascript" />
 
 
-
-			</html>
+<script type="text/javascript">
+        
+		$(document).ready(function(){
+		  $(".xp-menubar").on('click',function(){
+		    $('#sidebar').toggleClass('active');
+			$('#content').toggleClass('active');
+		  });
+		  
+		   $(".xp-menubar,.body-overlay").on('click',function(){
+		     $('#sidebar,.body-overlay').toggleClass('show-nav');
+		   });
+		  
+		});
+		
+</script>
+</html>

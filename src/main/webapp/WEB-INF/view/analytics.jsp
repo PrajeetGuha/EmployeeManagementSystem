@@ -69,10 +69,10 @@
 				<li class="active"><a href="analytics"  aria-expanded="false">
 						<i class="material-icons">analytics</i>Analytics
 				</a></li>
-				<li><a href="#changePasswordModal" data-toggle="modal"
+				<!-- <li><a href="#changePasswordModal" data-toggle="modal"
 					aria-expanded="false"> <i class="material-icons">vpn_key</i>Change Password
 
-				</a></li>
+				</a></li> -->
 				<li><a href="#adminprofile" data-toggle="modal"
 					aria-expanded="false"> <i class="material-icons">account_circle</i>Profile
 				</a></li>
@@ -257,6 +257,10 @@
            <div class="charts-card">
             <p class="chart-title">Total Cost Distribution of Each Department</p>
             <div id="bar-chart2"></div>
+          </div> 
+           <div class="charts-card">
+            <p class="chart-title">Employee Type</p>
+            <div id="pie-chart"></div>
           </div> 
 
         </div>
@@ -462,7 +466,7 @@ var barChartOptions = {
 			            opacity: 1,
 			            pattern: {
 			              enabled: true,
-			              style: ['verticalLines', 'squares', 'horizontalLines'],
+			              style: ['squares', 'squares', 'squares'],
 			            },
 			          },
 			          states: {
@@ -539,6 +543,29 @@ var barChartOptions = {
 
 			  		var barChart2 = new ApexCharts(document.querySelector("#bar-chart2"), barChart2Options);
 			  		barChart2.render();
+			  		
+			  		var pieoptions = {
+			  	          series: [${emptype[0]}, ${emptype[1]}, ${emptype[2]}],
+			  	          chart: {
+			  	          width: 380,
+			  	          type: 'pie',
+			  	        },
+			  	        labels: ['Full-Time', 'Part-Time', 'Contract'],
+			  	        responsive: [{
+			  	          breakpoint: 480,
+			  	          options: {
+			  	            chart: {
+			  	              width: 200
+			  	            },
+			  	            legend: {
+			  	              position: 'bottom'
+			  	            }
+			  	          }
+			  	        }]
+			  	        };
+
+			  	        var piechart = new ApexCharts(document.querySelector("#pie-chart"), pieoptions);
+			  	        piechart.render();
 
 			    
 		

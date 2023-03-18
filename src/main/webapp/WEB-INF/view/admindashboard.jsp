@@ -267,10 +267,6 @@
 									</a></li>
 								<li><a href="analytics"> <i class="material-icons">analytics</i>Analytics
 									</a></li>
-								<li><a href="#changePasswordModal" data-toggle="modal" aria-expanded="false"> <i
-											class="material-icons">vpn_key</i>Change
-										Password
-									</a></li>
 								<li><a href="#adminprofile" data-toggle="modal" aria-expanded="false"> <i
 											class="material-icons">account_circle</i>Profile
 									</a></li>
@@ -554,13 +550,13 @@
 													<th>EMAIL</th>
 													<!-- <th>GRADE_LEVEL</th>
 										<th>TYPE</th> -->
-													<th>DESIGNATION</th>
-													<th>STATUS</th>
-													<th>ACTIONS</th>
-												</tr>
-											</thead>
-											<tbody>
-												<tr>
+										<th>DESIGNATION</th>
+										<th>STATUS</th>
+										<th style="width: 140px;">ACTIONS</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
 
 													<c:forEach items="${employees}" var="employee">
 												<tr>
@@ -613,9 +609,72 @@
 																		<i class="material-icons" data-toggle="tooltip"
 																			title="Status">new_releases</i>
 																	</a></td>
+												<td>
+												<a
+													href="editemployeedetails?empId=${employee.empId}&pg=1&search=${search}">
+														<i class="material-icons" data-toggle="tooltip"
+														title="View">&#xE853;</i>
+												</a> 
+												<a
+													href="report?empId=${employee.empId}&pg=1&search=${search}"
+													class="analytics"> <i class="material-icons"
+														data-toggle="tooltip" title="Analytics">summarize</i>
+														</a> 
+														<a
+													href="#deleteEmployeeModal" class="delete"
+													data-toggle="modal"
+													onclick="selectedEmpstatus(${employee.empId},'${employee.empName}', '${employee.empstatus}')">
+														<i class="material-icons" data-toggle="tooltip"
+														title="Status">new_releases</i>
+												</a> 
+												<a href="#changePasswordModal${employee.empId }"
+													data-toggle="modal" aria-expanded="false"> <i
+														class="material-icons" data-toggle="tooltip">vpn_key</i>
+												</a></td>
 
-												</tr>
-												</c:forEach>
+											</tr>
+											<!-- Password Modal HTML -->
+											<div id="changePasswordModal${employee.empId }" class="modal fade">
+												<div class="modal-dialog">
+													<div class="modal-content">
+
+														<div class="modal-header">
+															<h4 class="modal-title">Change Password</h4>
+															<!-- <button type="button" class="close" data-dismiss="modal"
+											aria-hidden="true">&times;</button> -->
+														</div>
+														<div class="modal-body">
+															<form action="changePassword" method="post"
+																modelAttribute="newpass">
+																
+																	<input type="hidden" id="empId" name="empId" value="${employee.empId}"/>
+																
+																	
+																
+																<div class="input-container ic2">
+																	<label for="hod" class="placeholder">New
+																		Password</label>
+																	<div class="cut cut-short"></div>
+																	<input id="changedpassword" name="changedPassword"
+																		class="input required" type="password" placeholder=" "
+																		pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+]).{8,}$"
+																		oninput="setCustomValidity('')"
+																		oninvalid="setCustomValidity('Password must be of 8 characters and contain at least one capital character, one number, and a special character.')"
+																		required />
+																</div>
+
+																<br>
+																<div class="modal-footer">
+																	<button type="button" class="btn btn-secondary"
+																		data-dismiss="modal">Close</button>
+																	<button type="submit" class="btn btn-primary">Submit</button>
+																</div>
+															</form>
+														</div>
+													</div>
+												</div>
+											</div>
+										</c:forEach>
 
 
 
@@ -731,91 +790,96 @@
 										aria-label="Close">
 										<span aria-hidden="true">&times;</span>
 									</button> -->
+								</div>
+								<div class="modal-body">
+									<form action="addUser" method="post" modelAttribute="newuser"
+										onsubmit="return validateForm()">
+										<div class="input-container ic1">
+											<label for="name" class="placeholder">Name</label>
+											<div class="cut"></div>
+											<input id="name" name="name" class="input required"
+												type="text" placeholder=" " required
+												pattern="^[a-zA-Z_][[\\s]a-zA-Z_]*"
+												$"
+												oninvalid="setCustomValidity('Name can only contain alphabetic characters, underscores, and one whitespace between each word')"
+												onchange="setCustomValidity('')" />
+										</div>
+
+
+										
+										<div class="input-container ic2">
+											<label for="email" class="placeholder">Personal Email</label>
+											<div class="cut cut-short"></div>
+											<input id="email" name="personalEmail" class="input required"
+												type="email" placeholder=" " required /> <span
+												id="email-error" class="error-text"></span>
+										</div>
+										<div class="input-container ic3">
+											<label for="gender" class="placeholder">Gender</label>
+											<div class="cut cut-short"></div>
+											<div class="wrapper-class">
+												<input id="gender-male" name="gender" class="input required"
+													type="radio" value="male" required /><label
+													for="gender-male">Male</label> 
+													<input id="gender-female"
+													name="gender" class="input" type="radio" value="female"
+													required /><label for="gender-female">Female</label>
+													<input id="gender-other"
+													name="gender" class="input" type="radio" value="other"
+													required /><label for="gender-other">Other</label>
 											</div>
-											<div class="modal-body">
-												<form action="addUser" method="post" modelAttribute="newuser"
-													onsubmit="return validateForm()">
-													<div class="input-container ic1">
-														<label for="name" class="placeholder">Name</label>
-														<div class="cut"></div>
-														<input id="name" name="name" class="input required" type="text"
-															placeholder=" " required pattern="^[a-zA-Z_][a-zA-Z_\\s]*"
-															$"
-															oninvalid="setCustomValidity('Name can only contain alphabetic characters, underscores, and one whitespace between each word')"
-															onchange="setCustomValidity('')" />
-													</div>
-
-
-													<br> <br>
-													<div class="input-container ic2">
-														<label for="email" class="placeholder">Personal Email</label>
-														<div class="cut cut-short"></div>
-														<input id="email" name="personalEmail" class="input required"
-															type="email" placeholder=" " required /> <span
-															id="email-error" class="error-text"></span>
-													</div>
-													<div class="input-container ic3">
-														<label for="gender" class="placeholder">Gender</label>
-														<div class="cut cut-short"></div>
-														<div class="wrapper-class">
-															<input id="gender-male" name="gender" class="input required"
-																type="radio" value="male" required /><label
-																for="gender-male">Male</label> <input id="gender-female"
-																name="gender" class="input" type="radio" value="female"
-																required /><label for="gender-female">Female</label>
-														</div>
-													</div>
-													<div class="input-container ic2">
-														<label for="designation" class="placeholder">Designation</label>
-														<div class="cut cut-short"></div>
-														<input id="designation" name="designation" class="input"
-															type="text" placeholder=" " />
-													</div>
-													<div class="input-container ic2">
-														<label for="department" class="placeholder">Department</label>
-														<div class="cut cut-short"></div>
-														<select id="department" name="department" class="input required"
-															placeholder="Deparment">
-															<option value="0">Unassigned</option>
-															<c:forEach items="${departments}" var="department">
-																<option value="${department}">${department}</option>
-															</c:forEach>
-														</select>
-													</div>
-													<div class="input-container ic2">
-														<label for="gradelevel" class="placeholder">Grade
-															Level</label>
-														<div class="cut cut-short"></div>
-														<select id="gradelevel" name="gradeLevel" class="input required"
-															required>
-															<option value="1">1</option>
-															<option value="2">2</option>
-															<option value="3">3</option>
-															<option value="4">4</option>
-															<option value="5">5</option>
-															<option value="6">6</option>
-															<option value="7">7</option>
-															<option value="8">8</option>
-														</select>
-													</div>
-													<div class="input-container ic2">
-														<label for="dateofjoining" class="placeholder">Date
-															of Joining</label>
-														<div class="cut cut-short"></div>
-														<input id="dateofjoining" name="doj" class="input required"
-															type="date" placeholder=" " required />
-													</div>
-													<div class="input-container ic2">
-														<label for="employeetype" class="placeholder">Employee
-															Type</label>
-														<div class="cut cut-short"></div>
-														<select id="employeetype" name="emptype" class="input required"
-															required>
-															<option value="full time">Full Time</option>
-															<option value="part time">Part Time</option>
-															<option value="contract">Contract</option>
-														</select>
-													</div>
+										</div>
+										<div class="input-container ic2">
+											<label for="designation" class="placeholder">Designation</label>
+											<div class="cut cut-short"></div>
+											<input id="designation" name="designation" class="input"
+												type="text" placeholder=" " />
+										</div>
+										<div class="input-container ic2">
+											<label for="department" class="placeholder">Department</label>
+											<div class="cut cut-short"></div>
+											<select id="department" name="department"
+												class="input required" placeholder="Deparment">
+												<option value="0">Unassigned</option>
+												<c:forEach items="${departments}" var="department">
+													<option value="${department}">${department}</option>
+												</c:forEach>
+											</select>
+										</div>
+										<div class="input-container ic2">
+											<label for="gradelevel" class="placeholder">Grade
+												Level</label>
+											<div class="cut cut-short"></div>
+											<select id="gradelevel" name="gradeLevel"
+												class="input required" required>
+												<option value="1">1</option>
+												<option value="2">2</option>
+												<option value="3">3</option>
+												<option value="4">4</option>
+												<option value="5">5</option>
+												<option value="6">6</option>
+												<option value="7">7</option>
+												<option value="8">8</option>
+											</select>
+										</div>
+										<div class="input-container ic2">
+											<label for="dateofjoining" class="placeholder">Date
+												of Joining</label>
+											<div class="cut cut-short"></div>
+											<input id="dateofjoining" name="doj" class="input required"
+												type="date" placeholder=" " required />
+										</div>
+										<div class="input-container ic2">
+											<label for="employeetype" class="placeholder">Employee
+												Type</label>
+											<div class="cut cut-short"></div>
+											<select id="employeetype" name="emptype"
+												class="input required" required>
+												<option value="full time">Full Time</option>
+												<option value="part time">Part Time</option>
+												<option value="contract">Contract</option>
+											</select>
+										</div>
 
 													<div class="input-container ic2">
 														<label for="username" class="placeholder">Username</label>
@@ -931,53 +995,9 @@
 									</div>
 							</div>
 
-							<!-- Password Modal HTML -->
-							<div id="changePasswordModal" class="modal fade">
-								<div class="modal-dialog">
-									<div class="modal-content">
 
-										<div class="modal-header">
-											<h4 class="modal-title">Change Password</h4>
-											<!-- <button type="button" class="close" data-dismiss="modal"
-											aria-hidden="true">&times;</button> -->
-										</div>
-										<div class="modal-body">
-											<form action="changePassword" method="post" modelAttribute="newpass">
-												<div class="input-container ic1">
-													<label for="empId" class="placeholder">Employee Name</label>
-													<div class="cut"></div>
-													<select id="empId" name="empId" class="input required"
-														placeholder=" " required>
-														<c:forEach items="${allemployeenames}" var="department">
-															<option value="${department.empId}">(${department.empId})
-																${department.empName}</option>
-														</c:forEach>
-													</select>
-												</div>
-												<div class="input-container ic2">
-													<label for="hod" class="placeholder">New Password</label>
-													<div class="cut cut-short"></div>
-													<input id="changedpassword" name="changedPassword"
-														class="input required" type="password" placeholder=" "
-														pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+]).{8,}$"
-														oninput="setCustomValidity('')"
-														oninvalid="setCustomValidity('Password must be of 8 characters and contain at least one capital character, one number, and a special character.')"
-														required />
-												</div>
 
-												<br>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary"
-														data-dismiss="modal">Close</button>
-													<button type="submit" class="btn btn-primary">Submit</button>
-												</div>
-											</form>
-										</div>
-									</div>
-								</div>
-							</div>
-
-							<!---footer---->
+				<!---footer---->
 
 
 						</div>

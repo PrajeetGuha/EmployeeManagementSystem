@@ -280,9 +280,9 @@ document.addEventListener('DOMContentLoaded', function() {
 				<li><a href="analytics"  aria-expanded="false">
 						<i class="material-icons">analytics</i>Analytics
 				</a></li>
-				<li><a href="#changePasswordModal" data-toggle="modal"
+				<!-- <li><a href="#changePasswordModal" data-toggle="modal"
 					aria-expanded="false"> <i class="material-icons">vpn_key</i>Change Password
-				</a></li>
+				</a></li> -->
 				<li><a href="#adminprofile" data-toggle="modal"
 					aria-expanded="false"> <i class="material-icons">account_circle</i>Profile
 				</a></li>
@@ -828,7 +828,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	type="text/javascript" />
 
 
-<!-- <script type="text/javascript">
+<script type="text/javascript">
         
 		$(document).ready(function(){
 		  $(".xp-menubar").on('click',function(){
@@ -842,5 +842,5 @@ document.addEventListener('DOMContentLoaded', function() {
 		  
 		});
 		
-</script> -->
+</script>
 </html>
