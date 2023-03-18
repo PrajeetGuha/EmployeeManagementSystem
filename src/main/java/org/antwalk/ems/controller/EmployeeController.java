@@ -201,6 +201,6 @@ public class EmployeeController {
     public String applyResignation(@ModelAttribute("resignform") Resignation resignation, HttpServletRequest request) throws EmployeeNotFoundException{
         Long id = AuthenticationSystem.getId();
         employeeService.applyForResignation(id, resignation);
-        return "redirect:dashboard";
+        return "redirect:resign";
     }
 }

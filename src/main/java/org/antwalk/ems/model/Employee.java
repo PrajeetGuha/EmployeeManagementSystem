@@ -115,6 +115,19 @@ public class Employee {
     @JsonIgnoreProperties("employee")
     private List<LeaveApplication> leaves;
 
+    @Override
+    public String toString() {
+        return "Employee [empId=" + empId + ", empName=" + empName + ", gender=" + gender + ", gradeLevel=" + gradeLevel
+                + ", doj=" + doj + ", designation=" + designation + ", emptype=" + emptype + ", empstatus=" + empstatus
+                + ", probPeriod=" + probPeriod + ", probCompDate=" + probCompDate + ", trainPeriod=" + trainPeriod
+                + ", contractEndDate=" + contractEndDate + ", servPeriod=" + servPeriod + ", workEmail=" + workEmail
+                + ", branch=" + branch + ", office=" + office + ", workstationId=" + workstationId + ", clLeft="
+                + clLeft + ", plLeft=" + plLeft + ", slLeft=" + slLeft + ", moreLeave=" + moreLeave + ", totalLeave="
+                + totalLeave + ", ctc=" + ctc + ", resignation=" + resignation + ", department=" + department
+                + ", team=" + team + ", employeeDetails=" + employeeDetails + ", payrolls=" + payrolls + ", leaves="
+                + leaves + "]";
+    }
+
     public Employee() {
     }
 

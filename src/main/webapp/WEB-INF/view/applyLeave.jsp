@@ -80,7 +80,7 @@
 
 
 
-								<li><a href="#applyresignation" data-toggle="modal" aria-expanded="false"> <i
+								<li><a href="resign" > <i
 											class="material-icons">directions_walk</i>Apply
 										Resignation
 
@@ -88,10 +88,9 @@
 
 									</a></li>
 
-								<li><a href="employeepersonaldetails">
-										<!-- <i class='fas fa-user-alt-slash' >Resignation</i> -->
-										<span>Personal Details</span></a></li>
-
+                
+									<li ><a href="employeepersonaldetails" >
+										<i class="material-icons">contact_mail</i>Personal Details
 
 								<li><a href="professionaldetails">
 										<!-- <i class='fas fa-user-alt-slash' >Resignation</i> -->
@@ -239,6 +238,7 @@
 												<tr>
 													<th>Leave Type</th>
 													<th>Leave Reason</th>
+													<th>Leave Applied For</th>
 													<th>Is Approved</th>
 												</tr>
 											</thead>
@@ -254,7 +254,18 @@
 														<c:out value="${leave.leaveReason}" />
 													</td>
 													<td>
-														<c:out value="${leave.isApproved}" />
+														<c:out value="${leave.leaveAppliedFor}" />
+													</td>
+													<td>
+														<c:if test = "${leave.isApproved == null}">
+															<button type="button" class="btn btn-secondary">Applied</button>
+														</c:if>
+														<c:if test = "${leave.isApproved == true}">
+															<button type="button" class="btn btn-success">Approved</button>
+														</c:if>
+														<c:if test = "${leave.isApproved == false}">
+															<button type="button" class="btn btn-danger">Rejected</button>
+														</c:if>
 													</td>
 												</tr>
 
@@ -316,17 +327,17 @@
 															required></textarea>
 													</div>
 													
-													<!-- <div class="form-group">
+													<div class="form-group">
 														<label>Applied for </label> <input type="date" class="form-control" name="leaveAppliedFor"
 															required>
-													</div> -->
+													</div>
 													<!-- <div class="input-group ">
 														<input type="date" class="form-control"
 															placeholder="Date of Joining"
 															aria-label="Date of Joining"
 															aria-describedby="basic-addon1" name="leaveAppliedFor"/>
 													</div> -->
-													<input type="date" name="leaveAppliedFor"/>
+													<!-- <input type="date" name="leaveAppliedFor"/> -->
 											</div>
 											<div class="modal-footer">
 												<input type="button" class="btn btn-danger" data-dismiss="modal"

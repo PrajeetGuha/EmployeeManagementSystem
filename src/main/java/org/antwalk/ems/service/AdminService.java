@@ -17,6 +17,7 @@ import org.antwalk.ems.model.Employee;
 import org.antwalk.ems.model.EmployeeDetails;
 import org.antwalk.ems.model.LeaveApplication;
 import org.antwalk.ems.model.Project;
+import org.antwalk.ems.model.Resignation;
 import org.antwalk.ems.model.Team;
 import org.antwalk.ems.model.User;
 import org.antwalk.ems.repository.AdminRepository;
@@ -25,7 +26,9 @@ import org.antwalk.ems.repository.EmployeeDetailsRepository;
 import org.antwalk.ems.repository.EmployeeRepository;
 import org.antwalk.ems.repository.LeaveApplicationRepository;
 import org.antwalk.ems.repository.ProjectRepository;
+import org.antwalk.ems.repository.ResignationRepository;
 import org.antwalk.ems.repository.TeamRepository;
+import org.antwalk.ems.repository.UserRepository;
 import org.antwalk.ems.view.EmployeeListView;
 import org.antwalk.ems.view.EmployeeSelectionView;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +38,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.antwalk.ems.repository.UserRepository;
 
 @Service
 public class AdminService {
@@ -51,6 +53,9 @@ public class AdminService {
 
     @Autowired
     EmployeeRepository employeeRepository;
+    
+    @Autowired
+    ResignationRepository resignationRepository;
 
     @Autowired
     EmployeeDetailsRepository employeeDetailsRepository;
@@ -297,6 +302,21 @@ public class AdminService {
         }
 
 
+        public List<Resignation> listAllResignations(int pg) {
+            Pageable pageable = PageRequest.of(pg, PAGE_SIZE);
+//            return resignationRepository.findAllRecentResignations(pageable).getContent();
+            return resignationRepository.findAll();
+        }
 
-    
+        public void resignAction(Long rid, Long adminId, String approve) throws Exception {
+            Resignation resignation = resignationRepository.findById(rid).orElseThrow(
+                () -> new Exception("Resign not found")
+            );
+            Admin admin = adminRepository.findById(adminId).orElseThrow(
+            () -> new Exception("admin not found")
+            );
+            resignation.setApprovedBy(admin);
+            resignation.setIsApproved(approve.equals("true") ? true : false);
+            resignationRepository.save(resignation);
+            }
 }

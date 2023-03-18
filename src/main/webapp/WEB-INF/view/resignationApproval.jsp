@@ -235,7 +235,7 @@
 						<ul class="list-unstyled components">
 							<li><a href="dashboard?search=null&pg=1" class="dashboard"><i
 										class="material-icons">dashboard</i> <span>Dashboard</span></a></li>
-							<li class="active"><a href="leaveApproval?pg=1" data-toggle="collapse" aria-expanded="false"> <i
+							<li><a href="leaveApproval?pg=1" data-toggle="collapse" aria-expanded="false"> <i
 										class="material-icons">playlist_add_check</i>Leave
 									Approval
 								</a></li>
@@ -244,13 +244,13 @@
 								</a></li>
 							<li><a href="teamallocation?pg=1"> <i class="material-icons">groups</i>Team
 								</a></li>
-							<li ><a href="departmentallocation?pg=1"> <i
+							<li class="active"><a href="departmentallocation?pg=1"> <i
 										class="material-icons">work</i>Department
 								</a></li>
 							<!-- <li><a href="#hike" data-toggle="modal" aria-expanded="false">
 						<i class="material-icons">currency_rupee</i>Appraisal
 				</a></li> -->
-							<li><a href="resignationApproval?pg=1" data-toggle="modal" aria-expanded="false"> <i
+							<li><a href="#empresignation" data-toggle="modal" aria-expanded="false"> <i
 										class="material-icons">directions_walk</i>Resignation
 									approval
 								</a></li>
@@ -512,7 +512,7 @@
 											<div class="row">
 												<div
 													class="col-sm-6 p-0 d-flex justify-content-lg-start justify-content-center">
-													<h2 class="ml-lg-2">Manage Leaves</h2>
+													<h2 class="ml-lg-2">Manage Resignation</h2>
 												</div>
 												
 
@@ -522,53 +522,45 @@
 											<thead>
 												<tr>
 
-													<th>Leave Type</th>
-													<th>Leave Applied By</th>
-													<th>Leave Reason</th>
-													<th>Leave Applied On</th>
-													<th>Leave Applied For</th>
+													<th>Resignation Applied By</th>
+													<th>Resignation Reason</th>
+													<th>Resignation Applied On</th>
 													<th>ACTIONS</th>
 												</tr>
 											</thead>
 											<tbody>
 												<tr>
 
-													<c:forEach items="${leavelist}" var="leave">
+													<c:forEach items="${resignationList}" var="resignation">
 												<tr>
 													<td>
-														<c:out value="${leave.leaveType}" />
-													</td>
-													<td>
-														<c:out
-															value="${leave.employee.empName}" />
-													</td>
-													<td>
-														<c:out
-															value="${leave.leaveReason}" />
-													</td>
-													<td>
-														<c:out
-															value="${leave.applicationDate}" />
-													</td>
-													<td>
-														<c:out
-															value="${leave.leaveAppliedFor}" />
-													</td>
-													<td>
+													
+														<c:out value="${resignation.employee.empName}" />
 														
-														<c:if test = "${leave.isApproved == null}">
+													</td>
+													<td>
+														<c:out
+															value="${resignation.resignationReason}" />
+													</td>
+													<td>
+														<c:out
+															value="${resignation.resignationDate}" />
+													</td>
+													<td>
+														<c:if test = "${resignation.isApproved == null}">
 															<form action="" method="post">
 																
-																<button  type="submit" class="btn btn-success" formaction="leaveAction?lid=${leave.empLeaveId}&pg=1&approve=true">Approve</button>
-																<button type="submit" class="btn btn-danger" formaction="leaveAction?lid=${leave.empLeaveId}&pg=1&approve=false">Discard</button>
+																<button  type="submit" class="btn btn-success" formaction="resignAction?rid=${resignation.resignation_id}&pg=1&approve=true">Approve</button>
+																<button type="submit" class="btn btn-danger" formaction="resignAction?rid=${resignation.resignation_id}&pg=1&approve=false">Discard</button>
 															</form>
 														</c:if>
-														<c:if test = "${leave.isApproved == true}">
+														<c:if test = "${resignation.isApproved == true}">
 															<button type="button" class="btn btn-success">Approved</button>
 														</c:if>
-														<c:if test = "${leave.isApproved == false}">
+														<c:if test = "${resignation.isApproved == false}">
 															<button type="button" class="btn btn-danger">Rejected</button>
 														</c:if>
+														
 													</td>
 												</tr>
 
@@ -711,20 +703,6 @@
 			<script src="../resources/lib/bootstrap/js/bootstrap.bundle.min.js" type="text/javascript" />
 
 
-			<!-- <script type="text/javascript">
-        
-		$(document).ready(function(){
-		  $(".xp-menubar").on('click',function(){
-		    $('#sidebar').toggleClass('active');
-			$('#content').toggleClass('active');
-		  });
-		  
-		   $(".xp-menubar,.body-overlay").on('click',function(){
-		     $('#sidebar,.body-overlay').toggleClass('show-nav');
-		   });
-		  
-		});
 		
-</script> -->
 
 			</html>

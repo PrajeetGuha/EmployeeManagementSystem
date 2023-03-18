@@ -14,6 +14,7 @@ import org.antwalk.ems.repository.EmployeeDetailsRepository;
 import org.antwalk.ems.repository.EmployeeRepository;
 import org.antwalk.ems.repository.FamilyDetailsRepository;
 import org.antwalk.ems.repository.LeaveApplicationRepository;
+import org.antwalk.ems.repository.ResignationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties.Pageable;
 import org.springframework.data.domain.PageRequest;
@@ -30,6 +31,9 @@ public class EmployeeService {
 
 	@Autowired
 	private LeaveApplicationRepository leaveApplicationRepository;
+
+	@Autowired
+	private ResignationRepository resignationRepository;
 	
 	public List<FamilyDetails> listAllFamilyDetails(Long id){
 		return employeeRepository.getById(id).getEmployeeDetails().getListFamilyDetails();
@@ -69,7 +73,9 @@ public class EmployeeService {
 		Employee employee = employeeRepository.findById(id).orElseThrow(
 			() -> new EmployeeNotFoundException("The employee is not found")
 		);
-		employee.setResignation(resignation);
+		resignation.setEmployee(employee);
+		resignation.setResignationDate(new Date(System.currentTimeMillis()));
+		employee.setResignation(resignationRepository.save(resignation));
 		employeeRepository.save(employee);
 	}
 

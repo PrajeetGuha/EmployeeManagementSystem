@@ -19,7 +19,7 @@ public class LeaveApplication {
     private Long empLeaveId;
 
     @Column
-    private Boolean isApproved = false;
+    private Boolean isApproved;
 
     @Column
     private String leaveType;
@@ -39,7 +39,6 @@ public class LeaveApplication {
     @OneToOne
     private Admin admin;
 
-    
     @Override
     public String toString() {
         return "LeaveApplication [empLeaveId=" + empLeaveId + ", isApproved=" + isApproved + ", leaveType=" + leaveType
@@ -126,5 +125,5 @@ public class LeaveApplication {
         this.admin = admin;
     }
 
-    
+       
 }

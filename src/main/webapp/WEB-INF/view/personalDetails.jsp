@@ -165,17 +165,19 @@
 
                                                         <c:set var="maritalstatus"
                                                             value="${['married', 'single', 'divorced']}" />
-                                                            
+                                                            <!-- ${employee.maritalStatus} -->
                                                         <select class="form-select"
                                                         aria-label="Default select example" name="maritalStatus">
                                                             <c:forEach items="${maritalstatus}" var="option">
-                                                                <c:if test="${option!=employee.maritalStatus}">
+                                                                <c:if test="${option!=employeeinfomation.maritalStatus}">
+                                                                    <!-- <option value="${option}" ><b>${fn:toUpperCase(option)}</b></option> -->
                                                                 <option value="${option}" ><b>${fn:toUpperCase(option)}</b></option>
                                                              
                                                            
                                                            
                                                             </c:if>
-                                                                <c:if test="${option==employee.maritalStatus}">
+                                                                <c:if test="${option==employeeinfomation.maritalStatus}">
+                                                                    <!-- <option value="${option}" ><b>${fn:toUpperCase(option)}</b></option> -->
                                                                     <option value="${option}" selected><b>${fn:toUpperCase(option)}</b></option>
                                                                  
                                                                

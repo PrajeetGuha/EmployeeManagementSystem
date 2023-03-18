@@ -326,6 +326,27 @@ private EmployeeRepository employeeRepository;
         redirectAttributes.addFlashAttribute("successMessage", "Password changed successfully!");
         return "redirect:/admin/dashboard?search=null&pg=1";
     }
+    
+ // resignation approval dashboard
+    @GetMapping("resignationApproval")
+    public String resignationApprovaldashboard(HttpServletRequest request,Model model){
+        int pg = Integer.parseInt(request.getParameter("pg"));
+        
+//        model.addAttribute("pg", pg);
+        model.addAttribute("resignationList", adminService.listAllResignations(pg));
+        return "resignationApproval";
+    }
+    
+    @PostMapping("/resignAction")
+    public String resignAction(HttpServletRequest request) throws Exception{
+        Long adminId = AuthenticationSystem.getId();
+        Long rid = Long.parseLong(request.getParameter("rid"));
+        int pg = Integer.parseInt(request.getParameter("pg"));
+        String approve = request.getParameter("approve");
+
+        adminService.resignAction(rid,adminId,approve);
+        return "redirect:/admin/resignationApproval?pg="+pg;
+    }
 
 
 

@@ -8,7 +8,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
-        <title>ADMIN DASHBOARD</title>
+        <title>DASHBOARD</title>
         <link rel="stylesheet" href="../resources/lib/bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" href="../resources/custom/css/admin-dashboard/custom.css">
         <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -165,8 +165,7 @@
                 </a></li>
 
                 
-                <li><a href="#applyresignation"  data-toggle="modal"
-                  aria-expanded="false" > <i
+                <li><a href="resign" > <i
                   class="material-icons">directions_walk</i>Apply Resignation
               
 
@@ -174,8 +173,8 @@
           </a></li>
                 
               <li ><a href="employeepersonaldetails" >
-                <!-- <i class='fas fa-user-alt-slash' >Resignation</i> -->
-                <span>Personal Details</span></a></li>
+                <i class="material-icons">contact_mail</i>Personal Details
+                <!-- <span>Personal Details</span></a></li> -->
                 
                 
               <li ><a href="professionaldetails" >
