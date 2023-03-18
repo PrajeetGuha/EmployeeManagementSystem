@@ -466,7 +466,7 @@ var barChartOptions = {
 			            opacity: 1,
 			            pattern: {
 			              enabled: true,
-			              style: ['verticalLines', 'squares', 'horizontalLines'],
+			              style: ['squares', 'squares', 'squares'],
 			            },
 			          },
 			          states: {
