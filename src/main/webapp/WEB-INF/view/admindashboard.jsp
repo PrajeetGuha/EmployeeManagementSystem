@@ -595,21 +595,7 @@
 																	<c:out value="${employee.empstatus}" />
 																</td> --%>
 
-																<td><a
-																		href="editemployeedetails?empId=${employee.empId}&pg=1&search=${search}">
-																		<i class="material-icons" data-toggle="tooltip"
-																			title="View">&#xE853;</i>
-																	</a> <a href="report?empId=${employee.empId}"
-																		class="analytics"> <i class="material-icons"
-																			data-toggle="tooltip"
-																			title="Analytics">summarize</i></a> <a
-																		href="#deleteEmployeeModal" class="delete"
-																		data-toggle="modal"
-																		onclick="selectedEmpstatus(${employee.empId},'${employee.empName}', '${employee.empstatus}')">
-																		<i class="material-icons" data-toggle="tooltip"
-																			title="Status">new_releases</i>
-																	</a></td>
-												<td>
+																												<td>
 												<a
 													href="editemployeedetails?empId=${employee.empId}&pg=1&search=${search}">
 														<i class="material-icons" data-toggle="tooltip"

@@ -270,13 +270,14 @@ document.addEventListener('DOMContentLoaded', function() {
 				<li><a href="departmentallocation?pg=1"> <i
 						class="material-icons">work</i>Department
 				</a></li>
-				<li><a href="#homeSubmenu1" data-toggle="collapse"
-					aria-expanded="false"> <i class="material-icons">playlist_add_check</i>Leave
-						Approval
-				</a></li>
-				<li><a href="#empresignation" data-toggle="modal" aria-expanded="false">
-						<i class="material-icons">directions_walk</i>Resignation approval
-				</a></li>
+				
+								<li><a href="leaveApproval?pg=1"> <i class="material-icons">playlist_add_check</i>Leave
+										Approval
+									</a></li>
+								<li><a href="resignationApproval?pg=1" > <i
+											class="material-icons">directions_walk</i>Resignation
+										approval
+									</a></li>
 				<li><a href="analytics"  aria-expanded="false">
 						<i class="material-icons">analytics</i>Analytics
 				</a></li>
@@ -699,7 +700,7 @@ document.addEventListener('DOMContentLoaded', function() {
 											aria-hidden="true">&times;</button> -->
 									</div>
 									<div class="modal-body">
-										<form action="addTeam" method="post" modelAttribute="newteam"
+										<form action="addteam" method="post" modelAttribute="newteam"
 										>
 										<div class="input-container ic1">
 											<label for="teamName" class="placeholder">Team

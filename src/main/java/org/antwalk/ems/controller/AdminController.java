@@ -98,7 +98,7 @@ private EmployeeRepository employeeRepository;
    	}
     @GetMapping("/addteam")
    	public String addteam() {
-          		return "addteam";
+          		return "redirect:admin/teamallocation";
    	}
     @GetMapping("/allocateteam")
    	public String allocateteam() {

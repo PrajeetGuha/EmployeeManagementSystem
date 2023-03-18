@@ -232,37 +232,32 @@
 									Fintech</span>
 							</h3>
 						</div>
-						<ul class="list-unstyled components">
-							<li><a href="dashboard?search=null&pg=1" class="dashboard"><i
-										class="material-icons">dashboard</i> <span>Dashboard</span></a></li>
-							<li class="active"><a href="leaveApproval?pg=1" data-toggle="collapse" aria-expanded="false"> <i
-										class="material-icons">playlist_add_check</i>Leave
-									Approval
-								</a></li>
-
-							<li><a href="projectallocation?pg=1"> <i class="material-icons">laptop</i>Project
-								</a></li>
-							<li><a href="teamallocation?pg=1"> <i class="material-icons">groups</i>Team
-								</a></li>
-							<li ><a href="departmentallocation?pg=1"> <i
-										class="material-icons">work</i>Department
-								</a></li>
-							<!-- <li><a href="#hike" data-toggle="modal" aria-expanded="false">
-						<i class="material-icons">currency_rupee</i>Appraisal
-				</a></li> -->
-							<li><a href="resignationApproval?pg=1" data-toggle="modal" aria-expanded="false"> <i
-										class="material-icons">directions_walk</i>Resignation
-									approval
-								</a></li>
-							<li><a href="analytics" data-toggle="modal" aria-expanded="false"> <i
-										class="material-icons">analytics</i>Analytics
-								</a></li>
-							<li><a href="#adminprofile" data-toggle="modal" aria-expanded="false"> <i
-										class="material-icons">account_circle</i>Profile
-								</a></li>
+							<ul class="list-unstyled components">
+								<li><a href="dashboard?search=null&pg=1" class="dashboard"><i
+											class="material-icons">dashboard</i> <span>Dashboard</span></a></li>
 
 
-						</ul>
+								<li><a href="projectallocation?pg=1"> <i class="material-icons">laptop</i>Project
+									</a></li>
+								<li><a href="teamallocation?pg=1"> <i class="material-icons">groups</i>Team
+									</a></li>
+								<li><a href="departmentallocation?pg=1"> <i class="material-icons">work</i>Department
+									</a></li>
+								<li class="active"><a href="leaveApproval?pg=1"> <i class="material-icons">playlist_add_check</i>Leave
+										Approval
+									</a></li>
+								<li><a href="resignationApproval?pg=1" > <i
+											class="material-icons">directions_walk</i>Resignation
+										approval
+									</a></li>
+								<li><a href="analytics"> <i class="material-icons">analytics</i>Analytics
+									</a></li>
+								<li><a href="#adminprofile" data-toggle="modal" aria-expanded="false"> <i
+											class="material-icons">account_circle</i>Profile
+									</a></li>
+
+
+							</ul>
 
 
 					</nav>
