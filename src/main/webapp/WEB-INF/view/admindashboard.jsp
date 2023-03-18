@@ -279,10 +279,10 @@ $('#search-form').attr('action', initialUrl + '?search=null&pg=1');
 				</a></li>
 				<li><a href="analytics"> <i class="material-icons">analytics</i>Analytics
 				</a></li>
-				<li><a href="#changePasswordModal" data-toggle="modal"
+				<!-- <li><a href="#changePasswordModal" data-toggle="modal"
 					aria-expanded="false"> <i class="material-icons">vpn_key</i>Change
 						Password
-				</a></li>
+				</a></li> -->
 				<li><a href="#adminprofile" data-toggle="modal"
 					aria-expanded="false"> <i class="material-icons">account_circle</i>Profile
 				</a></li>
@@ -573,7 +573,7 @@ $('#search-form').attr('action', initialUrl + '?search=null&pg=1');
 										<th>TYPE</th> -->
 										<th>DESIGNATION</th>
 										<th>STATUS</th>
-										<th>ACTIONS</th>
+										<th style="width: 140px;">ACTIONS</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -600,22 +600,71 @@ $('#search-form').attr('action', initialUrl + '?search=null&pg=1');
 
 												<td><c:out value="${employee.empstatus}" /></td> --%>
 
-												<td><a
+												<td>
+												<a
 													href="editemployeedetails?empId=${employee.empId}&pg=1&search=${search}">
 														<i class="material-icons" data-toggle="tooltip"
 														title="View">&#xE853;</i>
-												</a> <a
+												</a> 
+												<a
 													href="report?empId=${employee.empId}&pg=1&search=${search}"
 													class="analytics"> <i class="material-icons"
-														data-toggle="tooltip" title="Analytics">summarize</i></a> <a
+														data-toggle="tooltip" title="Analytics">summarize</i>
+														</a> 
+														<a
 													href="#deleteEmployeeModal" class="delete"
 													data-toggle="modal"
 													onclick="selectedEmpstatus(${employee.empId},'${employee.empName}', '${employee.empstatus}')">
 														<i class="material-icons" data-toggle="tooltip"
 														title="Status">new_releases</i>
+												</a> 
+												<a href="#changePasswordModal${employee.empId }"
+													data-toggle="modal" aria-expanded="false"> <i
+														class="material-icons" data-toggle="tooltip">vpn_key</i>
 												</a></td>
 
 											</tr>
+											<!-- Password Modal HTML -->
+											<div id="changePasswordModal${employee.empId }" class="modal fade">
+												<div class="modal-dialog">
+													<div class="modal-content">
+
+														<div class="modal-header">
+															<h4 class="modal-title">Change Password</h4>
+															<!-- <button type="button" class="close" data-dismiss="modal"
+											aria-hidden="true">&times;</button> -->
+														</div>
+														<div class="modal-body">
+															<form action="changePassword" method="post"
+																modelAttribute="newpass">
+																
+																	<input type="hidden" id="empId" name="empId" value="${employee.empId}"/>
+																
+																	
+																
+																<div class="input-container ic2">
+																	<label for="hod" class="placeholder">New
+																		Password</label>
+																	<div class="cut cut-short"></div>
+																	<input id="changedpassword" name="changedPassword"
+																		class="input required" type="password" placeholder=" "
+																		pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+]).{8,}$"
+																		oninput="setCustomValidity('')"
+																		oninvalid="setCustomValidity('Password must be of 8 characters and contain at least one capital character, one number, and a special character.')"
+																		required />
+																</div>
+
+																<br>
+																<div class="modal-footer">
+																	<button type="button" class="btn btn-secondary"
+																		data-dismiss="modal">Close</button>
+																	<button type="submit" class="btn btn-primary">Submit</button>
+																</div>
+															</form>
+														</div>
+													</div>
+												</div>
+											</div>
 										</c:forEach>
 
 
@@ -742,13 +791,14 @@ $('#search-form').attr('action', initialUrl + '?search=null&pg=1');
 											<div class="cut"></div>
 											<input id="name" name="name" class="input required"
 												type="text" placeholder=" " required
-												pattern="^[a-zA-Z_][a-zA-Z_\\s]*"$"
+												pattern="^[a-zA-Z_][[\\s]a-zA-Z_]*"
+												$"
 												oninvalid="setCustomValidity('Name can only contain alphabetic characters, underscores, and one whitespace between each word')"
 												onchange="setCustomValidity('')" />
 										</div>
 
 
-										<br> <br>
+										
 										<div class="input-container ic2">
 											<label for="email" class="placeholder">Personal Email</label>
 											<div class="cut cut-short"></div>
@@ -762,9 +812,13 @@ $('#search-form').attr('action', initialUrl + '?search=null&pg=1');
 											<div class="wrapper-class">
 												<input id="gender-male" name="gender" class="input required"
 													type="radio" value="male" required /><label
-													for="gender-male">Male</label> <input id="gender-female"
+													for="gender-male">Male</label> 
+													<input id="gender-female"
 													name="gender" class="input" type="radio" value="female"
 													required /><label for="gender-female">Female</label>
+													<input id="gender-other"
+													name="gender" class="input" type="radio" value="other"
+													required /><label for="gender-other">Other</label>
 											</div>
 										</div>
 										<div class="input-container ic2">
@@ -933,52 +987,7 @@ $('#search-form').attr('action', initialUrl + '?search=null&pg=1');
 					</div>
 				</div>
 
-				<!-- Password Modal HTML -->
-				<div id="changePasswordModal" class="modal fade">
-					<div class="modal-dialog">
-						<div class="modal-content">
 
-							<div class="modal-header">
-								<h4 class="modal-title">Change Password</h4>
-								<!-- <button type="button" class="close" data-dismiss="modal"
-											aria-hidden="true">&times;</button> -->
-							</div>
-							<div class="modal-body">
-								<form action="changePassword" method="post"
-									modelAttribute="newpass">
-									<div class="input-container ic1">
-										<label for="empId" class="placeholder">Employee Name</label>
-										<div class="cut"></div>
-										<select id="empId" name="empId" class="input required"
-											placeholder=" " required>
-											<c:forEach items="${allemployeenames}" var="department">
-												<option value="${department.empId}">(${department.empId})
-													${department.empName}</option>
-											</c:forEach>
-										</select>
-									</div>
-									<div class="input-container ic2">
-										<label for="hod" class="placeholder">New Password</label>
-										<div class="cut cut-short"></div>
-										<input id="changedpassword" name="changedPassword"
-											class="input required" type="password" placeholder=" "
-											pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+]).{8,}$"
-											oninput="setCustomValidity('')"
-											oninvalid="setCustomValidity('Password must be of 8 characters and contain at least one capital character, one number, and a special character.')"
-											required />
-									</div>
-
-									<br>
-									<div class="modal-footer">
-										<button type="button" class="btn btn-secondary"
-											data-dismiss="modal">Close</button>
-										<button type="submit" class="btn btn-primary">Submit</button>
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
 
 				<!---footer---->
 
