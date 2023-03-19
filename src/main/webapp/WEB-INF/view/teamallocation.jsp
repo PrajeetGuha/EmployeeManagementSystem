@@ -629,7 +629,7 @@ document.addEventListener('DOMContentLoaded', function() {
 																	<div id="selectedEmployees"
 																		class="selected-employees-container"></div>
 																</div>
-																<%-- <div class="input-container ic2">
+																<div class="input-container ic2">
 																	<label for="empindept" class="placeholder">Employees
 																		in Team</label>
 																	<div class="cut"></div>
@@ -646,7 +646,7 @@ document.addEventListener('DOMContentLoaded', function() {
 																			</c:otherwise>
 																		</c:choose>
 																	</ul>
-																</div> --%>
+																</div>
 																<br>
 																<div class="cut"></div>
 																<div class="modal-footer">

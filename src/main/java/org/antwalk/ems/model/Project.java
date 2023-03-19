@@ -9,14 +9,11 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
-import javax.persistence.JoinColumn;
 
 @Entity
 @Table
@@ -26,7 +23,7 @@ public class Project {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long projId;
 
-    @Column(length = 50)
+    @Column
     private String projectName;
 
     @Column
@@ -39,7 +36,6 @@ public class Project {
     private Employee pm;
 
     @ManyToMany
-    @JsonIgnoreProperties("projects")
     @JoinTable(
             name = "team_project",
             joinColumns = @JoinColumn(name = "proj_id"),
@@ -105,6 +101,5 @@ public class Project {
     public void setTeams(Set<Team> teams) {
         this.teams = teams;
     }
-
     
 }
