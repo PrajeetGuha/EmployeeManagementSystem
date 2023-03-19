@@ -31,7 +31,6 @@
                     <%@ include file="/resources/defaultHtml/dashboardHeader.jsp" %>
 
                         <br>
-                        <br>
 
 
 

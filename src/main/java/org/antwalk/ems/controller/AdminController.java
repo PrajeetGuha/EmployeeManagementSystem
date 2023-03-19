@@ -49,7 +49,7 @@ public class AdminController {
 
     @Autowired
     ReportService reportService;
-    
+   
 @Autowired
 private EmployeeRepository employeeRepository;
 
@@ -288,6 +288,15 @@ private EmployeeRepository employeeRepository;
     public String leaveApprovaldashboard(HttpServletRequest request,Model model){
         int pg = Integer.parseInt(request.getParameter("pg"));
 
+        Long addid = AuthenticationSystem.getId();
+    	Admin admin;
+		try {
+			admin = adminService.fetchAdminData(addid);
+	        model.addAttribute("admin",admin);
+		} catch (UserNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         model.addAttribute("leavelist", adminService.listAllLeaves(pg));
         return "leaveApproval";
     }
@@ -304,6 +313,15 @@ private EmployeeRepository employeeRepository;
         String search =request.getParameter("search");
         String pg=request.getParameter("pg");
         Long id_val=Long.parseLong(id);
+        Long addid = AuthenticationSystem.getId();
+    	Admin admin;
+		try {
+			admin = adminService.fetchAdminData(addid);
+	        model.addAttribute("admin",admin);
+		} catch (UserNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         Employee employee = employeeRepository.getById(id_val);
         model.addAttribute("employee",employee);
         model.addAttribute("search",search);
@@ -331,7 +349,16 @@ private EmployeeRepository employeeRepository;
     @GetMapping("resignationApproval")
     public String resignationApprovaldashboard(HttpServletRequest request,Model model){
         int pg = Integer.parseInt(request.getParameter("pg"));
-        
+
+        Long addid = AuthenticationSystem.getId();
+    	Admin admin;
+		try {
+			admin = adminService.fetchAdminData(addid);
+	        model.addAttribute("admin",admin);
+		} catch (UserNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 //        model.addAttribute("pg", pg);
         model.addAttribute("resignationList", adminService.listAllResignations(pg));
         return "resignationApproval";

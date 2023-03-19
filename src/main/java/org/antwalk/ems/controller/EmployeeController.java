@@ -81,15 +81,7 @@ public class EmployeeController {
         return "myProfile";
     }
 
-    @GetMapping("professionaldetails")
-    public String professionaldetails() {
-        return "myProfession";
-    }
 
-    @GetMapping("qualificationdetails")
-    public String qualificationdetails() {
-        return "myQualification";
-    }
 
     @PostMapping("/applyLeave")
     public String editemployee(@ModelAttribute("leave") LeaveApplication leaveApplication, BindingResult result, RedirectAttributes redirectAttrs) throws UserNotFoundException{
@@ -133,14 +125,6 @@ public class EmployeeController {
         return "personalDetails";
     }
 
-    @GetMapping("familyDetails")
-    public String familyDetails(HttpServletRequest request, Model model) {
-        Long id = AuthenticationSystem.getId();
-        System.out.println(id);
-        List<FamilyDetails> listOfFamilyDetails = employeeService.listAllFamilyDetails(id);
-        model.addAttribute("listOfFamily", listOfFamilyDetails);
-        return "myFamily";
-    }
 
     @GetMapping("adminUserView")
     public String adminUserView(HttpServletRequest request, Model model) {
@@ -202,5 +186,61 @@ public class EmployeeController {
         Long id = AuthenticationSystem.getId();
         employeeService.applyForResignation(id, resignation);
         return "redirect:resign";
+    }
+
+
+    @GetMapping("qualificationdetails")
+    public String qualificationdetails(HttpServletRequest request, Model model) {
+        Long id = AuthenticationSystem.getId();
+        System.out.println(id);
+//        int pg=Integer.parseInt(request.getParameter("pg"));
+        List<QualificationDetails> listOfQualificationDetails = employeeService.findQualificationDetails(id,1);
+        
+        model.addAttribute("listOfQualification", listOfQualificationDetails);
+        return "myQualification";
+    }
+    
+    @PostMapping("addQualification")
+    public String addQualification(@ModelAttribute("qualification") QualificationDetails qualificationDetails, HttpServletRequest request) throws EmployeeNotFoundException{
+        Long id = AuthenticationSystem.getId();
+        employeeService.addQualification(id, qualificationDetails);
+        return "redirect:qualificationdetails";
+    }
+    
+    @GetMapping("familyDetails")
+    public String familydetails(HttpServletRequest request, Model model) {
+        Long id = AuthenticationSystem.getId();
+        System.out.println(id);
+//        int pg=Integer.parseInt(request.getParameter("pg"));
+        List<FamilyDetails> listOfFamilyDetails = employeeService.findFamilyDetails(id,1);
+        model.addAttribute("listOfFamilyDetails", listOfFamilyDetails);
+        return "myFamily";
+    }
+    
+    @PostMapping("addFamily")
+    public String addFamily(@ModelAttribute("family") FamilyDetails familyDetails, HttpServletRequest request) throws EmployeeNotFoundException{
+        Long id = AuthenticationSystem.getId();
+        employeeService.addFamily(id, familyDetails);
+        return "redirect:familyDetails";
+    }
+    
+    
+    
+    @GetMapping("professionaldetails")
+    public String professionaldetails(HttpServletRequest request, Model model) {
+        Long id = AuthenticationSystem.getId();
+        System.out.println(id);
+//        int pg=Integer.parseInt(request.getParameter("pg"));
+        List<ProfDetails> listOfProfDetails = employeeService.findProfessionalDetails(id,1);
+        
+        model.addAttribute("listOfProfession", listOfProfDetails);
+        return "myProfession";
+    }
+    
+    @PostMapping("addProfession")
+    public String addProfession(@ModelAttribute("profession") ProfDetails profDetails, HttpServletRequest request) throws EmployeeNotFoundException{
+        Long id = AuthenticationSystem.getId();
+        employeeService.addProfession(id, profDetails);
+        return "redirect:professionaldetails";
     }
 }

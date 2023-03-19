@@ -177,16 +177,19 @@
                 <!-- <span>Personal Details</span></a></li> -->
                 
                 
-              <li ><a href="professionaldetails" >
-                <!-- <i class='fas fa-user-alt-slash' >Resignation</i> -->
-                <span>Professional Details</span></a></li>
-                
-              <li ><a href="qualificationdetails" >
-                <!-- <i class='fas fa-user-alt-slash' >Resignation</i> -->
-                <span>Qualification Details</span></a></li>
-              <li ><a href="familyDetails" >
-                <!-- <i class='fas fa-user-alt-slash' >Resignation</i> -->
-                <span>Family Details</span></a></li>
+								<li><a href="professionaldetails">
+									<i class="material-icons">work</i> 
+										<span>Professional Details</span></a></li>
+
+								<li ><a href="qualificationdetails">
+										<!-- <i class='fas fa-user-alt-slash' >Resignation</i> -->
+										<i class="material-icons">school</i> 
+										<span>Qualification Details</span></a></li>
+								<li><a href="familyDetails"><i class="material-icons">group</i>
+										<span>Family Details</span></a></li>
+
+
+
 
              
 
@@ -195,30 +198,7 @@
 
 
           </nav>
-        
-          
-				<div id="applyresignation" class="modal fade">
-					<div class="modal-dialog">
-						<div class="modal-content">
-							<form action="deptAlloc" method="post">
-								<div class="modal-header">
-									<h4 class="modal-title">APPLY RESIGNATION</h4>
-									<button type="button" class="close" data-dismiss="modal"
-										aria-hidden="true">&times;</button>
-								</div>
-								<div class="modal-body">
-									<div class="form-group">
-										<label> REASON FOR RESIGNATION</label> <textarea class="form-control" name="reason" required></textarea>
-									</div>
-								</div>
-								<div class="modal-footer">
-									<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-									<input type="submit" class="btn btn-success" value="Add">
-								</div>
-							</form>
-						</div>
-					</div>
-				</div>
+
 
 
 

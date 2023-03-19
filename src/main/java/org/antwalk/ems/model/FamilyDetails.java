@@ -26,7 +26,6 @@ public class FamilyDetails {
 
 
     @Column
-    @Past
     private Date dob;
 
     @Column(length = 30)

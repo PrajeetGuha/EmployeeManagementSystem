@@ -362,8 +362,6 @@
                             <form action="hike" method="post">
                                 <div class="modal-header">
                                     <h4 class="modal-title">ADMIN PROFILE</h4>
-                                    <button type="button" class="close" data-dismiss="modal"
-                                        aria-hidden="true">&times;</button>
                                 </div>
                                 <div class="modal-body">
                                     <ul>
@@ -386,7 +384,7 @@
                                 </div>
 
                                 <div class="modal-footer">
-                                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Close">
+                                    <input type="button" class="btn btn-secondary" data-dismiss="modal" value="Close">
 
                                 </div>
                             </form>
@@ -449,7 +447,7 @@
 
                         </div>
                         <div class="xp-breadcrumbbar text-center">
-                            <h4 class="page-title">Dashboard</h4>
+                            <h4 class="page-title">Edit Profile</h4>
                             <!--  <ol class="breadcrumb">
 						<li class="breadcrumb-item"><a href="#">Booster</a></li>
 						<li class="breadcrumb-item active" aria-current="page">Dashboard</li>

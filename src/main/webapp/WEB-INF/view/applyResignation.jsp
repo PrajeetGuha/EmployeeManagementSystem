@@ -92,16 +92,18 @@
                                     <li ><a href="employeepersonaldetails" >
                                         <i class="material-icons">contact_mail</i>Personal Details
 
-                                <li><a href="professionaldetails">
-                                        <!-- <i class='fas fa-user-alt-slash' >Resignation</i> -->
-                                        <span>Professional Details</span></a></li>
 
-                                <li><a href="qualificationdetails">
-                                        <!-- <i class='fas fa-user-alt-slash' >Resignation</i> -->
-                                        <span>Qualification Details</span></a></li>
-                                <li><a href="familyDetails">
-                                        <!-- <i class='fas fa-user-alt-slash' >Resignation</i> -->
-                                        <span>Family Details</span></a></li>
+								<li><a href="professionaldetails">
+									<i class="material-icons">work</i> 
+										<span>Professional Details</span></a></li>
+
+								<li ><a href="qualificationdetails">
+										<!-- <i class='fas fa-user-alt-slash' >Resignation</i> -->
+										<i class="material-icons">school</i> 
+										<span>Qualification Details</span></a></li>
+								<li><a href="familyDetails"><i class="material-icons">group</i>
+										<span>Family Details</span></a></li>
+
 
 
 
@@ -368,7 +370,16 @@
                     </div>
 
 
+                        <br>
+                        <br>
 
+                        <footer class="footer">
+                            <div class="container-fluid">
+                                <div class="footer-in">
+                                    <p class="mb-0">NRI FinTech - All Rights Reserved.</p>
+                                </div>
+                            </div>
+                        </footer>
                     <!-- Optional JavaScript -->
                     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 

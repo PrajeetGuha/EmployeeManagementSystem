@@ -10,7 +10,7 @@
 					<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 					<meta name="viewport"
 						content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
-					<title>ADMIN DASHBOARD</title>
+					<title>EMPLOYEE DASHBOARD</title>
 					<link rel="stylesheet" href="../resources/lib/bootstrap/css/bootstrap.min.css">
 					<link rel="stylesheet" href="../resources/custom/css/admin-dashboard/custom.css">
 					<link rel="preconnect" href="https://fonts.googleapis.com">
@@ -92,16 +92,18 @@
 									<li ><a href="employeepersonaldetails" >
 										<i class="material-icons">contact_mail</i>Personal Details
 
+								
 								<li><a href="professionaldetails">
-										<!-- <i class='fas fa-user-alt-slash' >Resignation</i> -->
+									<i class="material-icons">work</i> 
 										<span>Professional Details</span></a></li>
 
-								<li><a href="qualificationdetails">
+								<li ><a href="qualificationdetails">
 										<!-- <i class='fas fa-user-alt-slash' >Resignation</i> -->
+										<i class="material-icons">school</i> 
 										<span>Qualification Details</span></a></li>
-								<li><a href="familyDetails">
-										<!-- <i class='fas fa-user-alt-slash' >Resignation</i> -->
+								<li><a href="familyDetails"><i class="material-icons">group</i>
 										<span>Family Details</span></a></li>
+
 
 
 
@@ -198,7 +200,7 @@
 
 								</div>
 								<div class="xp-breadcrumbbar text-center">
-									<h4 class="page-title">Dashboard</h4>
+									<h4 class="page-title">Apply Leaves</h4>
 									<!--  <ol class="breadcrumb">
 						<li class="breadcrumb-item"><a href="#">Booster</a></li>
 						<li class="breadcrumb-item active" aria-current="page">Dashboard</li>
@@ -208,6 +210,7 @@
 							</div>
 
 
+								<br>
 
 							<!--------main-content------------->
 
@@ -465,7 +468,16 @@
 
 
 
-							<!---footer---->
+							<!---footer---->                        <br>
+                        <br>
+
+                        <footer class="footer">
+                            <div class="container-fluid">
+                                <div class="footer-in">
+                                    <p class="mb-0">NRI FinTech - All Rights Reserved.</p>
+                                </div>
+                            </div>
+                        </footer>
 
 
 						</div>
