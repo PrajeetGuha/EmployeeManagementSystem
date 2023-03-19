@@ -572,10 +572,10 @@ document.addEventListener('DOMContentLoaded', function() {
 												<td><c:out value="${team.tm.empName}" /></td>
 												<td><a href="#editTeamModal${team.teamId }" class="edit"
 													data-toggle="modal"> <i class="material-icons"
-														data-toggle="tooltip" title="Edit">&#xE254;</i></a> <a
+														data-toggle="tooltip" title="Edit">&#xE254;</i></a> <!-- <a
 													href="#generateTeamReportModal" class="report"
 													data-toggle="modal"> <i class="material-icons"
-														data-toggle="tooltip" title="Report">summarize</i></a></td>
+														data-toggle="tooltip" title="Report">summarize</i></a> --></td>
 											</tr>
 											
 											<!-- Edit Modal HTML -->

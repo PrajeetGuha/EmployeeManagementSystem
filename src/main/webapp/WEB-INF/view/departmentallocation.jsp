@@ -489,9 +489,9 @@
 													<td><a href="#editDepartmentModal${dept.deptId}" class="edit"
 															data-toggle="modal"> <i class="material-icons"
 																data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-														<a href="#generateDepartmentReportModal" class="report"
+														<!-- <a href="#generateDepartmentReportModal" class="report"
 															data-toggle="modal"> <i class="material-icons"
-																data-toggle="tooltip" title="Report">summarize</i></a>
+																data-toggle="tooltip" title="Report">summarize</i></a> -->
 													</td>
 												</tr>
 

@@ -669,9 +669,9 @@ document.addEventListener('DOMContentLoaded', function() {
 												<td><a href="#editProjectModal${project.projId }"
 													class="edit" data-toggle="modal"> <i
 														class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-													<a href="#generateProjectReportModal" class="report"
+													<!-- <a href="#generateProjectReportModal" class="report"
 													data-toggle="modal"> <i class="material-icons"
-														data-toggle="tooltip" title="Report">summarize</i></a></td>
+														data-toggle="tooltip" title="Report">summarize</i></a> --></td>
 											</tr>
 
 											<!-- Edit Modal HTML -->
