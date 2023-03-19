@@ -1,51 +1,59 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
-	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-		<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-			<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-				<!DOCTYPE html>
-				<html>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<!DOCTYPE html>
+<html>
 
-				<head>
-					<meta charset="utf-8">
-					<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-					<meta name="viewport"
-						content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
-					<title>ADMIN DASHBOARD</title>
-					<link rel="stylesheet" href="../resources/lib/bootstrap/css/bootstrap.min.css">
-					<link rel="stylesheet" href="../resources/custom/css/admin-dashboard/custom.css">
-					<link rel="preconnect" href="https://fonts.googleapis.com">
-					<link rel="preconnect" href="https://fonts.gstatic.com">
-					<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap"
-						rel="stylesheet">
-					<link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
+<head>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+<title>ADMIN DASHBOARD</title>
+<link rel="stylesheet"
+	href="../resources/lib/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="../resources/custom/css/admin-dashboard/custom.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link
+	href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap"
+	rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Icons"
+	rel="stylesheet">
 
-					<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-					<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
-					<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
 
-					<c:set var="pageNo" value="${pageNo}" />
-					<c:set var="pageCount" value="${pageCount}" />
-					<c:if test="${not empty successMessage}">
-						<!-- Button trigger modal -->
-						<button type="button" class="btn btn-primary d-none" data-toggle="modal"
-							data-target="#exampleModal">Launch demo
-							modal</button>
+<c:set var="pageNo" value="${pageNo}" />
+<c:set var="pageCount" value="${pageCount}" />
+<c:if test="${not empty successMessage}">
+	<!-- Button trigger modal -->
+	<button type="button" class="btn btn-primary d-none"
+		data-toggle="modal" data-target="#exampleModal">Launch demo
+		modal</button>
 
-						<!-- Modal -->
-						<div class="modal fade show" id="exampleModal" tabindex="-1" role="dialog"
-							aria-labelledby="exampleModalLabel" aria-hidden="true">
-							<div class="modal-dialog modal-dialog-centered" role="document">
-								<div class="modal-content">
-									<div class="modal-header">
-										<h5 class="modal-title" id="exampleModalLabel">Success!</h5>
+	<!-- Modal -->
+	<div class="modal fade show" id="exampleModal" tabindex="-1"
+		role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Success!</h5>
 
-									</div>
-									<div class="modal-body">${successMessage}</div>
-								</div>
-							</div>
-						</div>
+				</div>
+				<div class="modal-body">${successMessage}</div>
+			</div>
+		</div>
+	</div>
 
-						<script>
+	<script>
 							$.noConflict();
 							jQuery(document).ready(function ($) {
 								$('#exampleModal').modal('show');
@@ -55,33 +63,28 @@
 
 							});
 						</script>
-					</c:if>
+</c:if>
 
-					<script>
-						$(document)
-							.ready(
-								function () {
-									// Loop through each cell in the highlight-column class
-									$('.highlight-column')
-										.each(
-											function () {
-												var status = $(this).text(); // Get the cell's text value
+<script>
+	$(document).ready(function () {
+		
+		$('.highlight-column').each(function () {
+			
+			var status = $(this).text().trim(); // Get the cell's text value and trim whitespace
 
-												// Set a different background color based on the status value
-												if (status === 'active') {
+			// Set a different background color based on the status value
+			if (status === 'active') {
+				
+				$(this).css('color', 'limegreen');
+			} else if (status === 'inactive') {
+				
+				$(this).css('color', 'red');
+			}
+		});
+	});
+</script>
 
-
-													$(this).css('color', 'limegreen');
-
-												} else if (status === 'inactive') {
-
-
-													$(this).css('color', 'red');
-												}
-											});
-								});
-					</script>
-					<script>
+<script>
 						$(document).ready(function () {
 							// Get the list of items from the model attribute
 							var items = [
@@ -155,7 +158,7 @@
 
 						});
 					</script>
-					<script>
+<script>
 						// Get emailIds and usernames from model attributes using JSTL
 						var emails = [
 							<c:forEach var="email" items="${emailIds}">
@@ -213,7 +216,7 @@
 
 						}
 					</script>
-					<script>
+<script>
 						function selectedEmpstatus(id, name, status) {
 							document.getElementById("empstatusname").innerHTML = name;
 							$("#empIdStatus").attr("value", id);
@@ -230,53 +233,55 @@
 						}
 					</script>
 
-					<c:set var="pageNo" value="${pageNo}" />
-					<c:set var="pageCount" value="${pageCount}" />
-				</head>
+<c:set var="pageNo" value="${pageNo}" />
+<c:set var="pageCount" value="${pageCount}" />
+</head>
 
 
-				<body>
-					<!-- <div>${result.getBody().getStatus()}</div> -->
+<body>
+	<!-- <div>${result.getBody().getStatus()}</div> -->
 
-					<div class="wrapper">
-						<div class="body-overlay" />
-						<nav id="sidebar">
-							<div class="sidebar-header">
-								<h3>
-									<img src="../resources/assets/logo.png" class="img-fluid" /><span>NRI
-										Fintech</span>
-								</h3>
-							</div>
-							<ul class="list-unstyled components">
-								<li class="active"><a href="dashboard?search=null&pg=1" class="dashboard"><i
-											class="material-icons">dashboard</i> <span>Dashboard</span></a></li>
-
-
-								<li><a href="projectallocation?pg=1"> <i class="material-icons">laptop</i>Project
-									</a></li>
-								<li><a href="teamallocation?pg=1"> <i class="material-icons">groups</i>Team
-									</a></li>
-								<li><a href="departmentallocation?pg=1"> <i class="material-icons">work</i>Department
-									</a></li>
-								<li><a href="leaveApproval?pg=1"> <i class="material-icons">playlist_add_check</i>Leave
-										Approval
-									</a></li>
-								<li><a href="resignationApproval?pg=1" > <i
-											class="material-icons">directions_walk</i>Resignation
-										approval
-									</a></li>
-								<li><a href="analytics"> <i class="material-icons">analytics</i>Analytics
-									</a></li>
-								<li><a href="#adminprofile" data-toggle="modal" aria-expanded="false"> <i
-											class="material-icons">account_circle</i>Profile
-									</a></li>
+	<div class="wrapper">
+		<div class="body-overlay" />
+		<nav id="sidebar">
+			<div class="sidebar-header">
+				<h3>
+					<img src="../resources/assets/logo.png" class="img-fluid" /><span>NRI
+						Fintech</span>
+				</h3>
+			</div>
+			<ul class="list-unstyled components">
+				<li class="active"><a href="dashboard?search=null&pg=1"
+					class="dashboard"><i class="material-icons">dashboard</i> <span>Dashboard</span></a></li>
 
 
-							</ul>
+				<li><a href="projectallocation?pg=1"> <i
+						class="material-icons">laptop</i>Project
+				</a></li>
+				<li><a href="teamallocation?pg=1"> <i
+						class="material-icons">groups</i>Team
+				</a></li>
+				<li><a href="departmentallocation?pg=1"> <i
+						class="material-icons">work</i>Department
+				</a></li>
+				<li><a href="leaveApproval?pg=1"> <i class="material-icons">playlist_add_check</i>Leave
+						Approval
+				</a></li>
+				<li><a href="resignationApproval?pg=1"> <i
+						class="material-icons">directions_walk</i>Resignation approval
+				</a></li>
+				<li><a href="analytics"> <i class="material-icons">analytics</i>Analytics
+				</a></li>
+				<li><a href="#adminprofile" data-toggle="modal"
+					aria-expanded="false"> <i class="material-icons">account_circle</i>Profile
+				</a></li>
 
 
-						</nav>
-						<%-- <div id="project" class="modal fade">
+			</ul>
+
+
+		</nav>
+		<%-- <div id="project" class="modal fade">
 							<div class="modal-dialog">
 								<div class="modal-content">
 									<form action="proAlloc" method="post">
@@ -397,158 +402,160 @@
 						</div>
 					</div> --%>
 
-					<div id="adminprofile" class="modal fade">
-						<div class="modal-dialog">
-							<div class="modal-content">
+		<div id="adminprofile" class="modal fade">
+			<div class="modal-dialog">
+				<div class="modal-content">
 
-								<div class="modal-header">
-									<h4 class="modal-title">ADMIN PROFILE</h4>
+					<div class="modal-header">
+						<h4 class="modal-title">ADMIN PROFILE</h4>
 
-								</div>
-								<div class="modal-body">
-									<form>
-										<ul>
-											<li>
-												<p>
-													<b>Admin id:</b> ${admin.adminId}
-												</p>
-											</li>
-											<li>
-												<p>
-													<b>Admin name:</b> ${admin.adminName}
-												</p>
-											</li>
-											<li>
-												<p>
-													<b>Admin email:</b> ${admin.adminEmail}
-												</p>
-											</li>
-										</ul>
-								</div>
-
-								<div class="modal-footer">
-									<input type="button" class="btn btn-secondary" data-dismiss="modal" value="Close">
-
-								</div>
-								</form>
-							</div>
-						</div>
+					</div>
+					<div class="modal-body">
+						<form>
+							<ul>
+								<li>
+									<p>
+										<b>Admin id:</b> ${admin.adminId}
+									</p>
+								</li>
+								<li>
+									<p>
+										<b>Admin name:</b> ${admin.adminName}
+									</p>
+								</li>
+								<li>
+									<p>
+										<b>Admin email:</b> ${admin.adminEmail}
+									</p>
+								</li>
+							</ul>
 					</div>
 
+					<div class="modal-footer">
+						<input type="button" class="btn btn-secondary"
+							data-dismiss="modal" value="Close">
+
+					</div>
+					</form>
+				</div>
+			</div>
+		</div>
 
 
 
 
 
-					<!--------page-content---------------->
 
-					<div id="content">
+		<!--------page-content---------------->
 
-						<!--top--navbar----design--------->
+		<div id="content">
 
-						<div class="top-navbar">
-							<div class="xp-topbar">
+			<!--top--navbar----design--------->
 
-								<!-- Start XP Row -->
-								<div class="row justify-content-end">
-									<!-- Start XP Col -->
-									<!-- <div
+			<div class="top-navbar">
+				<div class="xp-topbar">
+
+					<!-- Start XP Row -->
+					<div class="row justify-content-end">
+						<!-- Start XP Col -->
+						<!-- <div
 							class="col-2 col-md-1 col-lg-1 order-2 order-md-1 align-self-center">
 							<div class="xp-menubar">
 								<span class="material-icons text-white">signal_cellular_alt
 								</span>
 							</div>
 						</div> -->
-									<!-- End XP Col -->
+						<!-- End XP Col -->
 
-									<!-- Start XP Col -->
-									<div class="col-md-5 col-lg-2 order-3 order-md-2">
-										<div class="xp-searchbar">
-											<form id="search-form" action="" method="get">
-												<input type="hidden" name="search" value="">
-												<div class="input-group">
-													<input type="search" class="form-control" placeholder="Search"
-														id="search-input">
-													<div class="input-group-append">
-														<button class="btn" type="submit" id="button-addon2">GO</button>
-													</div>
-												</div>
-											</form>
-											<ul class="dropdown-menu" id="search-results" style="display: none;">
-											</ul>
+						<!-- Start XP Col -->
+						<div class="col-md-5 col-lg-2 order-3 order-md-2">
+							<div class="xp-searchbar">
+								<form id="search-form" action="" method="get">
+									<input type="hidden" name="search" value="">
+									<div class="input-group">
+										<input type="search" class="form-control" placeholder="Search"
+											id="search-input">
+										<div class="input-group-append">
+											<button class="btn" type="submit" id="button-addon2">GO</button>
 										</div>
 									</div>
-
-
-									<!-- End XP Col -->
-
-									<!-- Start XP Col -->
-									<div class="col-md-3 col-lg-2 order-1 order-md-3 ">
-										<div class="xp-profilebar text-right" align="right">
-											<nav class="navbar p-0">
-												<ul class="nav navbar-nav flex-row ml-auto">
-													<li class="align-right"><a href="../logout" class="nav-link"><span
-																class="material-icons">logout</span>
-															Logout</a></li>
-
-												</ul>
-
-
-											</nav>
-
-										</div>
-									</div>
-									<!-- End XP Col -->
-
-								</div>
-								<!-- End XP Row -->
-
+								</form>
+								<ul class="dropdown-menu" id="search-results"
+									style="display: none;">
+								</ul>
 							</div>
-							<div class="xp-breadcrumbbar text-center">
-								<h4 class="page-title">Dashboard</h4>
-								<!--  <ol class="breadcrumb">
-						<li class="breadcrumb-item"><a href="#">Booster</a></li>
-						<li class="breadcrumb-item active" aria-current="page">Dashboard</li>
-					</ol>-->
-							</div>
-
 						</div>
 
 
+						<!-- End XP Col -->
 
-						<!--------main-content------------->
+						<!-- Start XP Col -->
+						<div class="col-md-3 col-lg-2 order-1 order-md-3 ">
+							<div class="xp-profilebar text-right" align="right">
+								<nav class="navbar p-0">
+									<ul class="nav navbar-nav flex-row ml-auto">
+										<li class="align-right"><a href="../logout"
+											class="nav-link"><span class="material-icons">logout</span>
+												Logout</a></li>
 
-						<div class="main-content">
-							<div class="row">
+									</ul>
 
-								<div class="col-md-12">
-									<div class="table-wrapper">
-										<div class="table-title">
-											<div class="row">
-												<div
-													class="col-sm-6 p-0 d-flex justify-content-lg-start justify-content-center">
-													<h2 class="ml-lg-2">Manage Employees</h2>
-												</div>
-												<div
-													class="col-sm-6 p-0 d-flex justify-content-lg-end justify-content-center">
-													<a href="#addEmployeeModal" class="btn btn-success"
-														data-toggle="modal" data-target="#addEmployeeModal"> <i
-															class="material-icons">&#xE147;</i> <span>Add New
-															Employee</span>
-													</a>
-													<!--  <a href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal">
+
+								</nav>
+
+							</div>
+						</div>
+						<!-- End XP Col -->
+
+					</div>
+					<!-- End XP Row -->
+
+				</div>
+				<div class="xp-breadcrumbbar text-center">
+					<h4 class="page-title">Dashboard</h4>
+					<!--  <ol class="breadcrumb">
+						<li class="breadcrumb-item"><a href="#">Booster</a></li>
+						<li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+					</ol>-->
+				</div>
+
+			</div>
+
+
+
+			<!--------main-content------------->
+
+			<div class="main-content">
+				<div class="row">
+
+					<div class="col-md-12">
+						<div class="table-wrapper">
+							<div class="table-title">
+								<div class="row">
+									<div
+										class="col-sm-6 p-0 d-flex justify-content-lg-start justify-content-center">
+										<h2 class="ml-lg-2">Manage Employees</h2>
+									</div>
+									<div
+										class="col-sm-6 p-0 d-flex justify-content-lg-end justify-content-center">
+										<a href="#addEmployeeModal" class="btn btn-success"
+											data-toggle="modal" data-target="#addEmployeeModal"> <i
+											class="material-icons">&#xE147;</i> <span>Add New
+												Employee</span>
+										</a>
+										<!--  <a href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal">
 		  <i class="material-icons">&#xE15C;</i> <span>Delete</span></a>-->
-												</div>
-											</div>
-										</div>
-										<table class="table table-striped table-hover">
-											<thead>
-												<tr>
+									</div>
+								</div>
+							</div>
+							<table class="table table-striped table-hover">
+								<thead>
+									<tr>
 
-													<th>ID</th>
-													<th>NAME</th>
-													<th>EMAIL</th>
-													<!-- <th>GRADE_LEVEL</th>
+										<th>ID</th>
+										<th>NAME</th>
+										<th>EMAIL</th>
+										<!-- <th>GRADE_LEVEL</th>
 										<th>TYPE</th> -->
 										<th>DESIGNATION</th>
 										<th>STATUS</th>
@@ -558,31 +565,22 @@
 								<tbody>
 									<tr>
 
-													<c:forEach items="${employees}" var="employee">
-												<tr>
-													<td>
-														<c:out value="${employee.empId}" />
-													</td>
-													<td>
-														<c:out value="${employee.empName}" />
-													</td>
-													<td>
-														<c:out value="${employee.workEmail}" />
-													</td>
-													<%-- <td>
+										<c:forEach items="${employees}" var="employee">
+											<tr>
+												<td><c:out value="${employee.empId}" /></td>
+												<td><c:out value="${employee.empName}" /></td>
+												<td><c:out value="${employee.workEmail}" /></td>
+												<%-- <td>
 														<c:out value="${employee.gradeLevel}" />
 														</td> --%>
-														<%-- <td>
+												<%-- <td>
 															<c:out value="${employee.emptype}" />
 															</td> --%>
-															<td>
-																<c:out value="${employee.designation}" />
-															</td>
+												<td><c:out value="${employee.designation}" /></td>
 
-															<td class="highlight-column">
-																<c:out value="${employee.empstatus}" />
-															</td>
-															<%-- <td><button id="editemp" class='edit' />
+												<td class="highlight-column"><c:out
+														value="${employee.empstatus}" /></td>
+												<%-- <td><button id="editemp" class='edit' />
 																<i class="material-icons" data-toggle="tooltip"
 																	title="Edit">&#xE254;</i>
 																</a> <button id="editstat" class='edit'
@@ -595,32 +593,28 @@
 																	<c:out value="${employee.empstatus}" />
 																</td> --%>
 
-																												<td>
-												<a
+												<td><a
 													href="editemployeedetails?empId=${employee.empId}&pg=1&search=${search}">
 														<i class="material-icons" data-toggle="tooltip"
 														title="View">&#xE853;</i>
-												</a> 
-												<a
+												</a> <a
 													href="report?empId=${employee.empId}&pg=1&search=${search}"
 													class="analytics"> <i class="material-icons"
 														data-toggle="tooltip" title="Analytics">summarize</i>
-														</a> 
-														<a
-													href="#deleteEmployeeModal" class="delete"
+												</a> <a href="#deleteEmployeeModal" class="delete"
 													data-toggle="modal"
 													onclick="selectedEmpstatus(${employee.empId},'${employee.empName}', '${employee.empstatus}')">
 														<i class="material-icons" data-toggle="tooltip"
 														title="Status">new_releases</i>
-												</a> 
-												<a href="#changePasswordModal${employee.empId }"
+												</a> <a href="#changePasswordModal${employee.empId }"
 													data-toggle="modal" aria-expanded="false"> <i
 														class="material-icons" data-toggle="tooltip">vpn_key</i>
 												</a></td>
 
 											</tr>
 											<!-- Password Modal HTML -->
-											<div id="changePasswordModal${employee.empId }" class="modal fade">
+											<div id="changePasswordModal${employee.empId }"
+												class="modal fade">
 												<div class="modal-dialog">
 													<div class="modal-content">
 
@@ -632,11 +626,12 @@
 														<div class="modal-body">
 															<form action="changePassword" method="post"
 																modelAttribute="newpass">
-																
-																	<input type="hidden" id="empId" name="empId" value="${employee.empId}"/>
-																
-																	
-																
+
+																<input type="hidden" id="empId" name="empId"
+																	value="${employee.empId}" />
+
+
+
 																<div class="input-container ic2">
 																	<label for="hod" class="placeholder">New
 																		Password</label>
@@ -664,7 +659,7 @@
 
 
 
-												<!--  <tr>
+										<!--  <tr>
                       <td>
                         <span class="custom-checkbox">
                           <input type="checkbox" id="checkbox2" name="options[]" value="1">
@@ -736,43 +731,44 @@
 			<i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                       </td>
                     </tr>-->
-											</tbody>
-										</table>
+								</tbody>
+							</table>
 
-										<div class="clearfix">
-											<div class="hint-text">
-												Total number of entries <b>${empCount}</b><br> Showing
-												page <b>${pageNo}</b> of <b>${pageCount eq 0 ? 1 : pageCount}</b>
+							<div class="clearfix">
+								<div class="hint-text">
+									Total number of entries <b>${empCount}</b><br> Showing
+									page <b>${pageNo}</b> of <b>${pageCount eq 0 ? 1 : pageCount}</b>
 
-											</div>
-											<ul class="pagination">
-
-												<c:if test="${ pageNo > 1}">
-													<li class="page-item"><a href="?search=${search}&pg=${pageNo-1}"
-															class="page-link">Previous</a>
-													</li>
-												</c:if>
-												<c:if test="${ pageNo < pageCount}">
-													<li class="page-item"><a href="?search=${search}&pg=${pageNo+1}"
-															class="page-link">Next</a>
-													</li>
-												</c:if>
-
-
-											</ul>
-										</div>
-									</div>
 								</div>
-								<!-- Edit Modal HTML -->
-								<div class="modal fade" id="addEmployeeModal" tabindex="-1" role="dialog"
-									aria-labelledby="addEmployeeModalLabel" aria-hidden="true">
-									<div class="modal-dialog" role="document">
-										<div class="modal-content">
+								<ul class="pagination">
 
-											<div class="modal-header">
-												<h5 class="modal-title" id="addEmployeeModalLabel">Add New
-													Employee</h5>
-												<!-- <button type="button" class="close" data-dismiss="modal"
+									<c:if test="${ pageNo > 1}">
+										<li class="page-item"><a
+											href="?search=${search}&pg=${pageNo-1}" class="page-link">Previous</a>
+										</li>
+									</c:if>
+									<c:if test="${ pageNo < pageCount}">
+										<li class="page-item"><a
+											href="?search=${search}&pg=${pageNo+1}" class="page-link">Next</a>
+										</li>
+									</c:if>
+
+
+								</ul>
+							</div>
+						</div>
+					</div>
+					<!-- Edit Modal HTML -->
+					<div class="modal fade" id="addEmployeeModal" tabindex="-1"
+						role="dialog" aria-labelledby="addEmployeeModalLabel"
+						aria-hidden="true">
+						<div class="modal-dialog" role="document">
+							<div class="modal-content">
+
+								<div class="modal-header">
+									<h5 class="modal-title" id="addEmployeeModalLabel">Add New
+										Employee</h5>
+									<!-- <button type="button" class="close" data-dismiss="modal"
 										aria-label="Close">
 										<span aria-hidden="true">&times;</span>
 									</button> -->
@@ -792,7 +788,7 @@
 										</div>
 
 
-										
+
 										<div class="input-container ic2">
 											<label for="email" class="placeholder">Personal Email</label>
 											<div class="cut cut-short"></div>
@@ -806,13 +802,11 @@
 											<div class="wrapper-class">
 												<input id="gender-male" name="gender" class="input required"
 													type="radio" value="male" required /><label
-													for="gender-male">Male</label> 
-													<input id="gender-female"
+													for="gender-male">Male</label> <input id="gender-female"
 													name="gender" class="input" type="radio" value="female"
-													required /><label for="gender-female">Female</label>
-													<input id="gender-other"
-													name="gender" class="input" type="radio" value="other"
-													required /><label for="gender-other">Other</label>
+													required /><label for="gender-female">Female</label> <input
+													id="gender-other" name="gender" class="input" type="radio"
+													value="other" required /><label for="gender-other">Other</label>
 											</div>
 										</div>
 										<div class="input-container ic2">
@@ -867,39 +861,39 @@
 											</select>
 										</div>
 
-													<div class="input-container ic2">
-														<label for="username" class="placeholder">Username</label>
-														<div class="cut"></div>
-														<input id="username" name="username" class="input required"
-															type="text" placeholder=" " required /> <span
-															id="username-error" class="error-text"></span>
-													</div>
-													<div class="input-container ic2">
-														<label for="password" class="placeholder">Password</label>
-														<div class="cut"></div>
-														<input id="password" name="password" class="input required"
-															type="password" placeholder=" "
-															pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+]).{8,}$"
-															oninput="setCustomValidity('')"
-															oninvalid="setCustomValidity('Password must be of 8 characters and contain at least one capital character, one number, and a special character.')"
-															required />
-													</div>
-													<br>
-
-													<div class="modal-footer">
-														<button type="button" class="btn btn-secondary"
-															data-dismiss="modal">Close</button>
-														<button type="submit" class="btn btn-primary">Submit</button>
-													</div>
-												</form>
-											</div>
+										<div class="input-container ic2">
+											<label for="username" class="placeholder">Username</label>
+											<div class="cut"></div>
+											<input id="username" name="username" class="input required"
+												type="text" placeholder=" " required /> <span
+												id="username-error" class="error-text"></span>
 										</div>
-									</div>
+										<div class="input-container ic2">
+											<label for="password" class="placeholder">Password</label>
+											<div class="cut"></div>
+											<input id="password" name="password" class="input required"
+												type="password" placeholder=" "
+												pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+]).{8,}$"
+												oninput="setCustomValidity('')"
+												oninvalid="setCustomValidity('Password must be of 8 characters and contain at least one capital character, one number, and a special character.')"
+												required />
+										</div>
+										<br>
+
+										<div class="modal-footer">
+											<button type="button" class="btn btn-secondary"
+												data-dismiss="modal">Close</button>
+											<button type="submit" class="btn btn-primary">Submit</button>
+										</div>
+									</form>
 								</div>
+							</div>
+						</div>
+					</div>
 
 
 
-								<%-- <!-- Edit Modal HTML -->
+					<%-- <!-- Edit Modal HTML -->
 									<div id="editEmployeeModal" class="modal fade">
 										<div class="modal-dialog">
 											<div class="modal-content">
@@ -938,68 +932,68 @@
 									</div> --%>
 
 
-									<!-- <!-- Delete Modal HTML -->
-									<div id="deleteEmployeeModal" class="modal fade">
-										<div class="modal-dialog">
-											<div class="modal-content">
+					<!-- <!-- Delete Modal HTML -->
+					<div id="deleteEmployeeModal" class="modal fade">
+						<div class="modal-dialog">
+							<div class="modal-content">
 
-												<form:form action="editStatus" method="post" id="status-modal-form"
-													modelAttribute="employee">
+								<form:form action="editStatus" method="post"
+									id="status-modal-form" modelAttribute="employee">
 
-													<div class="modal-header">
-														<h4 class="modal-title">Edit Status</h4>
-														<!-- <button type="button" class="close" data-dismiss="modal"
+									<div class="modal-header">
+										<h4 class="modal-title">Edit Status</h4>
+										<!-- <button type="button" class="close" data-dismiss="modal"
 											aria-hidden="true">&times;</button> -->
-													</div>
-													<div class="modal-body">
+									</div>
+									<div class="modal-body">
 
-														<!-- <p>Edit status for this employee?</p> -->
+										<!-- <p>Edit status for this employee?</p> -->
 
-														<p>
-															Edit status of <span id="empstatusname"></span> ?
-														</p>
+										<p>
+											Edit status of <span id="empstatusname"></span> ?
+										</p>
 
 
-													</div>
-													<input type="hidden" name="empId" id="empIdStatus" />
-													<div class="modal-footer">
+									</div>
+									<input type="hidden" name="empId" id="empIdStatus" />
+									<div class="modal-footer">
 
-														<!-- <input type="submit" class="btn btn-danger" value="Inactive">
+										<!-- <input type="submit" class="btn btn-danger" value="Inactive">
 										<input type="submit" class="btn btn-primary" value="Active">
  -->
-														<!-- <input type="submit" class="btn btn-primary" value="Active" id = "activate"> 
+										<!-- <input type="submit" class="btn btn-primary" value="Active" id = "activate"> 
 										<input type="submit" class="btn btn-danger" value="Inactive" id = "deactivate"> -->
-														<button type="button" class="btn btn-secondary"
-															data-dismiss="modal">Close</button>
-														<input type="submit" id="changestatusbtn" />
+										<button type="button" class="btn btn-secondary"
+											data-dismiss="modal">Close</button>
+										<input type="submit" id="changestatusbtn" />
 
 
-													</div>
-												</form:form>
-											</div>
-										</div>
 									</div>
+								</form:form>
 							</div>
+						</div>
+					</div>
+				</div>
 
 
 
 				<!---footer---->
 
 
-						</div>
+			</div>
 
-						<footer class="footer">
-							<div class="container-fluid">
-								<div class="footer-in">
-									<p class="mb-0">NRI FinTech - All Rights Reserved.</p>
-								</div>
-							</div>
-						</footer>
+			<footer class="footer">
+				<div class="container-fluid">
+					<div class="footer-in">
+						<p class="mb-0">NRI FinTech - All Rights Reserved.</p>
 					</div>
-					</div>
+				</div>
+			</footer>
+		</div>
+	</div>
 
 
-					<!----------html code complete----------->
+	<!----------html code complete----------->
 
 
 
@@ -1008,18 +1002,23 @@
 
 
 
-					<!-- Optional JavaScript -->
-					<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	<!-- Optional JavaScript -->
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
 
-				</body>
-				<script src="../resources/lib/jquery/jquery-3.3.1.min.js" type="text/javascript" />
-				<script src="../resources/lib/jquery/jquery-3.3.1.slim.min.js" type="text/javascript" />
-				<script src="../resources/custom/js/admin-dashboard/navtoggle.js" type="text/javascript" />
-				<script src="../resources/lib/popper/popper.min.js" type="text/javascript" />
-				<script src="../resources/lib/bootstrap/js/bootstrap.bundle.min.js" type="text/javascript" />
+</body>
+<script src="../resources/lib/jquery/jquery-3.3.1.min.js"
+	type="text/javascript" />
+<script src="../resources/lib/jquery/jquery-3.3.1.slim.min.js"
+	type="text/javascript" />
+<script src="../resources/custom/js/admin-dashboard/navtoggle.js"
+	type="text/javascript" />
+<script src="../resources/lib/popper/popper.min.js"
+	type="text/javascript" />
+<script src="../resources/lib/bootstrap/js/bootstrap.bundle.min.js"
+	type="text/javascript" />
 
 
-				<script type="text/javascript">
+<script type="text/javascript">
 
 					$(document).ready(function () {
 						$(".xp-menubar").on('click', function () {
@@ -1035,4 +1034,4 @@
 
 				</script>
 
-				</html>
+</html>
