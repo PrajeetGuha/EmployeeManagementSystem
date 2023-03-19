@@ -295,12 +295,47 @@ document.addEventListener('DOMContentLoaded', function() {
     renderSelectedEmployees();
   });
 </script>
+<script>
+					document.addEventListener('DOMContentLoaded', function () {
+						var departmentNameInput = document.getElementById('projName');
+						var listdept = [
+							<c:forEach var="department" items="${listprojects}">
+								"${department.projectName}",
+							</c:forEach> // assuming "listdepartments" is a model attribute
+						];
+
+						var defaultValue = departmentNameInput.value;
+
+						// add an "oninput" event listener to clear custom validity message
+						departmentNameInput.addEventListener('input', function () {
+							this.setCustomValidity('');
+						});
+
+						document.querySelector('form#editProj').addEventListener('submit', function (e) {
+							// check if department name already exists
+							if (departmentNameInput.value == defaultValue) {
+								departmentNameInput.setCustomValidity('');
+							}
+							else if (departmentNameInput.value == "") {
+								departmentNameInput.setCustomValidity('Project name cannot be empty.');
+								e.preventDefault(); // prevent form submission
+							}
+							else if (listdept.includes(departmentNameInput.value)) {
+								departmentNameInput.setCustomValidity('Project already exists. Please choose a different name.');
+								e.preventDefault(); // prevent form submission
+							}
+						});
+					});
+
+
+				</script>
+
 <style>
 .dropdown-container {
 	position: relative;
 }
 
-.dropdown-menu {
+.dropdown-menu2 {
 	position: absolute;
 	top: 100%;
 	left: 0;
@@ -316,12 +351,12 @@ document.addEventListener('DOMContentLoaded', function() {
 	display: block;
 }
 
-.dropdown-menu li {
+.dropdown-menu2 li {
 	padding: 5px;
 	cursor: pointer;
 }
 
-.dropdown-menu li:hover {
+.dropdown-menu2 li:hover {
 	background-color: #f2f2f2;
 }
 </style>
@@ -693,7 +728,8 @@ document.addEventListener('DOMContentLoaded', function() {
 																		Project Name</label>
 																	<div class="cut"></div>
 																	<input id="projName" name="projName"
-																		class="input required" type="text" placeholder=" "
+																		class="input required" type="text" placeholder=" " placeholder="${project.projectName }"
+																		value=${project.projectName }
 																		required />
 																</div>
 																<div class="input-container ic2">
@@ -735,7 +771,7 @@ document.addEventListener('DOMContentLoaded', function() {
 																	<input type="text" id="empList" class="input"
 																		placeholder="Type team name or ID">
 																	<div class="dropdown-container">
-																		<ul id="suggestions" class="dropdown-menu"></ul>
+																		<ul id="suggestions" class="dropdown-menu2"></ul>
 																	</div>
 																	<div id="selectedEmployees"
 																		class="selected-employees-container"></div>
@@ -744,14 +780,23 @@ document.addEventListener('DOMContentLoaded', function() {
 																	<label for="empindept" class="placeholder">Teams
 																		in Project</label>
 																	<div class="cut"></div>
-																	<ul class="list-group" id="emplist">
+																	<!-- Add a button to toggle the dropdown -->
+																	<button class="btn btn-secondary dropdown-toggle"
+																		type="button" id="dropdownMenuButton"
+																		data-toggle="dropdown" aria-haspopup="true"
+																		aria-expanded="false">Team List</button>
+
+																	<!-- Add the dropdown list -->
+																	<ul class="dropdown-menu"
+																		aria-labelledby="dropdownMenuButton">
 																		<c:choose>
 																			<c:when test="${empty project.teams}">
-																				<li class="list-group-item">No Teams listed</li>
+																				<li class="dropdown-item disabled">No Teams
+																					listed</li>
 																			</c:when>
 																			<c:otherwise>
 																				<c:forEach items="${project.teams}" var="emp">
-																					<li class="list-group-item">(${emp.teamId})
+																					<li class="dropdown-item disabled">(${emp.teamId})
 																						${emp.teamName}</li>
 																				</c:forEach>
 																			</c:otherwise>

@@ -219,7 +219,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	position: relative;
 }
 
-.dropdown-menu {
+.dropdown-menu2 {
 	position: absolute;
 	top: 100%;
 	left: 0;
@@ -235,12 +235,12 @@ document.addEventListener('DOMContentLoaded', function() {
 	display: block;
 }
 
-.dropdown-menu li {
+.dropdown-menu2 li {
 	padding: 5px;
 	cursor: pointer;
 }
 
-.dropdown-menu li:hover {
+.dropdown-menu2 li:hover {
 	background-color: #f2f2f2;
 }
 </style>
@@ -624,7 +624,7 @@ document.addEventListener('DOMContentLoaded', function() {
 																	<input type="text" id="empList" class="input"
 																		placeholder="Type employee name or ID">
 																	<div class="dropdown-container">
-																		<ul id="suggestions" class="dropdown-menu"></ul>
+																		<ul id="suggestions" class="dropdown-menu2"></ul>
 																	</div>
 																	<div id="selectedEmployees"
 																		class="selected-employees-container"></div>
@@ -633,14 +633,23 @@ document.addEventListener('DOMContentLoaded', function() {
 																	<label for="empindept" class="placeholder">Employees
 																		in Team</label>
 																	<div class="cut"></div>
-																	<ul class="list-group" id="emplist">
+																	<!-- Add a button to toggle the dropdown -->
+																	<button class="btn btn-secondary dropdown-toggle"
+																		type="button" id="dropdownMenuButton"
+																		data-toggle="dropdown" aria-haspopup="true"
+																		aria-expanded="false">Employee List</button>
+
+																	<!-- Add the dropdown list -->
+																	<ul class="dropdown-menu"
+																		aria-labelledby="dropdownMenuButton">
 																		<c:choose>
 																			<c:when test="${empty team.employees}">
-																				<li class="list-group-item">No Employees listed</li>
+																				<li class="dropdown-item disabled">No Employees
+																					listed</li>
 																			</c:when>
 																			<c:otherwise>
 																				<c:forEach items="${team.employees}" var="emp">
-																					<li class="list-group-item">(${emp.empId})
+																					<li class="dropdown-item disabled">(${emp.empId})
 																						${emp.empName}</li>
 																				</c:forEach>
 																			</c:otherwise>
