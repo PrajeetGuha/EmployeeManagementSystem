@@ -15,8 +15,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 @Entity
 @Table
 public class Team {
@@ -33,17 +31,16 @@ public class Team {
     private Employee tm;
 
     @ManyToMany
-    @JsonIgnoreProperties("teams")
     @JoinTable(
         name = "team_project",
         joinColumns = @JoinColumn(name = "team_id"),
         inverseJoinColumns = @JoinColumn(name = "proj_id"))
     private Set<Project> projects;
 
-    @OneToMany
+    @OneToMany(mappedBy = "team")
     private List<Employee> employees;
-
-    public Team(){
+    
+    public Team() {
     	
     }
 
@@ -94,7 +91,7 @@ public class Team {
     public void setEmployees(List<Employee> employees) {
         this.employees = employees;
     }
-    
+
     
 
     

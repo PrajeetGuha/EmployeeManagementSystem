@@ -219,7 +219,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	position: relative;
 }
 
-.dropdown-menu {
+.dropdown-menu2 {
 	position: absolute;
 	top: 100%;
 	left: 0;
@@ -235,12 +235,12 @@ document.addEventListener('DOMContentLoaded', function() {
 	display: block;
 }
 
-.dropdown-menu li {
+.dropdown-menu2 li {
 	padding: 5px;
 	cursor: pointer;
 }
 
-.dropdown-menu li:hover {
+.dropdown-menu2 li:hover {
 	background-color: #f2f2f2;
 }
 </style>
@@ -573,12 +573,19 @@ document.addEventListener('DOMContentLoaded', function() {
 												<td><c:out
 														value="${fn:toUpperCase(fn:substring(team.teamName, 0, 1))}${fn:toLowerCase(fn:substring(team.teamName, 1,fn:length(team.teamName)))}" /></td>
 												<td><c:out value="${team.tm.empName}" /></td>
+<<<<<<< HEAD
 												<td><a href="#editTeamModal${team.teamId }"
 													class="edit" data-toggle="modal"> <i
 														class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
 													<a href="#generateTeamReportModal" class="report"
+=======
+												<td><a href="#editTeamModal${team.teamId }" class="edit"
 													data-toggle="modal"> <i class="material-icons"
-														data-toggle="tooltip" title="Report">summarize</i></a></td>
+														data-toggle="tooltip" title="Edit">&#xE254;</i></a> <!-- <a
+													href="#generateTeamReportModal" class="report"
+>>>>>>> c77cb3992f80894ef7d13b2f03b48a6f8c0da6dc
+													data-toggle="modal"> <i class="material-icons"
+														data-toggle="tooltip" title="Report">summarize</i></a> --></td>
 											</tr>
 
 											<!-- Edit Modal HTML -->
@@ -626,29 +633,38 @@ document.addEventListener('DOMContentLoaded', function() {
 																	<input type="text" id="empList" class="input"
 																		placeholder="Type employee name or ID">
 																	<div class="dropdown-container">
-																		<ul id="suggestions" class="dropdown-menu"></ul>
+																		<ul id="suggestions" class="dropdown-menu2"></ul>
 																	</div>
 																	<div id="selectedEmployees"
 																		class="selected-employees-container"></div>
 																</div>
-																<%-- <div class="input-container ic2">
+																<div class="input-container ic2">
 																	<label for="empindept" class="placeholder">Employees
 																		in Team</label>
 																	<div class="cut"></div>
-																	<ul class="list-group" id="emplist">
+																	<!-- Add a button to toggle the dropdown -->
+																	<button class="btn btn-secondary dropdown-toggle"
+																		type="button" id="dropdownMenuButton"
+																		data-toggle="dropdown" aria-haspopup="true"
+																		aria-expanded="false">Employee List</button>
+
+																	<!-- Add the dropdown list -->
+																	<ul class="dropdown-menu"
+																		aria-labelledby="dropdownMenuButton">
 																		<c:choose>
 																			<c:when test="${empty team.employees}">
-																				<li class="list-group-item">No Employees listed</li>
+																				<li class="dropdown-item disabled">No Employees
+																					listed</li>
 																			</c:when>
 																			<c:otherwise>
 																				<c:forEach items="${team.employees}" var="emp">
-																					<li class="list-group-item">(${emp.empId})
+																					<li class="dropdown-item disabled">(${emp.empId})
 																						${emp.empName}</li>
 																				</c:forEach>
 																			</c:otherwise>
 																		</c:choose>
 																	</ul>
-																</div> --%>
+																</div>
 																<br>
 																<div class="cut"></div>
 																<div class="modal-footer">

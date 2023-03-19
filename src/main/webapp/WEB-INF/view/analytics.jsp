@@ -11,7 +11,7 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
-<title>ANALYTICS</title>
+<title>ADMIN DASHBOARD</title>
 <link rel="stylesheet"
 	href="../resources/lib/bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet"

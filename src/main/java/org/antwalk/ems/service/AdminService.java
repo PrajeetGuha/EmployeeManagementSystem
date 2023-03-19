@@ -228,6 +228,11 @@ public class AdminService {
         Pageable pageable = PageRequest.of(pageNo-1, PAGE_SIZE, Sort.by("teamId"));
         return teamRepository.findAll(pageable).getContent();
     }
+    
+    public List<Team> getAllTeamsdetails() {
+        
+        return teamRepository.findAll();
+    }
 
     public Long countAllTeams() {
         return teamRepository.count();

@@ -159,6 +159,208 @@ document.addEventListener('DOMContentLoaded', function() {
 
 </script>
 
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    // Get employee names and ids from model attribute using JSTL
+    var employees = [
+      <c:forEach var="employee" items="${listteamsdetails}">
+        
+      	{
+          id: "${employee.teamId}",
+          name: "${employee.teamName}"
+        },
+       
+      </c:forEach>
+    ];
+
+ 
+    
+    // Create a list to store selected employee names
+    var selectedEmployees = [];
+
+    // Get references to DOM elements
+    var empList = document.getElementById("empList");
+    var suggestionList = document.getElementById("suggestions");
+
+    
+    
+    // Function to render the list of selected employees
+    function renderSelectedEmployees() {
+  var names = selectedEmployees.map(function(employee) {
+    return employee.name;
+  });
+  empList.value = names.join(", ");
+}
+
+
+
+
+    // Function to filter employee names based on input text
+    function filterEmployees(text) {
+      return employees.filter(function(employee) {
+        // Exclude names that are already in the list of selected employees
+        if (selectedEmployees.some(function(selectedEmployee) {
+          return selectedEmployee.name.toLowerCase() === employee.name.toLowerCase();
+        })) {
+          return false;
+        }
+        
+        return employee.name.toLowerCase().includes(text.toLowerCase());
+      });
+    }
+
+    // Function to handle input events on empList
+    function handleInput() {
+      var text = empList.value.trim();
+      suggestionList.innerHTML = "";
+
+      if (text) {
+        // Split the input by commas
+        var names = text.split(",");
+        for (var i = 0; i < names.length; i++) {
+          var name = names[i].trim();
+          if (name) {
+            // Filter employee names based on input text
+            var filteredEmployees = filterEmployees(name);
+
+            // Create a new suggestion element for each filtered employee
+            filteredEmployees.forEach(function(employee) {
+              var suggestionElement = document.createElement("li");
+              suggestionElement.innerText = employee.name;
+              suggestionElement.setAttribute("data-employee-id", employee.id);
+
+              suggestionElement.addEventListener("click", function() {
+                // Add selected employee to list
+                var employeeId = this.getAttribute("data-employee-id");
+                selectedEmployees.push({
+                  id: employeeId,
+                  name: employee.name
+                });
+
+                
+                
+                renderSelectedEmployees();
+                suggestionList.innerHTML = "";
+              });
+
+              suggestionList.appendChild(suggestionElement);
+            });
+          }
+        }
+      }
+    }
+    
+ // Function to handle keydown events on empList
+    function handleKeydown(event) {
+  if (event.key === "Backspace") {
+    if (empList.selectionStart === empList.selectionEnd && empList.selectionStart === 0 && selectedEmployees.length > 0) {
+      // Remove last name from selected employees list
+      selectedEmployees.pop();
+      renderSelectedEmployees();
+      
+    } else if (empList.value.length < prevLength) {
+      // Remove last name from selected employees list
+      selectedEmployees.pop();
+      renderSelectedEmployees();
+    }
+  }
+
+  prevLength = empList.value.length;
+
+  console.log(selectedEmployees);
+  console.log(empList.value);
+}
+
+
+
+    // Add keydown event listener to empList
+    empList.addEventListener("keydown", handleKeydown);
+
+    // Add input event listener to empList
+    empList.addEventListener("input", handleInput);
+
+    // Add keydown event listener to empList to handle keyboard shortcuts
+    empList.addEventListener("keydown", function(event) {
+      if (event.key === "Escape") {
+        suggestionList.innerHTML = "";
+      } else if (event.key === "Enter") {
+        var firstSuggestion = suggestionList.querySelector("li");
+        if (firstSuggestion) {
+          firstSuggestion.click();
+        }
+      }
+    });
+
+    // Render the list of selected employees
+    renderSelectedEmployees();
+  });
+</script>
+<script>
+					document.addEventListener('DOMContentLoaded', function () {
+						var departmentNameInput = document.getElementById('projName');
+						var listdept = [
+							<c:forEach var="department" items="${listprojects}">
+								"${department.projectName}",
+							</c:forEach> // assuming "listdepartments" is a model attribute
+						];
+
+						var defaultValue = departmentNameInput.value;
+
+						// add an "oninput" event listener to clear custom validity message
+						departmentNameInput.addEventListener('input', function () {
+							this.setCustomValidity('');
+						});
+
+						document.querySelector('form#editProj').addEventListener('submit', function (e) {
+							// check if department name already exists
+							if (departmentNameInput.value == defaultValue) {
+								departmentNameInput.setCustomValidity('');
+							}
+							else if (departmentNameInput.value == "") {
+								departmentNameInput.setCustomValidity('Project name cannot be empty.');
+								e.preventDefault(); // prevent form submission
+							}
+							else if (listdept.includes(departmentNameInput.value)) {
+								departmentNameInput.setCustomValidity('Project already exists. Please choose a different name.');
+								e.preventDefault(); // prevent form submission
+							}
+						});
+					});
+
+
+				</script>
+
+<style>
+.dropdown-container {
+	position: relative;
+}
+
+.dropdown-menu2 {
+	position: absolute;
+	top: 100%;
+	left: 0;
+	z-index: 1;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	background-color: #fff;
+	border: 1px solid #ccc;
+	border-top: none;
+	overflow-y: scroll;
+	max-height: 150px;
+	display: block;
+}
+
+.dropdown-menu2 li {
+	padding: 5px;
+	cursor: pointer;
+}
+
+.dropdown-menu2 li:hover {
+	background-color: #f2f2f2;
+}
+</style>
+
 </head>
 
 <body>
@@ -502,9 +704,9 @@ document.addEventListener('DOMContentLoaded', function() {
 												<td><a href="#editProjectModal${project.projId }"
 													class="edit" data-toggle="modal"> <i
 														class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-													<a href="#generateProjectReportModal" class="report"
+													<!-- <a href="#generateProjectReportModal" class="report"
 													data-toggle="modal"> <i class="material-icons"
-														data-toggle="tooltip" title="Report">summarize</i></a></td>
+														data-toggle="tooltip" title="Report">summarize</i></a> --></td>
 											</tr>
 
 											<!-- Edit Modal HTML -->
@@ -526,7 +728,8 @@ document.addEventListener('DOMContentLoaded', function() {
 																		Project Name</label>
 																	<div class="cut"></div>
 																	<input id="projName" name="projName"
-																		class="input required" type="text" placeholder=" "
+																		class="input required" type="text" placeholder=" " placeholder="${project.projectName }"
+																		value=${project.projectName }
 																		required />
 																</div>
 																<div class="input-container ic2">
@@ -561,6 +764,46 @@ document.addEventListener('DOMContentLoaded', function() {
 																		class="input required" type="date" placeholder=" "
 																		required />
 																</div>
+																<div class="input-container ic2">
+																	<label for="employeelist" class="placeholder">Add
+																		Teams</label>
+																	<div class="cut cut-short"></div>
+																	<input type="text" id="empList" class="input"
+																		placeholder="Type team name or ID">
+																	<div class="dropdown-container">
+																		<ul id="suggestions" class="dropdown-menu2"></ul>
+																	</div>
+																	<div id="selectedEmployees"
+																		class="selected-employees-container"></div>
+																</div>
+																<div class="input-container ic2">
+																	<label for="empindept" class="placeholder">Teams
+																		in Project</label>
+																	<div class="cut"></div>
+																	<!-- Add a button to toggle the dropdown -->
+																	<button class="btn btn-secondary dropdown-toggle"
+																		type="button" id="dropdownMenuButton"
+																		data-toggle="dropdown" aria-haspopup="true"
+																		aria-expanded="false">Team List</button>
+
+																	<!-- Add the dropdown list -->
+																	<ul class="dropdown-menu"
+																		aria-labelledby="dropdownMenuButton">
+																		<c:choose>
+																			<c:when test="${empty project.teams}">
+																				<li class="dropdown-item disabled">No Teams
+																					listed</li>
+																			</c:when>
+																			<c:otherwise>
+																				<c:forEach items="${project.teams}" var="emp">
+																					<li class="dropdown-item disabled">(${emp.teamId})
+																						${emp.teamName}</li>
+																				</c:forEach>
+																			</c:otherwise>
+																		</c:choose>
+																	</ul>
+																</div>
+																<br>
 																<br>
 																<div class="modal-footer">
 																	<button type="button" class="btn btn-secondary"
