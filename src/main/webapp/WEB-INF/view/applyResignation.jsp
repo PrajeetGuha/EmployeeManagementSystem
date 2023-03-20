@@ -320,7 +320,7 @@
                                 <div class="modal-content">
 
                                     <div class="modal-header">
-                                        <h4 class="modal-title">Apply Leave</h4>
+                                        <h4 class="modal-title">Apply Resignation</h4>
                                     </div>
                                     <form action="applyResignation" method="post" modelAttribute="resignform">
                                         <div class="modal-body">
