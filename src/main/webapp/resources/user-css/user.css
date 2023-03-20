@@ -2,7 +2,9 @@
 body {
     font-family: "Lato", sans-serif;
 }
-
+.card{
+    background-color: #7ee0d3;
+}
 .sidenavbaricon{
     background-color: #7ee0d3;
 }

@@ -1,212 +1,524 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html>
-<html>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+		<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+			<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+				<!DOCTYPE html>
+				<html>
 
-<head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- Bootstrap CSS -->
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
-	crossorigin="anonymous">
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+				<head>
+					<meta charset="utf-8">
+					<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+					<meta name="viewport"
+						content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+					<title>EMPLOYEE DASHBOARD</title>
+					<link rel="stylesheet" href="../resources/lib/bootstrap/css/bootstrap.min.css">
+					<link rel="stylesheet" href="../resources/custom/css/admin-dashboard/custom.css">
+					<link rel="preconnect" href="https://fonts.googleapis.com">
+					<link rel="preconnect" href="https://fonts.gstatic.com">
+					<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap"
+						rel="stylesheet">
+					<link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
 
-<link rel="stylesheet" href="/resources/user-css/user.css">
-<title>Qualification details</title>
-</head>
+					<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+					<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
+					<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
 
-<body>
-	<%@ include file="/resources/defaultHtml/dashboardHeader.jsp"%>
+					<c:set var="pageNo" value="${pageNo}" />
+					<c:set var="pageCount" value="${pageCount}" />
+					<script>
+						$(document)
+							.ready(
+								function () {
+									// Loop through each cell in the highlight-column class
+									$('.highlight-column')
+										.each(
+											function () {
+												var status = $(this).text(); // Get the cell's text value
 
-	<!-- Option 1: Bootstrap Bundle with Popper -->
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-		crossorigin="anonymous"></script>
-	<script src="/resources/javascript/user.js"></script>
-
-
-	<script>
-		function removeTableRow(button) {
-			var th = button.parentNode;
-			var th1 = th.parentNode;
-			var tableCount = th1.parentNode.parentNode.rows.length;
-
-			if (tableCount > 2) {
-				th1.remove();
-
-			} else {
-				alert("Ooop!! you cannot have no Qualification details.")
-			}
-		}
-		function addQualificationTableElement() {
-			// Create a new element
-			var tableOfQualificationDetails = document
-					.getElementById("tableOfQualificationDetails");
-			var rowOfQualificationDetails = document
-					.getElementById("RowOfQualificationDetails");
-			var noOfRow = tableOfQualificationDetails.rows.length;
-
-			// Clone the last row and update its data
-
-			var newRow = rowOfQualificationDetails.cloneNode(true);// Insert the new row into the table
-			tableOfQualificationDetails.appendChild(newRow);
-
-		}
-	</script>
-	
-
-	<nav class="navbar navbar-light ">
-		<div class="container-fluid">
-			<!-- <a class="navbar-brand" href="#">Offcanvas dark navbar</a>
-             -->
-			<h1></h1>
-			<button class="navbar-toggler" type="button"
-				data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar"
-				aria-controls="offcanvasDarkNavbar">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<div class="offcanvas offcanvas-end dark" tabindex="-1"
-				id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
-				<div class="offcanvas-header">
-					<h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Dark
-						offcanvas</h5>
-					<button type="button" class="btn-close btn-close-dark"
-						data-bs-dismiss="offcanvas" aria-label="Close"></button>
-				</div>
-				<div class="offcanvas-body">
-					<ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-						<li class="nav-item"><a href="<%=request.getContextPath()%>profile">My Profile</a></li>
-						<br>
-						<li class="nav-item"><a href="<%=request.getContextPath()%>personal">Personal details</a></li>
-						<br>
-						<li class="nav-item"><a href="<%=request.getContextPath()%>family">My Family</a></li>
-						<br>
-						<li class="nav-item"><a href="<%=request.getContextPath()%>qualification">Qualification</a></li>
-						<br>
-						<li class="nav-item"><a href="<%=request.getContextPath()%>professional">Professional Details</a></li>
-					</ul>
-				</div>
-			</div>
-		</div>
-	</nav>
+												// Set a different background color based on the status value
+												if (status === 'active') {
 
 
-	<div class="container-fluid ">
+													$(this).css('color', 'limegreen');
 
-		<div class="row align-items-start">
-			<div class="col-1 "></div>
+												} else if (status === 'inactive') {
 
 
-			<div class="col-12">
-				<div class="container-fluid">
-					<div class="row">
-						<div class="col">
-							<form id="qualificationForm">
+													$(this).css('color', 'red');
+												}
+											});
+								});
+					</script>
+					<script>
+function updateMin() {
+  var startDate = document.getElementById("start_date").value;
+  document.getElementById("end_date").setAttribute("min", startDate);
+}
+</script>
+
+				</head>
+
+				<c:set var="pageNo" value="${pageNo}" />
+				<c:set var="pageCount" value="${pageCount}" />
+				</head>
+
+
+				<body>
+					<!-- <div>${result.getBody().getStatus()}</div> -->
+
+					<div class="wrapper">
+						<div class="body-overlay" />
+						<nav id="sidebar">
+							<div class="sidebar-header">
+								<h3>
+									<img src="../resources/assets/logo.png" class="img-fluid" /><span>NRI
+										Fintech</span>
+								</h3>
+							</div>
+							<ul class="list-unstyled components">
+								<li><a href="dashboard" class="dashboard"><i class="material-icons">dashboard</i>
+										<span>Dashboard</span></a></li>
+								<li><a href="leaveApplication?pg=1" data-toggle="collapse"
+										aria-expanded="false"> <i class="material-icons">playlist_add_check</i>Apply
+										Leave
+
+									</a></li>
 
 
 
-								<div class="main-content">
-									<div class="row">
+								<li><a href="resign" > <i
+											class="material-icons">directions_walk</i>Apply
+										Resignation
 
-										<div class="col-mb-12">
-											<div class="table-wrapper">
-												<div class="table-title">
-													<div class="row">
-														<div
-															class="col-sm-6 p-0 d-flex justify-content-lg-start justify-content-center">
-															<h2 class="ml-lg-2">Qualification Details</h2>
-														</div>
-														<div
-															class="col-sm-6 p-0 d-flex justify-content-lg-end justify-content-center">
 
-															<button type="button" class="btn btn-success"
-																onClick="addQualificationTableElement()">
-																<i class="fa fa-plus-circle" aria-hidden="true"></i>Add
-															Qualification
-															</button>
-														</div>
-													</div>
+
+									</a></li>
+
+                
+									<li ><a href="employeepersonaldetails" >
+										<i class="material-icons">contact_mail</i>Personal Details
+
+								<li><a href="professionaldetails">
+									<i class="material-icons">work</i> 
+										<span>Professional Details</span></a></li>
+
+								<li class="active"><a href="qualificationdetails">
+										<!-- <i class='fas fa-user-alt-slash' >Resignation</i> -->
+										<i class="material-icons">school</i> 
+										<span>Qualification Details</span></a></li>
+								<li><a href="familyDetails"><i class="material-icons">group</i>
+										<span>Family Details</span></a></li>
+
+
+
+
+							</ul>
+
+
+						</nav>
+
+
+
+
+
+
+						<!-- <div id="applyresignation" class="modal fade">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<form action="deptAlloc" method="post">
+										<div class="modal-header">
+											<h4 class="modal-title">APPLY RESIGNATION</h4>
+											
+										</div>
+										<div class="modal-body">
+											<div class="form-group">
+												<label> REASON FOR RESIGNATION</label> <textarea class="form-control" name="reason" required></textarea>
+											</div>
+										<br><br>
+										<div>
+											<div class
+											<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+											<input type="submit" class="btn btn-success" value="Apply"></div>
+										
+										</div>
+									</form>
+								</div>
+							</div>
+						</div> -->
+
+
+
+
+
+
+
+						<!--------page-content---------------->
+
+						<div id="content">
+
+							<!--top--navbar----design--------->
+							<div class="top-navbar">
+								<div class="xp-topbar">
+
+									<!-- Start XP Row -->
+									<div class="row justify-content-end">
+										<!-- Start XP Col -->
+										<!-- <div
+    class="col-2 col-md-1 col-lg-1 order-2 order-md-1 align-self-center">
+    <div class="xp-menubar">
+      <span class="material-icons text-white">signal_cellular_alt
+      </span>
+    </div>
+  </div> -->
+										<!-- End XP Col -->
+
+										<!-- Start XP Col -->
+
+
+
+										<!-- End XP Col -->
+
+										<!-- Start XP Col -->
+										<div class="col-md-3 col-lg-2 order-1 order-md-3 ">
+											<div class="xp-profilebar text-right" align="right">
+												<nav class="navbar p-0">
+													<ul class="nav navbar-nav flex-row ml-auto">
+														<li class="align-right">
+															<a href="../logout" class="nav-link"><span
+																	class="material-icons">logout</span>
+																Logout
+															</a>
+														</li>
+
+													</ul>
+
+
+												</nav>
+
+											</div>
+										</div>
+										<!-- End XP Col -->
+
+									</div>
+									<!-- End XP Row -->
+
+								</div>
+								<div class="xp-breadcrumbbar text-center">
+									<h4 class="page-title">Qualification Details</h4>
+									<!--  <ol class="breadcrumb">
+						<li class="breadcrumb-item"><a href="#">Booster</a></li>
+						<li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+					</ol>-->
+								</div>
+
+							</div>
+
+
+								<br>
+
+							<!--------main-content------------->
+
+
+							<div class="row">
+								<div class="col-1"></div>
+								<div class="col-10">
+									<div class="table-wrapper">
+										<div class="table-title">
+											<div class="row">
+												<div
+													class="col-sm-6 p-0 d-flex justify-content-lg-start justify-content-center">
+													<h2 class="ml-lg-2">Manage Qualification</h2>
 												</div>
-												<table class="table table-striped table-hover">
-													<thead>
+												<div
+													class="col-sm-6 p-0 d-flex justify-content-lg-end justify-content-center">
+													<a href="#addQualificationModal" class="btn btn-success"
+														data-toggle="modal">
+														<i class="material-icons">&#xE147;</i>
+														<span>Add Qualification Details</span></a>
+
+												</div>
+
+											</div>
+										</div>
+										<table class="table table-striped table-hover">
+											<thead>
+												<tr>
+													<th>Qualification Name</th>
+													<th>Start Date</th>
+													<th>End Date</th>
+													<th>Percentage Scored</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+
+													<c:forEach items="${listOfQualification}" var="qualificationInfo">
+												<tr>
+													<td>
+														<c:out value="${qualificationInfo.qual}" />
+													</td>
+													<td>
+														<c:out value="${qualificationInfo.startDate}" />
+													</td>
+													<td>
+														<c:out value="${qualificationInfo.endDate}" />
+													</td>
+													<td>
+														<c:out value="${qualificationInfo.percent}" /> %
+														</td>
+												</tr>
+
+
+
+
+
+
+												</c:forEach>
+
+												</tr>
+											</tbody>
+										</table>
+
+										<!-- <div class="clearfix">
+										<div class="hint-text">
+											Total number of entries <b>${countOfDepartments}</b><br>
+											Showing page <b>${pageNo}</b> of <b>${countPages }</b>
+										</div>
+										<ul class="pagination">
+
+											<c:if test="${ pageNo > 1}">
+												<li class="page-item"><a href="?pg=${pageNo-1}"
+														class="page-link">Previous</a></li>
+											</c:if>
+											<c:if test="${ pageNo < countPages}">
+												<li class="page-item"><a href="?pg=${pageNo+1}"
+														class="page-link">Next</a></li>
+											</c:if>
+
+
+										</ul>
+									</div> -->
+									</div>
+								</div>
+
+								<div class="col-1"></div>
+								<!-- Edit Modal HTML -->
+								<div id="addQualificationModal" class="modal fade">
+									<div class="modal-dialog">
+										<div class="modal-content">
+
+											<div class="modal-header">
+												<h4 class="modal-title">Add Qualification</h4>
+											</div>
+											<form action="addQualification" method="post" modelAttribute="qualification">
+											<div class="modal-body">
+													<div class="form-group">
+														<label>Qualification Name</label><input type="text" class="form-control" name="qual"
+															required>
+													</div>
+													<div class="form-group">
+														<label>Start Date</label> <input type="date" id="start_date" class="form-control" onchange="updateMin()" 
+														name="startDate"
+															required>
+													</div>
+													
+													<div class="form-group">
+														<label>End Date  </label> <input type="date" id="end_date" class="form-control" name="endDate"
+															required>
+															
+													</div>
+													
+													<div class="form-group">
+														<label>Percentage </label> <input type="number" class="form-control" name="percent" min="0" max="100"
+															required>
+													</div>
+													<!-- <div class="input-group ">
+														<input type="date" class="form-control"
+															placeholder="Date of Joining"
+															aria-label="Date of Joining"
+															aria-describedby="basic-addon1" name="leaveAppliedFor"/>
+													</div> -->
+													<!-- <input type="date" name="leaveAppliedFor"/> -->
+											</div>
+											<div class="modal-footer">
+												<input type="button" class="btn btn-danger" data-dismiss="modal"
+													value="Cancel"> <input type="submit" class="btn btn-success"
+													value="Apply">
+											</div>
+											</form>
+
+											<!-- <table>
 														<tr>
-															<th>SAVE</th>
-															<th>DEGREE NAME</th>
-															<th>DOCUMENT PROVE</th>
-															<th>PERCENTAGE</th>
-															<th>DELETE</th>
-														</tr>
-													</thead>
-													<tbody id="tableOfQualificationDetails">
-														<tr id="RowOfQualificationDetails">
-															<td><button type="submit" class="btn btn-primary">SAVE</button></td>
 															<td>
-
-																<div class="input-group ">
-																	<input type="text" class="form-control"
-																		placeholder="Degree Name" aria-label="Degree Name"
-																		aria-describedby="basic-addon1"
-																		pattern="[a-zA-Z]{2,50}" required>
-																</div>
-
-															</td>
-															<td>
-
 																<div class="input-group mb-3">
-																	<input type="file" class="form-control"
-																		id="inputGroupFile02"> <label
-																		class="input-group-text" for="inputGroupFile02"
-																		required>Upload</label>
+																	<div class="input-group-prepend">
+																		<label class="input-group-text"
+																			for="inputGroupSelect01">Leave Type</label>
+																	</div>
+																	<select class="custom-select"
+																		id="inputGroupSelect01" name="leaveType">
+																		<option value="SL">SL </option>
+																		<option value="PL">PL</option>
+																		<option value="CL" selected>CL</option>
+																	</select>
 																</div>
-
-
 															</td>
-
+														</tr>
+														<tr>
+															<td><br></td>
+														</tr>
+														<tr>
 															<td>
+
 
 																<div class="input-group">
-																	<input type="number" class="form-control"
-																		placeholder="Occupation" aria-label="Occupation"
-																		aria-describedby="basic-addon1"
-																		min="0" max="100" required>
+																	<div class="input-group-prepend">
+																		<span class="input-group-text">Reason for
+																			leave</span>
+																	</div>
+																	<textarea class="form-control"
+																		aria-label="With textarea" name="leaveReason"
+																		required></textarea>
 																</div>
-
 															</td>
-															<td><a href="#deleteEmployeeModal" class="delete"
-																data-toggle="modal" onClick="removeTableRow(this)">
-																	<i class="material-icons" data-toggle="tooltip"
-																	title="Delete">&#xE872;</i>
-															</a></td>
 														</tr>
-													</tbody>
-												</table>
-							</form>
+														<tr>
+															<td><br></td>
+														</tr>
+														<tr>
+															<td>
 
+
+																<div class="input-group">
+																	<div class="input-group-prepend">
+																		<span class="input-group-text">Applied
+																			for</span>
+																	</div><input type="date" class="form-control"
+																		aria-label="Small"
+																		aria-describedby="inputGroup-sizing-sm"
+																		name="leaveAppliedFor" required>
+																</div>
+															</td>
+														</tr>
+														<tr>
+															<td><br></td>
+														</tr>
+														<tr>
+															<td>
+
+																<button type="button" class="btn btn-secondary"
+																	data-dismiss="modal">Close</button>
+																<button type="submit"
+																	class="btn btn-primary">Submit</button>
+															</td>
+														</tr> -->
+
+											<!-- <div class="input-container ic2">  
+													<div class="input-group-prepend">
+													<span class="input-group-text" id="basic-addon1">Leave Type</span>
+												  </div>
+													<div class="cut cut-short"></div>
+
+													<c:set var="leaveTypes" value="${['SL', 'PL', 'CL']}" />
+
+													<select class="form-select" aria-label="Default select example"
+														name="leaveType">
+														<c:forEach items="{leaveTypes}" var="value">
+															<option value="${value}"> <b>${fn:toUpperCase(value)}</b>
+															</option>
+
+
+														</c:forEach>
+													</select>
+												</div> -->
+
+											<!-- 													
+													<div class="input-group ">
+														<label for="Leave Reason" class="placeholder">Leave Reason</label>
+														<input type="text" class="form-control"
+															placeholder="Leave Reason"
+															aria-label="Leave Reason"
+															aria-describedby="basic-addon1"
+															pattern="^.{1,255}$"
+															name="leaveReason">
+													</div>
+
+												<br>
+												<div class="input-group ">
+													<label for="departmentName" class="placeholder">
+														Applied For</label>
+													<input type="date" class="form-control"
+														placeholder="Applied For" aria-label="Applied For"
+														aria-describedby="basic-addon1" name="leaveAppliedFor" />
+												</div>
+												<button type="button" class="btn btn-secondary"
+													data-dismiss="modal">Close</button>
+												<button type="submit" class="btn btn-primary">Submit</button> -->
+											<!-- </form>
+												</table> -->
+										</div>
+									</div>
+								</div>
+							</div>
+
+
+
+
+
+
+							<!---footer---->                        <br>
+                        <br>
+
+                        <footer class="footer">
+                            <div class="container-fluid">
+                                <div class="footer-in">
+                                    <p class="mb-0">NRI FinTech - All Rights Reserved.</p>
+                                </div>
+                            </div>
+                        </footer>
 
 
 						</div>
+
+					</div>
 					</div>
 
-				</div>
-			</div>
-		</div>
-	</div>
-	</div>
-	<br>
-	<br>
 
-	<footer class="footer">
-		<div class="container-fluid">
-			<div class="footer-in">
-				<p class="mb-0">NRI FinTech - All Rights Reserved.</p>
-			</div>
-		</div>
-	</footer>
-</body>
+					<!----------html code complete----------->
 
-</html>
 
+
+
+
+					</div>
+
+
+
+					<!-- Optional JavaScript -->
+					<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
+				</body>
+				<script src="../resources/lib/jquery/jquery-3.3.1.min.js" type="text/javascript" />
+				<script src="../resources/lib/jquery/jquery-3.3.1.slim.min.js" type="text/javascript" />
+				<script src="../resources/custom/js/admin-dashboard/navtoggle.js" type="text/javascript" />
+				<script src="../resources/lib/popper/popper.min.js" type="text/javascript" />
+				<script src="../resources/lib/bootstrap/js/bootstrap.bundle.min.js" type="text/javascript" />
+
+
+				<script type="text/javascript">
+
+					$(document).ready(function () {
+						$(".xp-menubar").on('click', function () {
+							$('#sidebar').toggleClass('active');
+							$('#content').toggleClass('active');
+						});
+
+						$(".xp-menubar,.body-overlay").on('click', function () {
+							$('#sidebar,.body-overlay').toggleClass('show-nav');
+						});
+
+					});
+
+				</script>
+
+				</html>

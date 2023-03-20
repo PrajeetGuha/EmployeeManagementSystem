@@ -7,6 +7,7 @@ import javax.transaction.Transactional;
 import org.antwalk.ems.model.Department;
 import org.antwalk.ems.model.Employee;
 import org.antwalk.ems.model.LeaveApplication;
+import org.antwalk.ems.model.QualificationDetails;
 import org.antwalk.ems.view.EmployeeListView;
 import org.antwalk.ems.view.EmployeeSelectionView;
 import org.springframework.data.domain.Page;
@@ -57,5 +58,7 @@ public interface EmployeeRepository extends JpaRepository<Employee,Long> {
 
     @Query("select leaves from Employee e where e.empId = :empId")
     public List<LeaveApplication> getLeavesById(Long empId);
+    
+
 
 }

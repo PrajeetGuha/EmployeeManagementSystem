@@ -29,8 +29,8 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
-	<c:set var="pageNo" value="${pageNo}" />
-							<c:set var="pageCount" value="${countPages}" />
+<c:set var="pageNo" value="${pageNo}" />
+<c:set var="pageCount" value="${countPages}" />
 
 <script>
 
@@ -68,8 +68,8 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
   </script>
-  
-  <script>
+
+<script>
   document.addEventListener("DOMContentLoaded", function() {
     // Get employee names and ids from model attribute using JSTL
     var employees = [
@@ -100,7 +100,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Function to render the list of selected employees
     function renderSelectedEmployees() {
   var names = selectedEmployees.map(function(employee) {
-    return employee.name;
+	  return "("+employee.id+") "+employee.name;
   });
   empList.value = names.join(", ");
 }
@@ -144,7 +144,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Create a new suggestion element for each filtered employee
             filteredEmployees.forEach(function(employee) {
               var suggestionElement = document.createElement("li");
-              suggestionElement.innerText = employee.name;
+              suggestionElement.innerText ="(" +employee.id + ")"+ " " + employee.name;
               suggestionElement.setAttribute("data-employee-id", employee.id);
 
               suggestionElement.addEventListener("click", function() {
@@ -244,7 +244,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	background-color: #f2f2f2;
 }
 </style>
-				
+
 </head>
 
 <body>
@@ -259,27 +259,28 @@ document.addEventListener('DOMContentLoaded', function() {
 				</h3>
 			</div>
 			<ul class="list-unstyled components">
-				<li ><a href="dashboard?search=null&pg=1" class="dashboard"><i
+				<li><a href="dashboard?search=null&pg=1" class="dashboard"><i
 						class="material-icons">dashboard</i> <span>Dashboard</span></a></li>
-				
 
-				<li><a href="projectallocation?pg=1"> <i class="material-icons">laptop</i>Project
+
+				<li><a href="projectallocation?pg=1"> <i
+						class="material-icons">laptop</i>Project
 				</a></li>
-				<li class="active"><a href="teamallocation?pg=1"> <i class="material-icons">groups</i>Team
+				<li class="active"><a href="teamallocation?pg=1"> <i
+						class="material-icons">groups</i>Team
 				</a></li>
 				<li><a href="departmentallocation?pg=1"> <i
 						class="material-icons">work</i>Department
 				</a></li>
-				
-								<li><a href="leaveApproval?pg=1"> <i class="material-icons">playlist_add_check</i>Leave
-										Approval
-									</a></li>
-								<li><a href="resignationApproval?pg=1" > <i
-											class="material-icons">directions_walk</i>Resignation
-										approval
-									</a></li>
-				<li><a href="analytics"  aria-expanded="false">
-						<i class="material-icons">analytics</i>Analytics
+
+				<li><a href="leaveApproval?pg=1"> <i class="material-icons">playlist_add_check</i>Leave
+						Approval
+				</a></li>
+				<li><a href="resignationApproval?pg=1"> <i
+						class="material-icons">directions_walk</i>Resignation approval
+				</a></li>
+				<li><a href="analytics" aria-expanded="false"> <i
+						class="material-icons">analytics</i>Analytics
 				</a></li>
 				<!-- <li><a href="#changePasswordModal" data-toggle="modal"
 					aria-expanded="false"> <i class="material-icons">vpn_key</i>Change Password
@@ -447,8 +448,8 @@ document.addEventListener('DOMContentLoaded', function() {
 						</div>
 
 						<div class="modal-footer">
-							<input type="button" class="btn btn-secondary" data-dismiss="modal"
-								value="Close">
+							<input type="button" class="btn btn-secondary"
+								data-dismiss="modal" value="Close">
 
 						</div>
 					</form>
@@ -502,9 +503,10 @@ document.addEventListener('DOMContentLoaded', function() {
 							<div class="xp-profilebar text-right" align="right">
 								<nav class="navbar p-0">
 									<ul class="nav navbar-nav flex-row ml-auto">
-										<li class="align-right"><a href="../logout" class="nav-link"><span
-												class="material-icons">logout</span> Logout</a></li>
-										
+										<li class="align-right"><a href="../logout"
+											class="nav-link"><span class="material-icons">logout</span>
+												Logout</a></li>
+
 									</ul>
 
 
@@ -545,10 +547,10 @@ document.addEventListener('DOMContentLoaded', function() {
 									</div>
 									<div
 										class="col-sm-6 p-0 d-flex justify-content-lg-end justify-content-center">
-										<a href="#addTeamModal" class="btn btn-success" data-toggle="modal"
-											> <i class="material-icons">&#xE147;</i>
-											<span>Add New Team</span></a>
-										
+										<a href="#addTeamModal" class="btn btn-success"
+											data-toggle="modal"> <i
+											class="material-icons">&#xE147;</i> <span>Add New Team</span></a>
+
 									</div>
 								</div>
 							</div>
@@ -568,8 +570,10 @@ document.addEventListener('DOMContentLoaded', function() {
 										<c:forEach items="${listteams}" var="team">
 											<tr>
 												<td><c:out value="${team.teamId }" /></td>
-												<td><c:out value="${fn:toUpperCase(fn:substring(team.teamName, 0, 1))}${fn:toLowerCase(fn:substring(team.teamName, 1,fn:length(team.teamName)))}" /></td>
+												<td><c:out
+														value="${fn:toUpperCase(fn:substring(team.teamName, 0, 1))}${fn:toLowerCase(fn:substring(team.teamName, 1,fn:length(team.teamName)))}" /></td>
 												<td><c:out value="${team.tm.empName}" /></td>
+
 												<td><a href="#editTeamModal${team.teamId }" class="edit"
 													data-toggle="modal"> <i class="material-icons"
 														data-toggle="tooltip" title="Edit">&#xE254;</i></a> <!-- <a
@@ -577,19 +581,19 @@ document.addEventListener('DOMContentLoaded', function() {
 													data-toggle="modal"> <i class="material-icons"
 														data-toggle="tooltip" title="Report">summarize</i></a> --></td>
 											</tr>
-											
+
 											<!-- Edit Modal HTML -->
-					<div id="editTeamModal${team.teamId }" class="modal fade">
-						<div class="modal-dialog">
-							<div class="modal-content">
-								
-									<div class="modal-header">
-										<h4 class="modal-title">Edit Team</h4>
-										<!-- <button type="button" class="close" data-dismiss="modal"
+											<div id="editTeamModal${team.teamId }" class="modal fade">
+												<div class="modal-dialog">
+													<div class="modal-content">
+
+														<div class="modal-header">
+															<h4 class="modal-title">Edit Team</h4>
+															<!-- <button type="button" class="close" data-dismiss="modal"
 											aria-hidden="true">&times;</button> -->
-									</div>
-									<div class="modal-body">
-										<form id="editTeam" action="editTeam" method="post"
+														</div>
+														<div class="modal-body">
+															<form id="editTeam" action="editTeam?teamId=${team.teamId }&pg=1" method="post"
 																modelAttribute="modifyteam">
 																<input type="hidden" id="deptIdInput" name="deptId" />
 
@@ -597,9 +601,8 @@ document.addEventListener('DOMContentLoaded', function() {
 																	<label for="tName" class="placeholder">Change
 																		Team Name</label>
 																	<div class="cut"></div>
-																	<input id="tName" name="tName"
-																		class="input required" type="text"
-																		placeholder="${team.teamName }"
+																	<input id="tName" name="teamName" class="input required"
+																		type="text" placeholder="${team.teamName }"
 																		value=${team.teamName } />
 
 																</div>
@@ -607,9 +610,9 @@ document.addEventListener('DOMContentLoaded', function() {
 																	<label for="changetm" class="placeholder">Change
 																		Team Manager</label>
 																	<div class="cut cut-short"></div>
-																	<select id="changetm" name="changetm" class="input required"
-																		placeholder=" " >
-																		<option value="null">Unassigned</option>
+																	<select id="changetm" name="tm"
+																		class="input required" placeholder=" ">
+																		<option value="0">Unassigned</option>
 																		<c:forEach items="${allemployeenames}"
 																			var="department">
 																			<option value="${department.empId}">(${department.empId})
@@ -622,7 +625,7 @@ document.addEventListener('DOMContentLoaded', function() {
 																		Employees</label>
 																	<div class="cut cut-short"></div>
 																	<input type="text" id="empList" class="input"
-																		placeholder="Type employee name or ID">
+																		placeholder="Type employee name or ID" name="empList">
 																	<div class="dropdown-container">
 																		<ul id="suggestions" class="dropdown-menu2"></ul>
 																	</div>
@@ -664,36 +667,30 @@ document.addEventListener('DOMContentLoaded', function() {
 																	<button type="submit" class="btn btn-primary">Submit</button>
 																</div>
 															</form>
-							</div>
-						</div>
-					</div>
-											
-											
+														</div>
+													</div>
+												</div>
 										</c:forEach>
-
-									
 								</tbody>
 							</table>
-							
+
 							<div class="clearfix">
 								<div class="hint-text">
 									Total number of entries <b>${countOfteams}</b><br> Showing
 									page <b>${pageNo}</b> of <b>${countPages eq 0 ? 1 : countPages}</b>
 								</div>
 								<ul class="pagination">
-										
-										<c:if test="${ pageNo > 1}" > 
-											<li class="page-item">
-											<a href="?pg=${pageNo-1}" class="page-link">Previous</a> 
-											</li>
-										</c:if>
-										<c:if test="${ pageNo < countPages}"> 
-											<li class="page-item">
-											<a href="?pg=${pageNo+1}" class="page-link">Next</a> 
-											</li>
-										</c:if>
-										
-									
+
+									<c:if test="${ pageNo > 1}">
+										<li class="page-item"><a href="?pg=${pageNo-1}"
+											class="page-link">Previous</a></li>
+									</c:if>
+									<c:if test="${ pageNo < countPages}">
+										<li class="page-item"><a href="?pg=${pageNo+1}"
+											class="page-link">Next</a></li>
+									</c:if>
+
+
 								</ul>
 							</div>
 						</div>
@@ -702,27 +699,25 @@ document.addEventListener('DOMContentLoaded', function() {
 					<div id="addTeamModal" class="modal fade">
 						<div class="modal-dialog">
 							<div class="modal-content">
-								
-									<div class="modal-header">
-										<h4 class="modal-title">Add Team</h4>
-										<!-- <button type="button" class="close" data-dismiss="modal"
+
+								<div class="modal-header">
+									<h4 class="modal-title">Add Team</h4>
+									<!-- <button type="button" class="close" data-dismiss="modal"
 											aria-hidden="true">&times;</button> -->
-									</div>
-									<div class="modal-body">
-										<form action="addteam" method="post" modelAttribute="newteam"
-										>
+								</div>
+								<div class="modal-body">
+									<form action="addteam" method="post" modelAttribute="newteam">
 										<div class="input-container ic1">
-											<label for="teamName" class="placeholder">Team
-												Name</label>
+											<label for="teamName" class="placeholder">Team Name</label>
 											<div class="cut"></div>
-											<input id="teamName" name="teamName"
-												class="input required" type="text" placeholder=" "  required />
+											<input id="teamName" name="teamName" class="input required"
+												type="text" placeholder=" " required />
 										</div>
 										<div class="input-container ic2">
 											<label for="tm" class="placeholder">Team Manager</label>
 											<div class="cut cut-short"></div>
 											<select id="tm" name="tm" class="input required"
-												placeholder=" " >
+												placeholder=" ">
 												<option value="0">Unassigned</option>
 												<c:forEach items="${allemployeenames}" var="department">
 													<option value="${department.empId}">(${department.empId})
@@ -740,80 +735,80 @@ document.addEventListener('DOMContentLoaded', function() {
 											<button type="submit" class="btn btn-primary">Submit</button>
 										</div>
 									</form>
+								</div>
 							</div>
 						</div>
-					</div>
-					
-					
 
 
-					<!-- Password Modal HTML -->
-				<div id="changePasswordModal" class="modal fade">
-					<div class="modal-dialog">
-						<div class="modal-content">
 
-							<div class="modal-header">
-								<h4 class="modal-title">Change Password</h4>
-								<!-- <button type="button" class="close" data-dismiss="modal"
+
+						<!-- Password Modal HTML -->
+						<div id="changePasswordModal" class="modal fade">
+							<div class="modal-dialog">
+								<div class="modal-content">
+
+									<div class="modal-header">
+										<h4 class="modal-title">Change Password</h4>
+										<!-- <button type="button" class="close" data-dismiss="modal"
 											aria-hidden="true">&times;</button> -->
-							</div>
-							<div class="modal-body">
-								<form action="changePassword" method="post"
-									modelAttribute="newpass">
-									<div class="input-container ic1">
-										<label for="empId" class="placeholder">Employee Name</label>
-										<div class="cut"></div>
-										<select id="empId" name="empId" class="input required"
-											placeholder=" " required>
-											<c:forEach items="${allemployeenames}" var="department">
-												<option value="${department.empId}">(${department.empId})
-													${department.empName}</option>
-											</c:forEach>
-										</select>
 									</div>
-									<div class="input-container ic2">
-										<label for="hod" class="placeholder">New Password</label>
-										<div class="cut cut-short"></div>
-										<input id="changedpassword" name="changedPassword"
-											class="input required" type="password" placeholder=" "
-											pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+]).{8,}$"
-											oninput="setCustomValidity('')"
-											oninvalid="setCustomValidity('Password must be of 8 characters and contain at least one capital character, one number, and a special character.')"
-											required />
-									</div>
+									<div class="modal-body">
+										<form action="changePassword" method="post"
+											modelAttribute="newpass">
+											<div class="input-container ic1">
+												<label for="empId" class="placeholder">Employee Name</label>
+												<div class="cut"></div>
+												<select id="empId" name="empId" class="input required"
+													placeholder=" " required>
+													<c:forEach items="${allemployeenames}" var="department">
+														<option value="${department.empId}">(${department.empId})
+															${department.empName}</option>
+													</c:forEach>
+												</select>
+											</div>
+											<div class="input-container ic2">
+												<label for="hod" class="placeholder">New Password</label>
+												<div class="cut cut-short"></div>
+												<input id="changedpassword" name="changedPassword"
+													class="input required" type="password" placeholder=" "
+													pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+]).{8,}$"
+													oninput="setCustomValidity('')"
+													oninvalid="setCustomValidity('Password must be of 8 characters and contain at least one capital character, one number, and a special character.')"
+													required />
+											</div>
 
-									<br>
-									<div class="modal-footer">
-										<button type="button" class="btn btn-secondary"
-											data-dismiss="modal">Close</button>
-										<button type="submit" class="btn btn-primary">Submit</button>
+											<br>
+											<div class="modal-footer">
+												<button type="button" class="btn btn-secondary"
+													data-dismiss="modal">Close</button>
+												<button type="submit" class="btn btn-primary">Submit</button>
+											</div>
+										</form>
 									</div>
-								</form>
+								</div>
 							</div>
 						</div>
+
+
+
+
+						<!---footer---->
+
+
 					</div>
+
+					<footer class="footer">
+						<div class="container-fluid">
+							<div class="footer-in">
+								<p class="mb-0">NRI FinTech - All Rights Reserved.</p>
+							</div>
+						</div>
+					</footer>
 				</div>
-
-
-
-
-				<!---footer---->
-
-
 			</div>
 
-			<footer class="footer">
-				<div class="container-fluid">
-					<div class="footer-in">
-						<p class="mb-0">NRI FinTech - All Rights Reserved.</p>
-					</div>
-				</div>
-			</footer>
-		</div>
-	</div>
 
-
-	<!----------html code complete----------->
+			<!----------html code complete----------->
 
 
 
@@ -822,9 +817,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
-	<!-- Optional JavaScript -->
-	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-
+			<!-- Optional JavaScript -->
+			<!-- jQuery first, then Popper.js, then Bootstrap JS -->
 </body>
 <script src="../resources/lib/jquery/jquery-3.3.1.min.js"
 	type="text/javascript" />

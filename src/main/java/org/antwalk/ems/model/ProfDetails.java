@@ -26,13 +26,11 @@ public class ProfDetails {
     private String designation;
 
     @Column
-    @Past
     private Date fromDate;
 
     @Column
-    @Past
     private Date toDate;
-
+    
     @OneToOne
     private DocFile releaseLetterDoc;
 

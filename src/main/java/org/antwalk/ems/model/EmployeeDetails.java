@@ -77,7 +77,18 @@ public class EmployeeDetails {
     @OneToMany
     @JoinColumn
     private List<ProfDetails> listProfDetails;
+    
+    public void addQualification(QualificationDetails qualificationDetails) {
+		this.listQualificationDetails.add(qualificationDetails);
+	}
+    
+    public void addProfessionalDetails(ProfDetails profDetails) {
+		this.listProfDetails.add(profDetails);
+	}
 
+    public void addFamilyDetails(FamilyDetails familyDetails) {
+		this.listFamilyDetails.add(familyDetails);
+	}
     public EmployeeDetails() {
     }
 
