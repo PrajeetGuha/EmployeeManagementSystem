@@ -187,7 +187,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Function to render the list of selected employees
     function renderSelectedEmployees() {
   var names = selectedEmployees.map(function(employee) {
-    return employee.name;
+    return "(" +employee.id + ")"+ " " + employee.name;
   });
   empList.value = names.join(", ");
 }
@@ -226,7 +226,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Create a new suggestion element for each filtered employee
             filteredEmployees.forEach(function(employee) {
               var suggestionElement = document.createElement("li");
-              suggestionElement.innerText = employee.name;
+              suggestionElement.innerText = "(" +employee.id + ")"+ " " + employee.name;
               suggestionElement.setAttribute("data-employee-id", employee.id);
 
               suggestionElement.addEventListener("click", function() {
@@ -721,13 +721,13 @@ document.addEventListener('DOMContentLoaded', function() {
 												aria-hidden="true">&times;</button> -->
 														</div>
 														<div class="modal-body">
-															<form action="editProj" method="post"
+															<form action="editProj?projectId=${project.projId }&pg=1" method="post"
 																modelAttribute="modifyproj" id="modifyproj" >
 																<div class="input-container ic1">
 																	<label for="projName" class="placeholder">Change
 																		Project Name</label>
 																	<div class="cut"></div>
-																	<input id="projName" name="projName"
+																	<input id="projName" name="projectName"
 																		class="input required" type="text" placeholder=" " placeholder="${project.projectName }"
 																		value=${project.projectName }
 																		required />
@@ -738,7 +738,7 @@ document.addEventListener('DOMContentLoaded', function() {
 																	<div class="cut cut-short"></div>
 																	<select id="pm" name="pm" class="input required"
 																		placeholder=" " required>
-
+																		<option value="0">Unassigned</option>
 																		<c:forEach items="${allemployeenames}"
 																			var="department">
 																			<option value="${department.empId}">(${department.empId})
@@ -752,16 +752,16 @@ document.addEventListener('DOMContentLoaded', function() {
 																	<label for="changedstartDate" class="placeholder">Start
 																		Date</label>
 																	<div class="cut cut-short"></div>
-																	<input id="changedstartDate" name="changedstartDate"
-																		class="input required" type="date" placeholder=" "
+																	<input id="changedstartDate" name="startDate"
+																		class="input required" type="date" placeholder=" " value="${project.startDate }"
 																		required />
 																</div>
 																<div class="input-container ic2">
 																	<label for="changedendDate" class="placeholder">Tentative
 																		End Date</label>
 																	<div class="cut cut-short"></div>
-																	<input id="changedendDate" name="changedendDate"
-																		class="input required" type="date" placeholder=" "
+																	<input id="changedendDate" name="endDate"
+																		class="input required" type="date" placeholder=" " value="${project.endDate }"
 																		required />
 																</div>
 																<div class="input-container ic2">
@@ -769,7 +769,7 @@ document.addEventListener('DOMContentLoaded', function() {
 																		Teams</label>
 																	<div class="cut cut-short"></div>
 																	<input type="text" id="empList" class="input"
-																		placeholder="Type team name or ID">
+																		placeholder="Type team name or ID" name="teamList">
 																	<div class="dropdown-container">
 																		<ul id="suggestions" class="dropdown-menu2"></ul>
 																	</div>

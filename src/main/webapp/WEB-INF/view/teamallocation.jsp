@@ -100,7 +100,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Function to render the list of selected employees
     function renderSelectedEmployees() {
   var names = selectedEmployees.map(function(employee) {
-    return employee.name;
+	  return "("+employee.id+") "+employee.name;
   });
   empList.value = names.join(", ");
 }
@@ -144,7 +144,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Create a new suggestion element for each filtered employee
             filteredEmployees.forEach(function(employee) {
               var suggestionElement = document.createElement("li");
-              suggestionElement.innerText = employee.name;
+              suggestionElement.innerText ="(" +employee.id + ")"+ " " + employee.name;
               suggestionElement.setAttribute("data-employee-id", employee.id);
 
               suggestionElement.addEventListener("click", function() {
@@ -573,17 +573,11 @@ document.addEventListener('DOMContentLoaded', function() {
 												<td><c:out
 														value="${fn:toUpperCase(fn:substring(team.teamName, 0, 1))}${fn:toLowerCase(fn:substring(team.teamName, 1,fn:length(team.teamName)))}" /></td>
 												<td><c:out value="${team.tm.empName}" /></td>
-<<<<<<< HEAD
-												<td><a href="#editTeamModal${team.teamId }"
-													class="edit" data-toggle="modal"> <i
-														class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-													<a href="#generateTeamReportModal" class="report"
-=======
+
 												<td><a href="#editTeamModal${team.teamId }" class="edit"
 													data-toggle="modal"> <i class="material-icons"
 														data-toggle="tooltip" title="Edit">&#xE254;</i></a> <!-- <a
 													href="#generateTeamReportModal" class="report"
->>>>>>> c77cb3992f80894ef7d13b2f03b48a6f8c0da6dc
 													data-toggle="modal"> <i class="material-icons"
 														data-toggle="tooltip" title="Report">summarize</i></a> --></td>
 											</tr>
@@ -599,7 +593,7 @@ document.addEventListener('DOMContentLoaded', function() {
 											aria-hidden="true">&times;</button> -->
 														</div>
 														<div class="modal-body">
-															<form id="editTeam" action="editTeam" method="post"
+															<form id="editTeam" action="editTeam?teamId=${team.teamId }&pg=1" method="post"
 																modelAttribute="modifyteam">
 																<input type="hidden" id="deptIdInput" name="deptId" />
 
@@ -607,7 +601,7 @@ document.addEventListener('DOMContentLoaded', function() {
 																	<label for="tName" class="placeholder">Change
 																		Team Name</label>
 																	<div class="cut"></div>
-																	<input id="tName" name="tName" class="input required"
+																	<input id="tName" name="teamName" class="input required"
 																		type="text" placeholder="${team.teamName }"
 																		value=${team.teamName } />
 
@@ -616,9 +610,9 @@ document.addEventListener('DOMContentLoaded', function() {
 																	<label for="changetm" class="placeholder">Change
 																		Team Manager</label>
 																	<div class="cut cut-short"></div>
-																	<select id="changetm" name="changetm"
+																	<select id="changetm" name="tm"
 																		class="input required" placeholder=" ">
-																		<option value="null">Unassigned</option>
+																		<option value="0">Unassigned</option>
 																		<c:forEach items="${allemployeenames}"
 																			var="department">
 																			<option value="${department.empId}">(${department.empId})
@@ -631,7 +625,7 @@ document.addEventListener('DOMContentLoaded', function() {
 																		Employees</label>
 																	<div class="cut cut-short"></div>
 																	<input type="text" id="empList" class="input"
-																		placeholder="Type employee name or ID">
+																		placeholder="Type employee name or ID" name="empList">
 																	<div class="dropdown-container">
 																		<ul id="suggestions" class="dropdown-menu2"></ul>
 																	</div>

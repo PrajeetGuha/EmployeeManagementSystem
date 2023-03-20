@@ -65,7 +65,7 @@
 						// Function to render the list of selected employees
 						function renderSelectedEmployees() {
 							var names = selectedEmployees.map(function (employee) {
-								return employee.name;
+								return "("+employee.id+") "+employee.name;
 							});
 							empList.value = names.join(", ");
 						}
@@ -109,7 +109,7 @@
 										// Create a new suggestion element for each filtered employee
 										filteredEmployees.forEach(function (employee) {
 											var suggestionElement = document.createElement("li");
-											suggestionElement.innerText = employee.name;
+											suggestionElement.innerText = "(" +employee.id + ")"+ " " + employee.name;
 											suggestionElement.setAttribute("data-employee-id", employee.id);
 
 											suggestionElement.addEventListener("click", function () {
@@ -255,6 +255,7 @@
 <style>
 .dropdown-container {
 	position: relative;
+	display:block;
 }
 
 .dropdown-menu2 {
@@ -512,7 +513,7 @@
 											aria-hidden="true">&times;</button> -->
 														</div>
 														<div class="modal-body">
-															<form id="editDept" action="editDepartment" method="post"
+															<form id="editDept" action="editDepartment?pg=${pageNo }&deptId=${dept.deptId }" method="post"
 																modelAttribute="modifydept">
 																<input type="hidden" id="deptIdInput" name="deptId" />
 
@@ -520,7 +521,7 @@
 																	<label for="deptName" class="placeholder">Change
 																		Department Name</label>
 																	<div class="cut"></div>
-																	<input id="deptName" name="deptName"
+																	<input id="deptName" name="departmentName"
 																		class="input required" type="text"
 																		placeholder="${dept.departmentName }"
 																		value=${dept.departmentName } />
@@ -532,7 +533,7 @@
 																	<div class="cut cut-short"></div>
 																	<select id="hod" name="hod" class="input required"
 																		placeholder=" ">
-																		<option value="null">Unassigned</option>
+																		<option value="0">Unassigned</option>
 																		<c:forEach items="${allemployeenames}"
 																			var="department">
 																			<option value="${department.empId}">
@@ -545,7 +546,7 @@
 																		Employees</label>
 																	<div class="cut cut-short"></div>
 																	<input type="text" id="empList" class="input"
-																		placeholder="Type employee name or ID">
+																		placeholder="Type employee name or ID" name="empList">
 																	<div class="dropdown-container">
 																		<ul id="suggestions" class="dropdown-menu2">
 																		</ul>
@@ -757,6 +758,28 @@
 	type="text/javascript" />
 <script src="../resources/custom/js/admin-dashboard/navtoggle.js"
 	type="text/javascript" />
+<script src="../resources/lib/popper/popper.min.js"
+	type="text/javascript" />
+<script src="../resources/lib/bootstrap/js/bootstrap.bundle.min.js"
+	type="text/javascript" />
+
+
+<script type="text/javascript">
+        
+		$(document).ready(function(){
+		  $(".xp-menubar").on('click',function(){
+		    $('#sidebar').toggleClass('active');
+			$('#content').toggleClass('active');
+		  });
+		  
+		   $(".xp-menubar,.body-overlay").on('click',function(){
+		     $('#sidebar,.body-overlay').toggleClass('show-nav');
+		   });
+		  
+		});
+		
+</script>
+</html>
 <script src="../resources/lib/popper/popper.min.js"
 	type="text/javascript" />
 <script src="../resources/lib/bootstrap/js/bootstrap.bundle.min.js"

@@ -8,8 +8,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.antwalk.ems.dto.ChangePasswordDTO;
+import org.antwalk.ems.dto.EditDepartmentDTO;
+import org.antwalk.ems.dto.EditProjectDTO;
+import org.antwalk.ems.dto.EditTeamDTO;
 import org.antwalk.ems.dto.NewDepartmentDTO;
 import org.antwalk.ems.dto.NewEmployeeDTO;
+import org.antwalk.ems.dto.NewProjectDTO;
+import org.antwalk.ems.dto.NewTeamDTO;
 import org.antwalk.ems.exception.DepartmentNotFoundException;
 import org.antwalk.ems.exception.EmployeeNotFoundException;
 import org.antwalk.ems.exception.UserNotFoundException;
@@ -376,8 +381,110 @@ private EmployeeRepository employeeRepository;
         adminService.resignAction(rid,adminId,approve);
         return "redirect:/admin/resignationApproval?pg="+pg;
     }
+    @PostMapping("editDepartment")
+    public String editDepartment(@ModelAttribute("modifydept") EditDepartmentDTO editDepartment, BindingResult result, RedirectAttributes redirectAttrs, HttpServletRequest request) throws Exception{
+//        String pg = request.getParameter("pg");
+        Long deptId = Long.parseLong(request.getParameter("deptId"));
+        
+//        System.out.println("\n\n\n\n\n\n");
+//         System.out.println(editDepartment);
 
+        adminService.editDepartment(deptId, editDepartment);
 
+        if (result.hasErrors()){
+            redirectAttrs.addFlashAttribute("result", result);
+        }
+        else{
+            redirectAttrs.addFlashAttribute("result",ResponseEntity.ok().body(new SuccessDetails(
+                new Date(),
+                "Updated",
+                "Department is updated"
+            )));
+        }
+        return "redirect:/admin/departmentallocation?pg="+1;
+    }
+    
+    @PostMapping("addteam")
+    public String addTeam(@ModelAttribute("newteam") NewTeamDTO newTeam, BindingResult result, RedirectAttributes redirectAttrs ) throws DepartmentNotFoundException, EmployeeNotFoundException{
+        // return ResponseEntity.ok().body();
+        System.out.println(newTeam);
+        adminService.addTeam(newTeam);
+        if (result.hasErrors()){
+            redirectAttrs.addFlashAttribute("result", result);
+        }
+        else{
+            redirectAttrs.addFlashAttribute("result",ResponseEntity.ok().body(new SuccessDetails(
+                new Date(),
+                "Created",
+                "New team has been created"
+            )));
+        }
+        return "redirect:/admin/teamallocation?pg=1";
+    }
 
+    @PostMapping("editTeam")
+    public String editTeam(@ModelAttribute("modifyteam") EditTeamDTO editTeam, BindingResult result, RedirectAttributes redirectAttrs, HttpServletRequest request) throws Exception{
+//        String pg = request.getParameter("pg");
+        Long teamId = Long.parseLong(request.getParameter("teamId"));
+        
+//        System.out.println("\n\n\n\n\n\n");
+//         System.out.println(editDepartment);
+
+        adminService.editTeam(teamId, editTeam);
+
+        if (result.hasErrors()){
+            redirectAttrs.addFlashAttribute("result", result);
+        }
+        else{
+            redirectAttrs.addFlashAttribute("result",ResponseEntity.ok().body(new SuccessDetails(
+                new Date(),
+                "Updated",
+                "Team is updated"
+            )));
+        }
+        return "redirect:/admin/teamallocation?pg="+1;
+    }
+    
+    
+    @PostMapping("addProj")
+    public String addproject(@ModelAttribute("newproj") NewProjectDTO newProjectDTO, BindingResult result, RedirectAttributes redirectAttrs ) throws DepartmentNotFoundException, EmployeeNotFoundException{
+        // return ResponseEntity.ok().body();
+//        System.out.println(newTeam);
+        adminService.addProject(newProjectDTO);
+        if (result.hasErrors()){
+            redirectAttrs.addFlashAttribute("result", result);
+        }
+        else{
+            redirectAttrs.addFlashAttribute("result",ResponseEntity.ok().body(new SuccessDetails(
+                new Date(),
+                "Created",
+                "New Project has been created"
+            )));
+        }
+        return "redirect:/admin/projectallocation?pg=1";
+    }
+
+    @PostMapping("editProj")
+    public String editProj(@ModelAttribute("modifyproj") EditProjectDTO editProjectDTO, BindingResult result, RedirectAttributes redirectAttrs, HttpServletRequest request) throws Exception{
+//        String pg = request.getParameter("pg");
+        Long projectId = Long.parseLong(request.getParameter("projectId"));
+        
+//        System.out.println("\n\n\n\n\n\n");
+//         System.out.println(editDepartment);
+
+        adminService.editProject(projectId, editProjectDTO);
+
+        if (result.hasErrors()){
+            redirectAttrs.addFlashAttribute("result", result);
+        }
+        else{
+            redirectAttrs.addFlashAttribute("result",ResponseEntity.ok().body(new SuccessDetails(
+                new Date(),
+                "Updated",
+                "Project is updated"
+            )));
+        }
+        return "redirect:/admin/projectallocation?pg="+1;
+    }
 
 }

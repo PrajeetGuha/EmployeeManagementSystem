@@ -1,13 +1,22 @@
 package org.antwalk.ems.service;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import javax.transaction.Transactional;
 
 import org.antwalk.ems.dto.ChangePasswordDTO;
+import org.antwalk.ems.dto.EditDepartmentDTO;
+import org.antwalk.ems.dto.EditProjectDTO;
+import org.antwalk.ems.dto.EditTeamDTO;
 import org.antwalk.ems.dto.NewDepartmentDTO;
 import org.antwalk.ems.dto.NewEmployeeDTO;
+import org.antwalk.ems.dto.NewProjectDTO;
+import org.antwalk.ems.dto.NewTeamDTO;
 import org.antwalk.ems.exception.DepartmentNotFoundException;
 import org.antwalk.ems.exception.EmployeeNotFoundException;
 import org.antwalk.ems.exception.UserNotFoundException;
@@ -259,7 +268,7 @@ public class AdminService {
     public void addDepartment(NewDepartmentDTO newDepartment) throws EmployeeNotFoundException {
         Department department = new Department();
         if (newDepartment.getHod() == 0){
-            newDepartment.setHod(null);
+            department.setHod(null);
         }
         else{
             Employee employee = employeeRepository.findById(newDepartment.getHod()).orElseThrow(
@@ -328,4 +337,178 @@ public class AdminService {
             resignation.setIsApproved(approve.equals("true") ? true : false);
             resignationRepository.save(resignation);
             }
+        
+        public void editDepartment(Long deptId, EditDepartmentDTO editDepartment) throws Exception {
+            Department department = departmentRepository.findById(deptId).orElseThrow(
+                () -> new DepartmentNotFoundException("Department not found")
+            );
+            if (department.getEmployees() == null){
+                department.setEmployees(new ArrayList<Employee>());
+            }
+            department.setDepartmentName(editDepartment.getDepartmentName());
+            System.out.println(editDepartment);
+            System.out.println("\n\n\n");
+            if (editDepartment.getHod() == 0) {
+            	department.setHod(null);
+            }
+            else {
+            	 Employee hod = employeeRepository.findById(editDepartment.getHod()).orElseThrow(
+                         () -> new EmployeeNotFoundException("Employee not found")
+                     );
+            	department.setHod(hod);
+            }
+            departmentRepository.save(department);
+           if (!editDepartment.getEmpList().equals("")) {
+        	   try{
+                   List<String> employeeList = Arrays.asList(editDepartment.getEmpList().split(", "));
+                   for(String employee : employeeList){
+                       Long id = Long.parseLong(employee.substring(1, employee.indexOf(")")));
+                       // System.out.println(id);
+                       Employee employeeToadd = employeeRepository.findById(id).orElseThrow(
+                           () -> new EmployeeNotFoundException("Employee not found")
+                       );
+                       employeeToadd.setDepartment(department);
+                       employeeRepository.save(employeeToadd);
+                   }
+               }
+               catch(Exception e){
+                   throw new Exception(e.getMessage());
+               }
+           }
+        }
+        
+        
+        
+        
+        public void addTeam(NewTeamDTO newteam) throws EmployeeNotFoundException {
+            Team team = new Team();
+            if (newteam.getTm() == 0){
+                team.setTm(null);
+            }
+            else{
+                Employee employee = employeeRepository.findById(newteam.getTm()).orElseThrow(
+                () -> new EmployeeNotFoundException("The employee not found.")
+                );
+                team.setTm(employee);
+                // employee.setDepartment(department);
+
+            }
+            team.setTeamName(newteam.getTeamName());
+            Team persistedTeam = teamRepository.save(team);
+            if(newteam.getTm() != null){
+                Employee employee = employeeRepository.findById(newteam.getTm()).orElseThrow(
+                () -> new EmployeeNotFoundException("The employee not found.")
+                );
+                employee.setTeam(persistedTeam);
+                employeeRepository.save(employee);
+            }
+        }
+        
+        public void editTeam(Long teamId, EditTeamDTO editTeam) throws Exception {
+            Team team = teamRepository.findById(teamId).orElseThrow(
+                () -> new DepartmentNotFoundException("Team not found")
+            );
+            if (team.getEmployees() == null){
+            	team.setEmployees(new ArrayList<Employee>());
+            }
+            team.setTeamName(editTeam.getTeamName());
+//            System.out.println(editTeam);
+//            System.out.println("\n\n\n");
+            if (editTeam.getTm() == 0) {
+            	team.setTm(null);
+            }
+            else {
+            	 Employee tm = employeeRepository.findById(editTeam.getTm()).orElseThrow(
+                         () -> new EmployeeNotFoundException("Employee not found")
+                     );
+            	team.setTm(tm);
+            }
+            teamRepository.save(team);
+           if (!editTeam.getEmpList().equals("")) {
+        	   try{
+                   List<String> employeeList = Arrays.asList(editTeam.getEmpList().split(", "));
+                   for(String employee : employeeList){
+                       Long id = Long.parseLong(employee.substring(1, employee.indexOf(")")));
+                       // System.out.println(id);
+                       Employee employeeToadd = employeeRepository.findById(id).orElseThrow(
+                           () -> new EmployeeNotFoundException("Employee not found")
+                       );
+                       employeeToadd.setTeam(team);
+                       employeeRepository.save(employeeToadd);
+                   }
+               }
+               catch(Exception e){
+                   throw new Exception(e.getMessage());
+               }
+           }
+        }
+        
+        
+        public void addProject(NewProjectDTO newProjectDTO) throws EmployeeNotFoundException {
+            Project project = new Project();
+            if (newProjectDTO.getPm() == 0){
+            	project.setPm(null);
+            }
+            else{
+                Employee employee = employeeRepository.findById(newProjectDTO.getPm()).orElseThrow(
+                () -> new EmployeeNotFoundException("The employee not found.")
+                );
+                project.setPm(employee);
+                // employee.setDepartment(department);
+
+            }
+            project.setProjectName(newProjectDTO.getProjectName());
+            project.setStartDate(newProjectDTO.getStartDate());
+            project.setEndDate(newProjectDTO.getEndDate());
+            projectRepository.save(project);
+        }
+        
+        
+
+        
+        public void editProject(Long projectId, EditProjectDTO editProjectDTO) throws Exception {
+            Project project = projectRepository.findById(projectId).orElseThrow(
+                () -> new DepartmentNotFoundException("Team not found")
+            );
+            Set <Team> teams;
+            if (project.getTeams() == null){
+            	teams = new HashSet<>();
+            }
+            else {
+            	teams = project.getTeams();
+			}
+            project.setProjectName(editProjectDTO.getProjectName());
+//            System.out.println(editTeam);
+//            System.out.println("\n\n\n");
+            if (editProjectDTO.getPm() == 0) {
+            	project.setPm(null);
+            }
+            else {
+            	 Employee pm = employeeRepository.findById(editProjectDTO.getPm()).orElseThrow(
+                         () -> new EmployeeNotFoundException("Employee not found")
+                     );
+            	project.setPm(pm);
+            }
+            
+           if (!editProjectDTO.getTeamList().equals("")) {
+        	   try{
+                   List<String> teamList = Arrays.asList(editProjectDTO.getTeamList().split(", "));
+                   for(String team : teamList){
+                       Long id = Long.parseLong(team.substring(1, team.indexOf(")")));
+                       // System.out.println(id);
+                       Team teamToAdd = teamRepository.findById(id).orElseThrow(
+                           () -> new EmployeeNotFoundException("Team not found")
+                       );
+                       teams.add(teamToAdd);
+                   }
+               }
+               catch(Exception e){
+                   throw new Exception(e.getMessage());
+               }
+           }
+           project.setTeams(teams);
+           projectRepository.save(project);
+        }
+        
+        
 }

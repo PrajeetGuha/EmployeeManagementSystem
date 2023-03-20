@@ -1,7 +1,5 @@
 package org.antwalk.ems.controller;
 
-import java.sql.Date;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,6 +10,8 @@ import org.antwalk.ems.model.Employee;
 import org.antwalk.ems.model.EmployeeDetails;
 import org.antwalk.ems.model.FamilyDetails;
 import org.antwalk.ems.model.LeaveApplication;
+import org.antwalk.ems.model.ProfDetails;
+import org.antwalk.ems.model.QualificationDetails;
 import org.antwalk.ems.model.Resignation;
 import org.antwalk.ems.repository.EmployeeDetailsRepository;
 import org.antwalk.ems.repository.EmployeeRepository;
