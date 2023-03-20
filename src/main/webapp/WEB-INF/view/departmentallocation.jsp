@@ -57,8 +57,8 @@
 						var selectedEmployees = [];
 
 						// Get references to DOM elements
-						var empList = document.getElementById("empList");
-						var suggestionList = document.getElementById("suggestions");
+						var empList = document.getElementById("empList_2");
+						var suggestionList = document.getElementById("suggestions_2");
 
 
 
@@ -502,7 +502,7 @@
 
 											<!-- Edit Modal HTML -->
 											<div id="editDepartmentModal${dept.deptId }"
-												class="modal fade">
+												class="modal fade" data-deptid="${dept.deptId}">
 												<div class="modal-dialog">
 													<div class="modal-content">
 
@@ -544,10 +544,10 @@
 																	<label for="employeelist" class="placeholder">Add
 																		Employees</label>
 																	<div class="cut cut-short"></div>
-																	<input type="text" id="empList" class="input"
+																	<input type="text" id="empList_${dept.deptId }" class="input emplistclass"
 																		placeholder="Type employee name or ID">
 																	<div class="dropdown-container">
-																		<ul id="suggestions" class="dropdown-menu2">
+																		<ul id="suggestions_${dept.deptId }" class="dropdown-menu2">
 																		</ul>
 																	</div>
 																	<div id="selectedEmployees"
