@@ -630,7 +630,7 @@
 																<input type="hidden" id="empId" name="empId"
 																	value="${employee.empId}" />
 
-
+																<label for="name" class="placeholder">Change Password for ${employee.empName } ?</label>
 
 																<div class="input-container ic2">
 																	<label for="hod" class="placeholder">New
