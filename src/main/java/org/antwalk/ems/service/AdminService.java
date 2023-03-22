@@ -394,6 +394,8 @@ public class AdminService {
         
         public void addTeam(NewTeamDTO newteam) throws EmployeeNotFoundException {
             Team team = new Team();
+            System.out.println(newteam.getTm());
+            System.out.println(newteam.getTm() == 0);
             if (newteam.getTm() == 0){
                 team.setTm(null);
             }
@@ -407,7 +409,7 @@ public class AdminService {
             }
             team.setTeamName(newteam.getTeamName());
             Team persistedTeam = teamRepository.save(team);
-            if(newteam.getTm() != null){
+            if(newteam.getTm() != 0){
                 Employee employee = employeeRepository.findById(newteam.getTm()).orElseThrow(
                 () -> new EmployeeNotFoundException("The employee not found.")
                 );
@@ -502,7 +504,7 @@ public class AdminService {
             	project.setPm(pm);
             }
             
-           if (!editProjectDTO.getTeamList().equals("")) {
+           if (editProjectDTO.getTeamList()!=null) {
         	   try{
                    List<String> teamList = Arrays.asList(editProjectDTO.getTeamList().split(", "));
                    for(String team : teamList){
