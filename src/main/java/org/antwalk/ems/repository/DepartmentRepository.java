@@ -24,4 +24,6 @@ public interface DepartmentRepository extends JpaRepository<Department,Long> {
    
    @Query("SELECT SUM(ctc) FROM Employee GROUP BY department_dept_id")
    List<Double> totalcost();
+   
+   
 }
