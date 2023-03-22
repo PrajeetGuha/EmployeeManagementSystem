@@ -250,10 +250,10 @@
             <div id="bar-chart"></div>
           </div>
 
-           <div class="charts-card">
+           <!--  <div class="charts-card">
             <p class="chart-title">Sex Ratio</p>
             <div id="chart"></div>
-          </div> 
+          </div> -->
            <div class="charts-card">
             <p class="chart-title">Total Cost Distribution of Each Department</p>
             <div id="bar-chart2"></div>
@@ -262,7 +262,10 @@
             <p class="chart-title">Employee Type</p>
             <div id="pie-chart"></div>
           </div> 
-
+			   <div class="charts-card">
+            <p class="chart-title">Recruitment Metrics</p>
+            <div id="line-chart"></div>
+          </div> 
         </div>
         
 
@@ -424,7 +427,7 @@ var barChartOptions = {
 			    var chart = new ApexCharts(document.querySelector("#chart"), chartOptions);
 			    chart.render();*/
 			    
-			    var options = {
+			    /*var options = {
 			            series: [${sexratio[0]}, ${sexratio[1]}, ${sexratio[2]}],
 			            chart: {
 			            width: 400,
@@ -490,7 +493,7 @@ var barChartOptions = {
 			          };
 
 			          var chart = new ApexCharts(document.querySelector("#chart"), options);
-			          chart.render();
+			          chart.render();*/
 			    
 			    var barChart2Options = {
 			  		  series: [{
@@ -516,7 +519,7 @@ var barChartOptions = {
 			  		    bar: {
 			  		      distributed: true,
 			  		      borderRadius: 4,
-			  		      horizontal: true,
+			  		      horizontal: false,
 			  		      columnWidth: '40%',
 			  		    }
 			  		  },
@@ -556,6 +559,7 @@ var barChartOptions = {
 			  	          options: {
 			  	            chart: {
 			  	              width: 200
+			  	              
 			  	            },
 			  	            legend: {
 			  	              position: 'bottom'
@@ -566,6 +570,77 @@ var barChartOptions = {
 
 			  	        var piechart = new ApexCharts(document.querySelector("#pie-chart"), pieoptions);
 			  	        piechart.render();
+			  	        
+			  	      var options = {
+			  	            series: [{
+			  	              name: "Employees",
+			  	              data: [<c:forEach var="item" items="${recruitment}">
+				  		      "${item}",
+				  		      </c:forEach>]
+			  	          }],
+			  	            chart: {
+			  	            height: 350,
+			  	            type: 'line',
+			  	            zoom: {
+			  	              enabled: false
+			  	            }
+			  	          },
+			  	          dataLabels: {
+			  	            enabled: false
+			  	          },
+			  	          stroke: {
+			  	            curve: 'straight'
+			  	          },
+			  	          title: {
+			  	            text: 'Recruitments per Month',
+			  	            align: 'left'
+			  	          },
+			  	          grid: {
+			  	            row: {
+			  	              colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
+			  	              opacity: 0.5
+			  	            },
+			  	          },
+			  	          xaxis: {
+			  	            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
+			  	          title: {
+				  		      text: "Month"
+				  		    }
+			  	          }
+			  	      
+			  	          };
+
+			  	          var linechart = new ApexCharts(document.querySelector("#line-chart"), options);
+			  	          linechart.render();
+			  	        
+			  	  		/*var pieoptions2 = {
+					  	          series: [ <c:forEach var="item" items="${findteamcount}">
+					  		      "${item}",
+					  		      </c:forEach>],
+					  	          chart: {
+					  	          width: 380,
+					  	          type: 'pie',
+					  	        },
+					  	        labels: [ <c:forEach var="item" items="${teamsinprojects}">
+					  		      "${item}",
+					  		      </c:forEach>],
+					  	        responsive: [{
+					  	          breakpoint: 480,
+					  	          options: {
+					  	            chart: {
+					  	              width: 200
+					  	            },
+					  	            legend: {
+					  	              position: 'bottom'
+					  	            }
+					  	          }
+					  	        }]
+					  	        };
+
+					  	        var piechart2 = new ApexCharts(document.querySelector("#pie-chart2"), pieoptions2);
+					  	        piechart2.render();*/
+					  	       
+			  	        
 
 			    
 		
