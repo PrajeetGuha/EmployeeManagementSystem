@@ -216,6 +216,18 @@ public class AdminService {
   {
 	  return employeeRepository.emptype();
   }
+  public List<Integer> recruitment()
+  {
+	  return employeeRepository.recruitment();
+  }
+//  public List<String> teamsinprojects()
+//  {
+//	  return projectRepository.teamsinprojects();
+//  }
+//  public List<Integer> findteamcount()
+//  {
+//	  return projectRepository.findteamcount();
+//  }
 
     public List<Department> getAllDepartments(int pageNo){
         Pageable pageable = PageRequest.of(pageNo-1, PAGE_SIZE, Sort.by("deptId"));

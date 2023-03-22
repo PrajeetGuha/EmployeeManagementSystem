@@ -59,6 +59,9 @@ public interface EmployeeRepository extends JpaRepository<Employee,Long> {
     @Query("select leaves from Employee e where e.empId = :empId")
     public List<LeaveApplication> getLeavesById(Long empId);
     
+    @Query("select COUNT(*) AS count FROM Employee GROUP BY YEAR(doj), MONTH(doj) ORDER BY YEAR(doj), MONTH(doj)")
+    public List<Integer> recruitment();
+    
 
 
 }
