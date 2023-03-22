@@ -28,10 +28,10 @@ public class FamilyDetails {
     @Column
     private Date dob;
 
-    @Column(length = 30)
+    @Column(length = 255)
     private String occupation;
-
-    @Column(length = 10)
+    
+    @Column(length = 255)
     private String contactno;
 
 

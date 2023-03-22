@@ -11,9 +11,12 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table
@@ -39,20 +42,43 @@ public class Team {
 
     @OneToMany(mappedBy = "team")
     private List<Employee> employees;
+
+    @ManyToOne
+    @JsonIgnoreProperties("team")
+    private Department department;
     
     public Team() {
     	
     }
 
-    public Team(Long teamId, String teamName, Employee tm, Set<Project> projects, List<Employee> employees) {
-        this.teamId = teamId;
-        this.teamName = teamName;
-        this.tm = tm;
-        this.projects = projects;
-        this.employees = employees;
-    }
+    
 
-    public Long getTeamId() {
+    public Team(Long teamId, String teamName, Employee tm, Set<Project> projects, List<Employee> employees,
+			Department department) {
+		super();
+		this.teamId = teamId;
+		this.teamName = teamName;
+		this.tm = tm;
+		this.projects = projects;
+		this.employees = employees;
+		this.department = department;
+	}
+
+
+
+	public Department getDepartment() {
+		return department;
+	}
+
+
+
+	public void setDepartment(Department department) {
+		this.department = department;
+	}
+
+
+
+	public Long getTeamId() {
         return teamId;
     }
 

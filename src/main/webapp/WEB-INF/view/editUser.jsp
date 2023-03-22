@@ -929,7 +929,20 @@
                                                                     </div>
                                                                 </td>
                                                             </tr>
-
+<tr><td><br></td></tr>
+                                                            <tr>
+                                                                <td>
+                                                                    Year Of Experience :
+                                                                </td>
+                                                                <td>
+                                                                    <div class="input-group ">
+                                                                        <input type="number" class="form-control"
+                                                                            placeholder="Year Of Experience" aria-label="Year Of Experience"
+                                                                            aria-describedby="basic-addon1" name="yearOfExperience"
+                                                                            value="${employee.yearOfExperience}" min="0" />
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
 
                                                             <tr>
                                                                 <td><input type="hidden" name="empId"

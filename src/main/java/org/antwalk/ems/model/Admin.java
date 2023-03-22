@@ -16,10 +16,10 @@ public class Admin {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long adminId;
 
-    @Column(length = 50)
+    @Column(length = 255)
     private String adminName;
 
-    @Column(length = 50)
+    @Column(length = 255)
     @Email
     private String adminEmail;
 

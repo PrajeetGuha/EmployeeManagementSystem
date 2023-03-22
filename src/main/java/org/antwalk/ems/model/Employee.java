@@ -34,12 +34,10 @@ public class Employee {
     @Column(length = 2)
     private String gradeLevel;
 
-   
-
     @Column
     private Date doj;
 
-    @Column(length = 50)
+    @Column(length = 255)
     private String designation = "unassigned";
 
     @Column(length = 255)
@@ -63,17 +61,17 @@ public class Employee {
     @Column
     private Integer servPeriod;
 
-    @Column(length = 50, unique = true)
+    @Column(length = 255, unique = true)
     @Email
     private String workEmail;
 
-    @Column(length = 50)
+    @Column(length = 255)
     private String branch;
 
-    @Column(length = 50)
+    @Column(length = 255)
     private String office;
 
-    @Column(length = 5)
+    @Column(length = 255)
     private String workstationId;
 
     @Column
@@ -97,6 +95,9 @@ public class Employee {
     @OneToOne
     private Resignation resignation;
 
+    @Column
+    private int yearOfExperience;
+    
     @ManyToOne
     @JsonIgnoreProperties("employees")
     private Department department;
@@ -116,59 +117,37 @@ public class Employee {
     @JsonIgnoreProperties("employee")
     private List<LeaveApplication> leaves;
 
-    @Override
-    public String toString() {
-        return "Employee [empId=" + empId + ", empName=" + empName + ", gender=" + gender + ", gradeLevel=" + gradeLevel
-                + ", doj=" + doj + ", designation=" + designation + ", emptype=" + emptype + ", empstatus=" + empstatus
-                + ", probPeriod=" + probPeriod + ", probCompDate=" + probCompDate + ", trainPeriod=" + trainPeriod
-                + ", contractEndDate=" + contractEndDate + ", servPeriod=" + servPeriod + ", workEmail=" + workEmail
-                + ", branch=" + branch + ", office=" + office + ", workstationId=" + workstationId + ", clLeft="
-                + clLeft + ", plLeft=" + plLeft + ", slLeft=" + slLeft + ", moreLeave=" + moreLeave + ", totalLeave="
-                + totalLeave + ", ctc=" + ctc + ", resignation=" + resignation + ", department=" + department
-                + ", team=" + team + ", employeeDetails=" + employeeDetails + ", payrolls=" + payrolls + ", leaves="
-                + leaves + "]";
-    }
-
     public Employee() {
     }
 
-	public Employee(Long empId, String empName, String gender, String gradeLevel, Date doj, String designation,
-			String emptype, String empstatus, Integer probPeriod, Date probCompDate, Integer trainPeriod,
-			Date contractEndDate, Integer servPeriod, @Email String workEmail, String branch, String office,
-			String workstationId, Integer clLeft, Integer plLeft, Integer slLeft, Integer moreLeave, Integer totalLeave,
-			Double ctc, Resignation resignation, Department department, Team team, EmployeeDetails employeeDetails,
-			List<Payroll> payrolls, List<LeaveApplication> leaves) {
-		super();
-		this.empId = empId;
-		this.empName = empName;
-		this.gender = gender;
-		this.gradeLevel = gradeLevel;
-		this.doj = doj;
-		this.designation = designation;
-		this.emptype = emptype;
-		this.empstatus = empstatus;
-		this.probPeriod = probPeriod;
-		this.probCompDate = probCompDate;
-		this.trainPeriod = trainPeriod;
-		this.contractEndDate = contractEndDate;
-		this.servPeriod = servPeriod;
-		this.workEmail = workEmail;
-		this.branch = branch;
-		this.office = office;
-		this.workstationId = workstationId;
-		this.clLeft = clLeft;
-		this.plLeft = plLeft;
-		this.slLeft = slLeft;
-		this.moreLeave = moreLeave;
-		this.totalLeave = totalLeave;
-		this.ctc = ctc;
-		this.resignation = resignation;
-		this.department = department;
-		this.team = team;
-		this.employeeDetails = employeeDetails;
-		this.payrolls = payrolls;
-		this.leaves = leaves;
+	
+
+	@Override
+	public String toString() {
+		return "Employee [empId=" + empId + ", empName=" + empName + ", gender=" + gender + ", gradeLevel=" + gradeLevel
+				+ ", doj=" + doj + ", designation=" + designation + ", emptype=" + emptype + ", empstatus=" + empstatus
+				+ ", probPeriod=" + probPeriod + ", probCompDate=" + probCompDate + ", trainPeriod=" + trainPeriod
+				+ ", contractEndDate=" + contractEndDate + ", servPeriod=" + servPeriod + ", workEmail=" + workEmail
+				+ ", branch=" + branch + ", office=" + office + ", workstationId=" + workstationId + ", clLeft="
+				+ clLeft + ", plLeft=" + plLeft + ", slLeft=" + slLeft + ", moreLeave=" + moreLeave + ", totalLeave="
+				+ totalLeave + ", ctc=" + ctc + ", resignation=" + resignation + ", yearOfExperience="
+				+ yearOfExperience + ", department=" + department + ", team=" + team + ", employeeDetails="
+				+ employeeDetails + ", payrolls=" + payrolls + ", leaves=" + leaves + "]";
 	}
+
+
+
+	public int getYearOfExperience() {
+		return yearOfExperience;
+	}
+
+
+
+	public void setYearOfExperience(int yearOfExperience) {
+		this.yearOfExperience = yearOfExperience;
+	}
+
+
 
 	public Long getEmpId() {
 		return empId;
@@ -400,12 +379,5 @@ public class Employee {
 
 	public void setLeaves(List<LeaveApplication> leaves) {
 		this.leaves = leaves;
-	}
-    
-
-
-
-    
-
-    
+	}  
 }

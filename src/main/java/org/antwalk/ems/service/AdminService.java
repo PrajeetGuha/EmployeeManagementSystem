@@ -47,6 +47,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+ 
 
 @Service
 public class AdminService {
@@ -77,6 +78,7 @@ public class AdminService {
 
     @Autowired
     DepartmentRepository departmentRepository;
+    
     @Autowired
     LeaveApplicationRepository leaveApplicationRepository;
 
@@ -379,6 +381,53 @@ public class AdminService {
         
         
         
+
+        public void editDepartment1(Long deptId, EditDepartmentDTO editDepartmentDTO) throws Exception {
+            Department department = departmentRepository.findById(deptId).orElseThrow(
+                () -> new DepartmentNotFoundException("Team not found")
+            );
+            List<Team> teams;
+            if (department.getTeams() == null){
+            	teams = new ArrayList<>();
+            }
+            else {
+            	teams =  department.getTeams();
+			}
+            department.setDepartmentName(editDepartmentDTO.getDepartmentName());
+//            System.out.println(editTeam);
+//            System.out.println("\n\n\n");
+            if (editDepartmentDTO.getHod() == 0) {
+            	department.setHod(null);
+            }
+            else {
+            	 Employee hod = employeeRepository.findById(editDepartmentDTO.getHod()).orElseThrow(
+                         () -> new EmployeeNotFoundException("Employee not found")
+                     );
+            	department.setHod(hod);
+            }
+            
+           if (!editDepartmentDTO.getTeamList().equals("")) {
+        	   try{
+                   List<String> teamList = Arrays.asList(editDepartmentDTO.getTeamList().split(", "));
+                   for(String team : teamList){
+                       Long id = Long.parseLong(team.substring(1, team.indexOf(")")));
+                       // System.out.println(id);
+                       Team teamToAdd = teamRepository.findById(id).orElseThrow(
+                           () -> new EmployeeNotFoundException("Team not found")
+                       );
+                       teams.add(teamToAdd);
+                   }
+               }
+               catch(Exception e){
+                   throw new Exception(e.getMessage());
+               }
+           }
+           department.setTeams(teams);
+           departmentRepository.save(department);
+        }
+        
+        
+        
         
         public void addTeam(NewTeamDTO newteam) throws EmployeeNotFoundException {
             Team team = new Team();
@@ -510,5 +559,8 @@ public class AdminService {
            projectRepository.save(project);
         }
         
-        
+
+        public List<EmployeeSelectionView> listOfHOD() {
+            return departmentRepository.findAllHOD();
+        }
 }

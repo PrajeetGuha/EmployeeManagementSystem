@@ -22,7 +22,7 @@ public class Department {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long deptId;
 
-    @Column(length = 50)
+    @Column(length = 255)
     private String departmentName;
 
     @OneToOne(fetch = FetchType.LAZY)
@@ -32,17 +32,33 @@ public class Department {
     @JsonIgnoreProperties("department")
     private List<Employee> employees;
 
+    @OneToMany(mappedBy = "department")
+    @JsonIgnoreProperties("department")
+    private List<Team> teams;
+
     public Department() {
     }
+   
+   
+    public List<Team> getTeams() {
+		return teams;
+	}
 
-    public Department(Long deptId, String departmentName, Employee hod, List<Employee> employees) {
-        this.deptId = deptId;
-        this.departmentName = departmentName;
-        this.hod = hod;
-        this.employees = employees;
-    }
 
-    public Long getDeptId() {
+	public void setTeams(List<Team> teams) {
+		this.teams = teams;
+	}
+
+
+	public Department(Long deptId, String departmentName, Employee hod, List<Employee> employees, List<Team> teams) {
+		super();
+		this.deptId = deptId;
+		this.departmentName = departmentName;
+		this.hod = hod;
+		this.employees = employees;
+		this.teams = teams;
+	}
+	public Long getDeptId() {
         return deptId;
     }
 

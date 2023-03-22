@@ -202,7 +202,8 @@ private EmployeeRepository employeeRepository;
     	Admin admin = adminService.fetchAdminData(id);
         Long count = adminService.countAllDepartments();
         int countPages = adminService.countPagesOfDepartments();
-        List<EmployeeSelectionView> allemployees = adminService.listAllEmployees();
+       
+        List<EmployeeSelectionView> allemployees = adminService.listOfHOD();
     	model.addAttribute("admin",admin);
         model.addAttribute("listdepartments", listDepartments);
         model.addAttribute("countPages", countPages);
