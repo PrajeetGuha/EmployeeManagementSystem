@@ -261,9 +261,9 @@
 				<li><a href="teamallocation?pg=1"> <i
 						class="material-icons">groups</i>Team
 				</a></li>
-				<li><a href="departmentallocation?pg=1"> <i
+				<!-- <li><a href="departmentallocation?pg=1"> <i
 						class="material-icons">work</i>Department
-				</a></li>
+				</a></li> -->
 				<li><a href="leaveApproval?pg=1"> <i class="material-icons">playlist_add_check</i>Leave
 						Approval
 				</a></li>
@@ -820,11 +820,21 @@
 											<div class="cut cut-short"></div>
 											<select id="department" name="department"
 												class="input required" placeholder="Deparment">
-												<option value="0">Unassigned</option>
-												<c:forEach items="${departments}" var="department">
-													<option value="${department}">${department}</option>
-												</c:forEach>
+												<option value="trainee">Trainee</option>
+												<option value="hr">Hr</option>
+												<option value="administration">Administration</option>
+												<option value="payroll">Payroll</option>
+												<option value="sports">Sports</option>
+												<option value="security">Security</option>
+												<option value="others">Others</option>
+												
 											</select>
+										</div>
+										<div class="input-container ic2">
+											<label for="experience" class="placeholder">Experience</label>
+											<div class="cut cut-short"></div>
+											<input id="experience" name="yearsOfExperience" class="input"
+												type="number" placeholder=" " required/>
 										</div>
 										<div class="input-container ic2">
 											<label for="gradelevel" class="placeholder">Grade

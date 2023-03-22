@@ -15,10 +15,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class EmployeeReport {
 
-    @Autowired
-    private Style style;
-    
-    public XSSFWorkbook generateReport(XSSFWorkbook workbook, Employee employee){
+	@Autowired
+	private Style style;
+
+	public XSSFWorkbook generateReport(XSSFWorkbook workbook, Employee employee){
 
     	XSSFSheet s1 = workbook.createSheet(employee.getEmpName() + "-Employee Details");
 
@@ -26,6 +26,7 @@ public class EmployeeReport {
     	s1r1.createCell(0).setCellValue("Employee Details");
 
     	int rowIterator = 0;
+
 List<String> fieldnames = Arrays.asList("Id","Name","Gender", "Grade/Level","DOJ", "Designation","Employment Type","Employment Status","Probation Period", "Probation Completion Date", "Train Period","Contract End Date", "Service Period", "Work Email", "Branch and Office", "Workstation Id","Current CTC",  "Department",  "Team","Marital Status", "Permanent Address", "Primary Contact Details","Personal Email Id");
 String department = ( employee.getDepartment() == null ? "" : employee.getDepartment().getDepartmentName());
  String team = ( employee.getTeam() == null ? "" : employee.getTeam().getTeamName() );
@@ -69,6 +70,7 @@ descriptorCell.setCellValue(fieldnames.get(rowIterator));
 row.createCell(1).setCellValue(nonullValueList.get(rowIterator));
  rowIterator += 1;
 }
+
 
 int numCol = 2;
 for(int i = 0; i < numCol; i++){

@@ -24,6 +24,10 @@ public class NewTeamDTO {
 	public void setTm(Long tm) {
 		this.tm = tm;
 	}
+	@Override
+	public String toString() {
+		return "NewTeamDTO [teamName=" + teamName + ", tm=" + tm + "]";
+	}
 	
 	
 }
