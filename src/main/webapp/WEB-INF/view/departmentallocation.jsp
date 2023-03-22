@@ -57,8 +57,8 @@
 						var selectedEmployees = [];
 
 						// Get references to DOM elements
-						var empList = document.getElementById("empList_2");
-						var suggestionList = document.getElementById("suggestions_2");
+						var empList = document.getElementById("empList");
+						var suggestionList = document.getElementById("suggestions");
 
 
 
@@ -179,40 +179,7 @@
 					});
 				</script>
 
-<script>
-					document.addEventListener('DOMContentLoaded', function () {
-						var departmentNameInput = document.getElementById('deptName');
-						var listdept = [
-							<c:forEach var="department" items="${listdepartments}">
-								"${department.departmentName}",
-							</c:forEach> // assuming "listdepartments" is a model attribute
-						];
 
-						var defaultValue = departmentNameInput.value;
-
-						// add an "oninput" event listener to clear custom validity message
-						departmentNameInput.addEventListener('input', function () {
-							this.setCustomValidity('');
-						});
-
-						document.querySelector('form#editDept').addEventListener('submit', function (e) {
-							// check if department name already exists
-							if (departmentNameInput.value == defaultValue) {
-								departmentNameInput.setCustomValidity('');
-							}
-							else if (departmentNameInput.value == "") {
-								departmentNameInput.setCustomValidity('Department name cannot be empty.');
-								e.preventDefault(); // prevent form submission
-							}
-							else if (listdept.includes(departmentNameInput.value)) {
-								departmentNameInput.setCustomValidity('Department name already exists. Please choose a different name.');
-								e.preventDefault(); // prevent form submission
-							}
-						});
-					});
-
-
-				</script>
 
 <script>
 
@@ -252,10 +219,85 @@
 
 				</script>
 
+<script>
+
+function getdeptId(deptId)
+{
+	var formId=document.getElementById("editDept");
+	formId.action="editTeam?teamId="+teamId+"&pg=1";
+			var deptIdValue=document.getElementById("deptIdInput");
+			deptIdValue.value = deptId;
+		var departmentNameValue= document.getElementById("deptName");
+		<c:forEach var="department" items="${listdepartments}">
+			console.log(deptId);
+			console.log(${department.deptId});
+			var deptIdValues=${department.deptId};
+			if (deptId===deptIdValues){
+				console.log(deptId);
+				departmentNameValue.value="${department.departmentName}";
+				
+				var employeesindept = [
+					<c:forEach var="employee" items="${department.employees}">
+						{
+							id: "${employee.empId}",
+							name: "${employee.empName}"
+						},
+					</c:forEach>
+				];
+				var employeeList = document.getElementById("employeeList");
+
+				employeesindept.forEach(function(employee) {
+					var listItem = document.createElement("li");
+					listItem.className = "list-group-item";
+					listItem.textContent = "(" + employee.id + ") " + employee.name;
+					employeeList.appendChild(listItem);
+				
+				});
+}
+	</c:forEach>
+	
+		
+			
+	
+
+	var departmentNameInput = document.getElementById('deptName');
+	var listdept = [
+		<c:forEach var="department" items="${listdepartments}">
+			"${department.departmentName}",
+		</c:forEach> // assuming "listdepartments" is a model attribute
+	];
+
+	var defaultValue = departmentNameValue.value;
+	
+	// add an "oninput" event listener to clear custom validity message
+	departmentNameInput.addEventListener('input', function () {
+		this.setCustomValidity('');
+	});
+
+	document.querySelector('form#editDept').addEventListener('submit', function (e) {
+		// check if department name already exists
+		if (departmentNameInput.value == defaultValue) {
+			departmentNameInput.setCustomValidity('');
+		}
+		else if (departmentNameInput.value == "") {
+			departmentNameInput.setCustomValidity('Department name cannot be empty.');
+			e.preventDefault(); // prevent form submission
+		}
+		else if (listdept.includes(departmentNameInput.value)) {
+			departmentNameInput.setCustomValidity('Department name already exists. Please choose a different name.');
+			e.preventDefault(); // prevent form submission
+		}
+	});
+}
+
+	
+</script>
+
+
 <style>
 .dropdown-container {
 	position: relative;
-	display:block;
+	display: block;
 }
 
 .dropdown-menu2 {
@@ -282,7 +324,19 @@
 .dropdown-menu2 li:hover {
 	background-color: #f2f2f2;
 }
-</style> 
+#employeeListButton {
+  min-width: 320px;
+}
+
+#employeeList {
+  height: 200px;
+  overflow-y: scroll;
+}
+.list-group-item {
+  min-width: 300px;
+}
+
+</style>
 </head>
 
 <body>
@@ -490,10 +544,11 @@
 														value="${fn:toUpperCase(fn:substring(dept.departmentName, 0, 1))}${fn:toLowerCase(fn:substring(dept.departmentName, 1,fn:length(dept.departmentName)))}" />
 												</td>
 												<td><c:out value="${dept.hod.empName}" /></td>
-												<td><a href="#editDepartmentModal${dept.deptId}"
-													class="edit" data-toggle="modal"> <i
-														class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-													<!-- <a href="#generateDepartmentReportModal" class="report"
+												<td><a href="#editDepartmentModal" class="edit"
+													data-toggle="modal" onclick="getdeptId(${dept.deptId})">
+														<i class="material-icons" data-toggle="tooltip"
+														title="Edit">&#xE254;</i>
+												</a> <!-- <a href="#generateDepartmentReportModal" class="report"
 															data-toggle="modal"> <i class="material-icons"
 																data-toggle="tooltip" title="Report">summarize</i></a> -->
 												</td>
@@ -501,101 +556,7 @@
 
 
 
-											<!-- Edit Modal HTML -->
-											<div id="editDepartmentModal${dept.deptId }"
-												class="modal fade" data-deptid="${dept.deptId}">
-												<div class="modal-dialog">
-													<div class="modal-content">
 
-														<div class="modal-header">
-															<h4 class="modal-title">Edit Department</h4>
-															<!-- <button type="button" class="close" data-dismiss="modal"
-											aria-hidden="true">&times;</button> -->
-														</div>
-														<div class="modal-body">
-															<form id="editDept" action="editDepartment?pg=${pageNo }&deptId=${dept.deptId }" method="post"
-																modelAttribute="modifydept">
-																<input type="hidden" id="deptIdInput" name="deptId" />
-
-																<div class="input-container ic2">
-																	<label for="deptName" class="placeholder">Change
-																		Department Name</label>
-																	<div class="cut"></div>
-																	<input id="deptName" name="departmentName"
-																		class="input required" type="text"
-																		placeholder="${dept.departmentName }"
-																		value=${dept.departmentName } />
-
-																</div>
-																<div class="input-container ic2">
-																	<label for="department" class="placeholder">Change
-																		HOD</label>
-																	<div class="cut cut-short"></div>
-																	<select id="hod" name="hod" class="input required"
-																		placeholder=" ">
-																		<option value="0">Unassigned</option>
-																		<c:forEach items="${allemployeenames}"
-																			var="department">
-																			<option value="${department.empId}">
-																				(${department.empId}) ${department.empName}</option>
-																		</c:forEach>
-																	</select>
-																</div>
-																<div class="input-container ic2">
-																	<label for="employeelist" class="placeholder">Add
-																		Employees</label>
-																	<div class="cut cut-short"></div>
-
-																	<input type="text" id="empList_${dept.deptId }" class="input"
-																		placeholder="Type employee name or ID" name="empList">
-
-																	<div class="dropdown-container">
-																		<ul id="suggestions_${dept.deptId }" class="dropdown-menu2">
-																		</ul>
-																	</div>
-																	<div id="selectedEmployees"
-																		class="selected-employees-container"></div>
-																</div>
-																<div class="input-container ic2">
-																	<label for="empindept" class="placeholder">Employees
-																		in Department</label>
-																	<div class="cut"></div>
-																	<!-- Add a button to toggle the dropdown -->
-																	<button class="btn btn-secondary dropdown-toggle"
-																		type="button" id="dropdownMenuButton"
-																		data-toggle="dropdown" aria-haspopup="true"
-																		aria-expanded="false">Employee List</button>
-
-																	<!-- Add the dropdown list -->
-																	<ul class="dropdown-menu"
-																		aria-labelledby="dropdownMenuButton">
-																		<c:choose>
-																			<c:when test="${empty dept.employees}">
-																				<li class="dropdown-item disabled">No Employees
-																					listed</li>
-																			</c:when>
-																			<c:otherwise>
-																				<c:forEach items="${dept.employees}" var="emp">
-																					<li class="dropdown-item disabled">(${emp.empId})
-																						${emp.empName}</li>
-																				</c:forEach>
-																			</c:otherwise>
-																		</c:choose>
-																	</ul>
-
-																</div>
-																<br>
-																<div class="cut"></div>
-																<div class="modal-footer">
-																	<button type="button" class="btn btn-secondary"
-																		data-dismiss="modal">Close</button>
-																	<button type="submit" class="btn btn-primary">Submit</button>
-																</div>
-															</form>
-														</div>
-													</div>
-												</div>
-											</div>
 										</c:forEach>
 								</tbody>
 							</table>
@@ -675,6 +636,86 @@
 			</div>
 		</div>
 	</div>
+
+
+	<!-- Edit Modal HTML -->
+	<div id="editDepartmentModal" class="modal fade">
+		<div class="modal-dialog">
+			<div class="modal-content">
+
+				<div class="modal-header">
+					<h4 class="modal-title">Edit Department</h4>
+					<!-- <button type="button" class="close" data-dismiss="modal"
+											aria-hidden="true">&times;</button> -->
+				</div>
+				<div class="modal-body">
+					<form id="editDept" action="" method="post"
+						modelAttribute="modifydept">
+						<input type="hidden" id="deptIdInput" name="deptId" value="" />
+
+						<div class="input-container ic2">
+							<label for="deptName" class="placeholder">Change
+								Department Name</label>
+							<div class="cut"></div>
+							<input id="deptName" name="departmentName" class="input required"
+								type="text" placeholder="" value="" required />
+
+						</div>
+						<div class="input-container ic2">
+							<label for="department" class="placeholder">Change HOD</label>
+							<div class="cut cut-short"></div>
+							<select id="hod" name="hod" class="input required"
+								placeholder=" ">
+								<option value="0">Unassigned</option>
+								<c:forEach items="${allemployeenames}" var="department">
+									<option value="${department.empId}">
+										(${department.empId}) ${department.empName}</option>
+								</c:forEach>
+							</select>
+						</div>
+						<div class="input-container ic2">
+							<label for="employeelist" class="placeholder">Add
+								Employees</label>
+							<div class="cut cut-short"></div>
+
+							<input type="text" id="empList" class="input"
+								placeholder="Type employee name or ID" name="empList">
+
+							<div class="dropdown-container">
+								<ul id="suggestions" class="dropdown-menu2">
+								</ul>
+							</div>
+							<div id="selectedEmployees" class="selected-employees-container"></div>
+						</div>
+						<div class="input-container ic2">
+							<label for="empindept" class="placeholder">Employees in
+								Department</label>
+							<div class="cut"></div>
+							<!-- Add a button to toggle the dropdown -->
+							<div class="btn-group">
+								<button class="btn btn-secondary dropdown-toggle" type="button"
+									id="employeeListButton" data-toggle="dropdown"
+									aria-haspopup="true" aria-expanded="false">Employee
+									List</button>
+								<div class="dropdown-menu" aria-labelledby="employeeListButton">
+									<ul class="list-group" id="employeeList"></ul>
+								</div>
+							</div>
+
+						</div>
+						<br>
+						<div class="cut"></div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary"
+								data-dismiss="modal">Close</button>
+							<button type="submit" class="btn btn-primary">Submit</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
 
 	<!-- Password Modal HTML -->
 	<div id="changePasswordModal" class="modal fade">

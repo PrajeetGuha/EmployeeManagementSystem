@@ -101,63 +101,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   </script>
 
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-	
-    // Get the form element
-    const form = document.querySelector('#modifyproj');
 
-    // Get the input elements
-    const projectNameInput = form.querySelector('#projName');
-    const startDateInput = form.querySelector('#changedstartDate');
-    const endDateInput = form.querySelector('#changedendDate');
-
-    // Get the list of project names sent by the model attribute
-    var projectNames = [
-        <c:forEach var="department" items="${listprojects}">
-        "${department.projectName}",
-      </c:forEach>];
-
-    // Add an event listener to the form submit event
-    form.addEventListener('submit', (event) => {
-        // Check if the project name is already in the list of project names
-        if (projectNames.includes(projectNameInput.value)) {
-            projectNameInput.setCustomValidity('This project name already exists. Please choose a different name.');
-        } else {
-            projectNameInput.setCustomValidity('');
-        }
-
-        // Check if the end date is greater than the start date
-        if (new Date(endDateInput.value) <= new Date(startDateInput.value)) {
-            endDateInput.setCustomValidity('The end date should be greater than the start date.');
-        } else {
-            endDateInput.setCustomValidity('');
-        }
-
-        // Check if any input is invalid
-        if (!form.checkValidity()) {
-            // Prevent form submission if inputs are invalid
-            event.preventDefault();
-        }
-    });
-
-    // Add an event listener to clear the validity message on input change
-    projectNameInput.addEventListener('input', () => {
-        projectNameInput.setCustomValidity('');
-    });
-
-    startDateInput.addEventListener('input', () => {
-        startDateInput.setCustomValidity('');
-    });
-
-    endDateInput.addEventListener('input', () => {
-        endDateInput.setCustomValidity('');
-    });
-
-
-	});
-
-</script>
 
 <script>
   document.addEventListener("DOMContentLoaded", function() {
@@ -295,40 +239,123 @@ document.addEventListener('DOMContentLoaded', function() {
     renderSelectedEmployees();
   });
 </script>
-<script>
-					document.addEventListener('DOMContentLoaded', function () {
-						var departmentNameInput = document.getElementById('projName');
-						var listdept = [
-							<c:forEach var="department" items="${listprojects}">
-								"${department.projectName}",
-							</c:forEach> // assuming "listdepartments" is a model attribute
-						];
 
-						var defaultValue = departmentNameInput.value;
+				
+				<script>
 
-						// add an "oninput" event listener to clear custom validity message
-						departmentNameInput.addEventListener('input', function () {
-							this.setCustomValidity('');
-						});
+function getdeptId(deptId)
+{
+	var formId=document.getElementById("editProj");
+	formId.action="editProj?projectId="+deptId+"&pg=1";
+			var deptIdValue=document.getElementById("deptIdInput");
+			deptIdValue.value = deptId;
+		var departmentNameValue= document.getElementById("projName");
+		var projpmValue= document.getElementById("changedpm");
+		var projstdateValue= document.getElementById("changedstartDate");
+		var projenddateValue= document.getElementById("changedendDate");
+		<c:forEach var="department" items="${listprojects}">
+			console.log(deptId);
+			console.log(${department.projId});
+			var deptIdValues=${department.projId};
+			if (deptId===deptIdValues){
+				console.log(deptId);
+				departmentNameValue.value="${department.projectName}";
+				
+				projstdateValue.value="${department.startDate}";
+				projenddateValue.value="${department.endDate}";
+				
+				var teamsindept = [
+					<c:forEach var="employee" items="${department.teams}">
+						{
+							id: "${employee.teamId}",
+							name: "${employee.teamName}"
+						},
+					</c:forEach>
+				];
+				var employeeList = document.getElementById("employeeList");
 
-						document.querySelector('form#editProj').addEventListener('submit', function (e) {
-							// check if department name already exists
-							if (departmentNameInput.value == defaultValue) {
-								departmentNameInput.setCustomValidity('');
-							}
-							else if (departmentNameInput.value == "") {
-								departmentNameInput.setCustomValidity('Project name cannot be empty.');
-								e.preventDefault(); // prevent form submission
-							}
-							else if (listdept.includes(departmentNameInput.value)) {
-								departmentNameInput.setCustomValidity('Project already exists. Please choose a different name.');
-								e.preventDefault(); // prevent form submission
-							}
-						});
-					});
+				teamsindept.forEach(function(employee) {
+					var listItem = document.createElement("li");
+					listItem.className = "list-group-item";
+					listItem.textContent = "(" + employee.id + ") " + employee.name;
+					employeeList.appendChild(listItem);
+				
+				});
+}
+	</c:forEach>
+	
+		
+			
+	
+
+	var departmentNameInput = document.getElementById('projName');
+	var listdept = [
+		<c:forEach var="department" items="${listprojects}">
+			"${department.projectName}",
+		</c:forEach> // assuming "listdepartments" is a model attribute
+	];
+
+	var defaultValue = departmentNameValue.value;
+	
+	// add an "oninput" event listener to clear custom validity message
+	departmentNameInput.addEventListener('input', function () {
+		this.setCustomValidity('');
+	});
+
+	document.querySelector('form#editProj').addEventListener('submit', function (e) {
+		// check if department name already exists
+		if (departmentNameInput.value == defaultValue) {
+			departmentNameInput.setCustomValidity('');
+		}
+		else if (departmentNameInput.value == "") {
+			departmentNameInput.setCustomValidity('Project name cannot be empty.');
+			e.preventDefault(); // prevent form submission
+		}
+		else if (listdept.includes(departmentNameInput.value)) {
+			departmentNameInput.setCustomValidity('Project already exists. Please choose a different name.');
+			e.preventDefault(); // prevent form submission
+		}
+	});
+	
+	/* // Get the form element
+    const form = document.querySelector('#editProj');
+ */
+    
+    /* var startDateInput = document.getElementById('changedstartDate');
+    var endDateInput = document.getElementById('changedendDate');
+
+	var defaultstdate = startDateInput.value;
+	var defaultenddate = endDateInput.value;
+    // Add an event listener to the form submit event
+    form.addEventListener('submit', (event) => {
+        
+
+        // Check if the end date is greater than the start date
+        if (new Date(defaultenddate) <= new Date(defaultstdate)) {
+            endDateInput.setCustomValidity('The end date should be greater than the start date.');
+            event.preventDefault();
+        } else {
+            endDateInput.setCustomValidity('');
+        }
+
+        
+    });
+
+    
+
+    startDateInput.addEventListener('input', () => {
+        startDateInput.setCustomValidity('');
+    });
+
+    endDateInput.addEventListener('input', () => {
+        endDateInput.setCustomValidity('');
+    }); */
 
 
-				</script>
+}
+
+	
+</script>
 
 <style>
 .dropdown-container {
@@ -359,6 +386,18 @@ document.addEventListener('DOMContentLoaded', function() {
 .dropdown-menu2 li:hover {
 	background-color: #f2f2f2;
 }
+
+#employeeListButton {
+  min-width: 320px;
+}
+
+#employeeList {
+  height: 200px;
+  overflow-y: scroll;
+}
+.list-group-item {
+  min-width: 300px;
+}
 </style>
 
 </head>
@@ -385,9 +424,9 @@ document.addEventListener('DOMContentLoaded', function() {
 				<li><a href="teamallocation?pg=1"> <i
 						class="material-icons">groups</i>Team
 				</a></li>
-				<li><a href="departmentallocation?pg=1"> <i
+				<!-- <li><a href="departmentallocation?pg=1"> <i
 						class="material-icons">work</i>Department
-				</a></li>
+				</a></li> -->
 								<li><a href="leaveApproval?pg=1"> <i class="material-icons">playlist_add_check</i>Leave
 										Approval
 									</a></li>
@@ -688,7 +727,7 @@ document.addEventListener('DOMContentLoaded', function() {
 									</tr>
 								</thead>
 								<tbody>
-									<tr>
+									
 
 										<c:forEach items="${listprojects}" var="project">
 											<tr>
@@ -701,194 +740,20 @@ document.addEventListener('DOMContentLoaded', function() {
 														pattern="dd-MMMM-yyyy" /></td>
 												<td><fmt:formatDate value="${project.endDate}"
 														pattern="dd-MMMM-yyyy" /></td>
-												<td><a href="#editProjectModal${project.projId }"
-													class="edit" data-toggle="modal"> <i
+												<td><a href="#editProjectModal"
+													class="edit" data-toggle="modal" onclick="getdeptId(${project.projId})"> <i
 														class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
 													<!-- <a href="#generateProjectReportModal" class="report"
 													data-toggle="modal"> <i class="material-icons"
 														data-toggle="tooltip" title="Report">summarize</i></a> --></td>
 											</tr>
 
-											<!-- Edit Modal HTML -->
-											<div id="editProjectModal${project.projId }"
-												class="modal fade">
-												<div class="modal-dialog">
-													<div class="modal-content">
-
-														<div class="modal-header">
-															<h4 class="modal-title">Edit Project</h4>
-															<!-- <button type="button" class="close" data-dismiss="modal"
-												aria-hidden="true">&times;</button> -->
-														</div>
-														<div class="modal-body">
-															<form action="editProj?projectId=${project.projId }&pg=1" method="post"
-																modelAttribute="modifyproj" id="modifyproj" >
-																<div class="input-container ic1">
-																	<label for="projName" class="placeholder">Change
-																		Project Name</label>
-																	<div class="cut"></div>
-																	<input id="projName" name="projectName"
-																		class="input required" type="text" placeholder=" " placeholder="${project.projectName }"
-																		value=${project.projectName }
-																		required />
-																</div>
-																<div class="input-container ic2">
-																	<label for="pm" class="placeholder">Change
-																		Project Manager</label>
-																	<div class="cut cut-short"></div>
-																	<select id="pm" name="pm" class="input required"
-																		placeholder=" " required>
-																		<option value="0">Unassigned</option>
-																		<c:forEach items="${allemployeenames}"
-																			var="department">
-																			<option value="${department.empId}">(${department.empId})
-																				${department.empName}</option>
-
-
-																		</c:forEach>
-																	</select>
-																</div>
-																<div class="input-container ic2">
-																	<label for="changedstartDate" class="placeholder">Start
-																		Date</label>
-																	<div class="cut cut-short"></div>
-																	<input id="changedstartDate" name="startDate"
-																		class="input required" type="date" placeholder=" " value="${project.startDate }"
-																		required />
-																</div>
-																<div class="input-container ic2">
-																	<label for="changedendDate" class="placeholder">Tentative
-																		End Date</label>
-																	<div class="cut cut-short"></div>
-																	<input id="changedendDate" name="endDate"
-																		class="input required" type="date" placeholder=" " value="${project.endDate }"
-																		required />
-																</div>
-																<div class="input-container ic2">
-																	<label for="employeelist" class="placeholder">Add
-																		Teams</label>
-																	<div class="cut cut-short"></div>
-																	<input type="text" id="empList" class="input"
-																		placeholder="Type team name or ID" name="teamList">
-																	<div class="dropdown-container">
-																		<ul id="suggestions" class="dropdown-menu2"></ul>
-																	</div>
-																	<div id="selectedEmployees"
-																		class="selected-employees-container"></div>
-																</div>
-																<div class="input-container ic2">
-																	<label for="empindept" class="placeholder">Teams
-																		in Project</label>
-																	<div class="cut"></div>
-																	<!-- Add a button to toggle the dropdown -->
-																	<button class="btn btn-secondary dropdown-toggle"
-																		type="button" id="dropdownMenuButton"
-																		data-toggle="dropdown" aria-haspopup="true"
-																		aria-expanded="false">Team List</button>
-
-																	<!-- Add the dropdown list -->
-																	<ul class="dropdown-menu"
-																		aria-labelledby="dropdownMenuButton">
-																		<c:choose>
-																			<c:when test="${empty project.teams}">
-																				<li class="dropdown-item disabled">No Teams
-																					listed</li>
-																			</c:when>
-																			<c:otherwise>
-																				<c:forEach items="${project.teams}" var="emp">
-																					<li class="dropdown-item disabled">(${emp.teamId})
-																						${emp.teamName}</li>
-																				</c:forEach>
-																			</c:otherwise>
-																		</c:choose>
-																	</ul>
-																</div>
-																<br>
-																<br>
-																<div class="modal-footer">
-																	<button type="button" class="btn btn-secondary"
-																		data-dismiss="modal">Close</button>
-																	<button type="submit" class="btn btn-primary">Submit</button>
-																</div>
-															</form>
-														</div>
-													</div>
-												</div>
+											
 										</c:forEach>
 
 									</tr>
-									<!--  <tr>
-                      <td>
-                        <span class="custom-checkbox">
-                          <input type="checkbox" id="checkbox2" name="options[]" value="1">
-                          <label for="checkbox2"></label>
-                        </span>
-                      </td>
-                      <td>Dominique Perrier</td>
-                      <td>dominiqueperrier@mail.com</td>
-                      <td>Obere Str. 57, Berlin, Germany</td>
-                      <td>(313) 555-5735</td>
-                      <td>
-                        <a href="#editEmployeeModal" class="edit" data-toggle="modal">
-                          <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                        <a href="#deleteEmployeeModal" class="delete" data-toggle="modal">
-                          <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <span class="custom-checkbox">
-                          <input type="checkbox" id="checkbox3" name="options[]" value="1">
-                          <label for="checkbox3"></label>
-                        </span>
-                      </td>
-                      <td>Maria Anders</td>
-                      <td>mariaanders@mail.com</td>
-                      <td>25, rue Lauriston, Paris, France</td>
-                      <td>(503) 555-9931</td>
-                      <td>
-                        <a href="#editEmployeeModal" class="edit" data-toggle="modal">
-                          <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                        <a href="#deleteEmployeeModal" class="delete" data-toggle="modal">
-                          <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <span class="custom-checkbox">
-                          <input type="checkbox" id="checkbox4" name="options[]" value="1">
-                          <label for="checkbox4"></label>
-                        </span>
-                      </td>
-                      <td>Fran Wilson</td>
-                      <td>franwilson@mail.com</td>
-                      <td>C/ Araquil, 67, Madrid, Spain</td>
-                      <td>(204) 619-5731</td>
-                      <td>
-                        <a href="#editEmployeeModal" class="edit" data-toggle="modal">
-                          <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                        <a href="#deleteEmployeeModal" class="delete" data-toggle="modal">
-                          <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <span class="custom-checkbox">
-                          <input type="checkbox" id="checkbox5" name="options[]" value="1">
-                          <label for="checkbox5"></label>
-                        </span>
-                      </td>
-                      <td>Martin Blank</td>
-                      <td>martinblank@mail.com</td>
-                      <td>Via Monte Bianco 34, Turin, Italy</td>
-                      <td>(480) 631-2097</td>
-                      <td>
-                        <a href="#editEmployeeModal" class="edit" data-toggle="modal">
-                          <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                         <a href="#deleteEmployeeModal" class="delete" data-toggle="modal">
-			<i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-                      </td>
-                    </tr>-->
+									 <tr>
+                      
 								</tbody>
 							</table>
 
@@ -913,7 +778,8 @@ document.addEventListener('DOMContentLoaded', function() {
 								</ul>
 							</div>
 						</div>
-					</div>
+					</div> 
+					
 					<!-- Edit Modal HTML -->
 					<div id="addProjectModal" class="modal fade">
 						<div class="modal-dialog">
@@ -970,44 +836,109 @@ document.addEventListener('DOMContentLoaded', function() {
 								</div>
 							</div>
 						</div>
-						<!-- <div id="allocateProjectModal" class="modal fade">
-						<div class="modal-dialog">
-							<div class="modal-content">
-								<form>
-									<div class="modal-header">
-										<h4 class="modal-title">Allocate Project</h4>
-										<button type="button" class="close" data-dismiss="modal"
-											aria-hidden="true">&times;</button>
-									</div>
-									<div class="modal-body">
-										<div class="form-group">
-											<label>Project Name</label> <input type="text" class="form-control"
-												required>
-										</div>
-										<div class="form-group">
-											<label>Team Name</label> <input type="text" class="form-control"
-												required>
-										</div>
-										
-										 <div class="form-group">
-											<label>Address</label>
-											<textarea class="form-control" required></textarea>
-										</div>
-										<div class="form-group">
-											<label>Phone</label> <input type="text" class="form-control"
-												required>
-										</div>
-									</div>
-									<div class="modal-footer">
-										<input type="button" class="btn btn-default"
-											data-dismiss="modal" value="Cancel"> <input
-											type="submit" class="btn btn-success" value="Add">
-									</div>
-								</form>
-							</div>
+						
 						</div>
-					</div> -->
+					
+					<!-- Edit Modal HTML -->
+											<div id="editProjectModal" class="modal fade">
+												<div class="modal-dialog">
+													<div class="modal-content">
 
+														<div class="modal-header">
+															<h4 class="modal-title">Edit Project</h4>
+															<!-- <button type="button" class="close" data-dismiss="modal"
+												aria-hidden="true">&times;</button> -->
+														</div>
+														<div class="modal-body">
+															<form action="" method="post"
+																modelAttribute="modifyproj" id="editProj" >
+																
+																<input type="hidden" id="deptIdInput" name="deptId" value="" />
+																<div class="input-container ic1">
+																	<label for="projName" class="placeholder">Change
+																		Project Name</label>
+																	<div class="cut"></div>
+																	<input id="projName" name="projectName"
+																		class="input required" type="text" placeholder=" " placeholder=""
+																		value=""
+																		required />
+																</div>
+																<div class="input-container ic2">
+																	<label for="changedpm" class="placeholder">Change
+																		Project Manager</label>
+																	<div class="cut cut-short"></div>
+																	<select id="changedpm" name="pm" class="input required"
+																		placeholder=" " required>
+																		<option value="0">Unassigned</option>
+																		<c:forEach items="${allemployeenames}"
+																			var="department">
+																			<option value="${department.empId}">(${department.empId})
+																				${department.empName}</option>
+
+
+																		</c:forEach>
+																	</select>
+																</div>
+																<div class="input-container ic2">
+																	<label for="changedstartDate" class="placeholder">Start
+																		Date</label>
+																	<div class="cut cut-short"></div>
+																	<input id="changedstartDate" name="startDate"
+																		class="input required" type="date" placeholder=" " value=""
+																		required />
+																</div>
+																<div class="input-container ic2">
+																	<label for="changedendDate" class="placeholder">Tentative
+																		End Date</label>
+																	<div class="cut cut-short"></div>
+																	<input id="changedendDate" name="endDate"
+																		class="input required" type="date" placeholder=" " value=""
+																		required />
+																</div>
+																<div class="input-container ic2">
+							<label for="employeelist" class="placeholder">Add
+								Teams</label>
+							<div class="cut cut-short"></div>
+
+							<input type="text" id="empList" class="input"
+								placeholder="Type employee name or ID" name="empList">
+
+							<div class="dropdown-container">
+								<ul id="suggestions" class="dropdown-menu2">
+								</ul>
+							</div>
+							<div id="selectedEmployees" class="selected-employees-container"></div>
+						</div>
+						<div class="input-container ic2">
+							<label for="empindept" class="placeholder">Teams in
+								Project</label>
+							<div class="cut"></div>
+							<!-- Add a button to toggle the dropdown -->
+							<div class="btn-group">
+								<button class="btn btn-secondary dropdown-toggle" type="button"
+									id="employeeListButton" data-toggle="dropdown"
+									aria-haspopup="true" aria-expanded="false">Team
+									List</button>
+								<div class="dropdown-menu" aria-labelledby="employeeListButton">
+									<ul class="list-group" id="employeeList"></ul>
+								</div>
+							</div>
+
+						</div>
+																
+																<br>
+																<div class="modal-footer">
+																	<button type="button" class="btn btn-secondary"
+																		data-dismiss="modal">Close</button>
+																	<button type="submit" class="btn btn-primary">Submit</button>
+																</div>
+															</form>
+														</div>
+													</div>
+												</div>
+												
+					
+					
 
 
 
