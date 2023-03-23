@@ -537,6 +537,7 @@ var barChartOptions = {
 			  		      zoomout: true,
 			  		      pan: true,
 			  		      reset: true,
+			  		    
 			  	            // You can add more built-in toolbar options here
 			  	          },
 			  	        autoSelected: 'zoom',
