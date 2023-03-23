@@ -254,15 +254,21 @@
             <p class="chart-title">Sex Ratio</p>
             <div id="chart"></div>
           </div> -->
-           <div class="charts-card">
+           <div class="charts-card" style="width: 97%;">
             <p class="chart-title">Total Cost Distribution of Each Department</p>
             <div id="bar-chart2"></div>
           </div> 
-           <div class="charts-card">
+          <div class="charts-container" style="display: flex; justify-content: space-between; gap: 10px;">
+           <div class="charts-card" style="width: 50%;">
             <p class="chart-title">Employee Type</p>
             <div id="pie-chart"></div>
           </div> 
-			   <div class="charts-card">
+          <div class="charts-card" style="width: 50%;">
+            <p class="chart-title">Gender Ratio</p>
+            <div id="chart"></div>
+          </div> 
+          </div>
+			   <div class="charts-card" style="width: 97%;">
             <p class="chart-title">Recruitment Metrics</p>
             <div id="line-chart"></div>
           </div> 
@@ -392,11 +398,24 @@ var barChartOptions = {
 			    var chart = new ApexCharts(document.querySelector("#chart"), chartOptions);
 			    chart.render();*/
 			    
-			    /*var options = {
+			    var options = {
 			            series: [${sexratio[0]}, ${sexratio[1]}, ${sexratio[2]}],
 			            chart: {
-			            width: 400,
+			            width: 350,
 			            type: 'donut',
+			            toolbar: {
+					        show: true,
+					        tools: {
+					          download: true,
+					          selection: true,
+					          zoom: true,
+					          zoomin: true,
+					          zoomout: true,
+					          pan: true,
+					          reset: true
+					        },
+					        autoSelected: 'zoom'
+					      },
 			            dropShadow: {
 			              enabled: true,
 			              color: '#111',
@@ -458,7 +477,7 @@ var barChartOptions = {
 			          };
 
 			          var chart = new ApexCharts(document.querySelector("#chart"), options);
-			          chart.render();*/
+			          chart.render();
 			    
 			    var barChart2Options = {
 			  		  series: [{
@@ -565,7 +584,7 @@ var barChartOptions = {
 			  	        
 			  	      var options = {
 			  	            series: [{
-			  	              name: "Employees",
+			  	              name: "Recruitment Metrics",
 			  	              data: [<c:forEach var="item" items="${recruitment}">
 				  		      "${item}",
 				  		      </c:forEach>]
@@ -584,7 +603,7 @@ var barChartOptions = {
 			  	            curve: 'straight'
 			  	          },
 			  	          title: {
-			  	            text: 'Recruitments per Month',
+			  	            text: 'by Month',
 			  	            align: 'left'
 			  	          },
 			  	          grid: {
@@ -594,17 +613,13 @@ var barChartOptions = {
 			  	            },
 			  	          },
 			  	          xaxis: {
-			  	            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep','Oct','Nov','Dec'],
-			  	          title: {
-				  		      text: "Month"
-				  		    }
+			  	            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
 			  	          }
-			  	      
 			  	          };
 
 			  	          var linechart = new ApexCharts(document.querySelector("#line-chart"), options);
 			  	          linechart.render();
-			  	        
+			  	          
 			  	  		/*var pieoptions2 = {
 					  	          series: [ <c:forEach var="item" items="${findteamcount}">
 					  		      "${item}",

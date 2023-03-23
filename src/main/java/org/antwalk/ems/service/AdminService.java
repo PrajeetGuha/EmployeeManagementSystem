@@ -203,7 +203,7 @@ public class AdminService {
   }
   public List<Integer> sexratio()
   {
-	  return departmentRepository.sexratio();
+	  return employeeRepository.sexratio();
   }
   
   public List<Double> totalcost()
