@@ -318,8 +318,18 @@ var barChartOptions = {
 		    type: 'bar',
 		    height: 350,
 		    toolbar: {
-		      show: false
-		    },
+		        show: true,
+		        tools: {
+		          download: true,
+		          selection: true,
+		          zoom: true,
+		          zoomin: true,
+		          zoomout: true,
+		          pan: true,
+		          reset: true
+		        },
+		        autoSelected: 'zoom'
+		      },
 		  },
 		  colors: [
 		    "#246dec",
@@ -459,9 +469,19 @@ var barChartOptions = {
 			  		  chart: {
 			  		    type: 'bar',
 			  		    height: 350,
-			  		    toolbar: {
-			  		      show: false
+			  		  toolbar: {
+			  		    show: true,
+			  		    tools: {
+			  		      download: true,
+			  		      selection: true,
+			  		      zoom: true,
+			  		      zoomin: true,
+			  		      zoomout: true,
+			  		      pan: true,
+			  		      reset: true
 			  		    },
+			  		    autoSelected: 'zoom'
+			  		  },
 			  		  },
 			  		  colors: [
 			  		    "#246dec",
@@ -507,6 +527,21 @@ var barChartOptions = {
 			  	          chart: {
 			  	          width: 380,
 			  	          type: 'pie',
+			  	        toolbar: {
+			  	          show: true,
+			  	          tools: {
+			  	            download: true,
+			  	          selection: true,
+			  		      zoom: true,
+			  		      zoomin: true,
+			  		      zoomout: true,
+			  		      pan: true,
+			  		      reset: true,
+			  	            // You can add more built-in toolbar options here
+			  	          },
+			  	        autoSelected: 'zoom',
+			  	        },
+			  	          
 			  	        },
 			  	        labels: ['Full-Time', 'Part-Time', 'Contract'],
 			  	        responsive: [{
@@ -514,6 +549,7 @@ var barChartOptions = {
 			  	          options: {
 			  	            chart: {
 			  	              width: 200
+			  	              
 			  	              
 			  	            },
 			  	            legend: {
