@@ -19,12 +19,10 @@ import org.antwalk.ems.exception.DepartmentNotFoundException;
 import org.antwalk.ems.exception.EmployeeNotFoundException;
 import org.antwalk.ems.exception.UserNotFoundException;
 import org.antwalk.ems.model.Admin;
-import org.antwalk.ems.model.Department;
 import org.antwalk.ems.model.Employee;
 import org.antwalk.ems.model.Project;
 import org.antwalk.ems.model.Team;
 import org.antwalk.ems.pojo.SuccessDetails;
-import org.antwalk.ems.repository.DepartmentRepository;
 import org.antwalk.ems.repository.EmployeeRepository;
 import org.antwalk.ems.security.AuthenticationSystem;
 import org.antwalk.ems.service.AdminService;
@@ -71,7 +69,7 @@ private EmployeeRepository employeeRepository;
         List<String> emailIds = adminService.listAllEmails();
         List<EmployeeSelectionView> allemployees = adminService.listAllEmployees();
         List<EmployeeListView> employeeListViews = adminService.listEmployees(pageNo,search);
-        List<String> listOfdepartments = adminService.listDepartments();
+//        List<String> listOfdepartments = adminService.listDepartments();
         model.addAttribute("admin",admin);
         model.addAttribute("employees", employeeListViews);
         model.addAttribute("pageCount", pageCount);
@@ -81,7 +79,7 @@ private EmployeeRepository employeeRepository;
         
         model.addAttribute("usernames",usernames);
         model.addAttribute("emailIds", emailIds);
-        model.addAttribute("departments", listOfdepartments);
+//        model.addAttribute("departments", listOfdepartments);
         model.addAttribute("search", search);
 
         //System.out.println(employeeListViews);
@@ -109,16 +107,16 @@ private EmployeeRepository employeeRepository;
    	public String allocateteam() {
           		return "allocateteam";
    	}
-    @GetMapping("/adddepartment")
-   	public String adddepartment() {
-          		return "adddepartment";
-   	}
-    @GetMapping("/allocatedepartment")
-
-   	public String allocatedepartment(HttpServletRequest request, Model model) {
-          		return "allocatedepartment";
-
-   	}
+//    @GetMapping("/adddepartment")
+//   	public String adddepartment() {
+//          		return "adddepartment";
+//   	}
+//    @GetMapping("/allocatedepartment")
+//
+//   	public String allocatedepartment(HttpServletRequest request, Model model) {
+//          		return "allocatedepartment";
+//
+//   	}
     @GetMapping("/analytics")
 
    	public String analytics(HttpServletRequest request, Model model) throws UserNotFoundException{
@@ -126,36 +124,36 @@ private EmployeeRepository employeeRepository;
     	Long id = AuthenticationSystem.getId();
     	Admin admin = adminService.fetchAdminData(id);
         Long count = adminService.countAllEmployees();
-        Long countdept = adminService.countAllDepartments();
+//        Long countdept = adminService.countAllDepartments();
         Long countteam = adminService.countAllTeams();
         Long countproject=adminService.countAllProjects();
-        List<String> alldepartments = adminService.listDepartments();
+//        List<String> alldepartments = adminService.listDepartments();
 
         List<EmployeeSelectionView> allemployees = adminService.listAllEmployees();
        
         //List<Integer> countemployeeindepartment=adminService.employeesInDepartment();
 
-        List<Integer> countemployeeindepartment=adminService.employeesInDepartment();
+//        List<Integer> countemployeeindepartment=adminService.employeesInDepartment();
         //List<Integer> sexratio=adminService.sexratio();
 //        List<String> teamsinprojects=adminService.teamsinprojects();
 //        List<Integer> findteamcount=adminService.findteamcount();
-        List<Double> totalcost=adminService.totalcost();
+//        List<Double> totalcost=adminService.totalcost();
         List<String> emptype=adminService.emptype();
         List<Integer> recruitment=adminService.recruitment();
     	model.addAttribute("admin",admin);
         model.addAttribute("countOfEmployees", count);
-        model.addAttribute("countOfDepartments", countdept);
+//        model.addAttribute("countOfDepartments", countdept);
         model.addAttribute("countOfTeams", countteam);
         model.addAttribute("countOfProjects",countproject);
-        model.addAttribute("alldepartmentnames",alldepartments);
+//        model.addAttribute("alldepartmentnames",alldepartments);
 
         model.addAttribute("allemployeenames",allemployees);
         //model.addAttribute("countOfEmployeesInDepartment", countemployeeindepartment);
 
-        model.addAttribute("countOfEmployeesInDepartment", countemployeeindepartment);
+//        model.addAttribute("countOfEmployeesInDepartment", countemployeeindepartment);
         //model.addAttribute("sexratio",sexratio);
 
-        model.addAttribute("totalcost",totalcost);
+//        model.addAttribute("totalcost",totalcost);
         model.addAttribute("emptype",emptype);
         model.addAttribute("recruitment", recruitment);
 //        model.addAttribute("teamsinprojects", teamsinprojects);
@@ -199,24 +197,24 @@ private EmployeeRepository employeeRepository;
         model.addAttribute("allemployeenames",allemployees);
    		return "teamallocation";
    	}
-    @GetMapping("/departmentallocation")
-   	public String departmentallocation(HttpServletRequest request, Model model) throws UserNotFoundException{
-    	Long id = AuthenticationSystem.getId();
-        int pageNo = Integer.parseInt(request.getParameter("pg"));
-        List<Department> listDepartments = adminService.getAllDepartments(pageNo);
-    	Admin admin = adminService.fetchAdminData(id);
-        Long count = adminService.countAllDepartments();
-        int countPages = adminService.countPagesOfDepartments();
-       
-        List<EmployeeSelectionView> allemployees = adminService.listOfHOD();
-    	model.addAttribute("admin",admin);
-        model.addAttribute("listdepartments", listDepartments);
-        model.addAttribute("countPages", countPages);
-        model.addAttribute("countOfDepartments", count);
-        model.addAttribute("pageNo", pageNo);
-        model.addAttribute("allemployeenames",allemployees);
-   		return "departmentallocation";
-   	}
+//    @GetMapping("/departmentallocation")
+//   	public String departmentallocation(HttpServletRequest request, Model model) throws UserNotFoundException{
+//    	Long id = AuthenticationSystem.getId();
+//        int pageNo = Integer.parseInt(request.getParameter("pg"));
+//        List<Department> listDepartments = adminService.getAllDepartments(pageNo);
+//    	Admin admin = adminService.fetchAdminData(id);
+//        Long count = adminService.countAllDepartments();
+//        int countPages = adminService.countPagesOfDepartments();
+//       
+//        List<EmployeeSelectionView> allemployees = adminService.listOfHOD();
+//    	model.addAttribute("admin",admin);
+//        model.addAttribute("listdepartments", listDepartments);
+//        model.addAttribute("countPages", countPages);
+//        model.addAttribute("countOfDepartments", count);
+//        model.addAttribute("pageNo", pageNo);
+//        model.addAttribute("allemployeenames",allemployees);
+//   		return "departmentallocation";
+//   	}
 
     @PostMapping("deactivateUser")
     public String deactivateEmployee(@ModelAttribute("employee") Employee employee, @RequestParam int pgNo, BindingResult result, RedirectAttributes redirectAttrs) throws UserNotFoundException{
@@ -279,23 +277,23 @@ private EmployeeRepository employeeRepository;
     }
 
     // departmentName, hod
-    @PostMapping("/addDept")
-    public String addDepartment(@ModelAttribute("newdept") NewDepartmentDTO newDepartment, BindingResult result, RedirectAttributes redirectAttrs ) throws DepartmentNotFoundException, EmployeeNotFoundException{
-        // return ResponseEntity.ok().body();
-        System.out.println(newDepartment);
-        adminService.addDepartment(newDepartment);
-        if (result.hasErrors()){
-            redirectAttrs.addFlashAttribute("result", result);
-        }
-        else{
-            redirectAttrs.addFlashAttribute("result",ResponseEntity.ok().body(new SuccessDetails(
-                new Date(),
-                "Created",
-                "New department has been created"
-            )));
-        }
-        return "redirect:/admin/departmentallocation?pg=1";
-    }
+//    @PostMapping("/addDept")
+//    public String addDepartment(@ModelAttribute("newdept") NewDepartmentDTO newDepartment, BindingResult result, RedirectAttributes redirectAttrs ) throws DepartmentNotFoundException, EmployeeNotFoundException{
+//        // return ResponseEntity.ok().body();
+//        System.out.println(newDepartment);
+//        adminService.addDepartment(newDepartment);
+//        if (result.hasErrors()){
+//            redirectAttrs.addFlashAttribute("result", result);
+//        }
+//        else{
+//            redirectAttrs.addFlashAttribute("result",ResponseEntity.ok().body(new SuccessDetails(
+//                new Date(),
+//                "Created",
+//                "New department has been created"
+//            )));
+//        }
+//        return "redirect:/admin/departmentallocation?pg=1";
+//    }
 
     @GetMapping("leaveApproval")
     public String leaveApprovaldashboard(HttpServletRequest request,Model model){
@@ -387,28 +385,28 @@ private EmployeeRepository employeeRepository;
         adminService.resignAction(rid,adminId,approve);
         return "redirect:/admin/resignationApproval?pg="+pg;
     }
-    @PostMapping("editDepartment")
-    public String editDepartment(@ModelAttribute("modifydept") EditDepartmentDTO editDepartment, BindingResult result, RedirectAttributes redirectAttrs, HttpServletRequest request) throws Exception{
-//        String pg = request.getParameter("pg");
-        Long deptId = Long.parseLong(request.getParameter("deptId"));
-        
-//        System.out.println("\n\n\n\n\n\n");
-//         System.out.println(editDepartment);
-
-        adminService.editDepartment(deptId, editDepartment);
-
-        if (result.hasErrors()){
-            redirectAttrs.addFlashAttribute("result", result);
-        }
-        else{
-            redirectAttrs.addFlashAttribute("result",ResponseEntity.ok().body(new SuccessDetails(
-                new Date(),
-                "Updated",
-                "Department is updated"
-            )));
-        }
-        return "redirect:/admin/departmentallocation?pg="+1;
-    }
+//    @PostMapping("editDepartment")
+//    public String editDepartment(@ModelAttribute("modifydept") EditDepartmentDTO editDepartment, BindingResult result, RedirectAttributes redirectAttrs, HttpServletRequest request) throws Exception{
+////        String pg = request.getParameter("pg");
+//        Long deptId = Long.parseLong(request.getParameter("deptId"));
+//        
+////        System.out.println("\n\n\n\n\n\n");
+////         System.out.println(editDepartment);
+//
+//        adminService.editDepartment(deptId, editDepartment);
+//
+//        if (result.hasErrors()){
+//            redirectAttrs.addFlashAttribute("result", result);
+//        }
+//        else{
+//            redirectAttrs.addFlashAttribute("result",ResponseEntity.ok().body(new SuccessDetails(
+//                new Date(),
+//                "Updated",
+//                "Department is updated"
+//            )));
+//        }
+//        return "redirect:/admin/departmentallocation?pg="+1;
+//    }
     
     @PostMapping("addteam")
     public String addTeam(@ModelAttribute("newteam") NewTeamDTO newTeam, BindingResult result, RedirectAttributes redirectAttrs ) throws DepartmentNotFoundException, EmployeeNotFoundException{

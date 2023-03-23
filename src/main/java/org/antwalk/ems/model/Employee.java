@@ -39,7 +39,7 @@ public class Employee {
 
     @Column(length = 255)
     private String designation = "unassigned";
-
+ 
     @Column(length = 255)
     private String emptype;
 
@@ -98,9 +98,10 @@ public class Employee {
     @Column
     private int yearOfExperience;
     
-    @ManyToOne
-    @JsonIgnoreProperties("employees")
-    private Department department;
+    @Column
+    private String department;
+    
+    
 
     @ManyToOne
     @JsonIgnoreProperties("employees")
@@ -122,6 +123,8 @@ public class Employee {
 
 	
 
+
+
 	@Override
 	public String toString() {
 		return "Employee [empId=" + empId + ", empName=" + empName + ", gender=" + gender + ", gradeLevel=" + gradeLevel
@@ -134,6 +137,67 @@ public class Employee {
 				+ yearOfExperience + ", department=" + department + ", team=" + team + ", employeeDetails="
 				+ employeeDetails + ", payrolls=" + payrolls + ", leaves=" + leaves + "]";
 	}
+
+
+
+
+
+	public Employee(Long empId, String empName, String gender, String gradeLevel, Date doj, String designation,
+			String emptype, String empstatus, Integer probPeriod, Date probCompDate, Integer trainPeriod,
+			Date contractEndDate, Integer servPeriod, @Email String workEmail, String branch, String office,
+			String workstationId, Integer clLeft, Integer plLeft, Integer slLeft, Integer moreLeave, Integer totalLeave,
+			Double ctc, Resignation resignation, int yearOfExperience, String department, Team team,
+			EmployeeDetails employeeDetails, List<Payroll> payrolls, List<LeaveApplication> leaves) {
+		super();
+		this.empId = empId;
+		this.empName = empName;
+		this.gender = gender;
+		this.gradeLevel = gradeLevel;
+		this.doj = doj;
+		this.designation = designation;
+		this.emptype = emptype;
+		this.empstatus = empstatus;
+		this.probPeriod = probPeriod;
+		this.probCompDate = probCompDate;
+		this.trainPeriod = trainPeriod;
+		this.contractEndDate = contractEndDate;
+		this.servPeriod = servPeriod;
+		this.workEmail = workEmail;
+		this.branch = branch;
+		this.office = office;
+		this.workstationId = workstationId;
+		this.clLeft = clLeft;
+		this.plLeft = plLeft;
+		this.slLeft = slLeft;
+		this.moreLeave = moreLeave;
+		this.totalLeave = totalLeave;
+		this.ctc = ctc;
+		this.resignation = resignation;
+		this.yearOfExperience = yearOfExperience;
+		this.department = department;
+		this.team = team;
+		this.employeeDetails = employeeDetails;
+		this.payrolls = payrolls;
+		this.leaves = leaves;
+	}
+
+
+
+
+
+	public String getDepartment() {
+		return department;
+	}
+
+
+
+
+
+	public void setDepartment(String department) {
+		this.department = department;
+	}
+
+
 
 
 
@@ -341,13 +405,8 @@ public class Employee {
 		this.resignation = resignation;
 	}
 
-	public Department getDepartment() {
-		return department;
-	}
-
-	public void setDepartment(Department department) {
-		this.department = department;
-	}
+	
+	
 
 	public Team getTeam() {
 		return team;

@@ -43,40 +43,32 @@ public class Team {
     @OneToMany(mappedBy = "team")
     private List<Employee> employees;
 
-    @ManyToOne
-    @JsonIgnoreProperties("team")
-    private Department department;
+ 
     
-    public Team() {
-    	
-    }
-
-    
-
-    public Team(Long teamId, String teamName, Employee tm, Set<Project> projects, List<Employee> employees,
-			Department department) {
+    public Team(Long teamId, String teamName, Employee tm, Set<Project> projects, List<Employee> employees) {
 		super();
 		this.teamId = teamId;
 		this.teamName = teamName;
 		this.tm = tm;
 		this.projects = projects;
 		this.employees = employees;
-		this.department = department;
 	}
 
 
 
-	public Department getDepartment() {
-		return department;
+	@Override
+	public String toString() {
+		return "Team [teamId=" + teamId + ", teamName=" + teamName + ", tm=" + tm + ", projects=" + projects
+				+ ", employees=" + employees + "]";
 	}
 
 
 
-	public void setDepartment(Department department) {
-		this.department = department;
-	}
+	public Team() {
+    	
+    }
 
-
+    
 
 	public Long getTeamId() {
         return teamId;

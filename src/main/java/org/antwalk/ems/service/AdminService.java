@@ -21,7 +21,6 @@ import org.antwalk.ems.exception.DepartmentNotFoundException;
 import org.antwalk.ems.exception.EmployeeNotFoundException;
 import org.antwalk.ems.exception.UserNotFoundException;
 import org.antwalk.ems.model.Admin;
-import org.antwalk.ems.model.Department;
 import org.antwalk.ems.model.Employee;
 import org.antwalk.ems.model.EmployeeDetails;
 import org.antwalk.ems.model.LeaveApplication;
@@ -29,8 +28,7 @@ import org.antwalk.ems.model.Project;
 import org.antwalk.ems.model.Resignation;
 import org.antwalk.ems.model.Team;
 import org.antwalk.ems.model.User;
-import org.antwalk.ems.repository.AdminRepository;
-import org.antwalk.ems.repository.DepartmentRepository;
+import org.antwalk.ems.repository.AdminRepository; 
 import org.antwalk.ems.repository.EmployeeDetailsRepository;
 import org.antwalk.ems.repository.EmployeeRepository;
 import org.antwalk.ems.repository.LeaveApplicationRepository;
@@ -75,9 +73,9 @@ public class AdminService {
 
     @Autowired
     UserRepository userRepository;
-
-    @Autowired
-    DepartmentRepository departmentRepository;
+//
+//    @Autowired
+//    DepartmentRepository departmentRepository;
     
     @Autowired
     LeaveApplicationRepository leaveApplicationRepository;
@@ -90,6 +88,7 @@ public class AdminService {
 
     @Autowired
     MailService mailService;
+    
 
     public Admin fetchAdminData(Long id) throws UserNotFoundException{
         return Optional.of(adminRepository.getById(id)).orElseThrow(
@@ -145,7 +144,7 @@ public class AdminService {
 
     @Transactional
     public void addEmployee(NewEmployeeDTO newEmployeeDTO) throws DepartmentNotFoundException{
-
+    	
         EmployeeDetails employeeDetails = new EmployeeDetails();
         employeeDetails.setEmailId(newEmployeeDTO.getEmail());
         employeeDetailsRepository.save(employeeDetails);
@@ -154,15 +153,16 @@ public class AdminService {
         employee.setEmpName(newEmployeeDTO.getName());
         employee.setDesignation(newEmployeeDTO.getDesignation());
         employee.setGender(newEmployeeDTO.getGender());
-        if (newEmployeeDTO.getDepartment().equals("0")){
-            employee.setDepartment(null);
-        }
-        else{
-            Department department = departmentRepository.findByDepartmentName(newEmployeeDTO.getDepartment()).orElseThrow(
-                () -> new DepartmentNotFoundException("Department with name" + newEmployeeDTO.getDepartment() + " not found")
-            );
-            employee.setDepartment(department);
-        }
+        employee.setDepartment(newEmployeeDTO.getDepartment());
+//        if (newEmployeeDTO.getDepartment().equals("0")){
+//            employee.setDepartment(null);
+//        }
+//        else{
+//            Department department = departmentRepository.findByDepartmentName(newEmployeeDTO.getDepartment()).orElseThrow(
+//                () -> new DepartmentNotFoundException("Department with name" + newEmployeeDTO.getDepartment() + " not found")
+//            );
+//            employee.setDepartment(department);
+//        }
         employee.setGradeLevel(newEmployeeDTO.getGradeLevel());
         employee.setDoj(newEmployeeDTO.getDoj());
         employee.setEmptype(newEmployeeDTO.getEmptype());
@@ -194,24 +194,24 @@ public class AdminService {
         return userRepository.listAllUsernames();
     }
 
-    public List<String> listDepartments() {
-        return departmentRepository.findAllDepartments();
-    }
-
-    
-  public List<Integer> employeesInDepartment()
-  {
-	  return departmentRepository.findemployeecount();
-  }
-  public List<Integer> sexratio()
-  {
-	  return departmentRepository.sexratio();
-  }
-  
-  public List<Double> totalcost()
-  {
-	  return departmentRepository.totalcost();
-  }
+//    public List<String> listDepartments() {
+//        return departmentRepository.findAllDepartments();
+//    }
+//
+//    
+//  public List<Integer> employeesInDepartment()
+//  {
+//	  return departmentRepository.findemployeecount();
+//  }
+//  public List<Integer> sexratio()
+//  {
+//	  return departmentRepository.sexratio();
+//  }
+//  
+//  public List<Double> totalcost()
+//  {
+//	  return departmentRepository.totalcost();
+//  }
   public List<String> emptype()
   {
 	  return employeeRepository.emptype();
@@ -229,23 +229,23 @@ public class AdminService {
 //	  return projectRepository.findteamcount();
 //  }
 
-    public List<Department> getAllDepartments(int pageNo){
-        Pageable pageable = PageRequest.of(pageNo-1, PAGE_SIZE, Sort.by("deptId"));
-        return departmentRepository.findAll(pageable).getContent();
-    }
+//    public List<Department> getAllDepartments(int pageNo){
+//        Pageable pageable = PageRequest.of(pageNo-1, PAGE_SIZE, Sort.by("deptId"));
+//        return departmentRepository.findAll(pageable).getContent();
+//    }
     
     public Long countAllEmployees(){
         return employeeRepository.count();
     }
 
-    public Long countAllDepartments(){
-        return departmentRepository.count();
-    }
-    
-    public int countPagesOfDepartments(){
-        Pageable pageable = PageRequest.of(0, PAGE_SIZE, Sort.by("deptId"));
-        return departmentRepository.findAll(pageable).getTotalPages();
-    }
+//    public Long countAllDepartments(){
+//        return departmentRepository.count();
+//    }
+//    
+//    public int countPagesOfDepartments(){
+//        Pageable pageable = PageRequest.of(0, PAGE_SIZE, Sort.by("deptId"));
+//        return departmentRepository.findAll(pageable).getTotalPages();
+//    }
 
     public List<Team> getAllTeams(int pageNo) {
         Pageable pageable = PageRequest.of(pageNo-1, PAGE_SIZE, Sort.by("teamId"));
@@ -279,29 +279,29 @@ public class AdminService {
     	Pageable pageable = PageRequest.of(0, PAGE_SIZE, Sort.by("projId"));
     	return projectRepository.findAll(pageable).getTotalPages();
     }
-    public void addDepartment(NewDepartmentDTO newDepartment) throws EmployeeNotFoundException {
-        Department department = new Department();
-        if (newDepartment.getHod() == 0){
-            department.setHod(null);
-        }
-        else{
-            Employee employee = employeeRepository.findById(newDepartment.getHod()).orElseThrow(
-            () -> new EmployeeNotFoundException("The employee not found.")
-            );
-            department.setHod(employee);
-            // employee.setDepartment(department);
-
-        }
-        department.setDepartmentName(newDepartment.getDepartmentName());
-        Department persistedDepartment = departmentRepository.save(department);
-        if(newDepartment.getHod() != null){
-            Employee employee = employeeRepository.findById(newDepartment.getHod()).orElseThrow(
-            () -> new EmployeeNotFoundException("The employee not found.")
-            );
-            employee.setDepartment(persistedDepartment);
-            employeeRepository.save(employee);
-        }
-    }
+//    public void addDepartment(NewDepartmentDTO newDepartment) throws EmployeeNotFoundException {
+//        Department department = new Department();
+//        if (newDepartment.getHod() == 0){
+//            department.setHod(null);
+//        }
+//        else{
+//            Employee employee = employeeRepository.findById(newDepartment.getHod()).orElseThrow(
+//            () -> new EmployeeNotFoundException("The employee not found.")
+//            );
+//            department.setHod(employee);
+//            // employee.setDepartment(department);
+//
+//        }
+//        department.setDepartmentName(newDepartment.getDepartmentName());
+//        Department persistedDepartment = departmentRepository.save(department);
+//        if(newDepartment.getHod() != null){
+//            Employee employee = employeeRepository.findById(newDepartment.getHod()).orElseThrow(
+//            () -> new EmployeeNotFoundException("The employee not found.")
+//            );
+//            employee.setDepartment(persistedDepartment);
+//            employeeRepository.save(employee);
+//        }
+//    }
 	
 	public void changePassword(ChangePasswordDTO changePasswordDTO) throws RuntimeException {
 	    // retrieve user entity from database using empId
@@ -352,91 +352,91 @@ public class AdminService {
             resignationRepository.save(resignation);
             }
         
-        public void editDepartment(Long deptId, EditDepartmentDTO editDepartment) throws Exception {
-            Department department = departmentRepository.findById(deptId).orElseThrow(
-                () -> new DepartmentNotFoundException("Department not found")
-            );
-            if (department.getEmployees() == null){
-                department.setEmployees(new ArrayList<Employee>());
-            }
-            department.setDepartmentName(editDepartment.getDepartmentName());
-            System.out.println(editDepartment);
-            System.out.println("\n\n\n");
-            if (editDepartment.getHod() == 0) {
-            	department.setHod(null);
-            }
-            else {
-            	 Employee hod = employeeRepository.findById(editDepartment.getHod()).orElseThrow(
-                         () -> new EmployeeNotFoundException("Employee not found")
-                     );
-            	department.setHod(hod);
-            }
-            departmentRepository.save(department);
-           if (!editDepartment.getEmpList().equals("")) {
-        	   try{
-                   List<String> employeeList = Arrays.asList(editDepartment.getEmpList().split(", "));
-                   for(String employee : employeeList){
-                       Long id = Long.parseLong(employee.substring(1, employee.indexOf(")")));
-                       // System.out.println(id);
-                       Employee employeeToadd = employeeRepository.findById(id).orElseThrow(
-                           () -> new EmployeeNotFoundException("Employee not found")
-                       );
-                       employeeToadd.setDepartment(department);
-                       employeeRepository.save(employeeToadd);
-                   }
-               }
-               catch(Exception e){
-                   throw new Exception(e.getMessage());
-               }
-           }
-        }
+//        public void editDepartment(Long deptId, EditDepartmentDTO editDepartment) throws Exception {
+//            Department department = departmentRepository.findById(deptId).orElseThrow(
+//                () -> new DepartmentNotFoundException("Department not found")
+//            );
+//            if (department.getEmployees() == null){
+//                department.setEmployees(new ArrayList<Employee>());
+//            }
+//            department.setDepartmentName(editDepartment.getDepartmentName());
+//            System.out.println(editDepartment);
+//            System.out.println("\n\n\n");
+//            if (editDepartment.getHod() == 0) {
+//            	department.setHod(null);
+//            }
+//            else {
+//            	 Employee hod = employeeRepository.findById(editDepartment.getHod()).orElseThrow(
+//                         () -> new EmployeeNotFoundException("Employee not found")
+//                     );
+//            	department.setHod(hod);
+//            }
+//            departmentRepository.save(department);
+//           if (!editDepartment.getEmpList().equals("")) {
+//        	   try{
+//                   List<String> employeeList = Arrays.asList(editDepartment.getEmpList().split(", "));
+//                   for(String employee : employeeList){
+//                       Long id = Long.parseLong(employee.substring(1, employee.indexOf(")")));
+//                       // System.out.println(id);
+//                       Employee employeeToadd = employeeRepository.findById(id).orElseThrow(
+//                           () -> new EmployeeNotFoundException("Employee not found")
+//                       );
+//                       employeeToadd.setDepartment(department);
+//                       employeeRepository.save(employeeToadd);
+//                   }
+//               }
+//               catch(Exception e){
+//                   throw new Exception(e.getMessage());
+//               }
+//           }
+//        }
         
         
         
 
-        public void editDepartment1(Long deptId, EditDepartmentDTO editDepartmentDTO) throws Exception {
-            Department department = departmentRepository.findById(deptId).orElseThrow(
-                () -> new DepartmentNotFoundException("Team not found")
-            );
-            List<Team> teams;
-            if (department.getTeams() == null){
-            	teams = new ArrayList<>();
-            }
-            else {
-            	teams =  department.getTeams();
-			}
-            department.setDepartmentName(editDepartmentDTO.getDepartmentName());
-//            System.out.println(editTeam);
-//            System.out.println("\n\n\n");
-            if (editDepartmentDTO.getHod() == 0) {
-            	department.setHod(null);
-            }
-            else {
-            	 Employee hod = employeeRepository.findById(editDepartmentDTO.getHod()).orElseThrow(
-                         () -> new EmployeeNotFoundException("Employee not found")
-                     );
-            	department.setHod(hod);
-            }
-            
-           if (!editDepartmentDTO.getTeamList().equals("")) {
-        	   try{
-                   List<String> teamList = Arrays.asList(editDepartmentDTO.getTeamList().split(", "));
-                   for(String team : teamList){
-                       Long id = Long.parseLong(team.substring(1, team.indexOf(")")));
-                       // System.out.println(id);
-                       Team teamToAdd = teamRepository.findById(id).orElseThrow(
-                           () -> new EmployeeNotFoundException("Team not found")
-                       );
-                       teams.add(teamToAdd);
-                   }
-               }
-               catch(Exception e){
-                   throw new Exception(e.getMessage());
-               }
-           }
-           department.setTeams(teams);
-           departmentRepository.save(department);
-        }
+//        public void editDepartment1(Long deptId, EditDepartmentDTO editDepartmentDTO) throws Exception {
+//            Department department = departmentRepository.findById(deptId).orElseThrow(
+//                () -> new DepartmentNotFoundException("Team not found")
+//            );
+//            List<Team> teams;
+//            if (department.getTeams() == null){
+//            	teams = new ArrayList<>();
+//            }
+//            else {
+//            	teams =  department.getTeams();
+//			}
+//            department.setDepartmentName(editDepartmentDTO.getDepartmentName());
+////            System.out.println(editTeam);
+////            System.out.println("\n\n\n");
+//            if (editDepartmentDTO.getHod() == 0) {
+//            	department.setHod(null);
+//            }
+//            else {
+//            	 Employee hod = employeeRepository.findById(editDepartmentDTO.getHod()).orElseThrow(
+//                         () -> new EmployeeNotFoundException("Employee not found")
+//                     );
+//            	department.setHod(hod);
+//            }
+//            
+//           if (!editDepartmentDTO.getTeamList().equals("")) {
+//        	   try{
+//                   List<String> teamList = Arrays.asList(editDepartmentDTO.getTeamList().split(", "));
+//                   for(String team : teamList){
+//                       Long id = Long.parseLong(team.substring(1, team.indexOf(")")));
+//                       // System.out.println(id);
+//                       Team teamToAdd = teamRepository.findById(id).orElseThrow(
+//                           () -> new EmployeeNotFoundException("Team not found")
+//                       );
+//                       teams.add(teamToAdd);
+//                   }
+//               }
+//               catch(Exception e){
+//                   throw new Exception(e.getMessage());
+//               }
+//           }
+//           department.setTeams(teams);
+//           departmentRepository.save(department);
+//        }
         
         
         
@@ -574,7 +574,7 @@ public class AdminService {
         }
         
 
-        public List<EmployeeSelectionView> listOfHOD() {
-            return departmentRepository.findAllHOD();
-        }
+//        public List<EmployeeSelectionView> listOfHOD() {
+//            return departmentRepository.findAllHOD();
+//        }
 }
