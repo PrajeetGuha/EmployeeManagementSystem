@@ -831,9 +831,9 @@
 											</select>
 										</div>
 										<div class="input-container ic2">
-											<label for="experience" class="placeholder">Experience</label>
+											<label for="experience" class="placeholder">Experience (in years)</label>
 											<div class="cut cut-short"></div>
-											<input id="experience" name="yearsOfExperience" class="input"
+											<input id="experience" name="yearOfExperience" class="input"
 												type="number" placeholder=" " required/>
 										</div>
 										<div class="input-container ic2">

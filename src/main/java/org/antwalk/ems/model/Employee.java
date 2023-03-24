@@ -34,6 +34,8 @@ public class Employee {
     @Column(length = 2)
     private String gradeLevel;
 
+    @Column
+    private boolean isActive=true;
    
 
     @Column
@@ -93,13 +95,19 @@ public class Employee {
 
     @Column
     private Double ctc;
+    @Column
+    private Integer yearOfExperience;
 
     @OneToOne
     private Resignation resignation;
+    
+public void setDepartment(String department) {
+		this.department = department;
+	}
 
-    @ManyToOne
-    @JsonIgnoreProperties("employees")
-    private Department department;
+
+@Column
+    private String department;
 
     @ManyToOne
     @JsonIgnoreProperties("employees")
@@ -116,33 +124,32 @@ public class Employee {
     @JsonIgnoreProperties("employee")
     private List<LeaveApplication> leaves;
 
-    @Override
-    public String toString() {
-        return "Employee [empId=" + empId + ", empName=" + empName + ", gender=" + gender + ", gradeLevel=" + gradeLevel
-                + ", doj=" + doj + ", designation=" + designation + ", emptype=" + emptype + ", empstatus=" + empstatus
-                + ", probPeriod=" + probPeriod + ", probCompDate=" + probCompDate + ", trainPeriod=" + trainPeriod
-                + ", contractEndDate=" + contractEndDate + ", servPeriod=" + servPeriod + ", workEmail=" + workEmail
-                + ", branch=" + branch + ", office=" + office + ", workstationId=" + workstationId + ", clLeft="
-                + clLeft + ", plLeft=" + plLeft + ", slLeft=" + slLeft + ", moreLeave=" + moreLeave + ", totalLeave="
-                + totalLeave + ", ctc=" + ctc + ", resignation=" + resignation + ", department=" + department
-                + ", team=" + team + ", employeeDetails=" + employeeDetails + ", payrolls=" + payrolls + ", leaves="
-                + leaves + "]";
-    }
+   
+    public boolean isActive() {
+		return isActive;
+	}
 
-    public Employee() {
-    }
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
+	}
 
-	public Employee(Long empId, String empName, String gender, String gradeLevel, Date doj, String designation,
-			String emptype, String empstatus, Integer probPeriod, Date probCompDate, Integer trainPeriod,
-			Date contractEndDate, Integer servPeriod, @Email String workEmail, String branch, String office,
-			String workstationId, Integer clLeft, Integer plLeft, Integer slLeft, Integer moreLeave, Integer totalLeave,
-			Double ctc, Resignation resignation, Department department, Team team, EmployeeDetails employeeDetails,
-			List<Payroll> payrolls, List<LeaveApplication> leaves) {
+	public String getDepartment() {
+		return department;
+	}
+
+
+	public Employee(Long empId, String empName, String gender, String gradeLevel, boolean isActive, Date doj,
+			String designation, String emptype, String empstatus, Integer probPeriod, Date probCompDate,
+			Integer trainPeriod, Date contractEndDate, Integer servPeriod, @Email String workEmail, String branch,
+			String office, String workstationId, Integer clLeft, Integer plLeft, Integer slLeft, Integer moreLeave,
+			Integer totalLeave, Double ctc, Integer yearOfExperience, Resignation resignation, String department,
+			Team team, EmployeeDetails employeeDetails, List<Payroll> payrolls, List<LeaveApplication> leaves) {
 		super();
 		this.empId = empId;
 		this.empName = empName;
 		this.gender = gender;
 		this.gradeLevel = gradeLevel;
+		this.isActive = isActive;
 		this.doj = doj;
 		this.designation = designation;
 		this.emptype = emptype;
@@ -162,6 +169,7 @@ public class Employee {
 		this.moreLeave = moreLeave;
 		this.totalLeave = totalLeave;
 		this.ctc = ctc;
+		this.yearOfExperience = yearOfExperience;
 		this.resignation = resignation;
 		this.department = department;
 		this.team = team;
@@ -169,6 +177,17 @@ public class Employee {
 		this.payrolls = payrolls;
 		this.leaves = leaves;
 	}
+
+	public Integer getYearOfExperience() {
+		return yearOfExperience;
+	}
+
+	public void setYearOfExperience(Integer yearOfExperience) {
+		this.yearOfExperience = yearOfExperience;
+	}
+
+	public Employee() {
+    }
 
 	public Long getEmpId() {
 		return empId;
@@ -360,14 +379,6 @@ public class Employee {
 
 	public void setResignation(Resignation resignation) {
 		this.resignation = resignation;
-	}
-
-	public Department getDepartment() {
-		return department;
-	}
-
-	public void setDepartment(Department department) {
-		this.department = department;
 	}
 
 	public Team getTeam() {

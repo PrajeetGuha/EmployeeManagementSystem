@@ -28,7 +28,7 @@ public class EmployeeReport {
     	int rowIterator = 0;
 
 List<String> fieldnames = Arrays.asList("Id","Name","Gender", "Grade/Level","DOJ", "Designation","Employment Type","Employment Status","Probation Period", "Probation Completion Date", "Train Period","Contract End Date", "Service Period", "Work Email", "Branch and Office", "Workstation Id","Current CTC",  "Department",  "Team","Marital Status", "Permanent Address", "Primary Contact Details","Personal Email Id");
-String department = ( employee.getDepartment() == null ? "" : employee.getDepartment().getDepartmentName());
+String department = ( employee.getDepartment() == null ? "" : employee.getDepartment());
  String team = ( employee.getTeam() == null ? "" : employee.getTeam().getTeamName() );
 
 List<Object> valueList = Arrays.asList(

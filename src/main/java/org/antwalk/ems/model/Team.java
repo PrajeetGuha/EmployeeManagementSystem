@@ -25,6 +25,8 @@ public class Team {
 
     @Column
     private String teamName;
+    @Column
+    private String department;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn
@@ -44,15 +46,37 @@ public class Team {
     	
     }
 
-    public Team(Long teamId, String teamName, Employee tm, Set<Project> projects, List<Employee> employees) {
-        this.teamId = teamId;
-        this.teamName = teamName;
-        this.tm = tm;
-        this.projects = projects;
-        this.employees = employees;
-    }
+    
+    public Team(Long teamId, String teamName, String department, Employee tm, Set<Project> projects,
+			List<Employee> employees) {
+		super();
+		this.teamId = teamId;
+		this.teamName = teamName;
+		this.department = department;
+		this.tm = tm;
+		this.projects = projects;
+		this.employees = employees;
+	}
 
-    public Long getTeamId() {
+
+	public String getDepartment() {
+		return department;
+	}
+
+
+	public void setDepartment(String department) {
+		this.department = department;
+	}
+
+
+	@Override
+	public String toString() {
+		return "Team [teamId=" + teamId + ", teamName=" + teamName + ", department=" + department + ", tm=" + tm
+				+ ", projects=" + projects + ", employees=" + employees + "]";
+	}
+
+
+	public Long getTeamId() {
         return teamId;
     }
 
