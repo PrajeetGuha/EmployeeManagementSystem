@@ -200,20 +200,20 @@ public class AdminService {
 //        return departmentRepository.findAllDepartments();
 //    }
 
-//  public List<Integer> employeesInDepartment()
-//  {
-//	  return departmentRepository.findemployeecount();
-//  }
+  public List<Integer> findemployeecount()
+  {
+	  return employeeRepository.findemployeecount();
+  }
 
   public List<Integer> sexratio()
   {
 	  return employeeRepository.sexratio();
   }
   
-//  public List<Double> totalcost()
-//  {
-//	  return departmentRepository.totalcost();
-//  }
+  public List<Double> totalcost()
+  {
+	  return employeeRepository.totalcost();
+  }
   public List<String> emptype()
   {
 	  return employeeRepository.emptype();
@@ -222,32 +222,25 @@ public class AdminService {
   {
 	  return employeeRepository.recruitment();
   }
-//  public List<Integer> deptcount()
-//  {
-//	  return employeeRepository.deptcount();
-//  }
+
   
-//  public List<Integer> teamcount()
-//  {
-//	  return teamRepository.teamcount();
-//  }
+  public List<Integer> teamcount()
+  {
+	  return teamRepository.teamcount();
+  }
 
-//<<<<<<< HEAD
-//
-//    public List<Department> getAllDepartments(int pageNo){
-//        Pageable pageable = PageRequest.of(pageNo-1, PAGE_SIZE, Sort.by("deptId"));
-//        return departmentRepository.findAll(pageable).getContent();
-//    }
-//    
-//=======
-//    public List<Department> getAllDepartments(int pageNo){
-//        Pageable pageable = PageRequest.of(pageNo-1, PAGE_SIZE, Sort.by("deptId"));
-//        return departmentRepository.findAll(pageable).getContent();
-//    }
 
-//>>>>>>> 84d0dd097f33c9b7145c9f3bb7bf541790b6c0c4
     public Long countAllEmployees(){
         return employeeRepository.count();
+    }
+    
+    public List<String> deptname()
+    {
+    	return employeeRepository.deptname();
+    }
+    public List<String> teamdept()
+    {
+    	return teamRepository.teamdept();
     }
 
 //    public Long countAllDepartments(){

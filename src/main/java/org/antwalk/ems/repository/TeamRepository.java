@@ -11,6 +11,9 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface TeamRepository extends JpaRepository<Team,Long> {
 	
-//	@Query("SELECT count(*) from Team GROUP BY department")
-//	 public List<Integer> teamcount();
+	@Query("SELECT count(*) from Team GROUP BY department")
+	 public List<Integer> teamcount();
+	
+	@Query("select DISTINCT department FROM Team")
+	public List<String> teamdept();
 }
