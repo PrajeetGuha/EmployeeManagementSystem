@@ -21,7 +21,10 @@ import org.antwalk.ems.exception.DepartmentNotFoundException;
 import org.antwalk.ems.exception.EmployeeNotFoundException;
 import org.antwalk.ems.exception.UserNotFoundException;
 import org.antwalk.ems.model.Admin;
+<<<<<<< HEAD
 //import org.antwalk.ems.model.Department;
+=======
+>>>>>>> 572dd2f315aad9984246ad737293caee26f0918d
 import org.antwalk.ems.model.Employee;
 import org.antwalk.ems.model.EmployeeDetails;
 import org.antwalk.ems.model.LeaveApplication;
@@ -29,8 +32,12 @@ import org.antwalk.ems.model.Project;
 import org.antwalk.ems.model.Resignation;
 import org.antwalk.ems.model.Team;
 import org.antwalk.ems.model.User;
+<<<<<<< HEAD
 import org.antwalk.ems.repository.AdminRepository;
 //import org.antwalk.ems.repository.DepartmentRepository;
+=======
+import org.antwalk.ems.repository.AdminRepository; 
+>>>>>>> 572dd2f315aad9984246ad737293caee26f0918d
 import org.antwalk.ems.repository.EmployeeDetailsRepository;
 import org.antwalk.ems.repository.EmployeeRepository;
 import org.antwalk.ems.repository.LeaveApplicationRepository;
@@ -47,6 +54,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+ 
 
 @Service
 public class AdminService {
@@ -74,9 +82,16 @@ public class AdminService {
 
     @Autowired
     UserRepository userRepository;
+<<<<<<< HEAD
 
 //    @Autowired
 //    DepartmentRepository departmentRepository;
+=======
+//
+//    @Autowired
+//    DepartmentRepository departmentRepository;
+    
+>>>>>>> 572dd2f315aad9984246ad737293caee26f0918d
     @Autowired
     LeaveApplicationRepository leaveApplicationRepository;
 
@@ -88,6 +103,7 @@ public class AdminService {
 
     @Autowired
     MailService mailService;
+    
 
     public Admin fetchAdminData(Long id) throws UserNotFoundException{
         return Optional.of(adminRepository.getById(id)).orElseThrow(
@@ -143,7 +159,7 @@ public class AdminService {
 
     @Transactional
     public void addEmployee(NewEmployeeDTO newEmployeeDTO) throws DepartmentNotFoundException{
-
+    	
         EmployeeDetails employeeDetails = new EmployeeDetails();
         employeeDetails.setEmailId(newEmployeeDTO.getEmail());
         employeeDetailsRepository.save(employeeDetails);
@@ -153,6 +169,7 @@ public class AdminService {
         employee.setDesignation(newEmployeeDTO.getDesignation());
         employee.setGender(newEmployeeDTO.getGender());
 
+
         if (newEmployeeDTO.getDepartment().equals("0")){
             employee.setDepartment(null);
         }
@@ -160,6 +177,8 @@ public class AdminService {
 
             employee.setDepartment(newEmployeeDTO.getDepartment());
         }
+
+
         employee.setGradeLevel(newEmployeeDTO.getGradeLevel());
         employee.setDoj(newEmployeeDTO.getDoj());
         employee.setEmptype(newEmployeeDTO.getEmptype());
@@ -195,11 +214,11 @@ public class AdminService {
 //        return departmentRepository.findAllDepartments();
 //    }
 
-    
 //  public List<Integer> employeesInDepartment()
 //  {
 //	  return departmentRepository.findemployeecount();
 //  }
+
   public List<Integer> sexratio()
   {
 	  return employeeRepository.sexratio();
@@ -230,7 +249,7 @@ public class AdminService {
 //        Pageable pageable = PageRequest.of(pageNo-1, PAGE_SIZE, Sort.by("deptId"));
 //        return departmentRepository.findAll(pageable).getContent();
 //    }
-//    
+
     public Long countAllEmployees(){
         return employeeRepository.count();
     }
@@ -238,7 +257,7 @@ public class AdminService {
 //    public Long countAllDepartments(){
 //        return departmentRepository.count();
 //    }
-    
+
 //    public int countPagesOfDepartments(){
 //        Pageable pageable = PageRequest.of(0, PAGE_SIZE, Sort.by("deptId"));
 //        return departmentRepository.findAll(pageable).getTotalPages();
@@ -387,6 +406,7 @@ public class AdminService {
 //               }
 //           }
 //        }
+
         
         
         
@@ -523,5 +543,8 @@ public class AdminService {
            projectRepository.save(project);
         }
         
-        
+
+//        public List<EmployeeSelectionView> listOfHOD() {
+//            return departmentRepository.findAllHOD();
+//        }
 }

@@ -675,7 +675,9 @@
 													<tr>
 														<td>EMPLOYEE TYPE :</td>
 														<td><c:set var="employeeType"
+
 																value="${['full time', 'part time', 'contract']}" /> <select
+
 															class="form-select" aria-label="Default select example"
 															name="emptype">
 																<c:forEach items="${employeeType}" var="option">

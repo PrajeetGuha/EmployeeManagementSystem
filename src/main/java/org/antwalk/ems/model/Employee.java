@@ -34,16 +34,18 @@ public class Employee {
     @Column(length = 2)
     private String gradeLevel;
 
+
     @Column
     private boolean isActive=true;
    
 
+
     @Column
     private Date doj;
 
-    @Column(length = 50)
+    @Column(length = 255)
     private String designation = "unassigned";
-
+ 
     @Column(length = 255)
     private String emptype;
 
@@ -65,17 +67,17 @@ public class Employee {
     @Column
     private Integer servPeriod;
 
-    @Column(length = 50, unique = true)
+    @Column(length = 255, unique = true)
     @Email
     private String workEmail;
 
-    @Column(length = 50)
+    @Column(length = 255)
     private String branch;
 
-    @Column(length = 50)
+    @Column(length = 255)
     private String office;
 
-    @Column(length = 5)
+    @Column(length = 255)
     private String workstationId;
 
     @Column
@@ -101,13 +103,13 @@ public class Employee {
     @OneToOne
     private Resignation resignation;
     
-public void setDepartment(String department) {
-		this.department = department;
-	}
+
+
 
 
 @Column
     private String department;
+
 
     @ManyToOne
     @JsonIgnoreProperties("employees")
@@ -123,6 +125,11 @@ public void setDepartment(String department) {
     @OneToMany(mappedBy = "employee")
     @JsonIgnoreProperties("employee")
     private List<LeaveApplication> leaves;
+    
+    public void setDepartment(String department) {
+		this.department = department;
+	}
+
 
    
     public boolean isActive() {
@@ -144,6 +151,8 @@ public void setDepartment(String department) {
 			String office, String workstationId, Integer clLeft, Integer plLeft, Integer slLeft, Integer moreLeave,
 			Integer totalLeave, Double ctc, Integer yearOfExperience, Resignation resignation, String department,
 			Team team, EmployeeDetails employeeDetails, List<Payroll> payrolls, List<LeaveApplication> leaves) {
+
+
 		super();
 		this.empId = empId;
 		this.empName = empName;
@@ -171,12 +180,14 @@ public void setDepartment(String department) {
 		this.ctc = ctc;
 		this.yearOfExperience = yearOfExperience;
 		this.resignation = resignation;
+		this.yearOfExperience = yearOfExperience;
 		this.department = department;
 		this.team = team;
 		this.employeeDetails = employeeDetails;
 		this.payrolls = payrolls;
 		this.leaves = leaves;
 	}
+
 
 	public Integer getYearOfExperience() {
 		return yearOfExperience;
@@ -188,6 +199,7 @@ public void setDepartment(String department) {
 
 	public Employee() {
     }
+
 
 	public Long getEmpId() {
 		return empId;
@@ -381,6 +393,7 @@ public void setDepartment(String department) {
 		this.resignation = resignation;
 	}
 
+
 	public Team getTeam() {
 		return team;
 	}
@@ -411,12 +424,5 @@ public void setDepartment(String department) {
 
 	public void setLeaves(List<LeaveApplication> leaves) {
 		this.leaves = leaves;
-	}
-    
-
-
-
-    
-
-    
+	}  
 }

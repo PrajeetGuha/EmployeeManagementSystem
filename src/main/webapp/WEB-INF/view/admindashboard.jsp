@@ -823,7 +823,7 @@
 												<option value="trainee">Trainee</option>
 												<option value="hr">Hr</option>
 												<option value="administration">Administration</option>
-												<option value="payroll">Payroll</option>
+												<option value="accounts">Accounts</option>
 												<option value="sports">Sports</option>
 												<option value="security">Security</option>
 												<option value="others">Others</option>

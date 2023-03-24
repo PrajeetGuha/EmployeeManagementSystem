@@ -19,12 +19,18 @@ import org.antwalk.ems.exception.DepartmentNotFoundException;
 import org.antwalk.ems.exception.EmployeeNotFoundException;
 import org.antwalk.ems.exception.UserNotFoundException;
 import org.antwalk.ems.model.Admin;
+<<<<<<< HEAD
 //import org.antwalk.ems.model.Department;
+=======
+>>>>>>> 572dd2f315aad9984246ad737293caee26f0918d
 import org.antwalk.ems.model.Employee;
 import org.antwalk.ems.model.Project;
 import org.antwalk.ems.model.Team;
 import org.antwalk.ems.pojo.SuccessDetails;
+<<<<<<< HEAD
 //import org.antwalk.ems.repository.DepartmentRepository;
+=======
+>>>>>>> 572dd2f315aad9984246ad737293caee26f0918d
 import org.antwalk.ems.repository.EmployeeRepository;
 import org.antwalk.ems.security.AuthenticationSystem;
 import org.antwalk.ems.service.AdminService;
@@ -109,16 +115,16 @@ private EmployeeRepository employeeRepository;
    	public String allocateteam() {
           		return "allocateteam";
    	}
-    @GetMapping("/adddepartment")
-   	public String adddepartment() {
-          		return "adddepartment";
-   	}
-    @GetMapping("/allocatedepartment")
-
-   	public String allocatedepartment(HttpServletRequest request, Model model) {
-          		return "allocatedepartment";
-
-   	}
+//    @GetMapping("/adddepartment")
+//   	public String adddepartment() {
+//          		return "adddepartment";
+//   	}
+//    @GetMapping("/allocatedepartment")
+//
+//   	public String allocatedepartment(HttpServletRequest request, Model model) {
+//          		return "allocatedepartment";
+//
+//   	}
     @GetMapping("/analytics")
 
    	public String analytics(HttpServletRequest request, Model model) throws UserNotFoundException{
@@ -136,7 +142,11 @@ private EmployeeRepository employeeRepository;
         //List<Integer> countemployeeindepartment=adminService.employeesInDepartment();
 
 //        List<Integer> countemployeeindepartment=adminService.employeesInDepartment();
+<<<<<<< HEAD
         List<Integer> sexratio=adminService.sexratio();
+=======
+        //List<Integer> sexratio=adminService.sexratio();
+>>>>>>> 572dd2f315aad9984246ad737293caee26f0918d
 //        List<String> teamsinprojects=adminService.teamsinprojects();
 //        List<Integer> findteamcount=adminService.findteamcount();
 //        List<Double> totalcost=adminService.totalcost();
@@ -153,7 +163,11 @@ private EmployeeRepository employeeRepository;
         //model.addAttribute("countOfEmployeesInDepartment", countemployeeindepartment);
 
 //        model.addAttribute("countOfEmployeesInDepartment", countemployeeindepartment);
+<<<<<<< HEAD
         model.addAttribute("sexratio",sexratio);
+=======
+        //model.addAttribute("sexratio",sexratio);
+>>>>>>> 572dd2f315aad9984246ad737293caee26f0918d
 
 //        model.addAttribute("totalcost",totalcost);
         model.addAttribute("emptype",emptype);
@@ -203,6 +217,7 @@ private EmployeeRepository employeeRepository;
 //   	public String departmentallocation(HttpServletRequest request, Model model) throws UserNotFoundException{
 //    	Long id = AuthenticationSystem.getId();
 //        int pageNo = Integer.parseInt(request.getParameter("pg"));
+<<<<<<< HEAD
 ////        List<Department> listDepartments = adminService.getAllDepartments(pageNo);
 //    	Admin admin = adminService.fetchAdminData(id);
 ////        Long count = adminService.countAllDepartments();
@@ -212,6 +227,18 @@ private EmployeeRepository employeeRepository;
 ////        model.addAttribute("listdepartments", listDepartments);
 ////        model.addAttribute("countPages", countPages);
 ////        model.addAttribute("countOfDepartments", count);
+=======
+//        List<Department> listDepartments = adminService.getAllDepartments(pageNo);
+//    	Admin admin = adminService.fetchAdminData(id);
+//        Long count = adminService.countAllDepartments();
+//        int countPages = adminService.countPagesOfDepartments();
+//       
+//        List<EmployeeSelectionView> allemployees = adminService.listOfHOD();
+//    	model.addAttribute("admin",admin);
+//        model.addAttribute("listdepartments", listDepartments);
+//        model.addAttribute("countPages", countPages);
+//        model.addAttribute("countOfDepartments", count);
+>>>>>>> 572dd2f315aad9984246ad737293caee26f0918d
 //        model.addAttribute("pageNo", pageNo);
 //        model.addAttribute("allemployeenames",allemployees);
 //   		return "departmentallocation";

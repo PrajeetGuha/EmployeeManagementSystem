@@ -17,7 +17,9 @@ public class NewEmployeeDTO {
     private String emptype;
     private String username;
     private String password;
+
     private Integer yearOfExperience;
+
     public NewEmployeeDTO() {
     }
    

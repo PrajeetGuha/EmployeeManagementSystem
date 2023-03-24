@@ -480,12 +480,12 @@
                                                                 <td>
                                                                     <b>
 
-                                                                        <c:if test="${employee.department.departmentName==null}">
+                                                                        <c:if test="${employee.department==null}">
                                                                             <c:out value="Department not assigned" />
                                                                         </c:if>
-                                                                        <c:if test="${employee.department.departmentName!=null}">
+                                                                        <c:if test="${employee.department!=null}">
                                                                             <c:out
-                                                                                value="${fn:toUpperCase(employee.department.departmentName)}" />
+                                                                                value="${fn:toUpperCase(employee.department)}" />
                                                                         </c:if>
                                                                     </b>
                                                                 </td>

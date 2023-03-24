@@ -3,7 +3,7 @@
 //import java.util.List;
 //import java.util.Optional;
 //
-//import org.antwalk.ems.model.Department;
+
 //import org.springframework.data.jpa.repository.JpaRepository;
 //import org.springframework.data.jpa.repository.Query;
 //import org.springframework.stereotype.Repository;
@@ -19,10 +19,5 @@
 //   @Query("SELECT COUNT(*) as employeecount FROM Employee  GROUP BY department_dept_id")
 //   List<Integer> findemployeecount();
 //   
-//   
-//   
-//   @Query("SELECT SUM(ctc) FROM Employee GROUP BY department_dept_id")
-//   List<Double> totalcost();
-//   
-//   
+
 //}
