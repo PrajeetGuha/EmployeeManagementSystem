@@ -17,6 +17,7 @@ import org.antwalk.ems.dto.NewProjectDTO;
 import org.antwalk.ems.dto.NewTeamDTO;
 import org.antwalk.ems.exception.DepartmentNotFoundException;
 import org.antwalk.ems.exception.EmployeeNotFoundException;
+import org.antwalk.ems.exception.TeamNotFoundException;
 import org.antwalk.ems.exception.UserNotFoundException;
 import org.antwalk.ems.model.Admin;
 
@@ -46,6 +47,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 // @RestController
 // @RequestMapping("/dashboard/admin")
+
 @Controller
 @RequestMapping("admin")
 public class AdminController {
@@ -204,6 +206,24 @@ private EmployeeRepository employeeRepository;
         model.addAttribute("allemployeenames",allemployees);
    		return "teamallocation";
    	}
+    
+    
+    @GetMapping("/editableTeamPage")
+   	public String editableTeamPage(HttpServletRequest request, Model model) throws UserNotFoundException, TeamNotFoundException{
+    	Long id = AuthenticationSystem.getId();
+    	int pageNo = Integer.parseInt(request.getParameter("pg"));
+
+    	Long tid = Long.parseLong(request.getParameter("tid"));
+    	Team team=adminService.findTeamById(tid);
+    	List<EmployeeSelectionView> employees=adminService.findEmployeesByDepartment(team.getDepartment());
+    	
+    	
+    	Admin admin = adminService.fetchAdminData(id);
+    	model.addAttribute("admin",admin);
+        model.addAttribute("pageNo", pageNo);
+   		return "editableTeam";
+   	}
+    
 //    @GetMapping("/departmentallocation")
 //   	public String departmentallocation(HttpServletRequest request, Model model) throws UserNotFoundException{
 //    	Long id = AuthenticationSystem.getId();
@@ -489,10 +509,9 @@ private EmployeeRepository employeeRepository;
         return "redirect:/admin/projectallocation?pg="+1;
     }
     
-    @GetMapping("/editableTeam")
-    public String editableTeam()
-    {
-    	return "editableTeam";
-    }
+	/*
+	 * @GetMapping("/editableTeam") public String editableTeam() { return
+	 * "editableTeam"; }
+	 */
 
 }
