@@ -488,5 +488,11 @@ private EmployeeRepository employeeRepository;
         }
         return "redirect:/admin/projectallocation?pg="+1;
     }
+    
+    @GetMapping("/editableTeam")
+    public String editableTeam()
+    {
+    	return "editableTeam";
+    }
 
 }
