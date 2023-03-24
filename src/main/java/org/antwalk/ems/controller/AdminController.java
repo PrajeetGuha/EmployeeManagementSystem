@@ -221,6 +221,9 @@ private EmployeeRepository employeeRepository;
     	Admin admin = adminService.fetchAdminData(id);
     	model.addAttribute("admin",admin);
         model.addAttribute("pageNo", pageNo);
+        model.addAttribute("team",team);
+        model.addAttribute("employees", employees);
+        
    		return "editTeam";
    	}
     
