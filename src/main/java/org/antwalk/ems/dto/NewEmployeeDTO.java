@@ -107,6 +107,14 @@ public class NewEmployeeDTO {
     public void setPassword(String password) {
         this.password = password;
     }
+
+	@Override
+	public String toString() {
+		return "NewEmployeeDTO [name=" + name + ", email=" + email + ", gender=" + gender + ", designation="
+				+ designation + ", department=" + department + ", gradeLevel=" + gradeLevel + ", doj=" + doj
+				+ ", emptype=" + emptype + ", username=" + username + ", password=" + password + ", yearOfExperience="
+				+ yearOfExperience + "]";
+	}
    
     
 }

@@ -566,7 +566,7 @@
 				<div class="row">
 					<div class="col-10">
 						<form method="POST"
-							action="editemployee?search=${search}&pg=${pg}"
+							action="editemployee?search=${search}&pg=${pg}&empId=${employee.empId}"
 							modelAttribute="employeeinfo">
 
 							<div class="card">
@@ -917,10 +917,10 @@
 														</td>
 													</tr>
 
-													<tr>
+													<%-- <tr>
 														<td><input type="hidden" name="empId"
 															value="${employee.empId}"></td>
-													</tr>
+													</tr> --%>
 
 													<tr>
 														<td><br> <br> <br></td>

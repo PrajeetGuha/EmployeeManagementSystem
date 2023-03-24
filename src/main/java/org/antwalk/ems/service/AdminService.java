@@ -21,10 +21,7 @@ import org.antwalk.ems.exception.DepartmentNotFoundException;
 import org.antwalk.ems.exception.EmployeeNotFoundException;
 import org.antwalk.ems.exception.UserNotFoundException;
 import org.antwalk.ems.model.Admin;
-<<<<<<< HEAD
-//import org.antwalk.ems.model.Department;
-=======
->>>>>>> 572dd2f315aad9984246ad737293caee26f0918d
+
 import org.antwalk.ems.model.Employee;
 import org.antwalk.ems.model.EmployeeDetails;
 import org.antwalk.ems.model.LeaveApplication;
@@ -32,12 +29,10 @@ import org.antwalk.ems.model.Project;
 import org.antwalk.ems.model.Resignation;
 import org.antwalk.ems.model.Team;
 import org.antwalk.ems.model.User;
-<<<<<<< HEAD
+
 import org.antwalk.ems.repository.AdminRepository;
 //import org.antwalk.ems.repository.DepartmentRepository;
-=======
-import org.antwalk.ems.repository.AdminRepository; 
->>>>>>> 572dd2f315aad9984246ad737293caee26f0918d
+
 import org.antwalk.ems.repository.EmployeeDetailsRepository;
 import org.antwalk.ems.repository.EmployeeRepository;
 import org.antwalk.ems.repository.LeaveApplicationRepository;
@@ -82,16 +77,7 @@ public class AdminService {
 
     @Autowired
     UserRepository userRepository;
-<<<<<<< HEAD
 
-//    @Autowired
-//    DepartmentRepository departmentRepository;
-=======
-//
-//    @Autowired
-//    DepartmentRepository departmentRepository;
-    
->>>>>>> 572dd2f315aad9984246ad737293caee26f0918d
     @Autowired
     LeaveApplicationRepository leaveApplicationRepository;
 
@@ -168,7 +154,7 @@ public class AdminService {
         employee.setEmpName(newEmployeeDTO.getName());
         employee.setDesignation(newEmployeeDTO.getDesignation());
         employee.setGender(newEmployeeDTO.getGender());
-
+        employee.setYearOfExperience(newEmployeeDTO.getYearOfExperience());
 
         if (newEmployeeDTO.getDepartment().equals("0")){
             employee.setDepartment(null);
@@ -542,6 +528,18 @@ public class AdminService {
            project.setTeams(teams);
            projectRepository.save(project);
         }
+
+
+		public void saveEmployee(Long empId, Employee employee) throws EmployeeNotFoundException {
+			Employee persistedEmployee = employeeRepository.findById(empId).orElseThrow(
+					() -> new EmployeeNotFoundException("Employee not found"));
+			employee.setEmpId(empId);
+			employee.setEmployeeDetails(persistedEmployee.getEmployeeDetails());
+			employee.setTeam(persistedEmployee.getTeam());
+			employee.setResignation(persistedEmployee.getResignation());
+			
+			employeeRepository.save(employee);
+		}
         
 
 //        public List<EmployeeSelectionView> listOfHOD() {
