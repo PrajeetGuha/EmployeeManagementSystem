@@ -400,28 +400,12 @@ public class AdminService {
         
         public void addTeam(NewTeamDTO newteam) throws EmployeeNotFoundException {
             Team team = new Team();
-            System.out.println(newteam.getTm());
-            System.out.println(newteam.getTm() == 0);
-            if (newteam.getTm() == 0){
-                team.setTm(null);
-            }
-            else{
-                Employee employee = employeeRepository.findById(newteam.getTm()).orElseThrow(
-                () -> new EmployeeNotFoundException("The employee not found.")
-                );
-                team.setTm(employee);
-                // employee.setDepartment(department);
-
-            }
+            
+            team.setDepartment(newteam.getDepartment());
+            
             team.setTeamName(newteam.getTeamName());
-            Team persistedTeam = teamRepository.save(team);
-            if(newteam.getTm() != 0){
-                Employee employee = employeeRepository.findById(newteam.getTm()).orElseThrow(
-                () -> new EmployeeNotFoundException("The employee not found.")
-                );
-                employee.setTeam(persistedTeam);
-                employeeRepository.save(employee);
-            }
+            teamRepository.save(team);
+           
         }
         
         public void editTeam(Long teamId, EditTeamDTO editTeam) throws Exception {

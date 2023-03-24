@@ -34,7 +34,28 @@
 <c:set var="pageNo" value="${pageNo}" />
 <c:set var="pageCount" value="${pageCount}" />
 
+<script >
 
+var teamEmployees = [
+	<c:forEach var="employee" items="${team.employees}">
+		{
+			id : ${employee.empId},
+			name : "${employee.empName}"
+		},
+	</c:forEach>
+];
+
+var allemployees = {
+		<c:forEach var="employee" items="${employees}">
+		{
+			id : ${employee.empId},
+			name : "${employee.empName}"
+		},
+	</c:forEach>	
+};
+console.log(teamEmployees);
+console.log(allemployees);
+</script>
 
 <script>
 						$(document).ready(function () {
