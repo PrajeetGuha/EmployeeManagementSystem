@@ -19,6 +19,7 @@ import org.antwalk.ems.dto.NewProjectDTO;
 import org.antwalk.ems.dto.NewTeamDTO;
 import org.antwalk.ems.exception.DepartmentNotFoundException;
 import org.antwalk.ems.exception.EmployeeNotFoundException;
+import org.antwalk.ems.exception.TeamNotFoundException;
 import org.antwalk.ems.exception.UserNotFoundException;
 import org.antwalk.ems.model.Admin;
 
@@ -124,7 +125,7 @@ public class AdminService {
             throw new UserNotFoundException("User with id: " + empId + " not found");
         }
     }
-
+    
     public void activateEmp(Long empId) throws UserNotFoundException{
         if (employeeRepository.existsById(empId)){
             employeeRepository.activateEmpById(empId);
@@ -542,6 +543,19 @@ public class AdminService {
 			employee.setResignation(persistedEmployee.getResignation());
 			
 			employeeRepository.save(employee);
+		}
+
+
+		public Team findTeamById(Long tid) throws TeamNotFoundException {
+			// TODO Auto-generated method stub
+			return teamRepository.findById(tid).orElseThrow(
+					() -> new TeamNotFoundException("Team Not Found"));
+		}
+
+
+		public List<EmployeeSelectionView> findEmployeesByDepartment(String department) {
+			// TODO Auto-generated method stub
+			return employeeRepository.findAllEmployeeNamesByDepartment(department);
 		}
         
 

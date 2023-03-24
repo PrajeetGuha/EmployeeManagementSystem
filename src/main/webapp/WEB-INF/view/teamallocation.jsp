@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   </script>
 
-<script>
+<!-- <script>
   document.addEventListener("DOMContentLoaded", function() {
     // Get employee names and ids from model attribute using JSTL
     var employees = [
@@ -212,7 +212,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Render the list of selected employees
     renderSelectedEmployees();
   });
-</script>
+</script> -->
 
 <script>
 
@@ -659,8 +659,9 @@ function getdeptId(deptId)
 														value="${fn:toUpperCase(fn:substring(team.teamName, 0, 1))}${fn:toLowerCase(fn:substring(team.teamName, 1,fn:length(team.teamName)))}" /></td>
 												<td><c:out value="${team.tm.empName}" /></td>
 
-												<td><a href="#editTeamModal" class="edit"
-													data-toggle="modal" onclick="getdeptId(${team.teamId})"> <i class="material-icons"
+
+												<td><a href="editableTeamPage?tid=${team.teamId }&pg=${pageNo}" class="edit"
+													> <i class="material-icons"
 														data-toggle="tooltip" title="Edit">&#xE254;</i></a> 
 														<!-- <a
 													href="#generateTeamReportModal" class="report"
@@ -790,17 +791,18 @@ function getdeptId(deptId)
 												type="text" placeholder=" " required />
 										</div>
 										<div class="input-container ic2">
-											<label for="tm" class="placeholder">Team Manager</label>
+											<label for="department" class="placeholder">Department</label>
 											<div class="cut cut-short"></div>
-											<select id="tm" name="tm" class="input required"
-												placeholder=" ">
-												<option value="0">Unassigned</option>
-												<c:forEach items="${allemployeenames}" var="department">
-													<option value="${department.empId}">(${department.empId})
-														${department.empName}</option>
-
-
-												</c:forEach>
+											<select id="department" name="department"
+												class="input required" placeholder="Deparment">
+												<option value="trainee">Trainee</option>
+												<option value="hr">Hr</option>
+												<option value="administration">Administration</option>
+												<option value="accounts">Accounts</option>
+												<option value="sports">Sports</option>
+												<option value="security">Security</option>
+												<option value="others">Others</option>
+												
 											</select>
 										</div>
 
