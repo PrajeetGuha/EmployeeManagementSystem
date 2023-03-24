@@ -218,14 +218,16 @@ public class AdminService {
   {
 	  return employeeRepository.recruitment();
   }
-//  public List<String> teamsinprojects()
+//  public List<Integer> deptcount()
 //  {
-//	  return projectRepository.teamsinprojects();
+//	  return employeeRepository.deptcount();
 //  }
-//  public List<Integer> findteamcount()
+  
+//  public List<Integer> teamcount()
 //  {
-//	  return projectRepository.findteamcount();
+//	  return teamRepository.teamcount();
 //  }
+
 
     public List<Department> getAllDepartments(int pageNo){
         Pageable pageable = PageRequest.of(pageNo-1, PAGE_SIZE, Sort.by("deptId"));
