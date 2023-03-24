@@ -40,7 +40,7 @@
 						$(document).ready(function () {
 							// Get the list of items from the model attribute
 							var items = [
-								<c:forEach var="item" items="${allemployeenames}">
+								<c:forEach var="item" items="${employees}">
 									"${item.empName}",
 								</c:forEach>
 							];
@@ -67,8 +67,8 @@
 									var $li = $('<li>').text(item);
 									$li.on('click', function () {
 										$('#search-input').val($(this).text());
-										$searchResults.hide();
-
+										 $searchResults.hide();
+ 
 
 									});
 									$searchResults.append($li);
