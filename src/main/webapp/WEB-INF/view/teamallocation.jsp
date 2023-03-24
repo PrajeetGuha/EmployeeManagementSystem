@@ -659,7 +659,7 @@ function getdeptId(deptId)
 														value="${fn:toUpperCase(fn:substring(team.teamName, 0, 1))}${fn:toLowerCase(fn:substring(team.teamName, 1,fn:length(team.teamName)))}" /></td>
 												<td><c:out value="${team.tm.empName}" /></td>
 
-												<td><a href="#editTeamModal" class="edit"
+												<td><a href="editableTeamPage?tid=${team.teamId }&pg=${pageNo}" class="edit"
 													data-toggle="modal" onclick="getdeptId(${team.teamId})"> <i class="material-icons"
 														data-toggle="tooltip" title="Edit">&#xE254;</i></a> 
 														<!-- <a
