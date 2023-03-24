@@ -221,10 +221,11 @@ private EmployeeRepository employeeRepository;
     	Admin admin = adminService.fetchAdminData(id);
     	model.addAttribute("admin",admin);
         model.addAttribute("pageNo", pageNo);
+
         model.addAttribute("team",team);
         model.addAttribute("employees", employees);
-        
-   		return "editTeam";
+ 
+   		return "editableTeam";
    	}
     
 //    @GetMapping("/departmentallocation")
@@ -511,5 +512,10 @@ private EmployeeRepository employeeRepository;
         }
         return "redirect:/admin/projectallocation?pg="+1;
     }
+    
+	/*
+	 * @GetMapping("/editableTeam") public String editableTeam() { return
+	 * "editableTeam"; }
+	 */
 
 }

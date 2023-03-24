@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   </script>
 
-<script>
+<!-- <script>
   document.addEventListener("DOMContentLoaded", function() {
     // Get employee names and ids from model attribute using JSTL
     var employees = [
@@ -212,7 +212,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Render the list of selected employees
     renderSelectedEmployees();
   });
-</script>
+</script> -->
 
 <script>
 
@@ -659,8 +659,9 @@ function getdeptId(deptId)
 														value="${fn:toUpperCase(fn:substring(team.teamName, 0, 1))}${fn:toLowerCase(fn:substring(team.teamName, 1,fn:length(team.teamName)))}" /></td>
 												<td><c:out value="${team.tm.empName}" /></td>
 
+
 												<td><a href="editableTeamPage?tid=${team.teamId }&pg=${pageNo}" class="edit"
-													data-toggle="modal" onclick="getdeptId(${team.teamId})"> <i class="material-icons"
+													> <i class="material-icons"
 														data-toggle="tooltip" title="Edit">&#xE254;</i></a> 
 														<!-- <a
 													href="#generateTeamReportModal" class="report"
