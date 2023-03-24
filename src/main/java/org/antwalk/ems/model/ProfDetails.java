@@ -19,10 +19,10 @@ public class ProfDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long profDelId;
 
-    @Column(length = 50)
+    @Column(length = 255)
     private String nameOfPrevOrg;
 
-    @Column(length = 30)
+    @Column(length = 255)
     private String designation;
 
     @Column

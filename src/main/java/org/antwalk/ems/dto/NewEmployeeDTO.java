@@ -17,22 +17,37 @@ public class NewEmployeeDTO {
     private String emptype;
     private String username;
     private String password;
+
+    private Integer yearOfExperience;
+
     public NewEmployeeDTO() {
     }
-    public NewEmployeeDTO(String name, String email, String gender, String designation, String department,
-            String gradeLevel, Date doj, String emptype, String username, String password) {
-        this.name = name;
-        this.email = email;
-        this.gender = gender;
-        this.designation = designation;
-        this.department = department;
-        this.gradeLevel = gradeLevel;
-        this.doj = doj;
-        this.emptype = emptype;
-        this.username = username;
-        this.password = password;
-    }
-    public String getName() {
+   
+    public Integer getYearOfExperience() {
+		return yearOfExperience;
+	}
+
+	public void setYearOfExperience(Integer yearOfExperience) {
+		this.yearOfExperience = yearOfExperience;
+	}
+
+	public NewEmployeeDTO(String name, String email, String gender, String designation, String department,
+			String gradeLevel, Date doj, String emptype, String username, String password, Integer yearOfExperience) {
+		super();
+		this.name = name;
+		this.email = email;
+		this.gender = gender;
+		this.designation = designation;
+		this.department = department;
+		this.gradeLevel = gradeLevel;
+		this.doj = doj;
+		this.emptype = emptype;
+		this.username = username;
+		this.password = password;
+		this.yearOfExperience = yearOfExperience;
+	}
+
+	public String getName() {
         return name;
     }
     public void setName(String name) {
@@ -92,6 +107,14 @@ public class NewEmployeeDTO {
     public void setPassword(String password) {
         this.password = password;
     }
+
+	@Override
+	public String toString() {
+		return "NewEmployeeDTO [name=" + name + ", email=" + email + ", gender=" + gender + ", designation="
+				+ designation + ", department=" + department + ", gradeLevel=" + gradeLevel + ", doj=" + doj
+				+ ", emptype=" + emptype + ", username=" + username + ", password=" + password + ", yearOfExperience="
+				+ yearOfExperience + "]";
+	}
    
     
 }

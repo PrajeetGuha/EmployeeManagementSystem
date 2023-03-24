@@ -34,7 +34,7 @@ public class Project {
 
     @OneToOne(fetch = FetchType.LAZY)
     private Employee pm;
-
+    
     @ManyToMany
     @JoinTable(
             name = "team_project",

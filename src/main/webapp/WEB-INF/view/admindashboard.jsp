@@ -823,7 +823,7 @@
 												<option value="trainee">Trainee</option>
 												<option value="hr">Hr</option>
 												<option value="administration">Administration</option>
-												<option value="payroll">Payroll</option>
+												<option value="accounts">Accounts</option>
 												<option value="sports">Sports</option>
 												<option value="security">Security</option>
 												<option value="others">Others</option>
@@ -831,9 +831,9 @@
 											</select>
 										</div>
 										<div class="input-container ic2">
-											<label for="experience" class="placeholder">Experience</label>
+											<label for="experience" class="placeholder">Experience (in years)</label>
 											<div class="cut cut-short"></div>
-											<input id="experience" name="yearsOfExperience" class="input"
+											<input id="experience" name="yearOfExperience" class="input"
 												type="number" placeholder=" " required/>
 										</div>
 										<div class="input-container ic2">

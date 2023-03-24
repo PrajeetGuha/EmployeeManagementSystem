@@ -19,7 +19,7 @@ public class QualificationDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long qdId;
     
-    @Column(length = 50)
+    @Column(length = 255)
     private String qual;
 
     @OneToOne

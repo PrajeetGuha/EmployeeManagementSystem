@@ -29,41 +29,41 @@ public class EmployeeDetails {
     @Column
     private String permaAddress;
 
-    @Column(length = 10)
+    @Column(length = 255)
     private String primaryContactno;
 
-    @Column(length = 10)
+    @Column(length = 255)
     private String emergencyContactno;
 
-    @Column(length = 30, unique = true)
+    @Column(length = 255, unique = true)
     @Email
     private String emailId;
 
     @Column
     private String presentAddress;
 
-    @Column(length = 20)
+    @Column(length = 255)
     private String nationality;
 
-    @Column(length = 3)
+    @Column(length = 255)
     private String bloodGrp;
 
     @OneToOne
     private DocFile pancardDoc;
 
-    @Column(length = 10)
+    @Column(length = 255)
     private String pancardnno;
 
     @OneToOne
     private DocFile adhaarDoc;
 
-    @Column(length = 12)
+    @Column(length = 255)
     private String adhaarno;
 
     @OneToOne
     private DocFile passportDoc;
 
-    @Column(length = 10)
+    @Column(length = 255)
     private String passportno;
 
     @OneToMany

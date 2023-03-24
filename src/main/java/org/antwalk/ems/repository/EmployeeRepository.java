@@ -4,7 +4,7 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
-import org.antwalk.ems.model.Department;
+
 import org.antwalk.ems.model.Employee;
 import org.antwalk.ems.model.LeaveApplication;
 import org.antwalk.ems.model.QualificationDetails;
@@ -59,7 +59,7 @@ public interface EmployeeRepository extends JpaRepository<Employee,Long> {
     @Query("select leaves from Employee e where e.empId = :empId")
     public List<LeaveApplication> getLeavesById(Long empId);
     
-    @Query("select COUNT(*) AS count FROM Employee GROUP BY YEAR(doj), MONTH(doj) ORDER BY YEAR(doj), MONTH(doj)")
+    @Query("SELECT COUNT(*) AS count, MONTH(doj) AS month FROM Employee GROUP BY MONTH(doj) ORDER BY MONTH(doj)")
     public List<Integer> recruitment();
     
     @Query("SELECT COUNT(*) as count FROM Employee GROUP BY gender")

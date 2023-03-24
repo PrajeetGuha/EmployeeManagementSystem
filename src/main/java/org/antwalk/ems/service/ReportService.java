@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.antwalk.ems.exception.EmployeeNotFoundException;
 import org.antwalk.ems.model.Employee;
 import org.antwalk.ems.report.EmployeeReport;
-import org.antwalk.ems.repository.DepartmentRepository;
+
 import org.antwalk.ems.repository.EmployeeDetailsRepository;
 import org.antwalk.ems.repository.EmployeeRepository;
 import org.antwalk.ems.repository.FamilyDetailsRepository;
@@ -28,8 +28,8 @@ public class ReportService {
     @Autowired
     private EmployeeRepository employeeRepository;
 
-    @Autowired
-    private DepartmentRepository departmentRepository;
+//    @Autowired
+//    private DepartmentRepository departmentRepository;
 
     @Autowired
     private EmployeeDetailsRepository employeeDetailsRepository;
@@ -48,7 +48,7 @@ public class ReportService {
 
     @Autowired
     private EmployeeReport employeeReport;
-    
+   
     public void generateEmployeeReport(HttpServletResponse response, Long id) throws IOException, EmployeeNotFoundException{
         XSSFWorkbook workbook = new XSSFWorkbook();
 

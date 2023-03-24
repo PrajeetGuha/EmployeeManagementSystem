@@ -9,7 +9,7 @@ public class EditProjectDTO {
 	private Date startDate;
 	private Date endDate;
 	private String teamList;
-	
+
 	public EditProjectDTO() {
 		super();
 		// TODO Auto-generated constructor stub

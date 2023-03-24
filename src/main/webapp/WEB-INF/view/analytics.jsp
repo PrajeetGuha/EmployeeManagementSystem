@@ -603,7 +603,7 @@ var barChartOptions = {
 			  	            curve: 'straight'
 			  	          },
 			  	          title: {
-			  	            text: 'by Month',
+			  	            text: 'Monthwise',
 			  	            align: 'left'
 			  	          },
 			  	          grid: {
@@ -613,7 +613,7 @@ var barChartOptions = {
 			  	            },
 			  	          },
 			  	          xaxis: {
-			  	            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
+			  	            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep','Oct','Nov','Dec'],
 			  	          }
 			  	          };
 

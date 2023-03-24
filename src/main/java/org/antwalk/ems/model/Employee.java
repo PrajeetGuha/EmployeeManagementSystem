@@ -34,14 +34,18 @@ public class Employee {
     @Column(length = 2)
     private String gradeLevel;
 
+
+    @Column
+    private boolean isActive=true;
    
+
 
     @Column
     private Date doj;
 
-    @Column(length = 50)
+    @Column(length = 255)
     private String designation = "unassigned";
-
+ 
     @Column(length = 255)
     private String emptype;
 
@@ -63,17 +67,17 @@ public class Employee {
     @Column
     private Integer servPeriod;
 
-    @Column(length = 50, unique = true)
+    @Column(length = 255, unique = true)
     @Email
     private String workEmail;
 
-    @Column(length = 50)
+    @Column(length = 255)
     private String branch;
 
-    @Column(length = 50)
+    @Column(length = 255)
     private String office;
 
-    @Column(length = 5)
+    @Column(length = 255)
     private String workstationId;
 
     @Column
@@ -93,13 +97,19 @@ public class Employee {
 
     @Column
     private Double ctc;
+    @Column
+    private Integer yearOfExperience;
 
     @OneToOne
     private Resignation resignation;
+    
 
-    @ManyToOne
-    @JsonIgnoreProperties("employees")
-    private Department department;
+
+
+
+@Column
+    private String department;
+
 
     @ManyToOne
     @JsonIgnoreProperties("employees")
@@ -115,34 +125,40 @@ public class Employee {
     @OneToMany(mappedBy = "employee")
     @JsonIgnoreProperties("employee")
     private List<LeaveApplication> leaves;
+    
+    public void setDepartment(String department) {
+		this.department = department;
+	}
 
-    @Override
-    public String toString() {
-        return "Employee [empId=" + empId + ", empName=" + empName + ", gender=" + gender + ", gradeLevel=" + gradeLevel
-                + ", doj=" + doj + ", designation=" + designation + ", emptype=" + emptype + ", empstatus=" + empstatus
-                + ", probPeriod=" + probPeriod + ", probCompDate=" + probCompDate + ", trainPeriod=" + trainPeriod
-                + ", contractEndDate=" + contractEndDate + ", servPeriod=" + servPeriod + ", workEmail=" + workEmail
-                + ", branch=" + branch + ", office=" + office + ", workstationId=" + workstationId + ", clLeft="
-                + clLeft + ", plLeft=" + plLeft + ", slLeft=" + slLeft + ", moreLeave=" + moreLeave + ", totalLeave="
-                + totalLeave + ", ctc=" + ctc + ", resignation=" + resignation + ", department=" + department
-                + ", team=" + team + ", employeeDetails=" + employeeDetails + ", payrolls=" + payrolls + ", leaves="
-                + leaves + "]";
-    }
 
-    public Employee() {
-    }
+   
+    public boolean isActive() {
+		return isActive;
+	}
 
-	public Employee(Long empId, String empName, String gender, String gradeLevel, Date doj, String designation,
-			String emptype, String empstatus, Integer probPeriod, Date probCompDate, Integer trainPeriod,
-			Date contractEndDate, Integer servPeriod, @Email String workEmail, String branch, String office,
-			String workstationId, Integer clLeft, Integer plLeft, Integer slLeft, Integer moreLeave, Integer totalLeave,
-			Double ctc, Resignation resignation, Department department, Team team, EmployeeDetails employeeDetails,
-			List<Payroll> payrolls, List<LeaveApplication> leaves) {
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
+	}
+
+	public String getDepartment() {
+		return department;
+	}
+
+
+	public Employee(Long empId, String empName, String gender, String gradeLevel, boolean isActive, Date doj,
+			String designation, String emptype, String empstatus, Integer probPeriod, Date probCompDate,
+			Integer trainPeriod, Date contractEndDate, Integer servPeriod, @Email String workEmail, String branch,
+			String office, String workstationId, Integer clLeft, Integer plLeft, Integer slLeft, Integer moreLeave,
+			Integer totalLeave, Double ctc, Integer yearOfExperience, Resignation resignation, String department,
+			Team team, EmployeeDetails employeeDetails, List<Payroll> payrolls, List<LeaveApplication> leaves) {
+
+
 		super();
 		this.empId = empId;
 		this.empName = empName;
 		this.gender = gender;
 		this.gradeLevel = gradeLevel;
+		this.isActive = isActive;
 		this.doj = doj;
 		this.designation = designation;
 		this.emptype = emptype;
@@ -162,13 +178,28 @@ public class Employee {
 		this.moreLeave = moreLeave;
 		this.totalLeave = totalLeave;
 		this.ctc = ctc;
+		this.yearOfExperience = yearOfExperience;
 		this.resignation = resignation;
+		this.yearOfExperience = yearOfExperience;
 		this.department = department;
 		this.team = team;
 		this.employeeDetails = employeeDetails;
 		this.payrolls = payrolls;
 		this.leaves = leaves;
 	}
+
+
+	public Integer getYearOfExperience() {
+		return yearOfExperience;
+	}
+
+	public void setYearOfExperience(Integer yearOfExperience) {
+		this.yearOfExperience = yearOfExperience;
+	}
+
+	public Employee() {
+    }
+
 
 	public Long getEmpId() {
 		return empId;
@@ -362,13 +393,6 @@ public class Employee {
 		this.resignation = resignation;
 	}
 
-	public Department getDepartment() {
-		return department;
-	}
-
-	public void setDepartment(Department department) {
-		this.department = department;
-	}
 
 	public Team getTeam() {
 		return team;
@@ -400,12 +424,5 @@ public class Employee {
 
 	public void setLeaves(List<LeaveApplication> leaves) {
 		this.leaves = leaves;
-	}
-    
-
-
-
-    
-
-    
+	}  
 }
