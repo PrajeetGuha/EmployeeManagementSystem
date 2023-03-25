@@ -222,7 +222,7 @@
               <p class="text-primary">DEPARTMENTS</p>
               <span class="material-icons">devices</span>
             </div>
-            <span class="text-primary font-weight-bold">${countOfDepartments}</span>
+            <span class="text-primary font-weight-bold">7</span>
           </div>
 
           <div class="card">
@@ -272,6 +272,10 @@
             <p class="chart-title">Recruitment Metrics</p>
             <div id="line-chart"></div>
           </div> 
+          <div class="charts-card" style="width: 97%;">
+            <p class="chart-title">Team Distribution</p>
+            <div id="bar-chart3"></div>
+          </div> 
         </div>
         
 
@@ -316,7 +320,7 @@
 <script type="text/javascript">
 var barChartOptions = {
 		  series: [{
-		    data: [<c:forEach var="item" items="${countOfEmployeesInDepartment}">
+		    data: [<c:forEach var="item" items="${findemployeecount}">
 		      "${item}",
 		      </c:forEach>]
 		  }],
@@ -359,7 +363,7 @@ var barChartOptions = {
 		    show: false
 		  },
 		  xaxis: {
-		    categories: [ <c:forEach var="item" items="${alldepartmentnames}">
+		    categories: [<c:forEach var="item" items="${deptname}">
 		      "${item}",
 		      </c:forEach>],
 		      title: {
@@ -513,7 +517,7 @@ var barChartOptions = {
 			  		    bar: {
 			  		      distributed: true,
 			  		      borderRadius: 4,
-			  		      horizontal: false,
+			  		      horizontal: true,
 			  		      columnWidth: '40%',
 			  		    }
 			  		  },
@@ -524,9 +528,7 @@ var barChartOptions = {
 			  		    show: false
 			  		  },
 			  		  xaxis: {
-			  		    categories: [ <c:forEach var="item" items="${alldepartmentnames}">
-			  		      "${item}",
-			  		      </c:forEach>],
+			  		    categories: ['trainee','hr','administration','accounts','sports','security','others'],
 			  		    title: {
 				  		      text: "Total cost"
 				  		    }
@@ -619,6 +621,70 @@ var barChartOptions = {
 
 			  	          var linechart = new ApexCharts(document.querySelector("#line-chart"), options);
 			  	          linechart.render();
+			  	          
+			  	          
+			  	        var barChart3Options = {
+			  	    		  series: [{
+			  	    		    data: [<c:forEach var="item" items="${teamcount}">
+			  	    		      "${item}",
+			  	    		      </c:forEach>]
+			  	    		  }],
+			  	    		  chart: {
+			  	    		    type: 'bar',
+			  	    		    height: 350,
+			  	    		    toolbar: {
+			  	    		        show: true,
+			  	    		        tools: {
+			  	    		          download: true,
+			  	    		          selection: true,
+			  	    		          zoom: true,
+			  	    		          zoomin: true,
+			  	    		          zoomout: true,
+			  	    		          pan: true,
+			  	    		          reset: true
+			  	    		        },
+			  	    		        autoSelected: 'zoom'
+			  	    		      },
+			  	    		  },
+			  	    		  colors: [
+			  	    		    "#246dec",
+			  	    		    "#cc3c43",
+			  	    		    "#367952",
+			  	    		    "#f5b74f",
+			  	    		    "#4f35a1"
+			  	    		  ],
+			  	    		  plotOptions: {
+			  	    		    bar: {
+			  	    		      distributed: true,
+			  	    		      borderRadius: 4,
+			  	    		      horizontal: false,
+			  	    		      columnWidth: '40%',
+			  	    		    }
+			  	    		  },
+			  	    		  dataLabels: {
+			  	    		    enabled: false
+			  	    		  },
+			  	    		  legend: {
+			  	    		    show: false
+			  	    		  },
+			  	    		  xaxis: {
+			  	    		    categories: [<c:forEach var="item" items="${teamdept}">
+			  			      "${item}",
+			  			      </c:forEach>],
+			  	    		      title: {
+			  	    			      text: "Department"
+			  	    			    }
+			  	    		  },
+			  	    		  yaxis: {
+			  	    		    title: {
+			  	    		      text: "Count"
+			  	    		    }
+			  	    		  }
+			  	    		};
+
+			  	    		var barChart3 = new ApexCharts(document.querySelector("#bar-chart3"), barChart3Options);
+			  	    		barChart3.render();
+
 			  	          
 			  	  		/*var pieoptions2 = {
 					  	          series: [ <c:forEach var="item" items="${findteamcount}">

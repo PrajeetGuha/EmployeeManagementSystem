@@ -36,6 +36,7 @@
 
 <script >
 
+
 var teamEmployees = [
 	<c:forEach var="employee" items="${team.employees}">
 		{
@@ -44,27 +45,136 @@ var teamEmployees = [
 		},
 	</c:forEach>
 ];
-
-var allemployees = {
-		<c:forEach var="employee" items="${employees}">
+var AlldeptEmployees = [
+	<c:forEach var="employee" items="${employees}">
 		{
 			id : ${employee.empId},
 			name : "${employee.empName}"
 		},
-	</c:forEach>	
-};
+	</c:forEach>
+];
+var bakiEmployees = [];
+	for(let emp in AlldeptEmployees){/* 
+		console.log(AlldeptEmployees[emp]); */
+		if (teamEmployees.length == 0){
+			bakiEmployees.push(AlldeptEmployees[emp]);
+		}
+	for(let empteam in teamEmployees){
+			if (emp.id != empteam.id){
+				bakiEmployees.push(AlldeptEmployees[emp]);
+			}
+	}
+	}	
+/* 
 console.log(teamEmployees);
-console.log(allemployees);
-</script>
+console.log(AlldeptEmployees);
 
-<script>
+console.log(bakiEmployees); */
+
+
+function addEmployee(){
+	var searchTerm = $('#search-input').val();
+	const parts = searchTerm.split('.');
+	var employeeIdValue=parseInt(parts[0]);
+
+	var employeeNameValue=parts[1];/* 
+	console.log(parts); */
+	teamEmployees.push({
+		id : employeeIdValue,
+		name : employeeNameValue});
+	
+	bakiEmployees = bakiEmployees.filter(employee => employee.id != parts[0]);
+
+
+		/* var AlldeptEmployees = [
+			<c:forEach var="employee" items="${employees}">
+				{
+					id : ${employee.empId},
+					name : "${employee.empName}"
+				},
+			</c:forEach>
+		];
+		var bakiEmployees = [];
+			for(let emp in AlldeptEmployees){/* 
+				console.log(AlldeptEmployees[emp]); */
+				/* if (teamEmployees.length == 0){
+					bakiEmployees.push(AlldeptEmployees[emp]);
+				}
+			for(let empteam in teamEmployees){
+					if (emp.id != empteam.id){
+						bakiEmployees.push(AlldeptEmployees[emp]);
+					}
+			}
+			}	 */ 
+			console.log(bakiEmployees); 
+			$('#search-input').val("");
+			renderTable();
+			
+			
+			
+			
+			
+}
+
+function renderTable(){
+	let temp = "";
+	for(let emp in teamEmployees){
+		temp += "<tr><td>"+teamEmployees[emp].id+"</td><td>"+teamEmployees[emp].name+"</td><td><a class='delete' onclick='removeTableRow("+teamEmployees[emp].id+")'><i class='material-icons' data-toggle='tooltip' title='Delete'>&#xE872;</i></a></td></tr>";
+	}
+	document.getElementById("teamTable").innerHTML = temp;
+}
+
+function removeTableRow(eid){
+	var employeename;
+	for(let emp in teamEmployees){
+		if(teamEmployees[emp].id == eid){
+			employeename = teamEmployees[emp].name;
+		}
+	}
+	teamEmployees = teamEmployees.filter(employee => employee.id != eid);
+	bakiEmployees.push({
+		id : eid,
+		name : employeename
+	});
+	renderTable();
+}
+
+function addRow(id,name) {
+	// Get the table body element
+	const tableBody = document.getElementById("teamTable");
+
+	// Create a new row element
+	const newRow = document.createElement("tr");
+
+	// Create cell elements for the new row
+	const idCell = document.createElement("td");
+	const nameCell = document.createElement("td");
+	const actionCell = document.createElement("td");
+
+	// Set the text content of the cell elements
+	idCell.textContent = id;
+	nameCell.textContent = name;
+	actionCell.innerHTML = '<a href="" onclick="deleteRow('+id+')"><i class="material-icons" data-toggle="tooltip" title="Delete">delete</i></a>';
+
+	// Append the cell elements to the new row
+	newRow.appendChild(idCell);
+	newRow.appendChild(nameCell);
+	newRow.appendChild(actionCell);
+
+	// Append the new row to the table body
+	tableBody.appendChild(newRow);
+
+	}
+
+
 						$(document).ready(function () {
+							/* console.log(AlldeptEmployees); */
 							// Get the list of items from the model attribute
-							var items = [
-								<c:forEach var="item" items="${allemployeenames}">
+							 /* var items = [
+								<c:forEach var="item" items="${employees}">
 									"${item.empName}",
 								</c:forEach>
-							];
+							]; */
 
 							// Set the initial form action
 							/*  var initialUrl = window.location.href.split('?')[0];
@@ -77,19 +187,19 @@ console.log(allemployees);
 								var searchTerm = $(this).val().toLowerCase();
 
 								// Filter the list based on the search term
-								var filteredItems = items.filter(function (item) {
-									return item.toLowerCase().indexOf(searchTerm) > -1;
+								var filteredItems = bakiEmployees.filter(function (item) {
+									return item.name.toLowerCase().indexOf(searchTerm) > -1;
 								});
 
 								// Update the search results list
 								var $searchResults = $('#search-results');
 								$searchResults.empty();
 								filteredItems.forEach(function (item) {
-									var $li = $('<li>').text(item);
+									var $li = $('<li>').text(item.id +". " + item.name);
 									$li.on('click', function () {
 										$('#search-input').val($(this).text());
-										$searchResults.hide();
-
+										 $searchResults.hide();
+ 
 
 									});
 									$searchResults.append($li);
@@ -114,7 +224,7 @@ console.log(allemployees);
 							// Update form action when GO button is clicked
 							$('#button-addon2').on('click', function (event) {
 								event.preventDefault();
-								updateFormAction();
+								/* updateFormAction(); */
 							});
 
 							function updateFormAction() {
@@ -484,7 +594,7 @@ console.log(allemployees);
 										<input type="search" class="form-control" placeholder="Add employees here"
 											id="search-input">
 										<div class="input-group-append ">
-											<button class="btn" type="submit" id="button-addon2">GO</button>
+											<button class="btn" type="submit" id="button-addon2" onclick="addEmployee()">GO</button>
 										</div>
 									</div>
 								</form>
@@ -511,183 +621,32 @@ console.log(allemployees);
 
 										<th>ID</th>
 										<th>NAME</th>
-										<th>EMAIL</th>
-										<!-- <th>GRADE_LEVEL</th>
-										<th>TYPE</th> -->
-										<th>DESIGNATION</th>
-										<th>STATUS</th>
 										<th style="width: 140px;">ACTIONS</th>
 									</tr>
 								</thead>
-								<tbody>
-									<tr>
+								<tbody id="teamTable">
+									<%-- <tr>
 
-										<c:forEach items="${employees}" var="employee">
+										<c:forEach items="${teamEmployees}" var="emp">
 											<tr>
-												<td><c:out value="${employee.empId}" /></td>
-												<td><c:out value="${employee.empName}" /></td>
-												<td><c:out value="${employee.workEmail}" /></td>
-												<%-- <td>
-														<c:out value="${employee.gradeLevel}" />
-														</td> --%>
-												<%-- <td>
-															<c:out value="${employee.emptype}" />
-															</td> --%>
-												<td><c:out value="${employee.designation}" /></td>
-
-												<td class="highlight-column"><c:out
-														value="${employee.empstatus}" /></td>
-												<%-- <td><button id="editemp" class='edit' />
-																<i class="material-icons" data-toggle="tooltip"
-																	title="Edit">&#xE254;</i>
-																</a> <button id="editstat" class='edit'
-																	data-employee-id='${employee.empId }' />
-																<i class="material-icons" data-toggle="tooltip"
-																	title="Status">&#xE152;</i>
-																</a></td>
-
-																<td>
-																	<c:out value="${employee.empstatus}" />
-																</td> --%>
-
-												<td><a
-													href="editemployeedetails?empId=${employee.empId}&pg=1&search=${search}">
-														<i class="material-icons" data-toggle="tooltip"
-														title="View">&#xE853;</i>
-												</a> <a
-													href="report?empId=${employee.empId}&pg=1&search=${search}"
-													class="analytics"> <i class="material-icons"
-														data-toggle="tooltip" title="Analytics">summarize</i>
-												</a> <a href="#deleteEmployeeModal" class="delete"
-													data-toggle="modal"
-													onclick="selectedEmpstatus(${employee.empId},'${employee.empName}', '${employee.empstatus}')">
-														<i class="material-icons" data-toggle="tooltip"
-														title="Status">new_releases</i>
-												</a> <a href="#changePasswordModal${employee.empId }"
-													data-toggle="modal" aria-expanded="false"> <i
-														class="material-icons" data-toggle="tooltip">vpn_key</i>
-												</a></td>
+												<td><c:out value="${emp.empId}" /></td>
+												<td><c:out value="${emp.empName}" /></td>
+												
+																		<td><a href="#deleteEmployeeModal"
+																				class="delete" data-toggle="modal"
+																				onClick="removeTableRow(this)">
+																				<i class="material-icons"
+																					data-toggle="tooltip"
+																					title="Delete">&#xE872;</i>
+																			</a></td>
 
 											</tr>
-											<!-- Password Modal HTML -->
-											<div id="changePasswordModal${employee.empId }"
-												class="modal fade">
-												<div class="modal-dialog">
-													<div class="modal-content">
-
-														<div class="modal-header">
-															<h4 class="modal-title">Change Password</h4>
-															<!-- <button type="button" class="close" data-dismiss="modal"
-											aria-hidden="true">&times;</button> -->
-														</div>
-														<div class="modal-body">
-															<form action="changePassword" method="post"
-																modelAttribute="newpass">
-
-																<input type="hidden" id="empId" name="empId"
-																	value="${employee.empId}" />
-
-																<label for="name" class="placeholder">Change Password for ${employee.empName } ?</label>
-
-																<div class="input-container ic2">
-																	<label for="hod" class="placeholder">New
-																		Password</label>
-																	<div class="cut cut-short"></div>
-																	<input id="changedpassword" name="changedPassword"
-																		class="input required" type="password" placeholder=" "
-																		pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+]).{8,}$"
-																		oninput="setCustomValidity('')"
-																		oninvalid="setCustomValidity('Password must be of 8 characters and contain at least one capital character, one number, and a special character.')"
-																		required />
-																</div>
-
-																<br>
-																<div class="modal-footer">
-																	<button type="button" class="btn btn-secondary"
-																		data-dismiss="modal">Close</button>
-																	<button type="submit" class="btn btn-primary">Submit</button>
-																</div>
-															</form>
-														</div>
-													</div>
-												</div>
-											</div>
+											
 										</c:forEach>
 
+</tr> --%>
 
-
-										<!--  <tr>
-                      <td>
-                        <span class="custom-checkbox">
-                          <input type="checkbox" id="checkbox2" name="options[]" value="1">
-                          <label for="checkbox2"></label>
-                        </span>
-                      </td>
-                      <td>Dominique Perrier</td>
-                      <td>dominiqueperrier@mail.com</td>
-                      <td>Obere Str. 57, Berlin, Germany</td>
-                      <td>(313) 555-5735</td>
-                      <td>
-                        <a href="#editEmployeeModal" class="edit" data-toggle="modal">
-                          <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                        <a href="#deleteEmployeeModal" class="delete" data-toggle="modal">
-                          <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <span class="custom-checkbox">
-                          <input type="checkbox" id="checkbox3" name="options[]" value="1">
-                          <label for="checkbox3"></label>
-                        </span>
-                      </td>
-                      <td>Maria Anders</td>
-                      <td>mariaanders@mail.com</td>
-                      <td>25, rue Lauriston, Paris, France</td>
-                      <td>(503) 555-9931</td>
-                      <td>
-                        <a href="#editEmployeeModal" class="edit" data-toggle="modal">
-                          <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                        <a href="#deleteEmployeeModal" class="delete" data-toggle="modal">
-                          <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <span class="custom-checkbox">
-                          <input type="checkbox" id="checkbox4" name="options[]" value="1">
-                          <label for="checkbox4"></label>
-                        </span>
-                      </td>
-                      <td>Fran Wilson</td>
-                      <td>franwilson@mail.com</td>
-                      <td>C/ Araquil, 67, Madrid, Spain</td>
-                      <td>(204) 619-5731</td>
-                      <td>
-                        <a href="#editEmployeeModal" class="edit" data-toggle="modal">
-                          <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                        <a href="#deleteEmployeeModal" class="delete" data-toggle="modal">
-                          <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <span class="custom-checkbox">
-                          <input type="checkbox" id="checkbox5" name="options[]" value="1">
-                          <label for="checkbox5"></label>
-                        </span>
-                      </td>
-                      <td>Martin Blank</td>
-                      <td>martinblank@mail.com</td>
-                      <td>Via Monte Bianco 34, Turin, Italy</td>
-                      <td>(480) 631-2097</td>
-                      <td>
-                        <a href="#editEmployeeModal" class="edit" data-toggle="modal">
-                          <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                         <a href="#deleteEmployeeModal" class="delete" data-toggle="modal">
-			<i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-                      </td>
-                    </tr>-->
+							
 								</tbody>
 							</table>
 

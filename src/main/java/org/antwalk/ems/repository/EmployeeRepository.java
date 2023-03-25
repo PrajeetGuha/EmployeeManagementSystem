@@ -66,6 +66,16 @@ public interface EmployeeRepository extends JpaRepository<Employee,Long> {
     public List<Integer> recruitment();
     
     @Query("SELECT COUNT(*) as count FROM Employee GROUP BY gender")
-    List<Integer> sexratio();
+    public List<Integer> sexratio();
+    
+    @Query("SELECT COUNT(*) as employeecount FROM Employee  GROUP BY department")
+    List<Integer> findemployeecount();
+    
+    @Query("select SUM(ctc) FROM Employee GROUP BY department")
+    List<Double> totalcost();
+    
+    @Query("select DISTINCT department FROM Employee")
+    List<String> deptname();
+
 
 }

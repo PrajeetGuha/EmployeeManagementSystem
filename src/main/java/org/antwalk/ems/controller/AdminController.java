@@ -136,7 +136,7 @@ private EmployeeRepository employeeRepository;
 
         List<EmployeeSelectionView> allemployees = adminService.listAllEmployees();
        
-        //List<Integer> countemployeeindepartment=adminService.employeesInDepartment();
+        List<Integer> findemployeecount=adminService.findemployeecount();
 
 //        List<Integer> countemployeeindepartment=adminService.employeesInDepartment();
 
@@ -144,9 +144,13 @@ private EmployeeRepository employeeRepository;
 
 //        List<String> teamsinprojects=adminService.teamsinprojects();
 //        List<Integer> findteamcount=adminService.findteamcount();
-//        List<Double> totalcost=adminService.totalcost();
+        List<Double> totalcost=adminService.totalcost();
         List<String> emptype=adminService.emptype();
         List<Integer> recruitment=adminService.recruitment();
+        //List<Integer> deptcount=adminService.deptcount();
+        List<Integer> teamcount=adminService.teamcount();
+        List<String> deptname=adminService.deptname();
+        List<String> teamdept=adminService.teamdept();
     	model.addAttribute("admin",admin);
         model.addAttribute("countOfEmployees", count);
 //        model.addAttribute("countOfDepartments", countdept);
@@ -155,18 +159,20 @@ private EmployeeRepository employeeRepository;
 //        model.addAttribute("alldepartmentnames",alldepartments);
 
         model.addAttribute("allemployeenames",allemployees);
-        //model.addAttribute("countOfEmployeesInDepartment", countemployeeindepartment);
+        model.addAttribute("findemployeecount", findemployeecount);
 
 //        model.addAttribute("countOfEmployeesInDepartment", countemployeeindepartment);
 
         model.addAttribute("sexratio",sexratio);
 
 
-//        model.addAttribute("totalcost",totalcost);
+        model.addAttribute("totalcost",totalcost);
         model.addAttribute("emptype",emptype);
         model.addAttribute("recruitment", recruitment);
-//        model.addAttribute("teamsinprojects", teamsinprojects);
-//        model.addAttribute("findteamcount", findteamcount);
+        model.addAttribute("teamcount", teamcount);
+        model.addAttribute("deptname", deptname);
+        model.addAttribute("teamdept", teamdept);
+
    		return "analytics";
 
    	}
@@ -215,17 +221,19 @@ private EmployeeRepository employeeRepository;
 
     	Long tid = Long.parseLong(request.getParameter("tid"));
     	Team team=adminService.findTeamById(tid);
+    	System.out.println("\n\n\n\n");
     	List<EmployeeSelectionView> employees=adminService.findEmployeesByDepartment(team.getDepartment());
+    	System.out.println(employees);
     	
     	
     	Admin admin = adminService.fetchAdminData(id);
     	model.addAttribute("admin",admin);
         model.addAttribute("pageNo", pageNo);
 
+
         model.addAttribute("team",team);
         model.addAttribute("employees", employees);
- 
-   		return "editableTeam";
+ 	return "editableTeam";
    	}
     
 //    @GetMapping("/departmentallocation")

@@ -791,17 +791,18 @@ function getdeptId(deptId)
 												type="text" placeholder=" " required />
 										</div>
 										<div class="input-container ic2">
-											<label for="tm" class="placeholder">Team Manager</label>
+											<label for="department" class="placeholder">Department</label>
 											<div class="cut cut-short"></div>
-											<select id="tm" name="tm" class="input required"
-												placeholder=" ">
-												<option value="0">Unassigned</option>
-												<c:forEach items="${allemployeenames}" var="department">
-													<option value="${department.empId}">(${department.empId})
-														${department.empName}</option>
-
-
-												</c:forEach>
+											<select id="department" name="department"
+												class="input required" placeholder="Deparment">
+												<option value="trainee">Trainee</option>
+												<option value="hr">Hr</option>
+												<option value="administration">Administration</option>
+												<option value="accounts">Accounts</option>
+												<option value="sports">Sports</option>
+												<option value="security">Security</option>
+												<option value="others">Others</option>
+												
 											</select>
 										</div>
 
