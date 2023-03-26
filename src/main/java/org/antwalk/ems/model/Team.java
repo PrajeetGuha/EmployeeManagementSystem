@@ -21,7 +21,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Entity
 @Table
 public class Team {
-
+	
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long teamId;

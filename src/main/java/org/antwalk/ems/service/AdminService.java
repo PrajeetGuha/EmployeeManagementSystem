@@ -97,7 +97,7 @@ public class AdminService {
             () -> new UserNotFoundException("User with id: " + id + " not found")
         );
     }
-  
+ 
 
     public List<EmployeeListView> listEmployees(int pageNo, String search){
         Pageable pageable = PageRequest.of(pageNo-1, PAGE_SIZE, Sort.by("empId"));
@@ -411,6 +411,46 @@ public class AdminService {
            
         }
         
+        public void addTeamMembersToTeam(Long teamId, String teamMember) throws Exception {
+            Team team = teamRepository.findById(teamId).orElseThrow(
+                () -> new DepartmentNotFoundException("Team not found")
+            );
+            	team.setEmployees(new ArrayList<Employee>());
+           
+//            System.out.println(editTeam);
+//            System.out.println("\n\n\n");
+//            if (editTeam.getTm() == 0) {
+//            	team.setTm(null);
+//            }
+//            else {
+//            	 Employee tm = employeeRepository.findById(editTeam.getTm()).orElseThrow(
+//                         () -> new EmployeeNotFoundException("Employee not found")
+//                     );
+//            	team.setTm(tm);
+//            }
+            teamRepository.save(team);
+            employeeRepository.updateTeam(teamId);
+           if (!teamMember.equals("")) {
+        	   try{
+                   List<String> employeeList = Arrays.asList(teamMember.split(";"));
+                   for(String employee : employeeList){
+                       Long id = Long.parseLong(employee);
+                       // System.out.println(id);
+                       Employee employeeToadd = employeeRepository.findById(id).orElseThrow(
+                           () -> new EmployeeNotFoundException("Employee not found")
+                       );
+                       employeeToadd.setTeam(team);
+                       employeeRepository.save(employeeToadd);
+                       System.out.println("Done");
+                   }
+               }
+               catch(Exception e){
+                   throw new Exception(e.getMessage());
+               }
+           }
+        }
+        
+        
         public void editTeam(Long teamId, EditTeamDTO editTeam) throws Exception {
             Team team = teamRepository.findById(teamId).orElseThrow(
                 () -> new DepartmentNotFoundException("Team not found")
@@ -523,10 +563,16 @@ public class AdminService {
 					() -> new EmployeeNotFoundException("Employee not found"));
 			employee.setEmpId(empId);
 			employee.setEmployeeDetails(persistedEmployee.getEmployeeDetails());
-			employee.setTeam(persistedEmployee.getTeam());
+			employee.setTeam(persistedEmployee.getTeam());   
 			employee.setResignation(persistedEmployee.getResignation());
-			
+			String before_dept=persistedEmployee.getDepartment();
+			String after_dept=employee.getDepartment();
 			employeeRepository.save(employee);
+			if(!before_dept.equals(after_dept)) {
+				employeeRepository.updateDepartment(empId);
+			}
+			
+			
 		}
 
 
@@ -540,6 +586,27 @@ public class AdminService {
 		public List<EmployeeSelectionView> findEmployeesByDepartment(String department) {
 			// TODO Auto-generated method stub
 			return employeeRepository.findAllEmployeeNamesByDepartment(department);
+		}
+
+
+		public List<EmployeeSelectionView> listAllPotentialTM(String department) {
+			// TODO Auto-generated method stub
+			return employeeRepository.findAllPotentialTM(department);
+		}
+
+
+		public void addTeamManagerToTeam(Long tid, Long tm) throws EmployeeNotFoundException {
+			// TODO Auto-generated method stub
+			Team teamToAdd = teamRepository.findById(tid).orElseThrow(
+                    () -> new EmployeeNotFoundException("Team not found")
+                );
+			Employee persistedEmployee = employeeRepository.findById(tm).orElseThrow(
+					() -> new EmployeeNotFoundException("Employee not found"));
+			teamToAdd.setTm(persistedEmployee);
+			persistedEmployee.setTeam(teamToAdd);
+			employeeRepository.save(persistedEmployee);
+			teamRepository.save(teamToAdd);
+			System.out.println("\n\n\n done with process");
 		}
         
 

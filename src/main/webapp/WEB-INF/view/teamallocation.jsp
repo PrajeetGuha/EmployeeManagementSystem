@@ -641,11 +641,13 @@ function getdeptId(deptId)
 								</div>
 							</div>
 							<table class="table table-striped table-hover">
+							
 								<thead>
 									<tr>
 
 										<th>ID</th>
 										<th>TEAM NAME</th>
+										<th>TEAM DEPARTMENT</th>
 										<th>TEAM MANAGER</th>
 										<th>Actions</th>
 									</tr>
@@ -657,6 +659,9 @@ function getdeptId(deptId)
 												<td><c:out value="${team.teamId }" /></td>
 												<td><c:out
 														value="${fn:toUpperCase(fn:substring(team.teamName, 0, 1))}${fn:toLowerCase(fn:substring(team.teamName, 1,fn:length(team.teamName)))}" /></td>
+												
+												<td><c:out value="${fn:toUpperCase(fn:substring(team.department, 0, 1))}${fn:toLowerCase(fn:substring(team.department, 1,fn:length(team.department)))}" /></td>
+												
 												<td><c:out value="${team.tm.empName}" /></td>
 
 
@@ -790,6 +795,9 @@ function getdeptId(deptId)
 											<input id="teamName" name="teamName" class="input required"
 												type="text" placeholder=" " required />
 										</div>
+										
+										
+										
 										<div class="input-container ic2">
 											<label for="department" class="placeholder">Department</label>
 											<div class="cut cut-short"></div>
