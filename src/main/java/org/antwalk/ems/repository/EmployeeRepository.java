@@ -64,7 +64,7 @@ public interface EmployeeRepository extends JpaRepository<Employee,Long>  {
     @Query("select empName from Employee e where empId = :empId")
     public String getEmpNameByEmpId(Long empId);
     
-    @Query("SELECT COUNT(*) as count FROM Employee GROUP BY emptype")
+    @Query("SELECT COUNT(*) as count FROM Employee GROUP BY emptype ORDER BY CASE emptype WHEN 'full time' THEN 0 WHEN 'part time' THEN 1 WHEN 'contract' THEN 2 END")
     List<String> emptype();
 
     @Query("select leaves from Employee e where e.empId = :empId")
@@ -73,7 +73,7 @@ public interface EmployeeRepository extends JpaRepository<Employee,Long>  {
     @Query("SELECT COUNT(*) AS count, MONTH(doj) AS month FROM Employee GROUP BY MONTH(doj) ORDER BY MONTH(doj)")
     public List<Integer> recruitment();
     
-    @Query("SELECT COUNT(*) as count FROM Employee GROUP BY gender")
+    @Query("SELECT COUNT(*) as count FROM Employee GROUP BY gender ORDER BY CASE gender WHEN 'male' THEN 0 WHEN 'female' THEN 1 WHEN 'other' THEN 2 END")
     public List<Integer> sexratio();
     
     @Query("SELECT COUNT(*) as employeecount FROM Employee  GROUP BY department")

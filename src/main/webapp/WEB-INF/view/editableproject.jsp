@@ -34,7 +34,8 @@
 <c:set var="pageNo" value="${pageNo}" />
 <c:set var="pageCount" value="${pageCount}" />
 
-<script>
+<script >
+
 
 var teamEmployees = [
 	<c:forEach var="employee" items="${team.employees}">
@@ -59,32 +60,21 @@ var bakiEmployees = [];
 			bakiEmployees.push(AlldeptEmployees[emp]);
 		}
 	for(let empteam in teamEmployees){
-			if (AlldeptEmployees[emp].id != teamEmployees[empteam].id){
+			if (emp.id != empteam.id){
 				bakiEmployees.push(AlldeptEmployees[emp]);
-				break;
 			}
 	}
 	}	
-
+/* 
 console.log(teamEmployees);
 console.log(AlldeptEmployees);
 
-console.log(bakiEmployees); 
-function onSubmitFunc(){
-	var idValues="";
-	for(let x in teamEmployees){
-		idValues+=teamEmployees[x].id+";"
-	}
-	console.log(idValues);
+console.log(bakiEmployees); */
 
-	$('#hiddenFieldOfTeam').val(idValues);
-	
-}
 
 function addEmployee(){
 	var searchTerm = $('#search-input').val();
 	const parts = searchTerm.split('.');
-	if(parts.length>=2){
 	var employeeIdValue=parseInt(parts[0]);
 
 	var employeeNameValue=parts[1];/* 
@@ -116,10 +106,11 @@ function addEmployee(){
 					}
 			}
 			}	 */ 
+			console.log(bakiEmployees); 
 			$('#search-input').val("");
 			renderTable();
 			
-	}
+			
 			
 			
 			
@@ -144,9 +135,7 @@ function removeTableRow(eid){
 	bakiEmployees.push({
 		id : eid,
 		name : employeename
-	});/* 
-	console.log(bakiEmployees);
-	console.log(teamEmployees); */
+	});
 	renderTable();
 }
 
@@ -257,7 +246,7 @@ function addRow(id,name) {
 </head>
 
 
-<body onload="renderTable()">
+<body>
 	<!-- <div>${result.getBody().getStatus()}</div> -->
 
 	<div class="wrapper">
@@ -270,14 +259,14 @@ function addRow(id,name) {
 				</h3>
 			</div>
 			<ul class="list-unstyled components">
-				<li><a href="dashboard?search=null&pg=1" class="dashboard"><i
-						class="material-icons">dashboard</i> <span>Dashboard</span></a></li>
+				<li ><a href="dashboard?search=null&pg=1"
+					class="dashboard"><i class="material-icons">dashboard</i> <span>Dashboard</span></a></li>
 
 
-				<li><a href="projectallocation?pg=1"> <i
+				<li class="active"><a href="projectallocation?pg=1"> <i
 						class="material-icons">laptop</i>Project
 				</a></li>
-				<li class="active"><a href="teamallocation?pg=1"> <i
+				<li ><a href="teamallocation?pg=1"> <i
 						class="material-icons">groups</i>Team
 				</a></li>
 				<!-- <li><a href="departmentallocation?pg=1"> <i
@@ -487,7 +476,7 @@ function addRow(id,name) {
 						<!-- End XP Col -->
 
 						<!-- Start XP Col -->
-
+						
 
 
 						<!-- End XP Col -->
@@ -515,19 +504,11 @@ function addRow(id,name) {
 
 				</div>
 				<div class="xp-breadcrumbbar text-center">
-					<h4 class="page-title">${team.teamName }</h4>
-				</div>
-				<div class="row">
-					<div class="col-10"></div>
-					<div class="col-2">
-						<a href="#addTM" data-toggle="modal" aria-expanded="false">
-							<button class="btn btn-success" type="submit" id="button-addon2"
-								href="#addTM">Assign TM</button>
-						</a>
-						<!-- 
-						<button class="btn btn-success" type="submit" id="button-addon2"
-							href="#addTM">Assign TM</button> -->
-					</div>
+					<h4 class="page-title">Manage Project</h4>
+					<!--  <ol class="breadcrumb">
+						<li class="breadcrumb-item"><a href="#">Booster</a></li>
+						<li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+					</ol>-->
 				</div>
 
 			</div>
@@ -535,19 +516,6 @@ function addRow(id,name) {
 
 
 			<!--------main-content------------->
-			<%-- 
-			<div class="input-container ic2">
-											<label for="department" class="placeholder">Team Manager</label>
-											<div class="cut cut-short"></div>
-											<select id="teamManager" name="tm"
-												class="input required" placeholder="Team Manager">
-												<c:forEach var="teammanager" items="${potentialTM }">
-												
-												<option value="${teammanager.empId}">${teammanager.empId}. ${teammanager.empName }</option>
-												</c:forEach>
-										</select>
-										</div>
-										 --%>
 
 			<div class="main-content">
 				<div class="row">
@@ -558,25 +526,26 @@ function addRow(id,name) {
 								<div class="row">
 									<div
 										class="col-sm-2 p-0 d-flex justify-content-lg-start justify-content-center">
-										<h2 class="ml-lg-2">Manage Team</h2>
+										<h2 class="ml-lg-2">Manage Teams</h2>
 									</div>
 									<div class="col-7"></div>
-									<div
-										class="col-sm-3 col-md-2  justify-content-lg-end justify-content-center">
-										<div class="xp-searchbar">
-												<div class="input-group">
-													<input type="search" class="form-control"
-														placeholder="Add employees here" id="search-input" />
-													<button class="btn btn-success" type="submit"
-														id="button-addon2" onclick="addEmployee()">Add</button>
-												</div>
-											<ul class="dropdown-menu" id="search-results"
-												style="display: none;">
-											</ul>
+									<div class="col-sm-3 col-md-2  justify-content-lg-end justify-content-center">
+							<div class="xp-searchbar">
+								<form id="search-form" action="" method="get">
+									<input type="hidden" name="search" value="">
+									<div class="input-group">
+										<input type="search" class="form-control" placeholder="Add employees here"
+											id="search-input">
+										<div class="input-group-append ">
+											<button class="btn" type="submit" id="button-addon2" onclick="addEmployee()">GO</button>
 										</div>
-
 									</div>
-
+								</form>
+								<ul class="dropdown-menu" id="search-results"
+									style="display: none;">
+								</ul>
+							</div>
+						</div>
 									<!-- <div
 										class="col-sm-2 p-0 d-flex justify-content-lg-end justify-content-center">
 										<a href="#addEmployeeModal" class="btn btn-success"
@@ -620,7 +589,7 @@ function addRow(id,name) {
 
 </tr> --%>
 
-
+							
 								</tbody>
 							</table>
 
@@ -646,65 +615,55 @@ function addRow(id,name) {
 
 								</ul>
 							</div>
-							<div>
-									<form
-										action="addTeamMember?teamId=${team.teamId }&pg=${pageNo}"
-										method="post">
-								<center>
-										<input type="hidden" name="hiddenFieldOfTeams"
-											id="hiddenFieldOfTeam"/>
-										<button type="submit" class="btn btn-primary"
-											onclick="onSubmitFunc()">Submit</button>
-								</center>
-								</form>
-							</div>
 						</div>
 					</div>
+					
 
 
 
-
-					<div id="addTM" class="modal fade">
-						<div class="modal-dialog">
-							<div class="modal-content">
-								<form action="addTeamManager?tid=${team.teamId }&pg=${pageNo }"
-									method="post">
-									<div class="modal-header">
-										<h4 class="modal-title">Add Team Manager</h4>
-									</div>
-									<div class="modal-body">
-										<div class="input-container ic2">
-											<label for="department" class="placeholder">Team
-												Manager</label>
-											<div class="cut cut-short"></div>
-											<select id="teamManager" name="teamManagerValues"
-												class="input required" placeholder="Team Manager">
-												<c:if test="${potentialTM !=null}">
-												<c:forEach var="teammanager" items="${potentialTM }">
-
-													<option value="${teammanager.empId}">${teammanager.empId}.
-														${teammanager.empName }</option>
-												</c:forEach>
-												</c:if>
-												<c:if test="${potentialTM ==null}">
-												
-													<option value="0">No employee eligible</option>
-												</c:if>
-											</select>
+					<%-- <!-- Edit Modal HTML -->
+									<div id="editEmployeeModal" class="modal fade">
+										<div class="modal-dialog">
+											<div class="modal-content">
+												<form>
+													<div class="modal-header">
+														<h4 class="modal-title">Edit Employee</h4>
+														<button type="button" class="close" data-dismiss="modal"
+															aria-hidden="true">&times;</button>
+													</div>
+													<div class="modal-body">
+														<div class="form-group">
+															<label>Name</label> <input type="text" class="form-control"
+																required>
+														</div>
+														<div class="form-group">
+															<label>Email</label> <input type="email"
+																class="form-control" required>
+														</div>
+														<div class="form-group">
+															<label>Address</label>
+															<textarea class="form-control" required></textarea>
+														</div>
+														<div class="form-group">
+															<label>Phone</label> <input type="text" class="form-control"
+																required>
+														</div>
+													</div>
+													<div class="modal-footer">
+														<input type="button" class="btn btn-default"
+															data-dismiss="modal" value="Cancel"> <input type="submit"
+															class="btn btn-info" value="Save">
+													</div>
+												</form>
+											</div>
 										</div>
-										<br> <br>
-									</div>
+									</div> --%>
 
-									<div class="modal-footer">
-										<input type="button" class="btn btn-default"
-											data-dismiss="modal" value="Cancel"> <input
-											type="submit" class="btn btn-success" value="Assign">
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
-					<!-- Edit Modal HTML -->
+
+					
+
+
+
 				<!---footer---->
 
 

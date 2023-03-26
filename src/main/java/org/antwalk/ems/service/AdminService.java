@@ -493,17 +493,14 @@ public class AdminService {
         
         public void addProject(NewProjectDTO newProjectDTO) throws EmployeeNotFoundException {
             Project project = new Project();
-            if (newProjectDTO.getPm() == 0){
-            	project.setPm(null);
-            }
-            else{
-                Employee employee = employeeRepository.findById(newProjectDTO.getPm()).orElseThrow(
-                () -> new EmployeeNotFoundException("The employee not found.")
-                );
-                project.setPm(employee);
-                // employee.setDepartment(department);
-
-            }
+			/*
+			 * if (newProjectDTO.getPm() == 0){ project.setPm(null); } else{ Employee
+			 * employee = employeeRepository.findById(newProjectDTO.getPm()).orElseThrow( ()
+			 * -> new EmployeeNotFoundException("The employee not found.") );
+			 * project.setPm(employee); // employee.setDepartment(department);
+			 * 
+			 * }
+			 */
             project.setProjectName(newProjectDTO.getProjectName());
             project.setStartDate(newProjectDTO.getStartDate());
             project.setEndDate(newProjectDTO.getEndDate());

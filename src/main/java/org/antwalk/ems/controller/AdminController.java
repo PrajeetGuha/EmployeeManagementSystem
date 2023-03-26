@@ -241,6 +241,28 @@ private EmployeeRepository employeeRepository;
  	return "editableTeam";
    	}
     
+    @GetMapping("/editableProjectPage")
+   	public String editableProjectPage(HttpServletRequest request, Model model) throws UserNotFoundException, TeamNotFoundException{
+    	Long id = AuthenticationSystem.getId();
+    	int pageNo = Integer.parseInt(request.getParameter("pg"));
+
+		/*
+		 * Long tid = Long.parseLong(request.getParameter("tid")); Team
+		 * team=adminService.findTeamById(tid); System.out.println("\n\n\n\n");
+		 * List<EmployeeSelectionView>
+		 * employees=adminService.findEmployeesByDepartment(team.getDepartment());
+		 * System.out.println(employees);
+		 * 
+		 * 
+		 * Admin admin = adminService.fetchAdminData(id);
+		 * model.addAttribute("admin",admin); model.addAttribute("pageNo", pageNo);
+		 * 
+		 * 
+		 * model.addAttribute("team",team); model.addAttribute("employees", employees);
+		 */
+ 	return "editableproject";
+   	}
+    
 //    @GetMapping("/departmentallocation")
 //   	public String departmentallocation(HttpServletRequest request, Model model) throws UserNotFoundException{
 //    	Long id = AuthenticationSystem.getId();
