@@ -263,10 +263,10 @@ function addRow(id,name) {
 					class="dashboard"><i class="material-icons">dashboard</i> <span>Dashboard</span></a></li>
 
 
-				<li><a href="projectallocation?pg=1"> <i
+				<li class="active"><a href="projectallocation?pg=1"> <i
 						class="material-icons">laptop</i>Project
 				</a></li>
-				<li class="active"><a href="teamallocation?pg=1"> <i
+				<li ><a href="teamallocation?pg=1"> <i
 						class="material-icons">groups</i>Team
 				</a></li>
 				<!-- <li><a href="departmentallocation?pg=1"> <i
@@ -504,7 +504,7 @@ function addRow(id,name) {
 
 				</div>
 				<div class="xp-breadcrumbbar text-center">
-					<h4 class="page-title">Manage Team</h4>
+					<h4 class="page-title">Manage Project</h4>
 					<!--  <ol class="breadcrumb">
 						<li class="breadcrumb-item"><a href="#">Booster</a></li>
 						<li class="breadcrumb-item active" aria-current="page">Dashboard</li>
@@ -526,7 +526,7 @@ function addRow(id,name) {
 								<div class="row">
 									<div
 										class="col-sm-2 p-0 d-flex justify-content-lg-start justify-content-center">
-										<h2 class="ml-lg-2">Manage Employees</h2>
+										<h2 class="ml-lg-2">Manage Teams</h2>
 									</div>
 									<div class="col-7"></div>
 									<div class="col-sm-3 col-md-2  justify-content-lg-end justify-content-center">
@@ -617,148 +617,7 @@ function addRow(id,name) {
 							</div>
 						</div>
 					</div>
-					<!-- Edit Modal HTML -->
-					<div class="modal fade" id="addEmployeeModal" tabindex="-1"
-						role="dialog" aria-labelledby="addEmployeeModalLabel"
-						aria-hidden="true">
-						<div class="modal-dialog" role="document">
-							<div class="modal-content">
-
-								<div class="modal-header">
-									<h5 class="modal-title" id="addEmployeeModalLabel">Add New
-										Employee</h5>
-									<!-- <button type="button" class="close" data-dismiss="modal"
-										aria-label="Close">
-										<span aria-hidden="true">&times;</span>
-									</button> -->
-								</div>
-								<div class="modal-body">
-									<form action="addUser" method="post" modelAttribute="newuser"
-										onsubmit="return validateForm()">
-										<div class="input-container ic1">
-											<label for="name" class="placeholder">Name</label>
-											<div class="cut"></div>
-											<input id="name" name="name" class="input required"
-												type="text" placeholder=" " required
-												pattern="^[a-zA-Z_][[\\s]a-zA-Z_]*"
-												$"
-												oninvalid="setCustomValidity('Name can only contain alphabetic characters, underscores, and one whitespace between each word')"
-												onchange="setCustomValidity('')" />
-										</div>
-
-
-
-										<div class="input-container ic2">
-											<label for="email" class="placeholder">Personal Email</label>
-											<div class="cut cut-short"></div>
-											<input id="email" name="personalEmail" class="input required"
-												type="email" placeholder=" " required /> <span
-												id="email-error" class="error-text"></span>
-										</div>
-										<div class="input-container ic3">
-											<label for="gender" class="placeholder">Gender</label>
-											<div class="cut cut-short"></div>
-											<div class="wrapper-class">
-												<input id="gender-male" name="gender" class="input required"
-													type="radio" value="male" required /><label
-													for="gender-male">Male</label> <input id="gender-female"
-													name="gender" class="input" type="radio" value="female"
-													required /><label for="gender-female">Female</label> <input
-													id="gender-other" name="gender" class="input" type="radio"
-													value="other" required /><label for="gender-other">Other</label>
-											</div>
-										</div>
-										<div class="input-container ic2">
-											<label for="designation" class="placeholder">Designation</label>
-											<div class="cut cut-short"></div>
-											<input id="designation" name="designation" class="input"
-												type="text" placeholder=" " />
-										</div>
-										<div class="input-container ic2">
-											<label for="department" class="placeholder">Department</label>
-											<div class="cut cut-short"></div>
-											<select id="department" name="department"
-												class="input required" placeholder="Deparment">
-												<option value="trainee">Trainee</option>
-												<option value="hr">Hr</option>
-												<option value="administration">Administration</option>
-												<option value="accounts">Accounts</option>
-												<option value="sports">Sports</option>
-												<option value="security">Security</option>
-												<option value="others">Others</option>
-												
-											</select>
-										</div>
-										<div class="input-container ic2">
-											<label for="experience" class="placeholder">Experience (in years)</label>
-											<div class="cut cut-short"></div>
-											<input id="experience" name="yearOfExperience" class="input"
-												type="number" placeholder=" " required/>
-										</div>
-										<div class="input-container ic2">
-											<label for="gradelevel" class="placeholder">Grade
-												Level</label>
-											<div class="cut cut-short"></div>
-											<select id="gradelevel" name="gradeLevel"
-												class="input required" required>
-												<option value="1">1</option>
-												<option value="2">2</option>
-												<option value="3">3</option>
-												<option value="4">4</option>
-												<option value="5">5</option>
-												<option value="6">6</option>
-												<option value="7">7</option>
-												<option value="8">8</option>
-											</select>
-										</div>
-										<div class="input-container ic2">
-											<label for="dateofjoining" class="placeholder">Date
-												of Joining</label>
-											<div class="cut cut-short"></div>
-											<input id="dateofjoining" name="doj" class="input required"
-												type="date" placeholder=" " required />
-										</div>
-										<div class="input-container ic2">
-											<label for="employeetype" class="placeholder">Employee
-												Type</label>
-											<div class="cut cut-short"></div>
-											<select id="employeetype" name="emptype"
-												class="input required" required>
-												<option value="full time">Full Time</option>
-												<option value="part time">Part Time</option>
-												<option value="contract">Contract</option>
-											</select>
-										</div>
-
-										<div class="input-container ic2">
-											<label for="username" class="placeholder">Username</label>
-											<div class="cut"></div>
-											<input id="username" name="username" class="input required"
-												type="text" placeholder=" " required /> <span
-												id="username-error" class="error-text"></span>
-										</div>
-										<div class="input-container ic2">
-											<label for="password" class="placeholder">Password</label>
-											<div class="cut"></div>
-											<input id="password" name="password" class="input required"
-												type="password" placeholder=" "
-												pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+]).{8,}$"
-												oninput="setCustomValidity('')"
-												oninvalid="setCustomValidity('Password must be of 8 characters and contain at least one capital character, one number, and a special character.')"
-												required />
-										</div>
-										<br>
-
-										<div class="modal-footer">
-											<button type="button" class="btn btn-secondary"
-												data-dismiss="modal">Close</button>
-											<button type="submit" class="btn btn-primary">Submit</button>
-										</div>
-									</form>
-								</div>
-							</div>
-						</div>
-					</div>
+					
 
 
 
@@ -801,48 +660,7 @@ function addRow(id,name) {
 									</div> --%>
 
 
-					<!-- <!-- Delete Modal HTML -->
-					<div id="deleteEmployeeModal" class="modal fade">
-						<div class="modal-dialog">
-							<div class="modal-content">
-
-								<form:form action="editStatus" method="post"
-									id="status-modal-form" modelAttribute="employee">
-
-									<div class="modal-header">
-										<h4 class="modal-title">Edit Status</h4>
-										<!-- <button type="button" class="close" data-dismiss="modal"
-											aria-hidden="true">&times;</button> -->
-									</div>
-									<div class="modal-body">
-
-										<!-- <p>Edit status for this employee?</p> -->
-
-										<p>
-											Edit status of <span id="empstatusname"></span> ?
-										</p>
-
-
-									</div>
-									<input type="hidden" name="empId" id="empIdStatus" />
-									<div class="modal-footer">
-
-										<!-- <input type="submit" class="btn btn-danger" value="Inactive">
-										<input type="submit" class="btn btn-primary" value="Active">
- -->
-										<!-- <input type="submit" class="btn btn-primary" value="Active" id = "activate"> 
-										<input type="submit" class="btn btn-danger" value="Inactive" id = "deactivate"> -->
-										<button type="button" class="btn btn-secondary"
-											data-dismiss="modal">Close</button>
-										<input type="submit" id="changestatusbtn" />
-
-
-									</div>
-								</form:form>
-							</div>
-						</div>
-					</div>
-				</div>
+					
 
 
 
