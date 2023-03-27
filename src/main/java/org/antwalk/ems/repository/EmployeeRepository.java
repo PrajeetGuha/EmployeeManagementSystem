@@ -8,6 +8,7 @@ import javax.transaction.Transactional;
 import org.antwalk.ems.model.Employee;
 import org.antwalk.ems.model.LeaveApplication;
 import org.antwalk.ems.model.QualificationDetails;
+import org.antwalk.ems.model.Team;
 import org.antwalk.ems.view.EmployeeListView;
 import org.antwalk.ems.view.EmployeeSelectionView;
 import org.springframework.data.domain.Page;
@@ -16,9 +17,14 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
+
 
 @Repository
-public interface EmployeeRepository extends JpaRepository<Employee,Long> {
+public interface EmployeeRepository extends JpaRepository<Employee,Long>  {
     
     @Query("select e.empId as empId, e.empName as empName, e.workEmail as workEmail, e.designation as designation, e.empstatus as empstatus, e.gradeLevel as gradeLevel, e.emptype as emptype from Employee e")
     public Page<EmployeeListView> findAllEmployeeListViews(Pageable pageable);
@@ -27,9 +33,11 @@ public interface EmployeeRepository extends JpaRepository<Employee,Long> {
     @Query("select e.empId as empId, e.empName as empName from Employee e")
     public List<EmployeeSelectionView> findAllEmployeeNames();
     
-    @Query("select e.empId as empId, e.empName as empName from Employee e where e.department = :department and e.empstatus='active'")
+    @Query("select e.empId as empId, e.empName as empName from Employee e where e.department = :department and e.team=null and e.empstatus='active'")
     public List<EmployeeSelectionView> findAllEmployeeNamesByDepartment(String department);
 
+    @Query("select e.empId as empId, e.empName as empName from Employee e where e.department = :department and e.team=null and e.empstatus='active' and e.yearOfExperience>=2")
+    public List<EmployeeSelectionView> findAllPotentialTM(String department);
 
     @Query("select e.empId as empId, e.empName as empName, e.workEmail as workEmail, e.designation as designation, e.empstatus as empstatus, e.gradeLevel as gradeLevel, e.emptype as emptype from Employee e where e.empName like :search%")
     public Page<EmployeeListView> findAllEmployeeListViewsWithSearch(Pageable pageable, String search);
@@ -81,5 +89,17 @@ public interface EmployeeRepository extends JpaRepository<Employee,Long> {
     
     
 
+    @Transactional
+    @Modifying
+    @Query("update Employee e set e.team.teamId = null where e.team.teamId = :teamId")
+    void updateTeam(Long teamId);
+
+    @Transactional
+    @Modifying
+    @Query("update Employee e set e.team.teamId = null where e.empId = :id")
+    void updateDepartment(Long id);
+
+    @Query("select e.empId as empId, e.empName as empName from Employee e where and e.empstatus='active' and e.yearOfExperience>=3")
+	public List<EmployeeSelectionView> findAllPotentialPM();
 
 }

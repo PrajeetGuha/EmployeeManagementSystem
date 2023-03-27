@@ -206,7 +206,9 @@ private EmployeeRepository employeeRepository;
         Long count = adminService.countAllTeams();
         int countPages = adminService.countPagesofTeams();
         List<EmployeeSelectionView> allemployees = adminService.listAllEmployees();
+        List<EmployeeSelectionView> potentialTM = adminService.listAllEmployees();
     	model.addAttribute("admin",admin);
+        model.addAttribute("potentialTM", potentialTM);
         model.addAttribute("listteams", listTeams);
         model.addAttribute("countPages", countPages);
         model.addAttribute("countOfteams", count);
@@ -215,6 +217,7 @@ private EmployeeRepository employeeRepository;
    		return "teamallocation";
    	}
     
+   
     
     @GetMapping("/editableTeamPage")
    	public String editableTeamPage(HttpServletRequest request, Model model) throws UserNotFoundException, TeamNotFoundException{
@@ -225,6 +228,7 @@ private EmployeeRepository employeeRepository;
     	Team team=adminService.findTeamById(tid);
     	System.out.println("\n\n\n\n");
     	List<EmployeeSelectionView> employees=adminService.findEmployeesByDepartment(team.getDepartment());
+        List<EmployeeSelectionView> potentialTM = adminService.listAllPotentialTM(team.getDepartment());
     	System.out.println(employees);
     	
     	
@@ -235,6 +239,7 @@ private EmployeeRepository employeeRepository;
 
         model.addAttribute("team",team);
         model.addAttribute("employees", employees);
+        model.addAttribute("potentialTM", potentialTM);
  	return "editableTeam";
    	}
     
@@ -547,6 +552,58 @@ private EmployeeRepository employeeRepository;
         return "redirect:/admin/projectallocation?pg="+1;
     }
     
+    
+    
+
+    @PostMapping("addTeamMember")
+    public String addTeamMember(@RequestParam("hiddenFieldOfTeams") String teamMemberIds,RedirectAttributes redirectAttrs, HttpServletRequest request ) throws Exception{
+//
+    	int pageNo = Integer.parseInt(request.getParameter("pg"));
+//
+    	Long tid = Long.parseLong(request.getParameter("teamId"));
+    	adminService.addTeamMembersToTeam(tid,teamMemberIds);
+        return "redirect:/admin/editableTeamPage?tid="+tid+"&pg="+pageNo;
+    }
+    @PostMapping("addTeamManager")
+    public String addTeamManager(@RequestParam("teamManagerValues") String tm,  RedirectAttributes redirectAttrs, HttpServletRequest request ) throws Exception{
+//
+    	int pageNo = Integer.parseInt(request.getParameter("pg"));
+////
+    	Long tid = Long.parseLong(request.getParameter("tid"));
+    	if(!tm.equals("0")) {
+    		
+    	Long teamManagerId=Long.parseLong(tm);
+    	System.out.println("\n\n\n");
+    	System.out.println(teamManagerId+"hi done");
+    	adminService.addTeamManagerToTeam(tid,teamManagerId);
+    	}
+        return "redirect:/admin/editableTeamPage?tid="+tid+"&pg="+pageNo;
+    }
+    
+    @PostMapping("addTeamToProject")
+    public String addTeamToProject(@RequestParam("hiddenFieldOfTeams") String teamMemberIds,RedirectAttributes redirectAttrs, HttpServletRequest request ) throws Exception{
+//
+    	int pageNo = Integer.parseInt(request.getParameter("pg"));
+//
+    	Long projid = Long.parseLong(request.getParameter("projId"));
+    	adminService.addTeamsToProject(projid,teamMemberIds);
+        return "redirect:/admin/editableProjectPage?projid="+projid+"&pg="+pageNo;
+    }
+    @PostMapping("addProjectManager")
+    public String addProjectManager(@RequestParam("teamManagerValues") String tm,  RedirectAttributes redirectAttrs, HttpServletRequest request ) throws Exception{
+//
+    	int pageNo = Integer.parseInt(request.getParameter("pg"));
+////
+    	Long projid = Long.parseLong(request.getParameter("projid"));
+    	if(!pm.equals("0")) {
+    		
+    	Long projectManagerId=Long.parseLong(pm);
+    	System.out.println("\n\n\n");
+    	System.out.println(projectManagerId+"hi done");
+    	adminService.addProjectManagerToProject(projid,projectManagerId);
+    	}
+        return "redirect:/admin/editableProjectPage?projid="+projid+"&pg="+pageNo;
+    }
 	/*
 	 * @GetMapping("/editableTeam") public String editableTeam() { return
 	 * "editableTeam"; }

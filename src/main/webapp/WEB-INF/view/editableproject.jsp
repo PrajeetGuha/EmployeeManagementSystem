@@ -72,7 +72,16 @@ console.log(AlldeptEmployees);
 
 console.log(bakiEmployees); 
 
+function onSubmitFunc(){
+	var idValues="";
+	for(let x in teamEmployees){
+		idValues+=teamEmployees[x].id+";"
+	}
+	console.log(idValues);
 
+	$('#hiddenFieldOfTeam').val(idValues);
+	
+}
 function addEmployee(){
 	var searchTerm = $('#search-input').val();
 	const parts = searchTerm.split('.');
@@ -247,7 +256,7 @@ function addRow(id,name) {
 </head>
 
 
-<body>
+<body onload="renderTable()">
 	<!-- <div>${result.getBody().getStatus()}</div> -->
 
 	<div class="wrapper">
@@ -505,7 +514,7 @@ function addRow(id,name) {
 
 				</div>
 				<div class="xp-breadcrumbbar text-center">
-					<h4 class="page-title">Manage Project</h4>
+					<h4 class="page-title">${project.projectName}</h4>
 					<!--  <ol class="breadcrumb">
 						<li class="breadcrumb-item"><a href="#">Booster</a></li>
 						<li class="breadcrumb-item active" aria-current="page">Dashboard</li>
@@ -526,26 +535,33 @@ function addRow(id,name) {
 							<div class="table-title">
 								<div class="row">
 									<div
-										class="col-sm-2 p-0 d-flex justify-content-lg-start justify-content-center">
-										<h2 class="ml-lg-2">Manage Teams</h2>
+										class="col-2">
+										<h2 class="ml-lg-2">Manage Project</h2>
 									</div>
-									<div class="col-7"></div>
-									<div class="col-sm-3 col-md-2  justify-content-lg-end justify-content-center">
-							<div class="xp-searchbar">
-								<form id="search-form" action="" method="get">
-									<input type="hidden" name="search" value="">
-									<div class="input-group">
-										<input type="search" class="form-control" placeholder="Add employees here"
-											id="search-input">
-										<div class="input-group-append ">
-											<button class="btn" type="submit" id="button-addon2" onclick="addEmployee()">GO</button>
+									<div class="col-7 justify-content-lg-end justify-content-center">
+											<a href="#addPM" data-toggle="modal" aria-expanded="false">
+												<button class="btn btn-success" type="submit"
+													id="button-addon2" href="#addPM">Assign PM</button>
+											</a>
+											<!-- 
+						<button class="btn btn-success" type="submit" id="button-addon2"
+							href="#addTM">Assign TM</button> -->
 										</div>
-									</div>
-								</form>
-								<ul class="dropdown-menu" id="search-results"
-									style="display: none;">
-								</ul>
-							</div>
+									<!-- <div class="col-5"></div> -->
+									<div
+										class="col-sm-4 col-md-3   justify-content-center">
+										<div class="xp-searchbar">
+											<div class="input-group">
+												<input type="search" class="form-control"
+													placeholder="Add teams here" id="search-input" />
+												<!-- <button class="btn btn-success" type="submit"
+													id="button-addon2" onclick="addEmployee()">Add</button> -->
+											</div>
+											<ul class="dropdown-menu" id="search-results"
+												style="display: none;">
+											</ul>
+										</div>
+										
 						</div>
 									<!-- <div
 										class="col-sm-2 p-0 d-flex justify-content-lg-end justify-content-center">
@@ -594,73 +610,64 @@ function addRow(id,name) {
 							
 								</tbody>
 							</table>
-
-							<div class="clearfix">
-								<div class="hint-text">
-									Total number of entries <b>${empCount}</b><br> Showing
-									page <b>${pageNo}</b> of <b>${pageCount eq 0 ? 1 : pageCount}</b>
-
-								</div>
-								<ul class="pagination">
-
-									<c:if test="${ pageNo > 1}">
-										<li class="page-item"><a
-											href="?search=${search}&pg=${pageNo-1}" class="page-link">Previous</a>
-										</li>
-									</c:if>
-									<c:if test="${ pageNo < pageCount}">
-										<li class="page-item"><a
-											href="?search=${search}&pg=${pageNo+1}" class="page-link">Next</a>
-										</li>
-									</c:if>
-
-
-								</ul>
+							<div>
+								<form action="addTeamToProject?projId=${project.projId }&pg=${pageNo}"
+									method="post">
+									<center>
+										<input type="hidden" name="hiddenFieldOfTeams"
+											id="hiddenFieldOfTeam" />
+										<button type="submit" class="btn btn-primary"
+											onclick="onSubmitFunc()">Submit</button>
+									</center>
+								</form>
 							</div>
+							
 						</div>
 					</div>
 					
 
 
 
-					<%-- <!-- Edit Modal HTML -->
-									<div id="editEmployeeModal" class="modal fade">
-										<div class="modal-dialog">
-											<div class="modal-content">
-												<form>
-													<div class="modal-header">
-														<h4 class="modal-title">Edit Employee</h4>
-														<button type="button" class="close" data-dismiss="modal"
-															aria-hidden="true">&times;</button>
-													</div>
-													<div class="modal-body">
-														<div class="form-group">
-															<label>Name</label> <input type="text" class="form-control"
-																required>
-														</div>
-														<div class="form-group">
-															<label>Email</label> <input type="email"
-																class="form-control" required>
-														</div>
-														<div class="form-group">
-															<label>Address</label>
-															<textarea class="form-control" required></textarea>
-														</div>
-														<div class="form-group">
-															<label>Phone</label> <input type="text" class="form-control"
-																required>
-														</div>
-													</div>
-													<div class="modal-footer">
-														<input type="button" class="btn btn-default"
-															data-dismiss="modal" value="Cancel"> <input type="submit"
-															class="btn btn-info" value="Save">
-													</div>
-												</form>
-											</div>
-										</div>
-									</div> --%>
+					<div id="addPM" class="modal fade">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<form action="addProjectManager?projid=${project.projId }&pg=${pageNo }"
+									method="post">
+									<div class="modal-header">
+										<h4 class="modal-title">Add Project Manager</h4>
+									</div>
+									<div class="modal-body">
+										<div class="input-container ic2">
+											<label for="department" class="placeholder">Project
+												Manager</label>
+											<div class="cut cut-short"></div>
+											<select id="teamManager" name="teamManagerValues"
+												class="input required" placeholder="Team Manager">
+												<c:if test="${potentialPM !=null}">
+													<c:forEach var="teammanager" items="${potentialPM }">
 
+														<option value="${teammanager.empId}">${teammanager.empId}.
+															${teammanager.empName }</option>
+													</c:forEach>
+												</c:if>
+												<c:if test="${potentialPM ==null}">
+
+													<option value="0">No employee eligible</option>
+												</c:if>
+											</select>
+										</div>
+										<br> <br>
+									</div>
+
+									<div class="modal-footer">
+										<input type="button" class="btn btn-default"
+											data-dismiss="modal" value="Cancel"> <input
+											type="submit" class="btn btn-success" value="Assign">
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
 
 					
 

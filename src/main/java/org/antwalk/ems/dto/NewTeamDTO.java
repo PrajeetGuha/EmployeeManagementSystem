@@ -1,10 +1,11 @@
 package org.antwalk.ems.dto;
 
 public class NewTeamDTO {
-	
+
 	private String teamName;
 	private Long tm;
 	private String department;
+	
 	public NewTeamDTO() {
 		super();
 	}
