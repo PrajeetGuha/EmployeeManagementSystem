@@ -740,7 +740,7 @@ function getdeptId(deptId)
 														pattern="dd-MMMM-yyyy" /></td>
 												<td><fmt:formatDate value="${project.endDate}"
 														pattern="dd-MMMM-yyyy" /></td>
-												<td><a href="editableProjectPage?projid=${team.teamId }&pg=${pageNo}"
+												<td><a href="editableProjectPage?projid=${project.projId }&pg=${pageNo}"
 													class="edit" >
 													 <i
 														class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>

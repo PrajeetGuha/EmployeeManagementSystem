@@ -19,6 +19,7 @@ import org.antwalk.ems.dto.NewProjectDTO;
 import org.antwalk.ems.dto.NewTeamDTO;
 import org.antwalk.ems.exception.DepartmentNotFoundException;
 import org.antwalk.ems.exception.EmployeeNotFoundException;
+import org.antwalk.ems.exception.ProjectNotFoundException;
 import org.antwalk.ems.exception.TeamNotFoundException;
 import org.antwalk.ems.exception.UserNotFoundException;
 import org.antwalk.ems.model.Admin;
@@ -43,6 +44,7 @@ import org.antwalk.ems.repository.TeamRepository;
 import org.antwalk.ems.repository.UserRepository;
 import org.antwalk.ems.view.EmployeeListView;
 import org.antwalk.ems.view.EmployeeSelectionView;
+import org.antwalk.ems.view.TeamSelectionView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
@@ -537,6 +539,23 @@ public class AdminService {
 		public List<EmployeeSelectionView> findEmployeesByDepartment(String department) {
 			// TODO Auto-generated method stub
 			return employeeRepository.findAllEmployeeNamesByDepartment(department);
+		}
+
+
+		public Project findProjectById(Long projid) throws ProjectNotFoundException {
+			// TODO Auto-generated method stub
+			return projectRepository.findById(projid).orElseThrow(
+					() -> new ProjectNotFoundException("Project Not Found"));
+		}
+
+
+		public List<Team> findTeamsForProject() {
+			// TODO Auto-generated method stub
+			List<Team> teams=teamRepository.findAll();
+			for(int i = 0; i < teams.size(); i++) {
+	    		System.out.println(teams.get(i).getTeamId());
+	    	}
+			return teams;
 		}
         
 

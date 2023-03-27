@@ -17,6 +17,7 @@ import org.antwalk.ems.dto.NewProjectDTO;
 import org.antwalk.ems.dto.NewTeamDTO;
 import org.antwalk.ems.exception.DepartmentNotFoundException;
 import org.antwalk.ems.exception.EmployeeNotFoundException;
+import org.antwalk.ems.exception.ProjectNotFoundException;
 import org.antwalk.ems.exception.TeamNotFoundException;
 import org.antwalk.ems.exception.UserNotFoundException;
 import org.antwalk.ems.model.Admin;
@@ -33,6 +34,7 @@ import org.antwalk.ems.service.AdminService;
 import org.antwalk.ems.service.ReportService;
 import org.antwalk.ems.view.EmployeeListView;
 import org.antwalk.ems.view.EmployeeSelectionView;
+import org.antwalk.ems.view.TeamSelectionView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -237,24 +239,26 @@ private EmployeeRepository employeeRepository;
    	}
     
     @GetMapping("/editableProjectPage")
-   	public String editableProjectPage(HttpServletRequest request, Model model) throws UserNotFoundException, TeamNotFoundException{
+   	public String editableProjectPage(HttpServletRequest request, Model model) throws UserNotFoundException, TeamNotFoundException, ProjectNotFoundException{
     	Long id = AuthenticationSystem.getId();
     	int pageNo = Integer.parseInt(request.getParameter("pg"));
 
-		/*
-		 * Long tid = Long.parseLong(request.getParameter("tid")); Team
-		 * team=adminService.findTeamById(tid); System.out.println("\n\n\n\n");
-		 * List<EmployeeSelectionView>
-		 * employees=adminService.findEmployeesByDepartment(team.getDepartment());
-		 * System.out.println(employees);
-		 * 
-		 * 
-		 * Admin admin = adminService.fetchAdminData(id);
-		 * model.addAttribute("admin",admin); model.addAttribute("pageNo", pageNo);
-		 * 
-		 * 
-		 * model.addAttribute("team",team); model.addAttribute("employees", employees);
-		 */
+    	Long projid = Long.parseLong(request.getParameter("projid"));
+    	Project project=adminService.findProjectById(projid);
+    	System.out.println("\n\n\n\n");
+    	List<Team> teams=adminService.findTeamsForProject();
+    	System.out.println(teams);
+    	
+//    	for(int i = 0; i < teams.size(); i++) {
+//    		System.out.println(teams.get(i).getTeamId());
+//    	}
+    	Admin admin = adminService.fetchAdminData(id);
+    	model.addAttribute("admin",admin);
+        model.addAttribute("pageNo", pageNo);
+
+
+        model.addAttribute("project",project);
+        model.addAttribute("teams", teams);
  	return "editableproject";
    	}
     

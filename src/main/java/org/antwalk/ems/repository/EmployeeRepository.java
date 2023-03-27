@@ -76,6 +76,10 @@ public interface EmployeeRepository extends JpaRepository<Employee,Long> {
     
     @Query("select DISTINCT department FROM Employee")
     List<String> deptname();
+    
+    
+    
+    
 
 
 }

@@ -38,19 +38,20 @@
 
 
 var teamEmployees = [
-	<c:forEach var="employee" items="${team.employees}">
+	<c:forEach var="employee" items="${project.teams}">
 		{
-			id : ${employee.empId},
-			name : "${employee.empName}"
+			id : ${employee.teamId},
+			name : "${employee.teamName}"
 		},
 	</c:forEach>
 ];
 var AlldeptEmployees = [
-	<c:forEach var="employee" items="${employees}">
+	<c:forEach var="employee" items="${teams}">
 		{
-			id : ${employee.empId},
-			name : "${employee.empName}"
-		},
+			id : ${employee.teamId},
+			name : "${employee.teamName}"
+		}, 
+		
 	</c:forEach>
 ];
 var bakiEmployees = [];
@@ -65,11 +66,11 @@ var bakiEmployees = [];
 			}
 	}
 	}	
-/* 
+ 
 console.log(teamEmployees);
 console.log(AlldeptEmployees);
 
-console.log(bakiEmployees); */
+console.log(bakiEmployees); 
 
 
 function addEmployee(){
@@ -199,7 +200,7 @@ function addRow(id,name) {
 									$li.on('click', function () {
 										$('#search-input').val($(this).text());
 										 $searchResults.hide();
- 
+ 										 addEmployee();
 
 									});
 									$searchResults.append($li);
@@ -559,6 +560,7 @@ function addRow(id,name) {
 								</div>
 							</div>
 							<table class="table table-striped table-hover">
+							
 								<thead>
 									<tr>
 
