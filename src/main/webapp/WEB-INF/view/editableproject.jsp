@@ -647,14 +647,14 @@ function addRow(id,name) {
 											<div class="cut cut-short"></div>
 											<select id="teamManager" name="teamManagerValues"
 												class="input required" placeholder="Project Manager">
-												<c:if test="${potentialPM !=null}">
-													<c:forEach var="teammanager" items="${potentialPM }">
+												<c:if test="${potentialpm !=null}">
+													<c:forEach var="teammanager" items="${potentialpm }">
 
 														<option value="${teammanager.empId}">${teammanager.empId}.
 															${teammanager.empName }</option>
 													</c:forEach>
 												</c:if>
-												<c:if test="${potentialPM ==null}">
+												<c:if test="${potentialpm ==null}">
 
 													<option value="0">No employee eligible</option>
 												</c:if>

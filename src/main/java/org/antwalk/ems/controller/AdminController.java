@@ -253,7 +253,7 @@ private EmployeeRepository employeeRepository;
     	System.out.println("\n\n\n\n");
     	List<Team> teams=adminService.findTeamsForProject();
     	System.out.println(teams);
-    	
+    	List<EmployeeSelectionView> potentialPm = adminService.listAllPotentialPM();
 //    	for(int i = 0; i < teams.size(); i++) {
 //    		System.out.println(teams.get(i).getTeamId());
 //    	}
@@ -261,7 +261,7 @@ private EmployeeRepository employeeRepository;
     	model.addAttribute("admin",admin);
         model.addAttribute("pageNo", pageNo);
 
-
+        model.addAttribute("potentialpm",potentialPm);
         model.addAttribute("project",project);
         model.addAttribute("teams", teams);
  	return "editableproject";

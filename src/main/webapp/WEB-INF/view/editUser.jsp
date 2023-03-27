@@ -236,9 +236,9 @@
 				<li><a href="teamallocation?pg=1"> <i
 						class="material-icons">groups</i>Team
 				</a></li>
-				<li><a href="departmentallocation?pg=1"> <i
+				<!-- <li><a href="departmentallocation?pg=1"> <i
 						class="material-icons">work</i>Department
-				</a></li>
+				</a></li> -->
 				<li><a href="leaveApproval?pg=1"> <i class="material-icons">playlist_add_check</i>Leave
 						Approval
 				</a></li>
