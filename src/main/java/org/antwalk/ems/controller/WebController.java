@@ -34,8 +34,10 @@ public class WebController {
 	public String dashboard(){
 		if (AuthenticationSystem.isLoggedAs("ROLE_EMP"))
 			return "redirect:/employee/dashboard";
-		else
+		else if (AuthenticationSystem.isLoggedAs("ROLE_ADMIN"))
 			return "redirect:/admin/dashboard?search=null&pg=1";
+		else
+			return "redirect:/login";
 	}
 	
 	@GetMapping("/family")
