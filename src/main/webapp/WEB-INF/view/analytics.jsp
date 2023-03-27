@@ -272,10 +272,15 @@
             <p class="chart-title">Recruitment Metrics</p>
             <div id="line-chart"></div>
           </div> 
-          <div class="charts-card" style="width: 97%;">
+          <div class="charts-card" >
             <p class="chart-title">Team Distribution</p>
             <div id="bar-chart3"></div>
           </div> 
+          <div class="charts-card" style="width: 97%;" >
+            <p class="chart-title">Teams in Project</p>
+            <div id="pie-chart2"></div>
+          </div> 
+          </div>
         </div>
         
 
@@ -686,16 +691,28 @@ var barChartOptions = {
 			  	    		barChart3.render();
 
 			  	          
-			  	  		/*var pieoptions2 = {
+			  	  		var pieoptions2 = {
 					  	          series: [ <c:forEach var="item" items="${findteamcount}">
 					  		      "${item}",
 					  		      </c:forEach>],
 					  	          chart: {
+					  	        	toolbar: {
+				  	    		        show: true,
+				  	    		        tools: {
+				  	    		          download: true,
+				  	    		          selection: true,
+				  	    		          zoom: true,
+				  	    		          zoomin: true,
+				  	    		          zoomout: true,
+				  	    		          pan: true,
+				  	    		          reset: true
+				  	    		        },autoSelected: 'zoom',
+					  	        	},
 					  	          width: 380,
 					  	          type: 'pie',
 					  	        },
-					  	        labels: [ <c:forEach var="item" items="${teamsinprojects}">
-					  		      "${item}",
+					  	        labels: [ <c:forEach var="item" items="${listprojects}">
+					  		      "${item.projectName}",
 					  		      </c:forEach>],
 					  	        responsive: [{
 					  	          breakpoint: 480,
@@ -711,7 +728,7 @@ var barChartOptions = {
 					  	        };
 
 					  	        var piechart2 = new ApexCharts(document.querySelector("#pie-chart2"), pieoptions2);
-					  	        piechart2.render();*/
+					  	        piechart2.render();
 					  	       
 			  	        
 

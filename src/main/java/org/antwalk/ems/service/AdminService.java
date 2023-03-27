@@ -691,4 +691,16 @@ public class AdminService {
 			projectRepository.save(pmToAdd);
 			System.out.println("\n\n\n done with process");
 		}
+
+
+		public List<Integer> findTeamCountByProject() {
+			// TODO Auto-generated method stub
+			return projectRepository.findTeamCountByProject();
+		}
+
+
+		public List<Project> getAllProjects() {
+			// TODO Auto-generated method stub
+			return projectRepository.findAll();
+		}
 }
