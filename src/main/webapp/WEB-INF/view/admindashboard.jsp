@@ -196,6 +196,8 @@
 
 							// Validate username field
 							var username = $("#username").val();
+							const regex = /^[a-zA-Z][a-zA-Z0-9]*$/;
+							  const isgood = regex.test(username);
 							if (username === "") {
 
 								$("#username")[0].setCustomValidity("Username is required");
@@ -204,7 +206,12 @@
 
 								$("#username")[0].setCustomValidity("Username already taken");
 								isValid = false;
-							}
+							}else if (!isgood) {
+							    this.setCustomValidity('Username must start with an alphabet and can only contain alphanumeric characters.');
+							    isValid=false;
+							  }else {
+							    this.setCustomValidity('');
+							  }
 
 							// Add event listener to clear custom validity messages on input
 							$(".required").on("input", function () {
@@ -628,9 +635,9 @@
 																modelAttribute="newpass">
 
 																<input type="hidden" id="empId" name="empId"
-																	value="${employee.empId}" />
-
-																<label for="name" class="placeholder">Change Password for ${employee.empName } ?</label>
+																	value="${employee.empId}" /> <label for="name"
+																	class="placeholder">Change Password for
+																	${employee.empName } ?</label>
 
 																<div class="input-container ic2">
 																	<label for="hod" class="placeholder">New
@@ -782,7 +789,7 @@
 											<input id="name" name="name" class="input required"
 												type="text" placeholder=" " required
 												pattern="^[a-zA-Z_][[\\s]a-zA-Z_]*"
-												$"
+												
 												oninvalid="setCustomValidity('Name can only contain alphabetic characters, underscores, and one whitespace between each word')"
 												onchange="setCustomValidity('')" />
 										</div>
@@ -827,15 +834,19 @@
 												<option value="sports">Sports</option>
 												<option value="security">Security</option>
 												<option value="others">Others</option>
-												
+
 											</select>
 										</div>
 										<div class="input-container ic2">
-											<label for="experience" class="placeholder">Experience (in years)</label>
+											<label for="experience" class="placeholder">Experience
+												(in years)</label>
 											<div class="cut cut-short"></div>
 											<input id="experience" name="yearOfExperience" class="input"
-												type="number" placeholder=" " required/>
+												type="number" placeholder=" " required min="0" max="60"
+												oninvalid="this.setCustomValidity('Experience must be between 0 and 60 years')"
+												oninput="this.setCustomValidity('')" />
 										</div>
+
 										<div class="input-container ic2">
 											<label for="gradelevel" class="placeholder">Grade
 												Level</label>
@@ -875,7 +886,8 @@
 											<label for="username" class="placeholder">Username</label>
 											<div class="cut"></div>
 											<input id="username" name="username" class="input required"
-												type="text" placeholder=" " required /> <span
+												type="text" placeholder=" " pattern = "^[a-zA-Z][a-zA-Z0-9]*$" oninvalid="setCustomValidity('Username must start with an alphabet and can only contain alphanumeric characters.')"
+												onchange="setCustomValidity('')"required /> <span
 												id="username-error" class="error-text"></span>
 										</div>
 										<div class="input-container ic2">

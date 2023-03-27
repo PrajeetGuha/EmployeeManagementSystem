@@ -143,9 +143,9 @@ private EmployeeRepository employeeRepository;
 //        List<Integer> countemployeeindepartment=adminService.employeesInDepartment();
 
         List<Integer> sexratio=adminService.sexratio();
-
+        
 //        List<String> teamsinprojects=adminService.teamsinprojects();
-//        List<Integer> findteamcount=adminService.findteamcount();
+        List<Integer> findteamcount=adminService.findTeamCountByProject();
         List<Double> totalcost=adminService.totalcost();
         List<String> emptype=adminService.emptype();
         List<Integer> recruitment=adminService.recruitment();
@@ -153,16 +153,17 @@ private EmployeeRepository employeeRepository;
         List<Integer> teamcount=adminService.teamcount();
         List<String> deptname=adminService.deptname();
         List<String> teamdept=adminService.teamdept();
+        List<Project> listProjects = adminService.getAllProjects();
     	model.addAttribute("admin",admin);
         model.addAttribute("countOfEmployees", count);
 //        model.addAttribute("countOfDepartments", countdept);
         model.addAttribute("countOfTeams", countteam);
         model.addAttribute("countOfProjects",countproject);
 //        model.addAttribute("alldepartmentnames",alldepartments);
-
+        model.addAttribute("listprojects",listProjects);
         model.addAttribute("allemployeenames",allemployees);
         model.addAttribute("findemployeecount", findemployeecount);
-
+        model.addAttribute("findteamcount", findteamcount);
 //        model.addAttribute("countOfEmployeesInDepartment", countemployeeindepartment);
 
         model.addAttribute("sexratio",sexratio);
@@ -253,7 +254,7 @@ private EmployeeRepository employeeRepository;
     	System.out.println("\n\n\n\n");
     	List<Team> teams=adminService.findTeamsForProject();
     	System.out.println(teams);
-    	
+    	List<EmployeeSelectionView> potentialPm = adminService.listAllPotentialPM();
 //    	for(int i = 0; i < teams.size(); i++) {
 //    		System.out.println(teams.get(i).getTeamId());
 //    	}
@@ -261,7 +262,7 @@ private EmployeeRepository employeeRepository;
     	model.addAttribute("admin",admin);
         model.addAttribute("pageNo", pageNo);
 
-
+        model.addAttribute("potentialpm",potentialPm);
         model.addAttribute("project",project);
         model.addAttribute("teams", teams);
  	return "editableproject";
