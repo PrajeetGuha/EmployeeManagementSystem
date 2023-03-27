@@ -428,6 +428,16 @@ public class AdminService {
 //                     );
 //            	team.setTm(tm);
 //            }
+                List<String> employeeIdValues = Arrays.asList(teamMember.split(";"));
+                
+                for(String val:employeeIdValues) {
+                	Employee employeeTm = employeeRepository.findById(Long.parseLong(val)).orElseThrow(
+                            () -> new EmployeeNotFoundException("Employee not found")
+                        );
+                	if(team.getTm()==employeeTm) {
+                		team.setTm(null);
+                	}
+                }
             teamRepository.save(team);
             employeeRepository.updateTeam(teamId);
            if (!teamMember.equals("")) {
