@@ -35,8 +35,8 @@ public class Employee {
     private String gradeLevel;
 
 
-    @Column
-    private boolean isActive=true;
+    // @Column
+    // private boolean isActive=true;
    
 
 
@@ -132,20 +132,20 @@ public class Employee {
 
 
    
-    public boolean isActive() {
-		return isActive;
-	}
+    // public boolean isActive() {
+	// 	return isActive;
+	// }
 
-	public void setActive(boolean isActive) {
-		this.isActive = isActive;
-	}
+	// public void setActive(boolean isActive) {
+	// 	this.isActive = isActive;
+	// }
 
 	public String getDepartment() {
 		return department;
 	}
 
 
-	public Employee(Long empId, String empName, String gender, String gradeLevel, boolean isActive, Date doj,
+	public Employee(Long empId, String empName, String gender, String gradeLevel, Date doj,
 			String designation, String emptype, String empstatus, Integer probPeriod, Date probCompDate,
 			Integer trainPeriod, Date contractEndDate, Integer servPeriod, @Email String workEmail, String branch,
 			String office, String workstationId, Integer clLeft, Integer plLeft, Integer slLeft, Integer moreLeave,
@@ -158,7 +158,7 @@ public class Employee {
 		this.empName = empName;
 		this.gender = gender;
 		this.gradeLevel = gradeLevel;
-		this.isActive = isActive;
+		// this.isActive = isActive;
 		this.doj = doj;
 		this.designation = designation;
 		this.emptype = emptype;
