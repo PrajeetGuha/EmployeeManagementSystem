@@ -2,10 +2,14 @@ package org.antwalk.ems.repository;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
+import org.antwalk.ems.model.Employee;
 import org.antwalk.ems.model.Team;
 import org.antwalk.ems.view.TeamSelectionView;
 import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
@@ -17,8 +21,11 @@ public interface TeamRepository extends JpaRepository<Team,Long> {
 	
 	@Query("select DISTINCT department FROM Team")
 	public List<String> teamdept();
-	
-	@Query("select teamId, teamName FROM Team")
-	public List<TeamSelectionView> allTeamVal();
-	
+
+
+    @Transactional
+    @Modifying
+    @Query(nativeQuery = true, value = "update team set tm_emp_id = null where tm_emp_id = :id")
+    void updateTM(Long id);
+
 }

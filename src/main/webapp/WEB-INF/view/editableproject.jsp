@@ -55,17 +55,18 @@ var AlldeptEmployees = [
 	</c:forEach>
 ];
 var bakiEmployees = [];
-	for(let emp in AlldeptEmployees){/* 
-		console.log(AlldeptEmployees[emp]); */
-		if (teamEmployees.length == 0){
-			bakiEmployees.push(AlldeptEmployees[emp]);
-		}
-	for(let empteam in teamEmployees){
-			if (emp.id != empteam.id){
-				bakiEmployees.push(AlldeptEmployees[emp]);
-			}
+for(let emp in AlldeptEmployees){/* 
+	console.log(AlldeptEmployees[emp]); */
+	if (teamEmployees.length == 0){
+		bakiEmployees.push(AlldeptEmployees[emp]);
 	}
-	}	
+for(let empteam in teamEmployees){
+		if (AlldeptEmployees[emp].id != teamEmployees[empteam].id){
+			bakiEmployees.push(AlldeptEmployees[emp]);
+			break;
+		}
+}
+}	
  
 console.log(teamEmployees);
 console.log(AlldeptEmployees);
@@ -209,7 +210,10 @@ function addRow(id,name) {
 									$li.on('click', function () {
 										$('#search-input').val($(this).text());
 										 $searchResults.hide();
- 										 addEmployee();
+
+										 addEmployee();
+ 
+
 
 									});
 									$searchResults.append($li);
@@ -631,7 +635,7 @@ function addRow(id,name) {
 					<div id="addPM" class="modal fade">
 						<div class="modal-dialog">
 							<div class="modal-content">
-								<form action="addProjectManager?projid=${project.projId }&pg=${pageNo }"
+								<form action="addProjectManager?projId=${project.projId }&pg=${pageNo }"
 									method="post">
 									<div class="modal-header">
 										<h4 class="modal-title">Add Project Manager</h4>
@@ -642,7 +646,7 @@ function addRow(id,name) {
 												Manager</label>
 											<div class="cut cut-short"></div>
 											<select id="teamManager" name="teamManagerValues"
-												class="input required" placeholder="Team Manager">
+												class="input required" placeholder="Project Manager">
 												<c:if test="${potentialPM !=null}">
 													<c:forEach var="teammanager" items="${potentialPM }">
 

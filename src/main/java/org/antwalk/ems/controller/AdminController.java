@@ -529,28 +529,22 @@ private EmployeeRepository employeeRepository;
         return "redirect:/admin/projectallocation?pg=1";
     }
 
-    @PostMapping("editProj")
-    public String editProj(@ModelAttribute("modifyproj") EditProjectDTO editProjectDTO, BindingResult result, RedirectAttributes redirectAttrs, HttpServletRequest request) throws Exception{
-//        String pg = request.getParameter("pg");
-        Long projectId = Long.parseLong(request.getParameter("projectId"));
-        
-//        System.out.println("\n\n\n\n\n\n");
-//         System.out.println(editDepartment);
-
-        adminService.editProject(projectId, editProjectDTO);
-
-        if (result.hasErrors()){
-            redirectAttrs.addFlashAttribute("result", result);
-        }
-        else{
-            redirectAttrs.addFlashAttribute("result",ResponseEntity.ok().body(new SuccessDetails(
-                new Date(),
-                "Updated",
-                "Project is updated"
-            )));
-        }
-        return "redirect:/admin/projectallocation?pg="+1;
-    }
+	/*
+	 * @PostMapping("editProj") public String editProj(@ModelAttribute("modifyproj")
+	 * EditProjectDTO editProjectDTO, BindingResult result, RedirectAttributes
+	 * redirectAttrs, HttpServletRequest request) throws Exception{ // String pg =
+	 * request.getParameter("pg"); Long projectId =
+	 * Long.parseLong(request.getParameter("projectId"));
+	 * 
+	 * // System.out.println("\n\n\n\n\n\n"); // System.out.println(editDepartment);
+	 * 
+	 * adminService.editProject(projectId, editProjectDTO);
+	 * 
+	 * if (result.hasErrors()){ redirectAttrs.addFlashAttribute("result", result); }
+	 * else{ redirectAttrs.addFlashAttribute("result",ResponseEntity.ok().body(new
+	 * SuccessDetails( new Date(), "Updated", "Project is updated" ))); } return
+	 * "redirect:/admin/projectallocation?pg="+1; }
+	 */
     
     
     
@@ -561,7 +555,10 @@ private EmployeeRepository employeeRepository;
     	int pageNo = Integer.parseInt(request.getParameter("pg"));
 //
     	Long tid = Long.parseLong(request.getParameter("teamId"));
+    	System.out.println("\n\n\n done with it "+teamMemberIds);
+    	if(!teamMemberIds.equals(";")) {
     	adminService.addTeamMembersToTeam(tid,teamMemberIds);
+    	}
         return "redirect:/admin/editableTeamPage?tid="+tid+"&pg="+pageNo;
     }
     @PostMapping("addTeamManager")
@@ -586,15 +583,16 @@ private EmployeeRepository employeeRepository;
     	int pageNo = Integer.parseInt(request.getParameter("pg"));
 //
     	Long projid = Long.parseLong(request.getParameter("projId"));
+    	System.out.println(teamMemberIds+"/n/nhihiihihihihihh");
     	adminService.addTeamsToProject(projid,teamMemberIds);
         return "redirect:/admin/editableProjectPage?projid="+projid+"&pg="+pageNo;
     }
     @PostMapping("addProjectManager")
-    public String addProjectManager(@RequestParam("teamManagerValues") String tm,  RedirectAttributes redirectAttrs, HttpServletRequest request ) throws Exception{
+    public String addProjectManager(@RequestParam("teamManagerValues") String pm,  RedirectAttributes redirectAttrs, HttpServletRequest request ) throws Exception{
 //
     	int pageNo = Integer.parseInt(request.getParameter("pg"));
 ////
-    	Long projid = Long.parseLong(request.getParameter("projid"));
+    	Long projid = Long.parseLong(request.getParameter("projId"));
     	if(!pm.equals("0")) {
     		
     	Long projectManagerId=Long.parseLong(pm);

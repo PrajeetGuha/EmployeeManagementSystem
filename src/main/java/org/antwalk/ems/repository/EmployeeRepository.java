@@ -99,7 +99,7 @@ public interface EmployeeRepository extends JpaRepository<Employee,Long>  {
     @Query("update Employee e set e.team.teamId = null where e.empId = :id")
     void updateDepartment(Long id);
 
-    @Query("select e.empId as empId, e.empName as empName from Employee e where and e.empstatus='active' and e.yearOfExperience>=3")
+    @Query("select e.empId as empId, e.empName as empName from Employee e where e.empstatus='active' and e.yearOfExperience>=3")
 	public List<EmployeeSelectionView> findAllPotentialPM();
 
 }
