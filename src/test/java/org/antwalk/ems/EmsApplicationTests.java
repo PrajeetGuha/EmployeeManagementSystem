@@ -1,6 +1,5 @@
 package org.antwalk.ems;
 
-import org.antwalk.ems.security.SecurityTestSuite;
 import org.junit.runner.JUnitCore;
 import org.junit.runner.Result;
 import org.junit.runner.notification.Failure;
