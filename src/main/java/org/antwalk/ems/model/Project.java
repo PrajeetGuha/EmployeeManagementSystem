@@ -1,6 +1,7 @@
 package org.antwalk.ems.model;
 
 import java.sql.Date;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -40,12 +41,12 @@ public class Project {
             name = "team_project",
             joinColumns = @JoinColumn(name = "proj_id"),
             inverseJoinColumns = @JoinColumn(name = "team_id"))
-    private Set<Team> teams;
+    private List<Team> teams;
 
     public Project() {
     }
 
-    public Project(Long projId, String projectName, Date startDate, Date endDate, Employee pm, Set<Team> teams) {
+    public Project(Long projId, String projectName, Date startDate, Date endDate, Employee pm, List<Team> teams) {
         this.projId = projId;
         this.projectName = projectName;
         this.startDate = startDate;
@@ -94,11 +95,11 @@ public class Project {
         this.pm = pm;
     }
 
-    public Set<Team> getTeams() {
+    public List<Team> getTeams() {
         return teams;
     }
 
-    public void setTeams(Set<Team> teams) {
+    public void setTeams(List<Team> teams) {
         this.teams = teams;
     }
     

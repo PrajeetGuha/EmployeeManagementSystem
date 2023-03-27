@@ -740,8 +740,9 @@ function getdeptId(deptId)
 														pattern="dd-MMMM-yyyy" /></td>
 												<td><fmt:formatDate value="${project.endDate}"
 														pattern="dd-MMMM-yyyy" /></td>
-												<td><a href="#editProjectModal"
-													class="edit" data-toggle="modal" onclick="getdeptId(${project.projId})"> <i
+												<td><a href="editableProjectPage?projid=${project.projId }&pg=${pageNo}"
+													class="edit" >
+													 <i
 														class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
 													<!-- <a href="#generateProjectReportModal" class="report"
 													data-toggle="modal"> <i class="material-icons"
@@ -799,7 +800,7 @@ function getdeptId(deptId)
 											<input id="projectName" name="projectName"
 												class="input required" type="text" placeholder=" " required />
 										</div>
-										<div class="input-container ic2">
+										<%-- <div class="input-container ic2">
 											<label for="pm" class="placeholder">Project Manager</label>
 											<div class="cut cut-short"></div>
 											<select id="pm" name="pm" class="input required"
@@ -812,7 +813,7 @@ function getdeptId(deptId)
 
 												</c:forEach>
 											</select>
-										</div>
+										</div> --%>
 										<div class="input-container ic2">
 											<label for="startDate" class="placeholder">Start Date</label>
 											<div class="cut cut-short"></div>

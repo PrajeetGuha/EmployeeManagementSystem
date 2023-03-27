@@ -34,42 +34,45 @@
 <c:set var="pageNo" value="${pageNo}" />
 <c:set var="pageCount" value="${pageCount}" />
 
-<script>
+<script >
+
 
 var teamEmployees = [
-	<c:forEach var="employee" items="${team.employees}">
+	<c:forEach var="employee" items="${project.teams}">
 		{
-			id : ${employee.empId},
-			name : "${employee.empName}"
+			id : ${employee.teamId},
+			name : "${employee.teamName}"
 		},
 	</c:forEach>
 ];
 var AlldeptEmployees = [
-	<c:forEach var="employee" items="${employees}">
+	<c:forEach var="employee" items="${teams}">
 		{
-			id : ${employee.empId},
-			name : "${employee.empName}"
-		},
+			id : ${employee.teamId},
+			name : "${employee.teamName}"
+		}, 
+		
 	</c:forEach>
 ];
 var bakiEmployees = [];
-	for(let emp in AlldeptEmployees){/* 
-		console.log(AlldeptEmployees[emp]); */
-		if (teamEmployees.length == 0){
-			bakiEmployees.push(AlldeptEmployees[emp]);
-		}
-	for(let empteam in teamEmployees){
-			if (AlldeptEmployees[emp].id != teamEmployees[empteam].id){
-				bakiEmployees.push(AlldeptEmployees[emp]);
-				break;
-			}
+for(let emp in AlldeptEmployees){/* 
+	console.log(AlldeptEmployees[emp]); */
+	if (teamEmployees.length == 0){
+		bakiEmployees.push(AlldeptEmployees[emp]);
 	}
-	}	
-
+for(let empteam in teamEmployees){
+		if (AlldeptEmployees[emp].id != teamEmployees[empteam].id){
+			bakiEmployees.push(AlldeptEmployees[emp]);
+			break;
+		}
+}
+}	
+ 
 console.log(teamEmployees);
 console.log(AlldeptEmployees);
 
 console.log(bakiEmployees); 
+
 function onSubmitFunc(){
 	var idValues="";
 	for(let x in teamEmployees){
@@ -80,11 +83,9 @@ function onSubmitFunc(){
 	$('#hiddenFieldOfTeam').val(idValues);
 	
 }
-
 function addEmployee(){
 	var searchTerm = $('#search-input').val();
 	const parts = searchTerm.split('.');
-	if(parts.length>=2){
 	var employeeIdValue=parseInt(parts[0]);
 
 	var employeeNameValue=parts[1];/* 
@@ -116,10 +117,11 @@ function addEmployee(){
 					}
 			}
 			}	 */ 
+			console.log(bakiEmployees); 
 			$('#search-input').val("");
 			renderTable();
 			
-	}
+			
 			
 			
 			
@@ -144,9 +146,7 @@ function removeTableRow(eid){
 	bakiEmployees.push({
 		id : eid,
 		name : employeename
-	});/* 
-	console.log(bakiEmployees);
-	console.log(teamEmployees); */
+	});
 	renderTable();
 }
 
@@ -210,8 +210,10 @@ function addRow(id,name) {
 									$li.on('click', function () {
 										$('#search-input').val($(this).text());
 										 $searchResults.hide();
+
 										 addEmployee();
  
+
 
 									});
 									$searchResults.append($li);
@@ -271,14 +273,14 @@ function addRow(id,name) {
 				</h3>
 			</div>
 			<ul class="list-unstyled components">
-				<li><a href="dashboard?search=null&pg=1" class="dashboard"><i
-						class="material-icons">dashboard</i> <span>Dashboard</span></a></li>
+				<li ><a href="dashboard?search=null&pg=1"
+					class="dashboard"><i class="material-icons">dashboard</i> <span>Dashboard</span></a></li>
 
 
-				<li><a href="projectallocation?pg=1"> <i
+				<li class="active"><a href="projectallocation?pg=1"> <i
 						class="material-icons">laptop</i>Project
 				</a></li>
-				<li class="active"><a href="teamallocation?pg=1"> <i
+				<li ><a href="teamallocation?pg=1"> <i
 						class="material-icons">groups</i>Team
 				</a></li>
 				<!-- <li><a href="departmentallocation?pg=1"> <i
@@ -488,7 +490,7 @@ function addRow(id,name) {
 						<!-- End XP Col -->
 
 						<!-- Start XP Col -->
-
+						
 
 
 						<!-- End XP Col -->
@@ -516,11 +518,11 @@ function addRow(id,name) {
 
 				</div>
 				<div class="xp-breadcrumbbar text-center">
-					<h4 class="page-title">${team.teamName }</h4>
-				</div>
-				<div class="row">
-					<div class="col-10"></div>
-
+					<h4 class="page-title">${project.projectName}</h4>
+					<!--  <ol class="breadcrumb">
+						<li class="breadcrumb-item"><a href="#">Booster</a></li>
+						<li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+					</ol>-->
 				</div>
 
 			</div>
@@ -528,19 +530,6 @@ function addRow(id,name) {
 
 
 			<!--------main-content------------->
-			<%-- 
-			<div class="input-container ic2">
-											<label for="department" class="placeholder">Team Manager</label>
-											<div class="cut cut-short"></div>
-											<select id="teamManager" name="tm"
-												class="input required" placeholder="Team Manager">
-												<c:forEach var="teammanager" items="${potentialTM }">
-												
-												<option value="${teammanager.empId}">${teammanager.empId}. ${teammanager.empName }</option>
-												</c:forEach>
-										</select>
-										</div>
-										 --%>
 
 			<div class="main-content">
 				<div class="row">
@@ -551,12 +540,12 @@ function addRow(id,name) {
 								<div class="row">
 									<div
 										class="col-2">
-										<h2 class="ml-lg-2">Manage Team</h2>
+										<h2 class="ml-lg-2">Manage Project</h2>
 									</div>
 									<div class="col-7 justify-content-lg-end justify-content-center">
-											<a href="#addTM" data-toggle="modal" aria-expanded="false">
+											<a href="#addPM" data-toggle="modal" aria-expanded="false">
 												<button class="btn btn-success" type="submit"
-													id="button-addon2" href="#addTM">Assign TM</button>
+													id="button-addon2" href="#addPM">Assign PM</button>
 											</a>
 											<!-- 
 						<button class="btn btn-success" type="submit" id="button-addon2"
@@ -568,7 +557,7 @@ function addRow(id,name) {
 										<div class="xp-searchbar">
 											<div class="input-group">
 												<input type="search" class="form-control"
-													placeholder="Add employees here" id="search-input" />
+													placeholder="Add teams here" id="search-input" />
 												<!-- <button class="btn btn-success" type="submit"
 													id="button-addon2" onclick="addEmployee()">Add</button> -->
 											</div>
@@ -577,8 +566,7 @@ function addRow(id,name) {
 											</ul>
 										</div>
 										
-									</div>
-
+						</div>
 									<!-- <div
 										class="col-sm-2 p-0 d-flex justify-content-lg-end justify-content-center">
 										<a href="#addEmployeeModal" class="btn btn-success"
@@ -592,6 +580,7 @@ function addRow(id,name) {
 								</div>
 							</div>
 							<table class="table table-striped table-hover">
+							
 								<thead>
 									<tr>
 
@@ -622,13 +611,11 @@ function addRow(id,name) {
 
 </tr> --%>
 
-
+							
 								</tbody>
 							</table>
-
-							
 							<div>
-								<form action="addTeamMember?teamId=${team.teamId }&pg=${pageNo}"
+								<form action="addTeamToProject?projId=${project.projId }&pg=${pageNo}"
 									method="post">
 									<center>
 										<input type="hidden" name="hiddenFieldOfTeams"
@@ -638,35 +625,36 @@ function addRow(id,name) {
 									</center>
 								</form>
 							</div>
+							
 						</div>
 					</div>
+					
 
 
 
-
-					<div id="addTM" class="modal fade">
+					<div id="addPM" class="modal fade">
 						<div class="modal-dialog">
 							<div class="modal-content">
-								<form action="addTeamManager?tid=${team.teamId }&pg=${pageNo }"
+								<form action="addProjectManager?projId=${project.projId }&pg=${pageNo }"
 									method="post">
 									<div class="modal-header">
-										<h4 class="modal-title">Add Team Manager</h4>
+										<h4 class="modal-title">Add Project Manager</h4>
 									</div>
 									<div class="modal-body">
 										<div class="input-container ic2">
-											<label for="department" class="placeholder">Team
+											<label for="department" class="placeholder">Project
 												Manager</label>
 											<div class="cut cut-short"></div>
 											<select id="teamManager" name="teamManagerValues"
-												class="input required" placeholder="Team Manager">
-												<c:if test="${potentialTM !=null}">
-													<c:forEach var="teammanager" items="${potentialTM }">
+												class="input required" placeholder="Project Manager">
+												<c:if test="${potentialPM !=null}">
+													<c:forEach var="teammanager" items="${potentialPM }">
 
 														<option value="${teammanager.empId}">${teammanager.empId}.
 															${teammanager.empName }</option>
 													</c:forEach>
 												</c:if>
-												<c:if test="${potentialTM ==null}">
+												<c:if test="${potentialPM ==null}">
 
 													<option value="0">No employee eligible</option>
 												</c:if>
@@ -684,34 +672,39 @@ function addRow(id,name) {
 							</div>
 						</div>
 					</div>
-					<!-- Edit Modal HTML -->
-					<!---footer---->
+
+					
 
 
-				</div>
 
-				<footer class="footer">
-					<div class="container-fluid">
-						<div class="footer-in">
-							<p class="mb-0">NRI FinTech - All Rights Reserved.</p>
-						</div>
-					</div>
-				</footer>
+				<!---footer---->
+
+
 			</div>
+
+			<footer class="footer">
+				<div class="container-fluid">
+					<div class="footer-in">
+						<p class="mb-0">NRI FinTech - All Rights Reserved.</p>
+					</div>
+				</div>
+			</footer>
 		</div>
+	</div>
 
 
-		<!----------html code complete----------->
-
-
-
-
+	<!----------html code complete----------->
 
 
 
 
-		<!-- Optional JavaScript -->
-		<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
+
+
+
+	<!-- Optional JavaScript -->
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
 </body>
 <script src="../resources/lib/jquery/jquery-3.3.1.min.js"
 	type="text/javascript" />

@@ -17,6 +17,7 @@ import org.antwalk.ems.dto.NewProjectDTO;
 import org.antwalk.ems.dto.NewTeamDTO;
 import org.antwalk.ems.exception.DepartmentNotFoundException;
 import org.antwalk.ems.exception.EmployeeNotFoundException;
+import org.antwalk.ems.exception.ProjectNotFoundException;
 import org.antwalk.ems.exception.TeamNotFoundException;
 import org.antwalk.ems.exception.UserNotFoundException;
 import org.antwalk.ems.model.Admin;
@@ -33,6 +34,7 @@ import org.antwalk.ems.service.AdminService;
 import org.antwalk.ems.service.ReportService;
 import org.antwalk.ems.view.EmployeeListView;
 import org.antwalk.ems.view.EmployeeSelectionView;
+import org.antwalk.ems.view.TeamSelectionView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -204,7 +206,9 @@ private EmployeeRepository employeeRepository;
         Long count = adminService.countAllTeams();
         int countPages = adminService.countPagesofTeams();
         List<EmployeeSelectionView> allemployees = adminService.listAllEmployees();
+        List<EmployeeSelectionView> potentialTM = adminService.listAllEmployees();
     	model.addAttribute("admin",admin);
+        model.addAttribute("potentialTM", potentialTM);
         model.addAttribute("listteams", listTeams);
         model.addAttribute("countPages", countPages);
         model.addAttribute("countOfteams", count);
@@ -213,6 +217,7 @@ private EmployeeRepository employeeRepository;
    		return "teamallocation";
    	}
     
+   
     
     @GetMapping("/editableTeamPage")
    	public String editableTeamPage(HttpServletRequest request, Model model) throws UserNotFoundException, TeamNotFoundException{
@@ -223,6 +228,7 @@ private EmployeeRepository employeeRepository;
     	Team team=adminService.findTeamById(tid);
     	System.out.println("\n\n\n\n");
     	List<EmployeeSelectionView> employees=adminService.findEmployeesByDepartment(team.getDepartment());
+        List<EmployeeSelectionView> potentialTM = adminService.listAllPotentialTM(team.getDepartment());
     	System.out.println(employees);
     	
     	
@@ -233,7 +239,32 @@ private EmployeeRepository employeeRepository;
 
         model.addAttribute("team",team);
         model.addAttribute("employees", employees);
+        model.addAttribute("potentialTM", potentialTM);
  	return "editableTeam";
+   	}
+    
+    @GetMapping("/editableProjectPage")
+   	public String editableProjectPage(HttpServletRequest request, Model model) throws UserNotFoundException, TeamNotFoundException, ProjectNotFoundException{
+    	Long id = AuthenticationSystem.getId();
+    	int pageNo = Integer.parseInt(request.getParameter("pg"));
+
+    	Long projid = Long.parseLong(request.getParameter("projid"));
+    	Project project=adminService.findProjectById(projid);
+    	System.out.println("\n\n\n\n");
+    	List<Team> teams=adminService.findTeamsForProject();
+    	System.out.println(teams);
+    	
+//    	for(int i = 0; i < teams.size(); i++) {
+//    		System.out.println(teams.get(i).getTeamId());
+//    	}
+    	Admin admin = adminService.fetchAdminData(id);
+    	model.addAttribute("admin",admin);
+        model.addAttribute("pageNo", pageNo);
+
+
+        model.addAttribute("project",project);
+        model.addAttribute("teams", teams);
+ 	return "editableproject";
    	}
     
 //    @GetMapping("/departmentallocation")
@@ -498,29 +529,79 @@ private EmployeeRepository employeeRepository;
         return "redirect:/admin/projectallocation?pg=1";
     }
 
-    @PostMapping("editProj")
-    public String editProj(@ModelAttribute("modifyproj") EditProjectDTO editProjectDTO, BindingResult result, RedirectAttributes redirectAttrs, HttpServletRequest request) throws Exception{
-//        String pg = request.getParameter("pg");
-        Long projectId = Long.parseLong(request.getParameter("projectId"));
-        
-//        System.out.println("\n\n\n\n\n\n");
-//         System.out.println(editDepartment);
+	/*
+	 * @PostMapping("editProj") public String editProj(@ModelAttribute("modifyproj")
+	 * EditProjectDTO editProjectDTO, BindingResult result, RedirectAttributes
+	 * redirectAttrs, HttpServletRequest request) throws Exception{ // String pg =
+	 * request.getParameter("pg"); Long projectId =
+	 * Long.parseLong(request.getParameter("projectId"));
+	 * 
+	 * // System.out.println("\n\n\n\n\n\n"); // System.out.println(editDepartment);
+	 * 
+	 * adminService.editProject(projectId, editProjectDTO);
+	 * 
+	 * if (result.hasErrors()){ redirectAttrs.addFlashAttribute("result", result); }
+	 * else{ redirectAttrs.addFlashAttribute("result",ResponseEntity.ok().body(new
+	 * SuccessDetails( new Date(), "Updated", "Project is updated" ))); } return
+	 * "redirect:/admin/projectallocation?pg="+1; }
+	 */
+    
+    
+    
 
-        adminService.editProject(projectId, editProjectDTO);
-
-        if (result.hasErrors()){
-            redirectAttrs.addFlashAttribute("result", result);
-        }
-        else{
-            redirectAttrs.addFlashAttribute("result",ResponseEntity.ok().body(new SuccessDetails(
-                new Date(),
-                "Updated",
-                "Project is updated"
-            )));
-        }
-        return "redirect:/admin/projectallocation?pg="+1;
+    @PostMapping("addTeamMember")
+    public String addTeamMember(@RequestParam("hiddenFieldOfTeams") String teamMemberIds,RedirectAttributes redirectAttrs, HttpServletRequest request ) throws Exception{
+//
+    	int pageNo = Integer.parseInt(request.getParameter("pg"));
+//
+    	Long tid = Long.parseLong(request.getParameter("teamId"));
+    	System.out.println("\n\n\n done with it "+teamMemberIds);
+    	if(!teamMemberIds.equals(";")) {
+    	adminService.addTeamMembersToTeam(tid,teamMemberIds);
+    	}
+        return "redirect:/admin/editableTeamPage?tid="+tid+"&pg="+pageNo;
+    }
+    @PostMapping("addTeamManager")
+    public String addTeamManager(@RequestParam("teamManagerValues") String tm,  RedirectAttributes redirectAttrs, HttpServletRequest request ) throws Exception{
+//
+    	int pageNo = Integer.parseInt(request.getParameter("pg"));
+////
+    	Long tid = Long.parseLong(request.getParameter("tid"));
+    	if(!tm.equals("0")) {
+    		
+    	Long teamManagerId=Long.parseLong(tm);
+    	System.out.println("\n\n\n");
+    	System.out.println(teamManagerId+"hi done");
+    	adminService.addTeamManagerToTeam(tid,teamManagerId);
+    	}
+        return "redirect:/admin/editableTeamPage?tid="+tid+"&pg="+pageNo;
     }
     
+    @PostMapping("addTeamToProject")
+    public String addTeamToProject(@RequestParam("hiddenFieldOfTeams") String teamMemberIds,RedirectAttributes redirectAttrs, HttpServletRequest request ) throws Exception{
+//
+    	int pageNo = Integer.parseInt(request.getParameter("pg"));
+//
+    	Long projid = Long.parseLong(request.getParameter("projId"));
+    	System.out.println(teamMemberIds+"/n/nhihiihihihihihh");
+    	adminService.addTeamsToProject(projid,teamMemberIds);
+        return "redirect:/admin/editableProjectPage?projid="+projid+"&pg="+pageNo;
+    }
+    @PostMapping("addProjectManager")
+    public String addProjectManager(@RequestParam("teamManagerValues") String pm,  RedirectAttributes redirectAttrs, HttpServletRequest request ) throws Exception{
+//
+    	int pageNo = Integer.parseInt(request.getParameter("pg"));
+////
+    	Long projid = Long.parseLong(request.getParameter("projId"));
+    	if(!pm.equals("0")) {
+    		
+    	Long projectManagerId=Long.parseLong(pm);
+    	System.out.println("\n\n\n");
+    	System.out.println(projectManagerId+"hi done");
+    	adminService.addProjectManagerToProject(projid,projectManagerId);
+    	}
+        return "redirect:/admin/editableProjectPage?projid="+projid+"&pg="+pageNo;
+    }
 	/*
 	 * @GetMapping("/editableTeam") public String editableTeam() { return
 	 * "editableTeam"; }

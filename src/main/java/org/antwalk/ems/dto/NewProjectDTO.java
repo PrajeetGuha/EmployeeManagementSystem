@@ -4,7 +4,7 @@ import java.sql.Date;
 
 public class NewProjectDTO {
 	private String projectName;
-	private Long pm;
+	//private Long pm;
 	private Date startDate;
 	private Date endDate;
 	
@@ -16,7 +16,7 @@ public class NewProjectDTO {
 	public NewProjectDTO(String projectName, Long pm, Date startDate, Date endDate) {
 		super();
 		this.projectName = projectName;
-		this.pm = pm;
+		//this.pm = pm;
 		this.startDate = startDate;
 		this.endDate = endDate;
 	}
@@ -26,12 +26,11 @@ public class NewProjectDTO {
 	public void setProjectName(String projectName) {
 		this.projectName = projectName;
 	}
-	public Long getPm() {
-		return pm;
-	}
-	public void setPm(Long pm) {
-		this.pm = pm;
-	}
+
+	/*
+	 * public Long getPm() { return pm; } public void setPm(Long pm) { this.pm = pm;
+	 * }
+	 */
 	public Date getStartDate() {
 		return startDate;
 	}
