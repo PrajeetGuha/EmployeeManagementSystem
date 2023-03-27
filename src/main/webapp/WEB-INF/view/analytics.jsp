@@ -517,7 +517,7 @@ var barChartOptions = {
 			  		    bar: {
 			  		      distributed: true,
 			  		      borderRadius: 4,
-			  		      horizontal: true,
+			  		      horizontal: false,
 			  		      columnWidth: '40%',
 			  		    }
 			  		  },
