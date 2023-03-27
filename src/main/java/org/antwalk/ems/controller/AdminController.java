@@ -557,7 +557,10 @@ private EmployeeRepository employeeRepository;
     	int pageNo = Integer.parseInt(request.getParameter("pg"));
 //
     	Long tid = Long.parseLong(request.getParameter("teamId"));
+    	System.out.println("\n\n\n done with it "+teamMemberIds);
+    	if(!teamMemberIds.equals(";")) {
     	adminService.addTeamMembersToTeam(tid,teamMemberIds);
+    	}
         return "redirect:/admin/editableTeamPage?tid="+tid+"&pg="+pageNo;
     }
     @PostMapping("addTeamManager")

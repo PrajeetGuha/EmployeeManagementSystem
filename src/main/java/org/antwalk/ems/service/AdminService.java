@@ -428,16 +428,16 @@ public class AdminService {
 //                     );
 //            	team.setTm(tm);
 //            }
-                List<String> employeeIdValues = Arrays.asList(teamMember.split(";"));
                 
-                for(String val:employeeIdValues) {
-                	Employee employeeTm = employeeRepository.findById(Long.parseLong(val)).orElseThrow(
-                            () -> new EmployeeNotFoundException("Employee not found")
-                        );
-                	if(team.getTm()==employeeTm) {
-                		team.setTm(null);
-                	}
-                }
+//                if(check==0) {
+//                	System.out.println("\n\n\n changes done");
+//                	team.setTm(null);
+//                }
+
+                List<String> employeeIdValues = Arrays.asList(teamMember.split(";"));
+            	if(!employeeIdValues.contains(Long.toString(team.getTm().getEmpId()))) {
+            		team.setTm(null);
+            	}
             teamRepository.save(team);
             employeeRepository.updateTeam(teamId);
            if (!teamMember.equals("")) {
@@ -577,6 +577,7 @@ public class AdminService {
 			employeeRepository.save(employee);
 			if(!before_dept.equals(after_dept)) {
 				employeeRepository.updateDepartment(empId);
+				teamRepository.updateTM(empId);
 			}
 			
 			

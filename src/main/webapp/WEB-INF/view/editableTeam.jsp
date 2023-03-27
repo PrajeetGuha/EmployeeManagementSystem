@@ -210,6 +210,7 @@ function addRow(id,name) {
 									$li.on('click', function () {
 										$('#search-input').val($(this).text());
 										 $searchResults.hide();
+										 addEmployee();
  
 
 									});
