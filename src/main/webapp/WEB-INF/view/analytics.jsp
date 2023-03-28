@@ -739,12 +739,12 @@ var barChartOptions = {
 							  		      "${item.projectName}",
 							  		      </c:forEach>],
 					  	    		      title: {
-					  	    			      text: "Project"
+					  	    			      text: "Number of Teams"
 					  	    			    }
 					  	    		  },
 					  	    		  yaxis: {
 					  	    		    title: {
-					  	    		      text: "Number of Teams"
+					  	    		      text: "Project"
 					  	    		    }
 					  	    		  }
 					  	    		};
