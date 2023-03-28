@@ -15,6 +15,7 @@ import static org.hamcrest.Matchers.*;
 
 import java.util.Date;
 
+import org.antwalk.ems.model.Admin;
 import org.antwalk.ems.pojo.SuccessDetails;
 import org.hamcrest.core.IsEqual;
 
@@ -42,13 +43,13 @@ public class AdminControllerTest {
         String empIdExists = "1";
         mvc.perform(MockMvcRequestBuilders.post("/admin/activateUser?search=null&pg=1")
         .param("empId", empIdExists))        
-        .andExpect(MockMvcResultMatchers.redirectedUrl("/admin/dashboard?search=null&pg=null"))
+        .andExpect(MockMvcResultMatchers.redirectedUrl("/admin/dashboard?search=null&pg=1"))
         .andExpect(MockMvcResultMatchers.flash().attribute("status","SUCCESS"));
 
         String empIdnotExists = "10";
         mvc.perform(MockMvcRequestBuilders.post("/admin/activateUser?search=null&pg=1")
         .param("empId", empIdnotExists))        
-        .andExpect(MockMvcResultMatchers.redirectedUrl("/admin/dashboard?search=null&pg=null"))
+        .andExpect(MockMvcResultMatchers.redirectedUrl("/admin/dashboard?search=null&pg=1"))
         .andExpect(MockMvcResultMatchers.flash().attribute("status","FAILED"));
     }
 
@@ -82,10 +83,10 @@ public class AdminControllerTest {
 
     }
 
-    @Test
-    void testAddemployee() {
+    // @Test
+    // void testAddemployee() {
         
-    }
+    // }
 
     @Test
     void testAddproject() {
@@ -123,8 +124,20 @@ public class AdminControllerTest {
     }
 
     @Test
-    void testChangePassword() {
-        
+    void testChangePassword() throws Exception {
+        String empIdExists = "1";
+        mvc.perform(MockMvcRequestBuilders.post("/admin/changePassword?search=null&pg=1")
+        .param("empId", empIdExists)
+        .param("changedPassword", "Test1@ntech"))        
+        .andExpect(MockMvcResultMatchers.redirectedUrl("/admin/dashboard?search=null&pg=1"))
+        .andExpect(MockMvcResultMatchers.flash().attribute("status","SUCCESS"));
+
+        String empIdnotExists = "10";
+        mvc.perform(MockMvcRequestBuilders.post("/admin/changePassword?search=null&pg=1")
+        .param("empId", empIdnotExists)
+        .param("changedPassword","Test10@ntech"))        
+        .andExpect(MockMvcResultMatchers.redirectedUrl("/admin/dashboard?search=null&pg=1"))
+        .andExpect(MockMvcResultMatchers.flash().attribute("status","FAILED"));
     }
 
     @Test
@@ -133,13 +146,13 @@ public class AdminControllerTest {
         String empIdExists = "1";
         mvc.perform(MockMvcRequestBuilders.post("/admin/deactivateUser?search=null&pg=1")
         .param("empId", empIdExists))        
-        .andExpect(MockMvcResultMatchers.redirectedUrl("/admin/dashboard?search=null&pg=null"))
+        .andExpect(MockMvcResultMatchers.redirectedUrl("/admin/dashboard?search=null&pg=1"))
         .andExpect(MockMvcResultMatchers.flash().attribute("status","SUCCESS"));
 
         String empIdnotExists = "10";
         mvc.perform(MockMvcRequestBuilders.post("/admin/deactivateUser?search=null&pg=1")
         .param("empId", empIdnotExists))        
-        .andExpect(MockMvcResultMatchers.redirectedUrl("/admin/dashboard?search=null&pg=null"))
+        .andExpect(MockMvcResultMatchers.redirectedUrl("/admin/dashboard?search=null&pg=1"))
         .andExpect(MockMvcResultMatchers.flash().attribute("status","FAILED"));
     }
 
@@ -164,8 +177,11 @@ public class AdminControllerTest {
     }
 
     @Test
-    void testEditemployeedetails() {
-
+    void testEditemployeedetails() throws Exception {
+        // String empIdExist = "1";
+        // mvc.perform(MockMvcRequestBuilders
+        // .get("/admin/editemployeedetails?search=null&pg=1&empId="+empIdExist))
+        // .andDo(MockMvcResultHandlers.print());
     }
 
     @Test

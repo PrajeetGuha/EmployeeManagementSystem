@@ -147,7 +147,7 @@ public class AdminService {
     }
 
     @Transactional
-    public void addEmployee(NewEmployeeDTO newEmployeeDTO) throws DepartmentNotFoundException{
+    public void addEmployee(NewEmployeeDTO newEmployeeDTO){
     	
         EmployeeDetails employeeDetails = new EmployeeDetails();
         employeeDetails.setEmailId(newEmployeeDTO.getEmail());
@@ -158,15 +158,7 @@ public class AdminService {
         employee.setDesignation(newEmployeeDTO.getDesignation());
         employee.setGender(newEmployeeDTO.getGender());
         employee.setYearOfExperience(newEmployeeDTO.getYearOfExperience());
-
-        if (newEmployeeDTO.getDepartment().equals("0")){
-            employee.setDepartment(null);
-        }
-        else{
-
-            employee.setDepartment(newEmployeeDTO.getDepartment());
-        }
-
+        employee.setDepartment(newEmployeeDTO.getDepartment());
 
         employee.setGradeLevel(newEmployeeDTO.getGradeLevel());
         employee.setDoj(newEmployeeDTO.getDoj());
