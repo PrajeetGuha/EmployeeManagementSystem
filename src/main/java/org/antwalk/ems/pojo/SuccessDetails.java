@@ -48,4 +48,46 @@ public class SuccessDetails {
         this.status = status;
     }
 
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((timestamp == null) ? 0 : timestamp.hashCode());
+        result = prime * result + ((message == null) ? 0 : message.hashCode());
+        result = prime * result + ((details == null) ? 0 : details.hashCode());
+        result = prime * result + ((status == null) ? 0 : status.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        SuccessDetails other = (SuccessDetails) obj;
+        if (timestamp == null) {
+            if (other.timestamp != null)
+                return false;
+        } else if (timestamp.compareTo(other.timestamp) != 0)
+            return false;
+        if (message == null) {
+            if (other.message != null)
+                return false;
+        } else if (!message.equals(other.message))
+            return false;
+        if (details == null) {
+            if (other.details != null)
+                return false;
+        } else if (!details.equals(other.details))
+            return false;
+        if (status == null) {
+            if (other.status != null)
+                return false;
+        } else if (!status.equals(other.status))
+            return false;
+        return true;
+    }
 }

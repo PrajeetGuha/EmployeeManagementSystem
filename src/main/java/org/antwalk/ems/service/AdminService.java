@@ -311,13 +311,12 @@ public class AdminService {
 //        }
 //    }
 	
-	public void changePassword(ChangePasswordDTO changePasswordDTO) throws RuntimeException {
+	public void changePassword(ChangePasswordDTO changePasswordDTO) throws UserNotFoundException {
 	    // retrieve user entity from database using empId
 	    User user = userRepository.findByTablePk(changePasswordDTO.getEmpId())
-	            .orElseThrow(() -> new RuntimeException("User not found"));
+	            .orElseThrow(() -> new UserNotFoundException("User not found"));
 
 	    // set new password for user
-	    System.out.println("\n\n\n\n\n\n\n\n\n"+user.getPassword()+"\n\n\n\n\n\n\n\n\n\n");
 	    user.setPassword(passwordEncoder.encode(changePasswordDTO.getChangedPassword()));
 
 	    // save updated user entity to database
@@ -690,5 +689,17 @@ public class AdminService {
 			//employeeRepository.save(persistedEmployee);
 			projectRepository.save(pmToAdd);
 			System.out.println("\n\n\n done with process");
+		}
+
+
+		public List<Integer> findTeamCountByProject() {
+			// TODO Auto-generated method stub
+			return projectRepository.findTeamCountByProject();
+		}
+
+
+		public List<Project> getAllProjects() {
+			// TODO Auto-generated method stub
+			return projectRepository.findAll();
 		}
 }

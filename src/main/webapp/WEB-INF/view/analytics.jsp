@@ -272,10 +272,15 @@
             <p class="chart-title">Recruitment Metrics</p>
             <div id="line-chart"></div>
           </div> 
-          <div class="charts-card" style="width: 97%;">
+          <div class="charts-card" >
             <p class="chart-title">Team Distribution</p>
             <div id="bar-chart3"></div>
           </div> 
+          <div class="charts-card" style="width: 97%;" >
+            <p class="chart-title">Teams in Project</p>
+            <div id="bar-chart4"></div>
+          </div> 
+          </div>
         </div>
         
 
@@ -517,7 +522,7 @@ var barChartOptions = {
 			  		    bar: {
 			  		      distributed: true,
 			  		      borderRadius: 4,
-			  		      horizontal: true,
+			  		      horizontal: false,
 			  		      columnWidth: '40%',
 			  		    }
 			  		  },
@@ -684,18 +689,93 @@ var barChartOptions = {
 
 			  	    		var barChart3 = new ApexCharts(document.querySelector("#bar-chart3"), barChart3Options);
 			  	    		barChart3.render();
+			  	    		
+			  	    		 var barChart4Options = {
+					  	    		  series: [{
+					  	    		    data: [<c:forEach var="item" items="${findteamcount}">
+							  		      "${item}",
+							  		      </c:forEach>]
+					  	    		  }],
+					  	    		  chart: {
+					  	    		    type: 'bar',
+					  	    		    height: 350,
+					  	    		    toolbar: {
+					  	    		        show: true,
+					  	    		        tools: {
+					  	    		          download: true,
+					  	    		          selection: true,
+					  	    		          zoom: true,
+					  	    		          zoomin: true,
+					  	    		          zoomout: true,
+					  	    		          pan: true,
+					  	    		          reset: true
+					  	    		        },
+					  	    		        autoSelected: 'zoom'
+					  	    		      },
+					  	    		  },
+					  	    		  colors: [
+					  	    		    "#246dec",
+					  	    		    "#cc3c43",
+					  	    		    "#367952",
+					  	    		    "#f5b74f",
+					  	    		    "#4f35a1"
+					  	    		  ],
+					  	    		  plotOptions: {
+					  	    		    bar: {
+					  	    		      distributed: true,
+					  	    		      borderRadius: 4,
+					  	    		      horizontal: true,
+					  	    		      columnWidth: '40%',
+					  	    		    }
+					  	    		  },
+					  	    		  dataLabels: {
+					  	    		    enabled: false
+					  	    		  },
+					  	    		  legend: {
+					  	    		    show: false
+					  	    		  },
+					  	    		  xaxis: {
+					  	    		    categories: [<c:forEach var="item" items="${listprojects}">
+							  		      "${item.projectName}",
+							  		      </c:forEach>],
+					  	    		      title: {
+					  	    			      text: "Number of Teams"
+					  	    			    }
+					  	    		  },
+					  	    		  yaxis: {
+					  	    		    title: {
+					  	    		      text: "Project"
+					  	    		    }
+					  	    		  }
+					  	    		};
+
+					  	    		var barChart4 = new ApexCharts(document.querySelector("#bar-chart4"), barChart4Options);
+					  	    		barChart4.render();
 
 			  	          
+			  	    		
 			  	  		/*var pieoptions2 = {
 					  	          series: [ <c:forEach var="item" items="${findteamcount}">
 					  		      "${item}",
 					  		      </c:forEach>],
 					  	          chart: {
+					  	        	toolbar: {
+				  	    		        show: true,
+				  	    		        tools: {
+				  	    		          download: true,
+				  	    		          selection: true,
+				  	    		          zoom: true,
+				  	    		          zoomin: true,
+				  	    		          zoomout: true,
+				  	    		          pan: true,
+				  	    		          reset: true
+				  	    		        },autoSelected: 'zoom',
+					  	        	},
 					  	          width: 380,
 					  	          type: 'pie',
 					  	        },
-					  	        labels: [ <c:forEach var="item" items="${teamsinprojects}">
-					  		      "${item}",
+					  	        labels: [ <c:forEach var="item" items="${listprojects}">
+					  		      "${item.projectName}",
 					  		      </c:forEach>],
 					  	        responsive: [{
 					  	          breakpoint: 480,

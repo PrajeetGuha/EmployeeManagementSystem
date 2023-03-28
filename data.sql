@@ -33,3 +33,18 @@ insert into user(username,password,role,is_enabled, table_pk) values('admin','$2
 insert into admin(admin_id, admin_name, admin_email) values(1,"Pallab Patel","pallabpatel@admin.nrifintech.com");
 
 insert into department(department_name) values('unassigned');
+
+
+
+TEST SCRIPTS
+
+insert into user(username,password,role,is_enabled, table_pk) values('test-admin','$2a$12$I1pwfNEvxdVTY281JTkcO.X0kFAEAWpSuvhpO8KIln9pR6rojoqE2','ROLE_ADMIN',1,1);
+insert into admin(admin_id, admin_name, admin_email) values(1,"Test Admin","test@admin.nrifintech.com");
+
+insert into employee_details(email_id) values("test1employee@test.com");
+insert into employee(emp_name, gender, designation, department, year_of_experience, grade_level, doj, emptype, work_email, empstatus, employee_details_emp_det_id) values('Test1', 'male', 'ASE', 'administration', 3, 4, '2020-09-23', 'full time', 'test1employee@nrifintech.com','active', 1);
+insert into user(username,password,table_pk) values('test1employee','$2a$12$I1pwfNEvxdVTY281JTkcO.X0kFAEAWpSuvhpO8KIln9pR6rojoqE2',1);
+
+insert into employee_details(email_id) values("test2employee@test.com");
+insert into employee(emp_name, gender, designation, department, year_of_experience, grade_level, doj, emptype, work_email, empstatus, employee_details_emp_det_id) values('Test2', 'female', 'security', 'DSE', 5, 2, '2023-03-28', 'part time', 'test2employee@nrifintech.com', 'active', 2);
+insert into user(username,password,table_pk) values('test2employee','$2a$12$I1pwfNEvxdVTY281JTkcO.X0kFAEAWpSuvhpO8KIln9pR6rojoqE2',2);
