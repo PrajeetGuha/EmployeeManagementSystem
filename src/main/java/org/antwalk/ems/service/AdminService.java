@@ -694,4 +694,11 @@ public class AdminService {
 			// TODO Auto-generated method stub
 			return projectRepository.findAll();
 		}
+
+
+        public Employee findEmployeeById(Long id_val) throws EmployeeNotFoundException {
+            return employeeRepository.findById(id_val).orElseThrow(
+                () -> new EmployeeNotFoundException("Employee not found")
+            );
+        }
 }
