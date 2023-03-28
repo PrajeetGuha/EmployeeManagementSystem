@@ -805,23 +805,7 @@
 													<tr>
 														<td><br></td>
 													</tr>
-													<tr>
-														<td>SERVICE PERIOD :</td>
-														<td>
-															<div class="input-group ">
-																<input type="number" class="form-control"
-																	placeholder="Service period"
-																	aria-label="Service period"
-																	aria-describedby="basic-addon1" name="servPeriod"
-																	value="${employee.servPeriod}" />
-															</div>
-														</td>
-													</tr>
-
-
-													<tr>
-														<td><br></td>
-													</tr>
+													
 													<tr>
 														<td>WORK EMAIL :</td>
 														<td>
@@ -829,7 +813,7 @@
 																<input type="email" class="form-control"
 																	placeholder="EMAIL" aria-label="EMAIL"
 																	aria-describedby="basic-addon1" name="workEmail"
-																	value="${employee.workEmail}">
+																	value="${employee.workEmail}" disabled>
 															</div>
 														</td>
 													</tr>
@@ -916,6 +900,24 @@
 															</div>
 														</td>
 													</tr>
+													<tr>
+														<td><br></td>
+													</tr>
+													<tr>
+														<td>TEAM :</td>
+														<td>
+															<div class="input-group ">
+																<input type="text" class="form-control"
+																	
+																	aria-label="Team"
+																	aria-describedby="basic-addon1" name=""
+																	value="${employee.team.teamName}" disabled/>
+															</div>
+														</td>
+													</tr>
+
+
+													
 
 													<%-- <tr>
 														<td><input type="hidden" name="empId"

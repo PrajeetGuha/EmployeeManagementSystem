@@ -340,28 +340,7 @@
                                                             <tr>
                                                                 <td><br></td>
                                                             </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    SERVICE PERIOD :
-                                                                </td>
-                                                                <td>
-                                                                    <b>
-                                                                        <c:if test="${employee.servPeriod==null}">
-                                                                            <c:out value="No service period"/>
-                                                                        </c:if>
-
-                                                                        <c:if test="${employee.servPeriod!=null}">
-                                                                            <c:out value="${employee.servPeriod}" />
-                                                                            MONTHS
-                                                                        </c:if>
-                                                                    </b>
-                                                                </td>
-                                                            </tr>
-
-
-                                                            <tr>
-                                                                <td><br></td>
-                                                            </tr>
+                                                            
                                                             <tr>
                                                                 <td>
                                                                     WORK EMAIL :
@@ -490,6 +469,29 @@
                                                                     </b>
                                                                 </td>
                                                             </tr>
+                                                            <tr>
+                                                                <td><br></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    Team:
+                                                                </td>
+                                                                <td>
+                                                                    <b>
+                                                                        <c:if test="${employee.team==null}">
+                                                                            <c:out value="No Team assigned"/>
+                                                                        </c:if>
+
+                                                                        <c:if test="${employee.team!=null}">
+                                                                            <c:out value="${employee.team.teamName}" />
+                                                                            
+                                                                        </c:if>
+                                                                    </b>
+                                                                </td>
+                                                            </tr>
+
+
+                                                            
                                                         </table>
                                                     </div>
                                                 </div>

@@ -561,7 +561,7 @@ var barChartOptions = {
 			  		  },
 			  		  yaxis: {
 			  		    title: {
-			  		      text: "Total cost"
+			  		      text: "Total cost (in lakhs)"
 			  		    }
 			  		  }
 			  		};
