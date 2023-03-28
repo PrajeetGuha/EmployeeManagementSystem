@@ -26,47 +26,40 @@
 
 					<c:set var="pageNo" value="${pageNo}" />
 					<c:set var="pageCount" value="${pageCount}" />
-					<script>
-						$(document)
-							.ready(
-								function () {
-									// Loop through each cell in the highlight-column class
-									$('.highlight-column')
-										.each(
-											function () {
-												var status = $(this).text(); // Get the cell's text value
-
-												// Set a different background color based on the status value
-												if (status === 'active') {
-
-
-													$(this).css('color', 'limegreen');
-
-												} else if (status === 'inactive') {
-
-
-													$(this).css('color', 'red');
-												}
-											});
-								});
-					</script>
+					
 					
 						
 					<script>
-function updateMin() {
+					function updateMin() {
+						  /* var today = new Date();
+						  
+						  // Format today's date as YYYY-MM-DD
+						  var year = today.getFullYear();
+						  var month = (today.getMonth() + 1).toString().padStart(2, '0');
+						  var day = today.getDate().toString().padStart(2, '0');
+						  var formattedDate = `${year}-${month}-${day}`; */
+						  var today = new Date();
+						  var formattedDate = today.toISOString().slice(0, 10);
 
-	  var today = new Date();
-	
-	  // Format today's date as YYYY-MM-DD
-	  var year = today.getFullYear();
-	  var month = (today.getMonth() + 1).toString().padStart(2, '0');
-	  var day = today.getDate().toString().padStart(2, '0');
-	  var formattedDate = `${year}-${month}-${day}`;
-  var startDate = document.getElementById("start_date").value;
-  document.getElementById("end_date").setAttribute("min", startDate);
-  document.getElementById("end_date").setAttribute("max", formattedDate);
-  document.getElementById("start_date").setAttribute("max", formattedDate);
-}
+						  
+						  var startDate = document.getElementById("start_date").value;
+						  document.getElementById("end_date").setAttribute("min", startDate);
+						  document.getElementById("end_date").setAttribute("max", formattedDate);
+						  document.getElementById("start_date").setAttribute("max", formattedDate);
+						  
+						  // Set custom validity message
+						  var endDateInput = document.getElementById("end_date");
+						  endDateInput.setCustomValidity("");
+						  if (endDateInput.validity.rangeOverflow) {
+						    endDateInput.setCustomValidity("End date must not be after today");
+						  }
+						  
+						  // Show oninput message
+						  endDateInput.oninput = function() {
+						    endDateInput.setCustomValidity("");
+						  };
+						}
+
 </script>
 
 				</head>
@@ -327,11 +320,14 @@ function updateMin() {
 											<form action="addProfession" method="post" modelAttribute="profession">
 											<div class="modal-body">
 													<div class="form-group">
-														<label>Organisation Name</label><input type="text" class="form-control" name="nameOfPrevOrg" onchange="updateMin()"
+														<label>Organisation Name</label><input type="text" class="form-control" name="nameOfPrevOrg" 
 															required>
 													</div>
 													<div class="form-group">
-														<label>Designation</label><input type="text" class="form-control" name="designation" onchange="updateMin()"
+														<label>Designation</label><input type="text" class="form-control" name="designation" pattern="^[a-zA-Z][a-zA-Z0-9 -]*$"
+												
+												oninvalid="setCustomValidity('Designation can only contain alphanumeric characters, hiphens and whitespaces')"
+												onchange="setCustomValidity('')"
 															required>
 													</div>
 													<div class="form-group">
@@ -341,8 +337,8 @@ function updateMin() {
 													</div>
 													
 													<div class="form-group">
-														<label>End Date  </label> <input type="date"  id="end_date" class="form-control" name="toDate" onchange="updateMin()"
-															required>
+														<label>End Date  </label> <input type="date"  id="end_date" class="form-control" name="toDate" oninput="updateMin()"
+															max="" required>
 															
 													</div>
 													

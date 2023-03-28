@@ -165,7 +165,7 @@
 								"${email}",
 							</c:forEach>
 						];
-
+						
 						var unames = [
 							<c:forEach var="username" items="${usernames}">
 								"${username}",
@@ -183,7 +183,7 @@
 							});
 
 							// Validate personal email field
-							var email = $("#email").val();
+							var email = $("#email").val().trim();
 							if (email === "") {
 
 								$("#email")[0].setCustomValidity("Email is required");
@@ -195,23 +195,24 @@
 							}
 
 							// Validate username field
-							var username = $("#username").val();
+							var username = $("#username").val().trim();
+
 							const regex = /^[a-zA-Z][a-zA-Z0-9]*$/;
-							  const isgood = regex.test(username);
+							const isgood = regex.test(username);
+
 							if (username === "") {
-
-								$("#username")[0].setCustomValidity("Username is required");
-								isValid = false;
+							    $("#username")[0].setCustomValidity("Username is required");
+							    isValid = false;
 							} else if (unames.includes(username)) {
+							    $("#username")[0].setCustomValidity("Username already taken");
+							    isValid = false;
+							} else if (!isgood) {
+							    $("#username")[0].setCustomValidity('Username must start with an alphabet and can only contain alphanumeric characters.');
+							    isValid = false;
+							} else {
+							    $("#username")[0].setCustomValidity('');
+							}
 
-								$("#username")[0].setCustomValidity("Username already taken");
-								isValid = false;
-							}else if (!isgood) {
-							    this.setCustomValidity('Username must start with an alphabet and can only contain alphanumeric characters.');
-							    isValid=false;
-							  }else {
-							    this.setCustomValidity('');
-							  }
 
 							// Add event listener to clear custom validity messages on input
 							$(".required").on("input", function () {
@@ -246,6 +247,7 @@
 
 
 <body>
+	
 	<!-- <div>${result.getBody().getStatus()}</div> -->
 
 	<div class="wrapper">
@@ -799,7 +801,7 @@
 										<div class="input-container ic2">
 											<label for="email" class="placeholder">Personal Email</label>
 											<div class="cut cut-short"></div>
-											<input id="email" name="personalEmail" class="input required"
+											<input id="email" name="email" class="input required"
 												type="email" placeholder=" " required /> <span
 												id="email-error" class="error-text"></span>
 										</div>
@@ -886,8 +888,7 @@
 											<label for="username" class="placeholder">Username</label>
 											<div class="cut"></div>
 											<input id="username" name="username" class="input required"
-												type="text" placeholder=" " pattern = "^[a-zA-Z][a-zA-Z0-9]*$" oninvalid="setCustomValidity('Username must start with an alphabet and can only contain alphanumeric characters.')"
-												onchange="setCustomValidity('')"required /> <span
+												type="text" placeholder=" " required /> <span
 												id="username-error" class="error-text"></span>
 										</div>
 										<div class="input-container ic2">

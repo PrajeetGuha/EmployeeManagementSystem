@@ -437,9 +437,12 @@ public class AdminService {
 //                }
 
                 List<String> employeeIdValues = Arrays.asList(teamMember.split(";"));
-            	if(!employeeIdValues.contains(Long.toString(team.getTm().getEmpId()))) {
+                if(team.getTm()!=null)
+                {
+                if(!employeeIdValues.contains(Long.toString(team.getTm().getEmpId()))) {
             		team.setTm(null);
             	}
+                }
             teamRepository.save(team);
             employeeRepository.updateTeam(teamId);
            if (!teamMember.equals("")) {

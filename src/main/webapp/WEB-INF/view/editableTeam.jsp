@@ -643,7 +643,7 @@ function addRow(id,name) {
 
 
 
-
+					
 					<div id="addTM" class="modal fade">
 						<div class="modal-dialog">
 							<div class="modal-content">
@@ -658,7 +658,7 @@ function addRow(id,name) {
 												Manager</label>
 											<div class="cut cut-short"></div>
 											<select id="teamManager" name="teamManagerValues"
-												class="input required" placeholder="Team Manager">
+												class="input" placeholder="Team Manager">
 												<c:if test="${potentialTM !=null}">
 													<c:forEach var="teammanager" items="${potentialTM }">
 
@@ -666,7 +666,11 @@ function addRow(id,name) {
 															${teammanager.empName }</option>
 													</c:forEach>
 												</c:if>
-												<c:if test="${potentialTM ==null}">
+												<c:if test="${empty potentialTM}">
+
+													<option value="0">No employee eligible</option>
+												</c:if>
+												<c:if test="${potentialTM==null}">
 
 													<option value="0">No employee eligible</option>
 												</c:if>

@@ -658,6 +658,11 @@ function addRow(id,name) {
 
 													<option value="0">No employee eligible</option>
 												</c:if>
+												<c:if test="${empty potentialpm}">
+
+													<option value="0">No employee eligible</option>
+												</c:if>
+
 											</select>
 										</div>
 										<br> <br>

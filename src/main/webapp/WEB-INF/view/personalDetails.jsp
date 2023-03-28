@@ -33,125 +33,15 @@
 
 <c:set var="pageNo" value="${pageNo}" />
 <c:set var="pageCount" value="${pageCount}" />
-<script>
-          $(document)
-            .ready(
-              function () {
-                // Loop through each cell in the highlight-column class
-                $('.highlight-column')
-                  .each(
-                    function () {
-                      var status = $(this).text(); // Get the cell's text value
-
-                      // Set a different background color based on the status value
-                      if (status === 'active') {
 
 
-                        $(this).css('color', 'limegreen');
-
-                      } else if (status === 'inactive') {
-
-
-                        $(this).css('color', 'red');
-                      }
-                    });
-              });
-        </script>
-<script>
-          $(document).ready(function () {
-            // Get the list of items from the model attribute
-            var items = [
-              <c:forEach var="item" items="${allemployeenames}">
-                "${item}",
-              </c:forEach>
-            ];
-
-            // Set the initial form action
-            /*  var initialUrl = window.location.href.split('?')[0];
-           $('#search-form').attr('action', initialUrl + '?search=null&pg=1');
-            */
-
-            // Listen for the keyup event on the search input field
-            $('#search-input').on('keyup', function () {
-              // Get the value of the search input field
-              var searchTerm = $(this).val().toLowerCase();
-
-              // Filter the list based on the search term
-              var filteredItems = items.filter(function (item) {
-                return item.toLowerCase().indexOf(searchTerm) > -1;
-              });
-
-              // Update the search results list
-              var $searchResults = $('#search-results');
-              $searchResults.empty();
-              filteredItems.forEach(function (item) {
-                var $li = $('<li>').text(item);
-                $li.on('click', function () {
-                  $('#search-input').val($(this).text());
-                  $searchResults.hide();
-
-
-                });
-                $searchResults.append($li);
-              });
-
-              // Show/hide the search results list
-              if (searchTerm.length > 0) {
-                $searchResults.show();
-              } else {
-                $searchResults.hide();
-              }
-            });
-
-            // Hide the search results list on document click
-            $(document).on('click', function (event) {
-              if (!$(event.target).closest('.xp-searchbar').length) {
-                $searchResults.hide();
-              }
-            });
-
-            // Update form action when GO button is clicked
-            $('#button-addon2').on('click', function (event) {
-              event.preventDefault();
-              updateFormAction();
-            });
-
-            function updateFormAction() {
-              var searchTerm = $('#search-input').val();
-              if (searchTerm.trim() === '') {
-                searchTerm = 'null';
-              }
-              var url = 'http://localhost:8081/admin/dashboard?search=null'; // replace with your URL
-              var newUrl = url.replace('search=null', 'search=' + encodeURIComponent(searchTerm) + '&pg=1');
-              window.location.href = newUrl;
-            }
-
-
-
-          });
-        </script>
 
 </head>
 
 <c:set var="pageNo" value="${pageNo}" />
 <c:set var="pageCount" value="${pageCount}" />
 </head>
-<script>
-        function selectedEmpstatus(id, name, status) {
-          document.getElementById("empstatusname").innerHTML = name;
-          $("#empIdStatus").attr("value", id);
-          if (status == "inactive") {
-            $("#status-modal-form").attr("action", "activateUser?search=${search}&pgNo=${pageNo}");
-            $("#changestatusbtn").attr("class", "btn btn-primary");
-            $("#changestatusbtn").attr("value", "Activate");
-          }
-          else {
-            $("#status-modal-form").attr("action", "deactivateUser?search=${search}&pgNo=${pageNo}");
-            $("#changestatusbtn").attr("class", "btn btn-danger");
-            $("#changestatusbtn").attr("value", "Deactivate");
-          }
-        }
-      </script>
+
 
 <body>
 
@@ -365,18 +255,14 @@
 													aria-label="Sizing example input"
 													aria-describedby="inputGroup-sizing-default"
 													pattern="[1-9]{1}[0-9]{11}" name="adhaarno"
-													value="${employeeinfomation.adhaarno}" required>
+													value="${employeeinfomation.adhaarno}" placeholder="Adhaar number" required>
 											</div>
 
 											<br>
 
-											<div class="input-group mb-3">
-												<label class="input-group-text" for="inputGroupFile01">Adhaar
-													Card </label> <input type="file" class="form-control"
-													id="inputGroupFile01">
-											</div>
+											
 
-											<br>
+											
 
 											<div class="input-group mb-3">
 												<span class="input-group-text"
@@ -385,16 +271,11 @@
 													aria-label="Sizing example input"
 													aria-describedby="inputGroup-sizing-default"
 													pattern="[1-9]{1}[0-9]{9}" name="pancardnno"
-													value="${employeeinfomation.pancardnno}" required>
+													value="${employeeinfomation.pancardnno}" placeholder="Pan number" required>
 											</div>
 											<br>
 
-											<div class="input-group mb-3">
-												<label class="input-group-text" for="inputGroupFile01">Pan
-													Card </label> <input type="file" class="form-control"
-													id="inputGroupFile01">
-											</div>
-											<br>
+											
 											<div class="input-group mb-3">
 												<span class="input-group-text"
 													id="inputGroup-sizing-default">Passport number</span> <input
@@ -402,15 +283,10 @@
 													aria-label="Sizing example input"
 													aria-describedby="inputGroup-sizing-default"
 													pattern="[1-9]{1}[0-9]{9}" name="passportno"
-													value="${employeeinfomation.passportno}" required>
+													value="${employeeinfomation.passportno}" placeholder="Passport number" required>
 											</div>
 											<br>
-											<div class="input-group mb-3">
-												<label class="input-group-text" for="inputGroupFile01">Passport
-													Document </label> <input type="file" class="form-control"
-													id="inputGroupFile01">
-											</div>
-											<br>
+											
 
 											<div class="input-group mb-3">
 												<label class="input-group-text" for="inputGroupFile01">Marital

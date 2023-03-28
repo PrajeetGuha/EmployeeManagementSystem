@@ -406,87 +406,94 @@ var barChartOptions = {
 			    
 			    var chart = new ApexCharts(document.querySelector("#chart"), chartOptions);
 			    chart.render();*/
-			    
+			    console.log(${sexratio[0]});
+			    console.log(${sexratio[1]});
+			    console.log(${sexratio[2]});
+			    var seriesData = [${sexratio[0]}, ${sexratio[1]}, ${sexratio[2]}];
+			    var labelsData = ["Male", "Female", "Other"];
+			    var seriesFiltered = seriesData.filter(val => val !== 0);
+			    var labelsFiltered = labelsData.filter((val, i) => seriesData[i] !== 0);
+
 			    var options = {
-			            series: [${sexratio[0]}, ${sexratio[1]}, ${sexratio[2]}],
-			            chart: {
-			            width: 350,
-			            type: 'donut',
-			            toolbar: {
-					        show: true,
-					        tools: {
-					          download: true,
-					          selection: true,
-					          zoom: true,
-					          zoomin: true,
-					          zoomout: true,
-					          pan: true,
-					          reset: true
-					        },
-					        autoSelected: 'zoom'
-					      },
-			            dropShadow: {
-			              enabled: true,
-			              color: '#111',
-			              top: -1,
-			              left: 3,
-			              blur: 3,
-			              opacity: 0.2
-			            }
+			      series: seriesFiltered,
+			      chart: {
+			        width: 350,
+			        type: 'donut',
+			        toolbar: {
+			          show: true,
+			          tools: {
+			            download: true,
+			            selection: true,
+			            zoom: true,
+			            zoomin: true,
+			            zoomout: true,
+			            pan: true,
+			            reset: true
 			          },
-			          stroke: {
-			            width: 0,
-			          },
-			          plotOptions: {
-			            pie: {
-			              donut: {
-			                labels: {
-			                  show: true,
-			                  total: {
-			                    showAlways: true,
-			                    show: true
-			                  }
-			                }
+			          autoSelected: 'zoom'
+			        },
+			        dropShadow: {
+			          enabled: true,
+			          color: '#111',
+			          top: -1,
+			          left: 3,
+			          blur: 3,
+			          opacity: 0.2
+			        }
+			      },
+			      stroke: {
+			        width: 0,
+			      },
+			      plotOptions: {
+			        pie: {
+			          donut: {
+			            labels: {
+			              show: true,
+			              total: {
+			                showAlways: true,
+			                show: true
 			              }
 			            }
-			          },
-			          labels: ["Male", "Female", "Other"],
-			          dataLabels: {
-			            dropShadow: {
-			              blur: 3,
-			              opacity: 0.8
-			            }
-			          },
-			          fill: {
-			          type: 'pattern',
-			            opacity: 1,
-			            pattern: {
-			              enabled: true,
-			              style: ['squares', 'squares', 'squares'],
-			            },
-			          },
-			          states: {
-			            hover: {
-			              filter: 'none'
-			            }
-			          },
-			          theme: {
-			            palette: 'palette2'
-			          },
-			        
-			          responsive: [{
-			            breakpoint: 480,
-			            options: {
-			              chart: {
-			                width: 200
-			              },
-			              
-			            }
-			          }]
-			          };
+			          }
+			        }
+			      },
+			      labels: labelsFiltered,
+			      dataLabels: {
+			        dropShadow: {
+			          blur: 3,
+			          opacity: 0.8
+			        }
+			      },
+			      fill: {
+			        type: 'pattern',
+			        opacity: 1,
+			        pattern: {
+			          enabled: true,
+			          style: ['squares', 'squares', 'squares'],
+			        },
+			      },
+			      states: {
+			        hover: {
+			          filter: 'none'
+			        }
+			      },
+			      theme: {
+			        palette: 'palette2'
+			      },
+			            
+			      responsive: [{
+			        breakpoint: 480,
+			        options: {
+			          chart: {
+			            width: 200
+			          },   
+			        }
+			      }]
+			    };
 
-			          var chart = new ApexCharts(document.querySelector("#chart"), options);
-			          chart.render();
+			    var chart = new ApexCharts(document.querySelector("#chart"), options);
+			    chart.render();
+
 			    
 			    var barChart2Options = {
 			  		  series: [{

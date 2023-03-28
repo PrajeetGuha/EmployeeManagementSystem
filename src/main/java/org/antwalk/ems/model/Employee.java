@@ -96,7 +96,7 @@ public class Employee {
     private Integer totalLeave;
 
     @Column
-    private Double ctc;
+    private Double ctc=0.0;
     @Column
     private Integer yearOfExperience;
 
