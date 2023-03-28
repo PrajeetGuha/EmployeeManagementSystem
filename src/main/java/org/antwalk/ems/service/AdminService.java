@@ -217,7 +217,7 @@ public class AdminService {
   {
 	  return employeeRepository.totalcost();
   }
-  public List<String> emptype()
+  public List<Integer> emptype()
   {
 	  return employeeRepository.emptype();
   }
@@ -225,7 +225,15 @@ public class AdminService {
   {
 	  return employeeRepository.recruitment();
   }
-
+  public List<String> getrecruitmentyear()
+  {
+  	return employeeRepository.getrecruitmentyear();
+  }
+  
+  public List<String> findProjectsWithTeams()
+  {
+  	return projectRepository.findProjectsWithTeams();
+  }
   
   public List<Integer> teamcount()
   {
@@ -241,6 +249,15 @@ public class AdminService {
     {
     	return employeeRepository.deptname();
     }
+    public List<String> distgender()
+    {
+    	return employeeRepository.distgender();
+    }
+    public List<String> distemptype()
+    {
+    	return employeeRepository.distemptype();
+    }
+    
     public List<String> teamdept()
     {
     	return teamRepository.teamdept();
@@ -554,7 +571,9 @@ public class AdminService {
 					() -> new EmployeeNotFoundException("Employee not found"));
 			employee.setEmpId(empId);
 			employee.setEmployeeDetails(persistedEmployee.getEmployeeDetails());
-			employee.setTeam(persistedEmployee.getTeam());   
+			employee.setTeam(persistedEmployee.getTeam());
+
+			employee.setEmpstatus(persistedEmployee.getEmpstatus());
 			employee.setResignation(persistedEmployee.getResignation());
 			String before_dept=persistedEmployee.getDepartment();
 			String after_dept=employee.getDepartment();

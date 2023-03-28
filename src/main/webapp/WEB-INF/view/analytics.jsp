@@ -277,7 +277,7 @@
             <div id="bar-chart3"></div>
           </div> 
           <div class="charts-card" style="width: 97%;" >
-            <p class="chart-title">Teams in Project</p>
+            <p class="chart-title">Teams in Project </p>
             <div id="bar-chart4"></div>
           </div> 
           </div>
@@ -358,7 +358,13 @@ var barChartOptions = {
 		      distributed: true,
 		      borderRadius: 4,
 		      horizontal: false,
-		      columnWidth: '40%',
+		      barHeight: '30%',
+	    		  margin: {
+	                left: 100,
+	                right: 100
+	            },
+	            columnWidth: '20%',
+	            barWidth: 30
 		    }
 		  },
 		  dataLabels: {
@@ -406,16 +412,14 @@ var barChartOptions = {
 			    
 			    var chart = new ApexCharts(document.querySelector("#chart"), chartOptions);
 			    chart.render();*/
-			    console.log(${sexratio[0]});
-			    console.log(${sexratio[1]});
-			    console.log(${sexratio[2]});
-			    var seriesData = [${sexratio[0]}, ${sexratio[1]}, ${sexratio[2]}];
-			    var labelsData = ["Male", "Female", "Other"];
-			    var seriesFiltered = seriesData.filter(val => val !== 0);
-			    var labelsFiltered = labelsData.filter((val, i) => seriesData[i] !== 0);
-
+			    
+			    
 			    var options = {
-			      series: seriesFiltered,
+			      series: [
+					    <c:forEach var="item" items="${sexratio}">
+					      ${item},
+					      </c:forEach>
+					  ],
 			      chart: {
 			        width: 350,
 			        type: 'donut',
@@ -457,7 +461,9 @@ var barChartOptions = {
 			          }
 			        }
 			      },
-			      labels: labelsFiltered,
+			      labels: [<c:forEach var="item" items="${distgender}">
+			      "${item}",
+			      </c:forEach>],
 			      dataLabels: {
 			        dropShadow: {
 			          blur: 3,
@@ -530,7 +536,13 @@ var barChartOptions = {
 			  		      distributed: true,
 			  		      borderRadius: 4,
 			  		      horizontal: false,
-			  		      columnWidth: '40%',
+			  		    barHeight: '30%',
+		  	    		  margin: {
+		  	                left: 100,
+		  	                right: 100
+		  	            },
+		  	            columnWidth: '20%',
+		  	            barWidth: 30
 			  		    }
 			  		  },
 			  		  dataLabels: {
@@ -540,14 +552,16 @@ var barChartOptions = {
 			  		    show: false
 			  		  },
 			  		  xaxis: {
-			  		    categories: ['trainee','hr','administration','accounts','sports','security','others'],
+			  		    categories: [<c:forEach var="item" items="${deptname}">
+			  		      "${item}",
+			  		      </c:forEach>],
 			  		    title: {
-				  		      text: "Total cost"
+				  		      text: "Department"
 				  		    }
 			  		  },
 			  		  yaxis: {
 			  		    title: {
-			  		      text: "Department"
+			  		      text: "Total cost"
 			  		    }
 			  		  }
 			  		};
@@ -556,7 +570,9 @@ var barChartOptions = {
 			  		barChart2.render();
 			  		
 			  		var pieoptions = {
-			  	          series: [${emptype[0]}, ${emptype[1]}, ${emptype[2]}],
+			  	          series: [<c:forEach var="item" items="${emptype}">
+					      ${item},
+					      </c:forEach>],
 			  	          chart: {
 			  	          width: 380,
 			  	          type: 'pie',
@@ -577,7 +593,9 @@ var barChartOptions = {
 			  	        },
 			  	          
 			  	        },
-			  	        labels: ['Full-Time', 'Part-Time', 'Contract'],
+			  	        labels: [<c:forEach var="item" items="${distemptype}">
+					      "${item}",
+					      </c:forEach>],
 			  	        responsive: [{
 			  	          breakpoint: 480,
 			  	          options: {
@@ -616,10 +634,8 @@ var barChartOptions = {
 			  	          stroke: {
 			  	            curve: 'straight'
 			  	          },
-			  	          title: {
-			  	            text: 'Monthwise',
-			  	            align: 'left'
-			  	          },
+			  	          
+			  	          
 			  	          grid: {
 			  	            row: {
 			  	              colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
@@ -627,7 +643,9 @@ var barChartOptions = {
 			  	            },
 			  	          },
 			  	          xaxis: {
-			  	            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep','Oct','Nov','Dec'],
+			  	            categories: [<c:forEach var="item" items="${getrecruitmentyear}">
+				  		      "${item}",
+				  		      </c:forEach>],
 			  	          }
 			  	          };
 
@@ -670,8 +688,15 @@ var barChartOptions = {
 			  	    		      distributed: true,
 			  	    		      borderRadius: 4,
 			  	    		      horizontal: false,
-			  	    		      columnWidth: '40%',
-			  	    		    }
+			  	    		      
+			  	    		    
+			  	    		    barHeight: '30%',
+				  	    		  margin: {
+				  	                left: 100,
+				  	                right: 100
+				  	            },
+				  	            columnWidth: '20%',
+				  	            barWidth: 30}
 			  	    		  },
 			  	    		  dataLabels: {
 			  	    		    enabled: false
@@ -700,7 +725,7 @@ var barChartOptions = {
 			  	    		 var barChart4Options = {
 					  	    		  series: [{
 					  	    		    data: [<c:forEach var="item" items="${findteamcount}">
-							  		      "${item}",
+							  		      ${item},
 							  		      </c:forEach>]
 					  	    		  }],
 					  	    		  chart: {
@@ -731,8 +756,15 @@ var barChartOptions = {
 					  	    		    bar: {
 					  	    		      distributed: true,
 					  	    		      borderRadius: 4,
-					  	    		      horizontal: true,
-					  	    		      columnWidth: '40%',
+					  	    		      horizontal: false,
+					  	    		      
+					  	    		    barHeight: '30%',
+					  	    		  margin: {
+					  	                left: 100,
+					  	                right: 100
+					  	            },
+					  	            columnWidth: '20%',
+					  	            barWidth: 30
 					  	    		    }
 					  	    		  },
 					  	    		  dataLabels: {
@@ -742,16 +774,18 @@ var barChartOptions = {
 					  	    		    show: false
 					  	    		  },
 					  	    		  xaxis: {
-					  	    		    categories: [<c:forEach var="item" items="${listprojects}">
-							  		      "${item.projectName}",
+					  	    		    categories: [<c:forEach var="item" items="${findProjectsWithTeams}">
+							  		      "${item}",
 							  		      </c:forEach>],
+							  		    
 					  	    		      title: {
-					  	    			      text: "Number of Teams"
-					  	    			    }
+					  	    			      text: "Project"
+					  	    			    },
+					  	    			  
 					  	    		  },
 					  	    		  yaxis: {
 					  	    		    title: {
-					  	    		      text: "Project"
+					  	    		      text: "Number of Teams"
 					  	    		    }
 					  	    		  }
 					  	    		};

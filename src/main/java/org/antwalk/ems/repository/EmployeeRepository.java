@@ -64,27 +64,37 @@ public interface EmployeeRepository extends JpaRepository<Employee,Long>  {
     @Query("select empName from Employee e where empId = :empId")
     public String getEmpNameByEmpId(Long empId);
     
-    @Query("SELECT coalesce(COUNT(*),0) as count FROM Employee where empstatus= 'active' GROUP BY emptype ORDER BY CASE emptype WHEN 'full time' THEN 0 WHEN 'part time' THEN 1 WHEN 'contract' THEN 2 END")
-    List<String> emptype();
+    @Query("SELECT COUNT(*) as count FROM Employee where empstatus= 'active' GROUP BY emptype ")
+    public List<Integer> emptype();
 
+    @Query("select DISTINCT emptype FROM Employee where empstatus='active'")
+    public List<String> distemptype();
+    
     @Query("select leaves from Employee e where e.empId = :empId")
     public List<LeaveApplication> getLeavesById(Long empId);
     
-    @Query("SELECT COUNT(*) AS count, MONTH(doj) AS month FROM Employee GROUP BY MONTH(doj) ORDER BY MONTH(doj)")
+    @Query("SELECT COUNT(*) AS count, YEAR(doj) AS month FROM Employee GROUP BY YEAR(doj) ORDER BY YEAR(doj)")
     public List<Integer> recruitment();
     
-    @Query("SELECT coalesce(COUNT(*),0) as count FROM Employee where empstatus= 'active' GROUP BY gender ORDER BY CASE gender WHEN 'male' THEN 0 WHEN 'female' THEN 1 WHEN 'other' THEN 2 END")
+    @Query("SELECT DATE_FORMAT(doj, '%Y') AS year FROM Employee GROUP BY DATE_FORMAT(doj, '%Y') ORDER BY DATE_FORMAT(doj, '%Y')")
+    public List<String> getrecruitmentyear();
+
+    
+    @Query("SELECT COUNT(*) as count FROM Employee where empstatus= 'active' GROUP BY gender ")
     public List<Integer> sexratio();
     
+    @Query("select DISTINCT gender FROM Employee where empstatus='active'")
+    public List<String> distgender();
+    
     @Query("SELECT coalesce(COUNT(*),0) as employeecount FROM Employee where empstatus= 'active'  GROUP BY department")
-    List<Integer> findemployeecount();
+    public List<Integer> findemployeecount();
     
 
-    @Query("select SUM(ctc) FROM Employee  GROUP BY department")
-    List<Double> totalcost();
+    @Query("select SUM(ctc) FROM Employee where empstatus= 'active' GROUP BY department")
+    public List<Double> totalcost();
     
     @Query("select DISTINCT department FROM Employee")
-    List<String> deptname();
+    public List<String> deptname();
     
     
     
