@@ -769,7 +769,7 @@
 					<div class="modal fade" id="addEmployeeModal" tabindex="-1"
 						role="dialog" aria-labelledby="addEmployeeModalLabel"
 						aria-hidden="true">
-						<div class="modal-dialog" role="document">
+						<div class="modal-dialog modal-dialog-scrollable" role="document">
 							<div class="modal-content">
 
 								<div class="modal-header">
