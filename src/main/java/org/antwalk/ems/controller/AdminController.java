@@ -285,35 +285,52 @@ private EmployeeRepository employeeRepository;
 //   	}
 
     @PostMapping("deactivateUser")
-    public String deactivateEmployee(@ModelAttribute("employee") Employee employee, @RequestParam int pgNo, BindingResult result, RedirectAttributes redirectAttrs) throws UserNotFoundException{
-        adminService.deactivateEmp(employee.getEmpId());
+    public String deactivateEmployee(@ModelAttribute("employee") Employee employee, HttpServletRequest request, BindingResult result, RedirectAttributes redirectAttrs){
+        
+        String search = request.getParameter("search");
+        String pgNo = request.getParameter("pgNo");
+        String status;
         if (result.hasErrors()){
-            redirectAttrs.addFlashAttribute("result", result);
+            redirectAttrs.addFlashAttribute("error", result);
+            status = "FAILED";
         }
         else{
-            redirectAttrs.addFlashAttribute("result",ResponseEntity.ok().body(new SuccessDetails(
-                new Date(),
-                "Deactivated",
-                "The employee " + employee.getEmpId() + " has been deactivated"
-            )));
+            try{
+                adminService.deactivateEmp(employee.getEmpId());
+                redirectAttrs.addFlashAttribute("message","Employee "+employee.getEmpId()+" successfully deactivated");
+                status = "SUCCESS";
+            }
+            catch(Exception e){
+                redirectAttrs.addFlashAttribute("exception", e);
+                status = "FAILED";
+            }
         }
-        return "redirect:/admin/dashboard?search=null&pg="+pgNo;
+        redirectAttrs.addFlashAttribute("status",status);
+        return String.format("redirect:/admin/dashboard?search=%s&pg=%s",search,pgNo);
     }
 
     @PostMapping("activateUser")
-    public String activateEmployee(@ModelAttribute("employee") Employee employee, @RequestParam int pgNo, BindingResult result, RedirectAttributes redirectAttrs) throws UserNotFoundException{
-        adminService.activateEmp(employee.getEmpId());
+    public String activateEmployee(@ModelAttribute("employee") Employee employee, HttpServletRequest request, BindingResult result, RedirectAttributes redirectAttrs){
+        String search = request.getParameter("search");
+        String pgNo = request.getParameter("pgNo");
+        String status;
         if (result.hasErrors()){
-            redirectAttrs.addFlashAttribute("result", result);
+            redirectAttrs.addFlashAttribute("error", result);
+            status = "FAILED";
         }
         else{
-            redirectAttrs.addFlashAttribute("result",ResponseEntity.ok().body(new SuccessDetails(
-                new Date(),
-                "Deactivated",
-                "The employee " + employee.getEmpId() + " has been activated"
-            )));
+            try{
+                adminService.activateEmp(employee.getEmpId());
+                redirectAttrs.addFlashAttribute("message","Employee "+employee.getEmpId()+" successfully activated");
+                status = "SUCCESS";
+            }
+            catch(Exception e){
+                redirectAttrs.addFlashAttribute("exception", e);
+                status = "FAILED";
+            }
         }
-        return "redirect:/admin/dashboard?search=null&pg="+pgNo;
+        redirectAttrs.addFlashAttribute("status",status);
+        return String.format("redirect:/admin/dashboard?search=%s&pg=%s",search,pgNo);
     }
 
     @PostMapping("/leaveAction")
@@ -419,7 +436,7 @@ private EmployeeRepository employeeRepository;
     @PostMapping("/changePassword")
     public String changePassword(@ModelAttribute("newpass") ChangePasswordDTO changePasswordDTO, RedirectAttributes redirectAttributes) {
         // code to change the password here
-    	adminService.changePassword(changePasswordDTO);
+    	
         redirectAttributes.addFlashAttribute("successMessage", "Password changed successfully!");
         return "redirect:/admin/dashboard?search=null&pg=1";
     }
