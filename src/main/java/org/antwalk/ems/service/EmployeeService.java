@@ -56,8 +56,9 @@ public class EmployeeService {
 		return employeeRepository.getById(id).getEmployeeDetails();
 	}
 
-	public Employee findEmployee(Long id){
-		return employeeRepository.getById(id);
+	public Employee findEmployee(Long id) throws EmployeeNotFoundException{
+		return employeeRepository.findById(id).orElseThrow(
+				() -> new EmployeeNotFoundException("The employee is not found"));
 	}
 	public List<LeaveApplication> findEmployeeLeaves(Long id, int pg) throws EmployeeNotFoundException  {
          employeeRepository.findById(id).orElseThrow(
@@ -191,6 +192,16 @@ public class EmployeeService {
 		);
 		Pageable pageable = PageRequest.of(0, PAGESIZE);
 		return leaveApplicationRepository.getLeavesById(id, pageable).getTotalPages();
+	}
+
+	public List<Integer> countApplied(Long id) {
+		List<Integer> applied=new ArrayList<>();
+		applied.add(leaveApplicationRepository.getAppliedCL(id));
+		applied.add(leaveApplicationRepository.getAppliedPL(id));
+		applied.add(leaveApplicationRepository.getAppliedSL(id));
+		
+		// TODO Auto-generated method stub
+		return applied;
 	}
 
 }

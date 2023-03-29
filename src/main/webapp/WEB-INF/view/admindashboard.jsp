@@ -55,11 +55,8 @@
 					<h5 class="modal-title" id="exampleModalLabel">Success!</h5>
 
 				</div>
-<<<<<<< HEAD
-				<div class="modal-body">Password changed successfully</div>
-=======
+
 				<div class="modal-body">Operation successful!</div>
->>>>>>> 30b48ec11b0f8d2c8b29ed835608e5ed2ff8dcd1
 			</div>
 		</div>
 	</div>

@@ -340,6 +340,21 @@ public class AdminService {
         );
         leaveApplication.setAdmin(admin);
         leaveApplication.setIsApproved(approve.equals("true") ? true : false);
+        Employee employee=leaveApplication.getEmployee();
+        if(leaveApplication.getLeaveType().equals("CL")) {
+        		
+            employee.setClLeft(employee.getClLeft()-1);
+        }
+        else if(leaveApplication.getLeaveType().equals("SL")) {
+    		
+            employee.setSlLeft(employee.getSlLeft()-1);
+        }
+        else if(leaveApplication.getLeaveType().equals("PL")) {
+        		
+            employee.setMoreLeave(employee.getMoreLeave()+1);
+        }
+        employeeRepository.save(employee);
+        leaveApplication.setEmployee(employee);
         leaveApplicationRepository.save(leaveApplication);
         }
         

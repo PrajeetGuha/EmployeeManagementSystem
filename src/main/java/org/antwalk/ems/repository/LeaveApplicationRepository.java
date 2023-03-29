@@ -16,5 +16,14 @@ public interface LeaveApplicationRepository extends JpaRepository<LeaveApplicati
 	
 	@Query("select l from LeaveApplication l where l.employee.empId = :id")
 	Page<LeaveApplication> getLeavesById(Long id, Pageable pageable);
+	
+	@Query("select count(l) from LeaveApplication l where l.employee.empId = :id and l.leaveType='CL' and l.isApproved is null")
+	Integer getAppliedCL(Long id);
+
+	@Query("select count(l) from LeaveApplication l where l.employee.empId = :id and l.leaveType='PL' and l.isApproved is null")
+	Integer getAppliedPL(Long id);
+
+	@Query("select count(l) from LeaveApplication l where l.employee.empId = :id and l.leaveType='SL' and l.isApproved is null")
+	Integer getAppliedSL(Long id);
     
 }
