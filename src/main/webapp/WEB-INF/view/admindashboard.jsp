@@ -236,12 +236,12 @@
 							document.getElementById("empstatusname").innerHTML = name;
 							$("#empIdStatus").attr("value", id);
 							if (status == "inactive") {
-								$("#status-modal-form").attr("action", "activateUser?search=${search}&pgNo=${pageNo}");
+								$("#status-modal-form").attr("action", "activateUser?search=${search}&pg=${pageNo}");
 								$("#changestatusbtn").attr("class", "btn btn-primary");
 								$("#changestatusbtn").attr("value", "Activate");
 							}
 							else {
-								$("#status-modal-form").attr("action", "deactivateUser?search=${search}&pgNo=${pageNo}");
+								$("#status-modal-form").attr("action", "deactivateUser?search=${search}&pg=${pageNo}");
 								$("#changestatusbtn").attr("class", "btn btn-danger");
 								$("#changestatusbtn").attr("value", "Deactivate");
 							}
@@ -251,7 +251,12 @@
 <c:set var="pageNo" value="${pageNo}" />
 <c:set var="pageCount" value="${pageCount}" />
 </head>
-
+<style>
+#search-results {
+  max-height: 100px; /* set the maximum height of the dropdown menu */
+  overflow-y: auto; /* enable vertical scrolling when the content exceeds the max-height */
+}
+</style>
 
 <body>
 	
@@ -640,7 +645,7 @@
 											aria-hidden="true">&times;</button> -->
 														</div>
 														<div class="modal-body">
-															<form action="changePassword" method="post"
+															<form action="changePassword?search=${search }&pg=${pageNo }" method="post"
 																modelAttribute="newpass">
 
 																<input type="hidden" id="empId" name="empId"
