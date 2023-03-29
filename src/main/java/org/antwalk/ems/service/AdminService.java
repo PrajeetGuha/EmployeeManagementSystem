@@ -234,7 +234,7 @@ public class AdminService {
 
 
     public Long countAllEmployees(){
-        return employeeRepository.count();
+        return employeeRepository.ActiveEmployeeCount();
     }
     
     public List<String> deptname()
