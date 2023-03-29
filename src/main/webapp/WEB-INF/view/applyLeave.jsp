@@ -247,7 +247,6 @@
 											</thead>
 											<tbody>
 												<tr>
-
 													<c:forEach items="${leavelist}" var="leave">
 												<tr>
 													<td>

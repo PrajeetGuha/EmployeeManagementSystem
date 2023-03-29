@@ -40,7 +40,7 @@
 
 <c:set var="pageNo" value="${pageNo}" />
 <c:set var="pageCount" value="${pageCount}" />
-<c:if test="${not empty successMessage}">
+<c:if test="${status eq 'SUCCESS'}">
 	<!-- Button trigger modal -->
 	<button type="button" class="btn btn-primary d-none"
 		data-toggle="modal" data-target="#exampleModal">Launch demo
@@ -55,7 +55,7 @@
 					<h5 class="modal-title" id="exampleModalLabel">Success!</h5>
 
 				</div>
-				<div class="modal-body">${successMessage}</div>
+				<div class="modal-body">Password changed successfully</div>
 			</div>
 		</div>
 	</div>
@@ -425,6 +425,7 @@
 							</div>
 						</div>
 					</div> --%>
+	
 
 		<div id="adminprofile" class="modal fade">
 			<div class="modal-dialog">

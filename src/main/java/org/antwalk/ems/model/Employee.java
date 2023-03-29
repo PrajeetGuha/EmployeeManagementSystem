@@ -81,19 +81,19 @@ public class Employee {
     private String workstationId;
 
     @Column
-    private Integer clLeft;
+    private Integer clLeft=6;
 
     @Column
     private Integer plLeft;
 
     @Column
-    private Integer slLeft;
+    private Integer slLeft=6;
 
     @Column
-    private Integer moreLeave;
+    private Integer moreLeave=0;
 
     @Column
-    private Integer totalLeave;
+    private Integer totalLeave=0;
 
     @Column
     private Double ctc=0.0;

@@ -107,11 +107,27 @@ public class EmployeeController {
        public String leaveApplicationView(HttpServletRequest request, Model model) {
        Long id = AuthenticationSystem.getId();
        
-    //    int pg = Integer.parseInt(request.getParameter("pg"));
-    int pg=1;
+        int pg = Integer.parseInt(request.getParameter("pg"));
        
-        List<LeaveApplication> leaveapplications = employeeService.findEmployeeLeaves(id,pg);
+        List<LeaveApplication> leaveapplications = null;
+        int totalCount = 0;
+        int totalPages = 0;
+        String status;
+		try {
+			leaveapplications = employeeService.findEmployeeLeaves(id,pg);
+			totalCount = employeeService.totalLeaves(id);
+			totalPages = employeeService.totalCountOfPages(id);
+			status = "SUCCESS";
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			model.addAttribute("exception",e);
+			System.out.println(e);
+			status = "FAILED";
+		}
+		model.addAttribute("status",status);
         model.addAttribute("leavelist",leaveapplications);
+        model.addAttribute("totalPages",totalPages);
+        model.addAttribute("count",totalCount);
         model.addAttribute("pg", pg);
        return "applyLeave";
        }

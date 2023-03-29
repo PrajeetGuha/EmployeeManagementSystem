@@ -345,15 +345,33 @@ public class AdminService {
         
         
         public List<LeaveApplication> listAllLeaves(int pg) {
-            Pageable pageable = PageRequest.of(pg, PAGE_SIZE, Sort.by("applicationDate"));
-            return leaveApplicationRepository.findAll();
+            Pageable pageable = PageRequest.of(pg-1, PAGE_SIZE, Sort.by("applicationDate"));
+            return leaveApplicationRepository.findAll(pageable).getContent();
+        }
+        
+        public int totalLeaves() {
+        	return leaveApplicationRepository.findAll().size();
+        }
+        
+        public int totalCountPagesLeaves() {
+        	Pageable pageable = PageRequest.of(0, PAGE_SIZE);
+        	return leaveApplicationRepository.findAll(pageable).getTotalPages();
         }
 
 
         public List<Resignation> listAllResignations(int pg) {
-            Pageable pageable = PageRequest.of(pg, PAGE_SIZE);
-//            return resignationRepository.findAllRecentResignations(pageable).getContent();
-            return resignationRepository.findAll();
+            Pageable pageable = PageRequest.of(pg-1, PAGE_SIZE);
+            return resignationRepository.findAll(pageable).getContent();
+//            return resignationRepository.findAll();
+        }
+        
+        public int totalResignations() {
+        	return resignationRepository.findAll().size();
+        }
+        
+        public int totalCountPagesResignations() {
+        	Pageable pageable = PageRequest.of(0, PAGE_SIZE);
+        	return resignationRepository.findAll(pageable).getTotalPages();
         }
 
         public void resignAction(Long rid, Long adminId, String approve) throws Exception {

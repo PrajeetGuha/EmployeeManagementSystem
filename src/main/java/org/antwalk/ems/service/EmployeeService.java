@@ -3,6 +3,7 @@ package org.antwalk.ems.service;
 import java.util.ArrayList;
 import java.sql.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.antwalk.ems.exception.EmployeeNotFoundException;
 import org.antwalk.ems.model.Employee;
@@ -20,8 +21,10 @@ import org.antwalk.ems.repository.ProfDetailsRepository;
 import org.antwalk.ems.repository.QualificationDetailsRepository;
 import org.antwalk.ems.repository.ResignationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties.Pageable;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -39,7 +42,8 @@ public class EmployeeService {
 	@Autowired
 	private ResignationRepository resignationRepository;
 	
-	
+	@Value("${fetch.pagesize}")
+	private int PAGESIZE;
 
 	@Autowired
 	QualificationDetailsRepository qualificationDetailsRepository;
@@ -55,12 +59,12 @@ public class EmployeeService {
 	public Employee findEmployee(Long id){
 		return employeeRepository.getById(id);
 	}
-	public List<LeaveApplication> findEmployeeLeaves(Long id, int pg)  {
-        // employeeRepository.findById(id).orElseThrow(
-        //     () -> new EmployeeNotFoundException("No details found")
-        // );
-        // Pageable pageable = PageRequest.of(pg-1, 7);
-        return employeeRepository.getLeavesById(id);
+	public List<LeaveApplication> findEmployeeLeaves(Long id, int pg) throws EmployeeNotFoundException  {
+         employeeRepository.findById(id).orElseThrow(
+             () -> new EmployeeNotFoundException("No details found")
+         );
+         Pageable pageable = PageRequest.of(pg-1, PAGESIZE);
+        return employeeRepository.getLeavesById(id,pageable);
     }
 	public void applyLeave(Long id, LeaveApplication leaveApplication) {
         Employee employee = employeeRepository.findById(id).orElseThrow(
@@ -173,5 +177,20 @@ public class EmployeeService {
         // Pageable pageable = PageRequest.of(pg-1, 7);
 		return null;
     }
+
+	public int totalLeaves(Long id) throws EmployeeNotFoundException {
+		Employee employee  = employeeRepository.findById(id).orElseThrow(
+			     () -> new EmployeeNotFoundException("No details found")
+		);
+		return employee.getLeaves() == null ? 0 : employee.getLeaves().size();
+	}
+
+	public int totalCountOfPages(Long id) throws EmployeeNotFoundException {
+		Employee employee  = employeeRepository.findById(id).orElseThrow(
+			     () -> new EmployeeNotFoundException("No details found")
+		);
+		Pageable pageable = PageRequest.of(0, PAGESIZE);
+		return leaveApplicationRepository.getLeavesById(id, pageable).getTotalPages();
+	}
 
 }

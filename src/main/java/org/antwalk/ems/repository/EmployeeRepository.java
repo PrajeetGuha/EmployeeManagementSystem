@@ -29,6 +29,7 @@ public interface EmployeeRepository extends JpaRepository<Employee,Long>  {
     @Query("select e.empId as empId, e.empName as empName, e.workEmail as workEmail, e.designation as designation, e.empstatus as empstatus, e.gradeLevel as gradeLevel, e.emptype as emptype from Employee e")
     public Page<EmployeeListView> findAllEmployeeListViews(Pageable pageable);
 
+    
 
     @Query("select e.empId as empId, e.empName as empName from Employee e")
     public List<EmployeeSelectionView> findAllEmployeeNames();
@@ -70,8 +71,8 @@ public interface EmployeeRepository extends JpaRepository<Employee,Long>  {
     @Query("select DISTINCT emptype FROM Employee where empstatus='active'")
     public List<String> distemptype();
     
-    @Query("select leaves from Employee e where e.empId = :empId")
-    public List<LeaveApplication> getLeavesById(Long empId);
+    @Query("select e.leaves from Employee e where e.empId = :empId")
+    public List<LeaveApplication> getLeavesById(Long empId, Pageable pageable);
     
     @Query("SELECT COUNT(*) AS count, YEAR(doj) AS month FROM Employee GROUP BY YEAR(doj) ORDER BY YEAR(doj)")
     public List<Integer> recruitment();

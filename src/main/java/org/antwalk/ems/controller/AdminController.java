@@ -383,17 +383,25 @@ private EmployeeRepository employeeRepository;
     @GetMapping("leaveApproval")
     public String leaveApprovaldashboard(HttpServletRequest request,Model model){
         int pg = Integer.parseInt(request.getParameter("pg"));
-
         Long addid = AuthenticationSystem.getId();
+        
+        String status;
     	Admin admin;
 		try {
 			admin = adminService.fetchAdminData(addid);
-	        model.addAttribute("admin",admin);
-		} catch (UserNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			status = "SUCCESS";
+	        
+		} catch (Exception e) {
+			admin = new Admin();
+			model.addAttribute("exception",e);
+			status = "FAILED";
 		}
+		model.addAttribute("status",status);
+		model.addAttribute("admin",admin);
+		model.addAttribute("pg", pg);
         model.addAttribute("leavelist", adminService.listAllLeaves(pg));
+        model.addAttribute("totalPages",adminService.totalCountPagesLeaves());
+        model.addAttribute("count",adminService.totalLeaves());
         return "leaveApproval";
     }
 
@@ -482,16 +490,25 @@ private EmployeeRepository employeeRepository;
         int pg = Integer.parseInt(request.getParameter("pg"));
 
         Long addid = AuthenticationSystem.getId();
+        String status;
     	Admin admin;
 		try {
 			admin = adminService.fetchAdminData(addid);
-	        model.addAttribute("admin",admin);
-		} catch (UserNotFoundException e) {
+			status = "SUCCESS";
+	        
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			admin = new Admin();
+			model.addAttribute("exception",e);
+			status = "FAILED";
 		}
-//        model.addAttribute("pg", pg);
+		model.addAttribute("admin",admin);
+        model.addAttribute("pg", pg);
+		model.addAttribute("status",status);
         model.addAttribute("resignationList", adminService.listAllResignations(pg));
+        model.addAttribute("resignationlist", adminService.listAllResignations(pg));
+        model.addAttribute("totalPages",adminService.totalCountPagesResignations());
+        model.addAttribute("count",adminService.totalResignations());
         return "resignationApproval";
     }
     
