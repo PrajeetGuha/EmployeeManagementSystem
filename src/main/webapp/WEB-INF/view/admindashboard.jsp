@@ -94,11 +94,14 @@
 <script>
 						$(document).ready(function () {
 							// Get the list of items from the model attribute
-							var items = [
+							
+							var items =Array.from( new Set( [
 								<c:forEach var="item" items="${allemployeenames}">
 									"${item.empName}",
 								</c:forEach>
-							];
+							]));
+							console.log(items);
+							
 
 							// Set the initial form action
 							/*  var initialUrl = window.location.href.split('?')[0];
@@ -121,7 +124,7 @@
 								filteredItems.forEach(function (item) {
 									var $li = $('<li>').text(item);
 									$li.on('click', function () {
-										$('#search-input').val($(this).text(item.name));
+										$('#search-input').val($(this).text());
 										$searchResults.hide();
 
 
