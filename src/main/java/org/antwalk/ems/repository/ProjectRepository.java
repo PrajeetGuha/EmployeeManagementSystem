@@ -17,5 +17,7 @@ public interface ProjectRepository extends JpaRepository<Project,Long> {
 	@Query("SELECT COUNT(t) as teamcount FROM Project p JOIN p.teams t GROUP BY p.id")
 	List<Integer> findTeamCountByProject();
 
-	
+	@Query("SELECT p.projectName FROM Project p JOIN p.teams t GROUP BY p.id HAVING COUNT(t) > 0")
+	List<String> findProjectsWithTeams();
+
 }

@@ -228,11 +228,20 @@
                                                     class="col-sm-6 p-0 d-flex justify-content-lg-end justify-content-center">
                                                     
                                                     <c:if test="${resign!=null }">
+                                                    <c:if test="${resign.isApproved==true || resign.isApproved==null}">
                                                     <a href="#applyResignModal" class="btn btn-success"
                                                         data-toggle="modal" style="pointer-events: none">
                                                         <i class="material-icons">&#xE147;</i>
                                                         <span>Apply For Resignation</span></a>
                                                         </c:if>  
+                                                           <c:if test="${resign.isApproved==false }">
+                                                    <a href="#applyResignModal" class="btn btn-success"
+                                                        data-toggle="modal" >
+                                                        <i class="material-icons">&#xE147;</i>
+                                                        <span>Apply For Resignation</span></a>
+                                                        </c:if> 
+                                                        </c:if>
+                                                        
                                                     <c:if test="${resign==null }">
                                                     <a href="#applyResignModal" class="btn btn-success"
                                                         data-toggle="modal" >

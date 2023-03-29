@@ -4,6 +4,13 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ page import="java.util.Calendar" %>
+<%
+  Calendar calendar = Calendar.getInstance();
+  calendar.set(Calendar.MONTH, 11);
+  calendar.set(Calendar.DAY_OF_MONTH, 31);
+  int year = calendar.get(Calendar.YEAR);
+%>
 <!DOCTYPE html>
 <html>
 
@@ -583,7 +590,7 @@
 																<input type="text" class="form-control"
 																	placeholder="NAME" aria-label="NAME" name="empName"
 																	aria-describedby="basic-addon1"
-																	pattern="[a-zA-Z ]{4,50}" value="${employee.empName}">
+																	pattern="[a-zA-Z ]{4,50}" value="${employee.empName}" required>
 															</div>
 														</td>
 													</tr>
@@ -644,7 +651,7 @@
 																	placeholder="GRADE LEVEL" aria-label="GRADE LEVEL"
 																	aria-describedby="basic-addon1"
 																	pattern="[a-zA-Z0-9]{1,2}" name="gradeLevel"
-																	value="${employee.gradeLevel}" />
+																	value="${employee.gradeLevel}" required/>
 															</div>
 														</td>
 
@@ -661,7 +668,7 @@
 																	placeholder="Date of Joining"
 																	aria-label="Date of Joining"
 																	aria-describedby="basic-addon1" name="doj"
-																	value="${employee.doj}" />
+																	value="${employee.doj}" required max="<%= year %>-12-31"/>
 															</div>
 														</td>
 													</tr>
@@ -705,12 +712,12 @@
 
 
 													<tr>
-														<td>PROBITION PERIOD :</td>
+														<td>PROBATION PERIOD :</td>
 														<td>
 															<div class="input-group ">
 																<input type="number" class="form-control"
-																	placeholder="Probition period"
-																	aria-label="Probition period"
+																	placeholder="Probation period"
+																	aria-label="Probation period"
 																	aria-describedby="basic-addon1" name="probPeriod"
 																	value="${employee.probPeriod}" />
 															</div>
@@ -721,12 +728,12 @@
 														<td><br></td>
 													</tr>
 													<tr>
-														<td>PROBITION COMPLETE DATE : &nbsp;&nbsp;&nbsp;</td>
+														<td>PROBATION COMPLETE DATE : &nbsp;&nbsp;&nbsp;</td>
 														<td>
 															<div class="input-group ">
 																<input type="date" class="form-control"
-																	placeholder="Probition completion date"
-																	aria-label="Probition completion date"
+																	placeholder="Probation completion date"
+																	aria-label="Probation completion date"
 																	aria-describedby="basic-addon1" name="probCompDate"
 																	value="${employee.probCompDate}" />
 															</div>
@@ -737,7 +744,7 @@
 														<td><br></td>
 													</tr>
 													<tr>
-														<td>Department :</td>
+														<td>DEPARTMENT :</td>
 														<td><c:set var="departmentValues"  value="${['trainee', 'hr', 'administration','accounts','sports','security','others']}" />
 														
 															 <select class="form-select" aria-label="Default select example" name="department"> 
@@ -805,23 +812,7 @@
 													<tr>
 														<td><br></td>
 													</tr>
-													<tr>
-														<td>SERVICE PERIOD :</td>
-														<td>
-															<div class="input-group ">
-																<input type="number" class="form-control"
-																	placeholder="Service period"
-																	aria-label="Service period"
-																	aria-describedby="basic-addon1" name="servPeriod"
-																	value="${employee.servPeriod}" />
-															</div>
-														</td>
-													</tr>
-
-
-													<tr>
-														<td><br></td>
-													</tr>
+													
 													<tr>
 														<td>WORK EMAIL :</td>
 														<td>
@@ -829,7 +820,7 @@
 																<input type="email" class="form-control"
 																	placeholder="EMAIL" aria-label="EMAIL"
 																	aria-describedby="basic-addon1" name="workEmail"
-																	value="${employee.workEmail}">
+																	value="${employee.workEmail}" disabled>
 															</div>
 														</td>
 													</tr>
@@ -897,7 +888,7 @@
 																<input type="number" class="form-control"
 																	placeholder="CTC" aria-label="CTC"
 																	aria-describedby="basic-addon1" name="ctc"
-																	value="${employee.ctc}" />
+																	value="${employee.ctc}" min=0 />
 															</div>
 														</td>
 													</tr>
@@ -905,17 +896,35 @@
 														<td><br></td>
 													</tr>
 													<tr>
-														<td>Year Of Experience :</td>
+														<td>YEARS OF EXPERIENCE :</td>
 														<td>
 															<div class="input-group ">
 																<input type="number" class="form-control"
 																	placeholder="Year Of Experience"
 																	aria-label="Year Of Experience"
 																	aria-describedby="basic-addon1" name="yearOfExperience"
-																	value="${employee.yearOfExperience}" min="0" />
+																	value="${employee.yearOfExperience}" min=0 max=60/>
 															</div>
 														</td>
 													</tr>
+													<tr>
+														<td><br></td>
+													</tr>
+													<tr>
+														<td>TEAM :</td>
+														<td>
+															<div class="input-group ">
+																<input type="text" class="form-control"
+																	
+																	aria-label="Team"
+																	aria-describedby="basic-addon1" name=""
+																	value="${employee.team.teamName}" disabled/>
+															</div>
+														</td>
+													</tr>
+
+
+													
 
 													<%-- <tr>
 														<td><input type="hidden" name="empId"

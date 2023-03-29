@@ -147,13 +147,17 @@ private EmployeeRepository employeeRepository;
 //        List<String> teamsinprojects=adminService.teamsinprojects();
         List<Integer> findteamcount=adminService.findTeamCountByProject();
         List<Double> totalcost=adminService.totalcost();
-        List<String> emptype=adminService.emptype();
+        List<Integer> emptype=adminService.emptype();
         List<Integer> recruitment=adminService.recruitment();
         //List<Integer> deptcount=adminService.deptcount();
         List<Integer> teamcount=adminService.teamcount();
         List<String> deptname=adminService.deptname();
         List<String> teamdept=adminService.teamdept();
         List<Project> listProjects = adminService.getAllProjects();
+        List<String> distgender = adminService.distgender();
+        List<String> distemptype= adminService.distemptype();
+        List<String> getrecruitmentyear= adminService.getrecruitmentyear();
+        List<String> findProjectsWithTeams= adminService.findProjectsWithTeams();
     	model.addAttribute("admin",admin);
         model.addAttribute("countOfEmployees", count);
 //        model.addAttribute("countOfDepartments", countdept);
@@ -167,8 +171,10 @@ private EmployeeRepository employeeRepository;
 //        model.addAttribute("countOfEmployeesInDepartment", countemployeeindepartment);
 
         model.addAttribute("sexratio",sexratio);
-
-
+        model.addAttribute("distgender",distgender);
+        model.addAttribute("distemptype",distemptype);
+        model.addAttribute("getrecruitmentyear",getrecruitmentyear);
+        model.addAttribute("findProjectsWithTeams",findProjectsWithTeams);
         model.addAttribute("totalcost",totalcost);
         model.addAttribute("emptype",emptype);
         model.addAttribute("recruitment", recruitment);
@@ -392,9 +398,15 @@ private EmployeeRepository employeeRepository;
     }
 
     @GetMapping("report")
-    public void generateEmployeeReport(HttpServletResponse response, HttpServletRequest request) throws IOException, EmployeeNotFoundException{
+    public void generateEmployeeReport(Model model, HttpServletResponse response, HttpServletRequest request){
         Long empId = Long.parseLong(request.getParameter("empId"));
-        reportService.generateEmployeeReport(response, empId);
+        try{
+            reportService.generateEmployeeReport(response, empId);
+            // model.addAttribute("status", "SUCCESS");
+        }
+        catch(Exception e){
+            // model.addAttribute("status", "FAILED");
+        }
     }
 
     @GetMapping("editemployeedetails")
@@ -404,15 +416,27 @@ private EmployeeRepository employeeRepository;
         String pg=request.getParameter("pg");
         Long id_val=Long.parseLong(id);
         Long addid = AuthenticationSystem.getId();
-    	Admin admin;
-		try {
-			admin = adminService.fetchAdminData(addid);
-	        model.addAttribute("admin",admin);
-		} catch (UserNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-        Employee employee = employeeRepository.getById(id_val);
+        String status;
+        Admin admin;
+        Employee employee;
+    	try{
+            admin = adminService.fetchAdminData(addid);
+            status = "SUCCESS";
+        }
+        catch (Exception e){
+            admin = new Admin();
+            status = "FAILED";
+        }
+        try{
+            employee = adminService.findEmployeeById(id_val);
+            status = "SUCCESS";
+        }
+        catch (Exception e){
+            employee = new Employee();
+            status = "FAILED";
+        }
+        model.addAttribute("status",status);
+        model.addAttribute("admin",admin);
         model.addAttribute("employee",employee);
         model.addAttribute("search",search);
         model.addAttribute("pg",pg);

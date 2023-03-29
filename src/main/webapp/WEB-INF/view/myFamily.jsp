@@ -50,10 +50,35 @@
 								});
 					</script>
 					<script>
-function updateMin() {
-  var startDate = document.getElementById("start_date").value;
-  document.getElementById("end_date").setAttribute("min", startDate);
-}
+					function updateMin() {
+						  /* var today = new Date();
+						  
+						  // Format today's date as YYYY-MM-DD
+						  var year = today.getFullYear();
+						  var month = (today.getMonth() + 1).toString().padStart(2, '0');
+						  var day = today.getDate().toString().padStart(2, '0');
+						  var formattedDate = `${year}-${month}-${day}`; */
+						  var today = new Date();
+						  var formattedDate = today.toISOString().slice(0, 10);
+
+						  
+						  var startDate = document.getElementById("start_date").value;
+						  document.getElementById("end_date").setAttribute("min", startDate);
+						  document.getElementById("end_date").setAttribute("max", formattedDate);
+						  document.getElementById("start_date").setAttribute("max", formattedDate);
+						  
+						  // Set custom validity message
+						  var endDateInput = document.getElementById("end_date");
+						  endDateInput.setCustomValidity("");
+						  if (endDateInput.validity.rangeOverflow) {
+						    endDateInput.setCustomValidity("End date must not be after today");
+						  }
+						  
+						  // Show oninput message
+						  endDateInput.oninput = function() {
+						    endDateInput.setCustomValidity("");
+						  };
+						}
 </script>
 
 				</head>
@@ -321,19 +346,22 @@ function updateMin() {
 											<div class="modal-body">
 													<div class="form-group">
 														<label>Family Member Name</label><input type="text" class="form-control" name="name"
-															required>
+															pattern= "[a-zA-Z][a-zA-Z\\s_]*" oninvalid="setCustomValidity('Name can only contain alphabetic characters, underscores, and one whitespace between each word')"
+												onchange="setCustomValidity('')"required>
 													</div>
 													<div class="form-group">
 														<label>Relation</label><input type="text" class="form-control" name="relation"
-															required>
+															pattern= "[a-zA-Z][a-zA-Z\\s_]*" oninvalid="setCustomValidity('Relation can only contain alphabetic characters, underscores, and one whitespace between each word')"
+												onchange="setCustomValidity('')" required>
 													</div>
 													<div class="form-group">
 														<label>Occupation</label><input type="text" class="form-control" name="occupation"
-															required>
+															pattern= "[a-zA-Z][a-zA-Z\\s_]*" oninvalid="setCustomValidity('Occupation can only contain alphabetic characters, underscores, and one whitespace between each word')"
+												onchange="setCustomValidity('')" required>
 													</div>
 													<div class="form-group">
 														<label>Date Of Birth</label> <input type="date" id="start_date" class="form-control"  
-														name="dob"
+														name="dob" oninput="updateMin()"
 															required>
 													</div>
 													

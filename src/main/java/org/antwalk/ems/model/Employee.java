@@ -96,7 +96,7 @@ public class Employee {
     private Integer totalLeave;
 
     @Column
-    private Double ctc;
+    private Double ctc=0.0;
     @Column
     private Integer yearOfExperience;
 
@@ -424,5 +424,20 @@ public class Employee {
 
 	public void setLeaves(List<LeaveApplication> leaves) {
 		this.leaves = leaves;
+	}
+
+
+
+	@Override
+	public String toString() {
+		return "Employee [empId=" + empId + ", empName=" + empName + ", gender=" + gender + ", gradeLevel=" + gradeLevel
+				+ ", doj=" + doj + ", designation=" + designation + ", emptype=" + emptype + ", empstatus=" + empstatus
+				+ ", probPeriod=" + probPeriod + ", probCompDate=" + probCompDate + ", trainPeriod=" + trainPeriod
+				+ ", contractEndDate=" + contractEndDate + ", servPeriod=" + servPeriod + ", workEmail=" + workEmail
+				+ ", branch=" + branch + ", office=" + office + ", workstationId=" + workstationId + ", clLeft="
+				+ clLeft + ", plLeft=" + plLeft + ", slLeft=" + slLeft + ", moreLeave=" + moreLeave + ", totalLeave="
+				+ totalLeave + ", ctc=" + ctc + ", yearOfExperience=" + yearOfExperience + ", resignation="
+				+ resignation + ", department=" + department + ", team=" + team + ", employeeDetails=" + employeeDetails
+				+ ", payrolls=" + payrolls + ", leaves=" + leaves + "]";
 	}  
 }

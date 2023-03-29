@@ -37,7 +37,7 @@ public class EmployeeControllerTest {
 	        mvc.perform(MockMvcRequestBuilders.post("/employee/applyLeave"))
 //	        .param("empId", empIdExists)) 
 	        
-	        .andExpect(MockMvcResultMatchers.redirectedUrl("leaveApplication?pg=1"));
+	        .andExpect(MockMvcResultMatchers.redirectedUrl("/employee/leaveApplication?pg=1"));
 
 //	        String empIdnotExists = "10";
 //	        mvc.perform(MockMvcRequestBuilders.post("/admin/deactivateUser?search=null&pg=1")

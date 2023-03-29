@@ -259,7 +259,14 @@ function addRow(id,name) {
 
 </head>
 
+<style>
 
+#search-results {
+  max-height: 100px; /* set the maximum height of the dropdown menu */
+  overflow-y: auto; /* enable vertical scrolling when the content exceeds the max-height */
+}
+
+</style>
 <body onload="renderTable()">
 	<!-- <div>${result.getBody().getStatus()}</div> -->
 
@@ -658,6 +665,11 @@ function addRow(id,name) {
 
 													<option value="0">No employee eligible</option>
 												</c:if>
+												<c:if test="${empty potentialpm}">
+
+													<option value="0">No employee eligible</option>
+												</c:if>
+
 											</select>
 										</div>
 										<br> <br>

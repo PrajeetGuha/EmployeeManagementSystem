@@ -3,6 +3,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ page import="java.util.Calendar" %>
+<%
+  Calendar calendar = Calendar.getInstance();
+  calendar.set(Calendar.MONTH, 11);
+  calendar.set(Calendar.DAY_OF_MONTH, 31);
+  int year = calendar.get(Calendar.YEAR);
+%>
 <!DOCTYPE html>
 <html>
 
@@ -88,9 +95,13 @@
 						$(document).ready(function () {
 							// Get the list of items from the model attribute
 							var items = [
-								<c:forEach var="item" items="${allemployeenames}">
-									"${item.empName}",
-								</c:forEach>
+								<c:forEach var="employee" items="${allemployeenames}">
+								{
+									id : ${employee.empId},
+									name : "${employee.empName}"
+								}, 
+								
+							</c:forEach>
 							];
 
 							// Set the initial form action
@@ -105,16 +116,16 @@
 
 								// Filter the list based on the search term
 								var filteredItems = items.filter(function (item) {
-									return item.toLowerCase().indexOf(searchTerm) > -1;
+									return item.name.toLowerCase().indexOf(searchTerm) > -1;
 								});
 
 								// Update the search results list
 								var $searchResults = $('#search-results');
 								$searchResults.empty();
 								filteredItems.forEach(function (item) {
-									var $li = $('<li>').text(item);
+									var $li = $('<li>').text(item.id +". " + item.name);
 									$li.on('click', function () {
-										$('#search-input').val($(this).text());
+										$('#search-input').val($(this).text(item.name));
 										$searchResults.hide();
 
 
@@ -165,7 +176,7 @@
 								"${email}",
 							</c:forEach>
 						];
-
+						
 						var unames = [
 							<c:forEach var="username" items="${usernames}">
 								"${username}",
@@ -183,7 +194,7 @@
 							});
 
 							// Validate personal email field
-							var email = $("#email").val();
+							var email = $("#email").val().trim();
 							if (email === "") {
 
 								$("#email")[0].setCustomValidity("Email is required");
@@ -195,23 +206,24 @@
 							}
 
 							// Validate username field
-							var username = $("#username").val();
+							var username = $("#username").val().trim();
+
 							const regex = /^[a-zA-Z][a-zA-Z0-9]*$/;
-							  const isgood = regex.test(username);
+							const isgood = regex.test(username);
+
 							if (username === "") {
-
-								$("#username")[0].setCustomValidity("Username is required");
-								isValid = false;
+							    $("#username")[0].setCustomValidity("Username is required");
+							    isValid = false;
 							} else if (unames.includes(username)) {
+							    $("#username")[0].setCustomValidity("Username already taken");
+							    isValid = false;
+							} else if (!isgood) {
+							    $("#username")[0].setCustomValidity('Username must start with an alphabet and can only contain alphanumeric characters.');
+							    isValid = false;
+							} else {
+							    $("#username")[0].setCustomValidity('');
+							}
 
-								$("#username")[0].setCustomValidity("Username already taken");
-								isValid = false;
-							}else if (!isgood) {
-							    this.setCustomValidity('Username must start with an alphabet and can only contain alphanumeric characters.');
-							    isValid=false;
-							  }else {
-							    this.setCustomValidity('');
-							  }
 
 							// Add event listener to clear custom validity messages on input
 							$(".required").on("input", function () {
@@ -228,12 +240,12 @@
 							document.getElementById("empstatusname").innerHTML = name;
 							$("#empIdStatus").attr("value", id);
 							if (status == "inactive") {
-								$("#status-modal-form").attr("action", "activateUser?search=${search}&pgNo=${pageNo}");
+								$("#status-modal-form").attr("action", "activateUser?search=${search}&pg=${pageNo}");
 								$("#changestatusbtn").attr("class", "btn btn-primary");
 								$("#changestatusbtn").attr("value", "Activate");
 							}
 							else {
-								$("#status-modal-form").attr("action", "deactivateUser?search=${search}&pgNo=${pageNo}");
+								$("#status-modal-form").attr("action", "deactivateUser?search=${search}&pg=${pageNo}");
 								$("#changestatusbtn").attr("class", "btn btn-danger");
 								$("#changestatusbtn").attr("value", "Deactivate");
 							}
@@ -243,9 +255,15 @@
 <c:set var="pageNo" value="${pageNo}" />
 <c:set var="pageCount" value="${pageCount}" />
 </head>
-
+<style>
+#search-results {
+  max-height: 100px; /* set the maximum height of the dropdown menu */
+  overflow-y: auto; /* enable vertical scrolling when the content exceeds the max-height */
+}
+</style>
 
 <body>
+	
 	<!-- <div>${result.getBody().getStatus()}</div> -->
 
 	<div class="wrapper">
@@ -631,7 +649,7 @@
 											aria-hidden="true">&times;</button> -->
 														</div>
 														<div class="modal-body">
-															<form action="changePassword" method="post"
+															<form action="changePassword?search=${search }&pg=${pageNo }" method="post"
 																modelAttribute="newpass">
 
 																<input type="hidden" id="empId" name="empId"
@@ -769,7 +787,8 @@
 					<div class="modal fade" id="addEmployeeModal" tabindex="-1"
 						role="dialog" aria-labelledby="addEmployeeModalLabel"
 						aria-hidden="true">
-						<div class="modal-dialog modal-dialog-scrollable" role="document">
+
+						<div class="modal-dialog " role="document">
 							<div class="modal-content">
 
 								<div class="modal-header">
@@ -799,7 +818,7 @@
 										<div class="input-container ic2">
 											<label for="email" class="placeholder">Personal Email</label>
 											<div class="cut cut-short"></div>
-											<input id="email" name="personalEmail" class="input required"
+											<input id="email" name="email" class="input required"
 												type="email" placeholder=" " required /> <span
 												id="email-error" class="error-text"></span>
 										</div>
@@ -868,7 +887,7 @@
 												of Joining</label>
 											<div class="cut cut-short"></div>
 											<input id="dateofjoining" name="doj" class="input required"
-												type="date" placeholder=" " required />
+												type="date" placeholder=" " required max="<%= year %>-12-31"/>
 										</div>
 										<div class="input-container ic2">
 											<label for="employeetype" class="placeholder">Employee
@@ -886,8 +905,7 @@
 											<label for="username" class="placeholder">Username</label>
 											<div class="cut"></div>
 											<input id="username" name="username" class="input required"
-												type="text" placeholder=" " pattern = "^[a-zA-Z][a-zA-Z0-9]*$" oninvalid="setCustomValidity('Username must start with an alphabet and can only contain alphanumeric characters.')"
-												onchange="setCustomValidity('')"required /> <span
+												type="text" placeholder=" " required /> <span
 												id="username-error" class="error-text"></span>
 										</div>
 										<div class="input-container ic2">
