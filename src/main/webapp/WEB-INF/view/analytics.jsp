@@ -358,13 +358,13 @@ var barChartOptions = {
 		      distributed: true,
 		      borderRadius: 4,
 		      horizontal: false,
-		      barHeight: '30%',
+		      barHeight: '50%',
 	    		  margin: {
 	                left: 100,
 	                right: 100
 	            },
-	            columnWidth: '20%',
-	            barWidth: 30
+	            columnWidth: '40%',
+	            barWidth: 50
 		    }
 		  },
 		  dataLabels: {
@@ -536,13 +536,13 @@ var barChartOptions = {
 			  		      distributed: true,
 			  		      borderRadius: 4,
 			  		      horizontal: false,
-			  		    barHeight: '30%',
+			  		    barHeight: '50%',
 		  	    		  margin: {
 		  	                left: 100,
 		  	                right: 100
 		  	            },
-		  	            columnWidth: '20%',
-		  	            barWidth: 30
+		  	            columnWidth: '40%',
+		  	            barWidth: 50
 			  		    }
 			  		  },
 			  		  dataLabels: {
@@ -690,13 +690,13 @@ var barChartOptions = {
 			  	    		      horizontal: false,
 			  	    		      
 			  	    		    
-			  	    		    barHeight: '30%',
+			  	    		    barHeight: '50%',
 				  	    		  margin: {
 				  	                left: 100,
 				  	                right: 100
 				  	            },
-				  	            columnWidth: '20%',
-				  	            barWidth: 30}
+				  	            columnWidth: '40%',
+				  	            barWidth: 50}
 			  	    		  },
 			  	    		  dataLabels: {
 			  	    		    enabled: false
@@ -758,13 +758,13 @@ var barChartOptions = {
 					  	    		      borderRadius: 4,
 					  	    		      horizontal: false,
 					  	    		      
-					  	    		    barHeight: '30%',
+					  	    		    barHeight: '50%',
 					  	    		  margin: {
 					  	                left: 100,
 					  	                right: 100
 					  	            },
-					  	            columnWidth: '20%',
-					  	            barWidth: 30
+					  	            columnWidth: '40%',
+					  	            barWidth: 50
 					  	    		    }
 					  	    		  },
 					  	    		  dataLabels: {

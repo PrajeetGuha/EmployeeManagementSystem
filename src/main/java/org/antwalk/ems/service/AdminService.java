@@ -571,7 +571,12 @@ public class AdminService {
 			employee.setEmpId(empId);
 			employee.setEmployeeDetails(persistedEmployee.getEmployeeDetails());
 			employee.setTeam(persistedEmployee.getTeam());
-
+			employee.setClLeft(persistedEmployee.getClLeft());
+			employee.setPlLeft(persistedEmployee.getPlLeft());
+			employee.setSlLeft(persistedEmployee.getSlLeft());
+			employee.setMoreLeave(persistedEmployee.getMoreLeave());
+			employee.setTotalLeave(persistedEmployee.getTotalLeave());
+			employee.setWorkEmail(persistedEmployee.getWorkEmail());
 			employee.setEmpstatus(persistedEmployee.getEmpstatus());
 			employee.setResignation(persistedEmployee.getResignation());
 			String before_dept=persistedEmployee.getDepartment();

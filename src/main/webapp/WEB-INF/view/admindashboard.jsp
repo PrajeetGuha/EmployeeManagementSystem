@@ -3,6 +3,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ page import="java.util.Calendar" %>
+<%
+  Calendar calendar = Calendar.getInstance();
+  calendar.set(Calendar.MONTH, 11);
+  calendar.set(Calendar.DAY_OF_MONTH, 31);
+  int year = calendar.get(Calendar.YEAR);
+%>
 <!DOCTYPE html>
 <html>
 
@@ -771,7 +778,7 @@
 					<div class="modal fade" id="addEmployeeModal" tabindex="-1"
 						role="dialog" aria-labelledby="addEmployeeModalLabel"
 						aria-hidden="true">
-						<div class="modal-dialog" role="document">
+						<div class="modal-dialog " role="document">
 							<div class="modal-content">
 
 								<div class="modal-header">
@@ -870,7 +877,7 @@
 												of Joining</label>
 											<div class="cut cut-short"></div>
 											<input id="dateofjoining" name="doj" class="input required"
-												type="date" placeholder=" " required />
+												type="date" placeholder=" " required max="<%= year %>-12-31"/>
 										</div>
 										<div class="input-container ic2">
 											<label for="employeetype" class="placeholder">Employee
