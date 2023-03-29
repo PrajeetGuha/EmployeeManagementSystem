@@ -92,12 +92,12 @@ private EmployeeRepository employeeRepository;
         //System.out.println(employeeListViews);
         return "admindashboard";
     }
-    @GetMapping("/addemployee")
-   	public String addemployee(HttpServletRequest request, Model model) {
+    // @GetMapping("/addemployee")
+   	// public String addemployee(HttpServletRequest request, Model model) {
         
 
-        return "addemployee";
-   	}
+    //     return "addemployee";
+   	// }
     @GetMapping("/addproject")
    	public String addproject() {
           		return "addproject";
@@ -288,7 +288,7 @@ private EmployeeRepository employeeRepository;
     public String deactivateEmployee(@ModelAttribute("employee") Employee employee, HttpServletRequest request, BindingResult result, RedirectAttributes redirectAttrs){
         
         String search = request.getParameter("search");
-        String pgNo = request.getParameter("pgNo");
+        String pg = request.getParameter("pg");
         String status;
         if (result.hasErrors()){
             redirectAttrs.addFlashAttribute("error", result);
@@ -306,13 +306,13 @@ private EmployeeRepository employeeRepository;
             }
         }
         redirectAttrs.addFlashAttribute("status",status);
-        return String.format("redirect:/admin/dashboard?search=%s&pg=%s",search,pgNo);
+        return String.format("redirect:/admin/dashboard?search=%s&pg=%s",search,pg);
     }
 
     @PostMapping("activateUser")
     public String activateEmployee(@ModelAttribute("employee") Employee employee, HttpServletRequest request, BindingResult result, RedirectAttributes redirectAttrs){
         String search = request.getParameter("search");
-        String pgNo = request.getParameter("pgNo");
+        String pg = request.getParameter("pg");
         String status;
         if (result.hasErrors()){
             redirectAttrs.addFlashAttribute("error", result);
@@ -330,7 +330,7 @@ private EmployeeRepository employeeRepository;
             }
         }
         redirectAttrs.addFlashAttribute("status",status);
-        return String.format("redirect:/admin/dashboard?search=%s&pg=%s",search,pgNo);
+        return String.format("redirect:/admin/dashboard?search=%s&pg=%s",search,pg);
     }
 
     @PostMapping("/leaveAction")
@@ -398,9 +398,15 @@ private EmployeeRepository employeeRepository;
     }
 
     @GetMapping("report")
-    public void generateEmployeeReport(HttpServletResponse response, HttpServletRequest request) throws IOException, EmployeeNotFoundException{
+    public void generateEmployeeReport(Model model, HttpServletResponse response, HttpServletRequest request){
         Long empId = Long.parseLong(request.getParameter("empId"));
-        reportService.generateEmployeeReport(response, empId);
+        try{
+            reportService.generateEmployeeReport(response, empId);
+            // model.addAttribute("status", "SUCCESS");
+        }
+        catch(Exception e){
+            // model.addAttribute("status", "FAILED");
+        }
     }
 
     @GetMapping("editemployeedetails")
@@ -410,15 +416,27 @@ private EmployeeRepository employeeRepository;
         String pg=request.getParameter("pg");
         Long id_val=Long.parseLong(id);
         Long addid = AuthenticationSystem.getId();
-    	Admin admin;
-		try {
-			admin = adminService.fetchAdminData(addid);
-	        model.addAttribute("admin",admin);
-		} catch (UserNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-        Employee employee = employeeRepository.getById(id_val);
+        String status;
+        Admin admin;
+        Employee employee;
+    	try{
+            admin = adminService.fetchAdminData(addid);
+            status = "SUCCESS";
+        }
+        catch (Exception e){
+            admin = new Admin();
+            status = "FAILED";
+        }
+        try{
+            employee = adminService.findEmployeeById(id_val);
+            status = "SUCCESS";
+        }
+        catch (Exception e){
+            employee = new Employee();
+            status = "FAILED";
+        }
+        model.addAttribute("status",status);
+        model.addAttribute("admin",admin);
         model.addAttribute("employee",employee);
         model.addAttribute("search",search);
         model.addAttribute("pg",pg);
@@ -434,11 +452,28 @@ private EmployeeRepository employeeRepository;
     }
     
     @PostMapping("/changePassword")
-    public String changePassword(@ModelAttribute("newpass") ChangePasswordDTO changePasswordDTO, RedirectAttributes redirectAttributes) {
+    public String changePassword(@ModelAttribute("newpass") ChangePasswordDTO changePasswordDTO, HttpServletRequest request, RedirectAttributes redirectAttr, BindingResult result) {
         // code to change the password here
-    	
-        redirectAttributes.addFlashAttribute("successMessage", "Password changed successfully!");
-        return "redirect:/admin/dashboard?search=null&pg=1";
+        String search = request.getParameter("search");
+        String pgNo = request.getParameter("pg");
+        String status;
+    	if (result.hasErrors()){
+            redirectAttr.addFlashAttribute("error",result);
+            status = "FAILED";
+        }
+        else{
+            try{
+                adminService.changePassword(changePasswordDTO);
+                redirectAttr.addFlashAttribute("message", "Password changed successfully");
+                status = "SUCCESS";
+            }
+            catch(Exception e){
+                redirectAttr.addFlashAttribute("exception",e);
+                status = "FAILED";
+            }
+        }
+        redirectAttr.addFlashAttribute("status",status);
+        return String.format("redirect:/admin/dashboard?search=%s&pg=%s",search,pgNo);
     }
     
  // resignation approval dashboard

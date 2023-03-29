@@ -56,5 +56,9 @@ public class Admin {
         this.adminEmail = adminEmail;
     }
 
+    @Override
+    public String toString() {
+        return "Admin [adminId=" + adminId + ", adminName=" + adminName + ", adminEmail=" + adminEmail + "]";
+    }
     
 }
