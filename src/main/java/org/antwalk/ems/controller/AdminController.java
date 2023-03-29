@@ -340,6 +340,7 @@ private EmployeeRepository employeeRepository;
         int pg = Integer.parseInt(request.getParameter("pg"));
         String approve = request.getParameter("approve");
 
+
         adminService.leaveAction(lid,adminId,approve);
         return "redirect:/admin/leaveApproval?pg="+pg;
     }

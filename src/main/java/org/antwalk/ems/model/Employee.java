@@ -84,7 +84,7 @@ public class Employee {
     private Integer clLeft=6;
 
     @Column
-    private Integer plLeft;
+    private Integer plLeft=0;
 
     @Column
     private Integer slLeft=6;

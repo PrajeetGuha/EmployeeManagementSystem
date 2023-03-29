@@ -1,5 +1,6 @@
 package org.antwalk.ems.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -59,7 +60,15 @@ public class EmployeeController {
     public String employeedashboard(HttpServletRequest request, Model model) {
         Long id = AuthenticationSystem.getId();
         System.out.println(id);
-        Employee employee = employeeService.findEmployee(id);
+        Employee employee;
+		try {
+			employee = employeeService.findEmployee(id);
+		} catch (EmployeeNotFoundException e) {
+			// TODO Auto-generated catch block
+
+	        employee=new Employee();
+			e.printStackTrace();
+		}
         model.addAttribute("employee", employee);
         return "myProfile";
     }
@@ -67,7 +76,14 @@ public class EmployeeController {
     @GetMapping("editemployeedetails")
     public String editemployeedetails(HttpServletRequest request, Model model) {
         Long id = AuthenticationSystem.getId();
-        Employee employee = employeeService.findEmployee(id);
+        Employee employee;
+		try {
+			employee = employeeService.findEmployee(id);
+		} catch (EmployeeNotFoundException e) {
+			// TODO Auto-generated catch block
+	        employee=new Employee();
+			e.printStackTrace();
+		}
         model.addAttribute("employee", employee);
         return "myProfile";
     }
@@ -112,18 +128,34 @@ public class EmployeeController {
         List<LeaveApplication> leaveapplications = null;
         int totalCount = 0;
         int totalPages = 0;
+        List<Integer> applied=new ArrayList<>();
         String status;
+        Employee employee;
 		try {
 			leaveapplications = employeeService.findEmployeeLeaves(id,pg);
 			totalCount = employeeService.totalLeaves(id);
 			totalPages = employeeService.totalCountOfPages(id);
+			 applied=employeeService.countApplied(id);
 			status = "SUCCESS";
+			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			model.addAttribute("exception",e);
 			System.out.println(e);
 			status = "FAILED";
 		}
+		try {
+			employee = employeeService.findEmployee(id);
+			status = "SUCCESS";
+		}
+		catch(Exception e) {
+			employee = new Employee();
+			model.addAttribute("exception",e);
+			status = "FAILED";
+		}
+        model.addAttribute("status",status);
+        model.addAttribute("employee",employee);
+        model.addAttribute("appliedLeaves",applied);
 		model.addAttribute("status",status);
         model.addAttribute("leavelist",leaveapplications);
         model.addAttribute("totalPages",totalPages);
