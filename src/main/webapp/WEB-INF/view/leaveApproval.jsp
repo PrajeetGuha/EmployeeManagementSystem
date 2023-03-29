@@ -663,6 +663,28 @@
 													</tr>
 											</tbody>
 										</table>
+										<div class="clearfix">
+								<div class="hint-text">
+									Total number of entries <b>${count}</b><br> Showing
+									page <b>${pg}</b> of <b>${totalPages eq 0 ? 1 : totalPages}</b>
+
+								</div>
+								<ul class="pagination">
+
+									<c:if test="${ pg > 1}">
+										<li class="page-item"><a
+											href="?search=${search}&pg=${pg-1}" class="page-link">Previous</a>
+										</li>
+									</c:if>
+									<c:if test="${ pg < totalPages}">
+										<li class="page-item"><a
+											href="?search=${search}&pg=${pg+1}" class="page-link">Next</a>
+										</li>
+									</c:if>
+
+
+								</ul>
+							</div>
 
 									</div>
 								</div>
