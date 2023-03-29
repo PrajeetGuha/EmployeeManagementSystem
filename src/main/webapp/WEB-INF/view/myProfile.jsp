@@ -40,7 +40,7 @@
 
                             <div class="row align-items-start">
 
-                                <div class="col-3"></div>
+                                <div class="col-2"></div>
                                 <!-- <div class="main-content">
                             <div class="row">
 
@@ -201,34 +201,7 @@
                                                                     </b>
                                                                 </td>
                                                             </tr>
-                                                            <tr>
-                                                                <td><br></td>
-                                                            </tr>
-
-                                                            <tr>
-                                                                <td>
-                                                                    EMPLOYEE STATUS :
-                                                                </td>
-                                                                <td>
-                                                                    <b>
-
-
-                                                                        
-                                                                        <c:if test="${employee.empstatus==null}">
-                                                                            Employee status not assigned
-                                                                        </c:if>
-
-                                                                        <c:if test="${employee.empstatus!=null}">
-                                                                            <c:out
-                                                                                value="${fn:toUpperCase(employee.empstatus)}" />
-
-                                                                        </c:if>
-
-
-
-                                                                    </b>
-                                                                </td>
-                                                            </tr>
+                                                          
                                                             <tr>
                                                                 <td><br></td>
                                                             </tr>
@@ -278,7 +251,34 @@
                                                                     </b>
                                                                 </td>
                                                             </tr>
+  <tr>
+                                                                <td><br></td>
+                                                            </tr>
 
+                                                            <tr>
+                                                                <td>
+                                                                    TEAM NAME :
+                                                                </td>
+                                                                <td>
+                                                                    <b>
+
+
+                                                                        
+                                                                        <c:if test="${employee.team==null}">
+                                                                            Employee team not assigned
+                                                                        </c:if>
+
+                                                                        <c:if test="${employee.empstatus!=null}">
+                                                                            <c:out
+                                                                                value="${fn:toUpperCase(employee.team.teamName)}" />
+
+                                                                        </c:if>
+
+
+
+                                                                    </b>
+                                                                </td>
+                                                            </tr>
                                                             <tr>
                                                                 <td><br></td>
                                                             </tr>
