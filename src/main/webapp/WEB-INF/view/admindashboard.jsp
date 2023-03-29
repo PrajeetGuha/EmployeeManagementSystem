@@ -40,7 +40,7 @@
 
 <c:set var="pageNo" value="${pageNo}" />
 <c:set var="pageCount" value="${pageCount}" />
-<c:if test="${not empty successMessage}">
+<c:if test="${status eq 'SUCCESS'}">
 	<!-- Button trigger modal -->
 	<button type="button" class="btn btn-primary d-none"
 		data-toggle="modal" data-target="#exampleModal">Launch demo
@@ -55,7 +55,7 @@
 					<h5 class="modal-title" id="exampleModalLabel">Success!</h5>
 
 				</div>
-				<div class="modal-body">${successMessage}</div>
+				<div class="modal-body">Operation successful!</div>
 			</div>
 		</div>
 	</div>
@@ -71,7 +71,37 @@
 							});
 						</script>
 </c:if>
+<c:if test="${status eq 'FAILED'}">
+	<!-- Button trigger modal -->
+	<button type="button" class="btn btn-primary d-none"
+		data-toggle="modal" data-target="#exampleModal">Launch demo
+		modal</button>
 
+	<!-- Modal -->
+	<div class="modal fade show" id="exampleModal" tabindex="-1"
+		role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Failed!</h5>
+
+				</div>
+				<div class="modal-body">Operation failed</div>
+			</div>
+		</div>
+	</div>
+
+	<script>
+							$.noConflict();
+							jQuery(document).ready(function ($) {
+								$('#exampleModal').modal('show');
+								setTimeout(function () {
+									$('#exampleModal').modal('hide');
+								}, 2000); // hide the popup after 2 seconds
+
+							});
+						</script>
+</c:if>
 <script>
 	$(document).ready(function () {
 		
