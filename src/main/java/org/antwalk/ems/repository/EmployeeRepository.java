@@ -87,9 +87,11 @@ public interface EmployeeRepository extends JpaRepository<Employee,Long>  {
     @Query("select DISTINCT gender FROM Employee where empstatus='active'")
     public List<String> distgender();
     
-    @Query("SELECT coalesce(COUNT(*),0) as employeecount FROM Employee where empstatus= 'active'  GROUP BY department")
+    @Query("SELECT COUNT(*) as employeecount FROM Employee where empstatus= 'active'  GROUP BY department")
     public List<Integer> findemployeecount();
     
+    @Query("SELECT COUNT(*) as employeecount FROM Employee where empstatus= 'active' ")
+    public Long ActiveEmployeeCount();
 
     @Query("select SUM(ctc) FROM Employee where empstatus= 'active' GROUP BY department")
     public List<Double> totalcost();
