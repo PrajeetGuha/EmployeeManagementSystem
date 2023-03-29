@@ -95,13 +95,9 @@
 						$(document).ready(function () {
 							// Get the list of items from the model attribute
 							var items = [
-								<c:forEach var="employee" items="${allemployeenames}">
-								{
-									id : ${employee.empId},
-									name : "${employee.empName}"
-								}, 
-								
-							</c:forEach>
+								<c:forEach var="item" items="${allemployeenames}">
+									"${item.empName}",
+								</c:forEach>
 							];
 
 							// Set the initial form action
@@ -116,14 +112,14 @@
 
 								// Filter the list based on the search term
 								var filteredItems = items.filter(function (item) {
-									return item.name.toLowerCase().indexOf(searchTerm) > -1;
+									return item.toLowerCase().indexOf(searchTerm) > -1;
 								});
 
 								// Update the search results list
 								var $searchResults = $('#search-results');
 								$searchResults.empty();
 								filteredItems.forEach(function (item) {
-									var $li = $('<li>').text(item.id +". " + item.name);
+									var $li = $('<li>').text(item);
 									$li.on('click', function () {
 										$('#search-input').val($(this).text());
 										$searchResults.hide();
