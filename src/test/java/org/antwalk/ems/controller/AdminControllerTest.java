@@ -63,7 +63,20 @@ public class AdminControllerTest {
     }
 
     @Test
-    void testAddProjectManager() {
+    void testAddProjectManager() throws Exception {
+
+        String pmExists = "1";
+        String projIdExists = "1";
+        mvc.perform(MockMvcRequestBuilders.post("/admin/addProjectManager?projId="+projIdExists+"&pg=1")
+            .param("pm", pmExists))
+            .andDo(MockMvcResultHandlers.print())
+            .andExpect(MockMvcResultMatchers.flash().attribute("status", "SUCCESS"));
+
+        String pmNotExists = "1";
+        String projIdNotExists = "1";
+        mvc.perform(MockMvcRequestBuilders.post("/admin/addProjectManager?projId="+projIdNotExists+"&pg=1")
+            .param("pm", pmNotExists))
+            .andExpect(MockMvcResultMatchers.flash().attribute("status", "FAILED"));
     }
 
     @Test

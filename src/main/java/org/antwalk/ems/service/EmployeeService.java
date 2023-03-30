@@ -204,4 +204,21 @@ public class EmployeeService {
 		return applied;
 	}
 
+	public void deleteFamilyMemberById(Long fid) {
+		// TODO Auto-generated method stub
+		familyDetailsRepository.deleteById(fid);
+		
+	}
+
+	public void deleteProfessionById(Long pid) {
+		// TODO Auto-generated method stub
+		profDetailsRepository.deleteById(pid);
+		
+	}
+
+	public void deleteQualificationById(Long qid) {
+		// TODO Auto-generated method stub
+		qualificationDetailsRepository.deleteById(qid);
+	}
+
 }

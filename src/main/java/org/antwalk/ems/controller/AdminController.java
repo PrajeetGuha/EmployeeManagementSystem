@@ -258,9 +258,10 @@ private EmployeeRepository employeeRepository;
    	public String editableProjectPage(HttpServletRequest request, Model model) throws UserNotFoundException, TeamNotFoundException, ProjectNotFoundException{
     	Long id = AuthenticationSystem.getId();
     	int pageNo = Integer.parseInt(request.getParameter("pg"));
-
+//
     	Long projid = Long.parseLong(request.getParameter("projid"));
     	Project project=adminService.findProjectById(projid);
+
     	System.out.println("\n\n\n\n");
     	//List<Team> teams=adminService.findTeamsForProject();
     	//System.out.println(teams);
@@ -277,6 +278,7 @@ private EmployeeRepository employeeRepository;
         model.addAttribute("potentialpm",potentialPm);
         model.addAttribute("project",project);
         model.addAttribute("teams", teams);
+
  	return "editableproject";
    	}
     
@@ -666,28 +668,34 @@ private EmployeeRepository employeeRepository;
     	int pageNo = Integer.parseInt(request.getParameter("pg"));
 //
     	Long projid = Long.parseLong(request.getParameter("projId"));
-    	System.out.println(teamMemberIds+"/n/nhihiihihihihihh");
     	adminService.addTeamsToProject(projid,teamMemberIds);
         return "redirect:/admin/editableProjectPage?projid="+projid+"&pg="+pageNo;
     }
     @PostMapping("addProjectManager")
-    public String addProjectManager(@RequestParam("teamManagerValues") String pm,  RedirectAttributes redirectAttrs, HttpServletRequest request ) throws Exception{
-//
-    	int pageNo = Integer.parseInt(request.getParameter("pg"));
-////
-    	Long projid = Long.parseLong(request.getParameter("projId"));
-    	if(!pm.equals("0")) {
-    		
-    	Long projectManagerId=Long.parseLong(pm);
-    	System.out.println("\n\n\n");
-    	System.out.println(projectManagerId+"hi done");
-    	adminService.addProjectManagerToProject(projid,projectManagerId);
-    	}
-        return "redirect:/admin/editableProjectPage?projid="+projid+"&pg="+pageNo;
+    public String addProjectManager(@ModelAttribute("teamManagerValues") String pm,  RedirectAttributes redirectAttrs, BindingResult result, HttpServletRequest request ){
+        
+        int pg = Integer.parseInt(request.getParameter("pg"));
+        Long projid = Long.parseLong(request.getParameter("projId"));
+        // redirectAttrs.addFlashAttribute("")
+        String status;
+
+        if (result.hasErrors()){
+            status = "FAILED";
+            redirectAttrs.addFlashAttribute("error", result);
+        }
+        else{
+            try{
+                adminService.addProjectManagerToProject(projid,pm);
+                status = "SUCCESS";
+            }
+            catch(Exception e){
+                redirectAttrs.addFlashAttribute("exception", e);
+                status = "FAILED";
+            }
+        }
+        
+    	redirectAttrs.addFlashAttribute("status",status);
+        return "redirect:/admin/editableProjectPage?projid="+projid+"&pg="+pg;
     }
-	/*
-	 * @GetMapping("/editableTeam") public String editableTeam() { return
-	 * "editableTeam"; }
-	 */
 
 }
