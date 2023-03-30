@@ -9,5 +9,5 @@ public interface ProjectListView {
 	String getProjectName();
 	Date getStartDate();
 	Date getEndDate();
-	Employee getPm();
+	Long getPm();
 }

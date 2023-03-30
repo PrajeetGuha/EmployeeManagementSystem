@@ -45,6 +45,7 @@ import org.antwalk.ems.repository.UserRepository;
 import org.antwalk.ems.view.EmployeeListView;
 import org.antwalk.ems.view.EmployeeSelectionView;
 import org.antwalk.ems.view.ProjectListView;
+import org.antwalk.ems.view.ProjectListView2;
 import org.antwalk.ems.view.TeamListView;
 import org.antwalk.ems.view.TeamListView2;
 import org.antwalk.ems.view.TeamSelectionView;
@@ -794,9 +795,47 @@ public class AdminService {
         	return listview2;
         }
 
-        public List<ProjectListView> getProjectDetails(int pageNo){
+        public List<ProjectListView2> getProjectDetails(int pageNo) throws EmployeeNotFoundException{
 	
         	Pageable pageable = PageRequest.of(pageNo-1, PAGE_SIZE);
-        	return projectRepository.getProjectDetails(pageable).getContent();
+        	List<ProjectListView> listview = projectRepository.getProjectDetails(pageable).getContent();
+        	System.out.println(listview.size()+"/n/n/n/n/n");
+        	List<ProjectListView2> listview2=new ArrayList<>();
+        	for(int i=0;i<listview.size();i++) {
+        		ProjectListView2 projectListVal;
+        		if(listview.get(i).getPm()!=null) {
+        			Long pmId=listview.get(i).getPm();
+        			Employee pmValue= employeeRepository.findById(pmId).orElseThrow(
+        	                () -> new EmployeeNotFoundException("Employee not found")
+        		            );
+        			projectListVal=new ProjectListView2(listview.get(i).getProjId(), listview.get(i).getProjectName(), listview.get(i).getStartDate(), listview.get(i).getEndDate(), pmValue.getEmpName());
+        			
+        		}
+        		else {projectListVal=new ProjectListView2(listview.get(i).getProjId(), listview.get(i).getProjectName(), listview.get(i).getStartDate(), listview.get(i).getEndDate(), "");
+        		}
+        		listview2.add(projectListVal);
+        		
+        	}
+        	return listview2;
         }
+
+
+		public void deleteProjectById(Long projId) {
+			// TODO Auto-generated method stub
+			projectRepository.deleteById(projId);
+			
+		}
+
+
+		public void deleteTeamById(Long teamId) throws TeamNotFoundException {
+			// TODO Auto-generated method stub
+			 Team teamToadd = teamRepository.findById(teamId).orElseThrow(
+                     () -> new TeamNotFoundException("Team not found")
+                 );
+			 if(teamToadd.getTm()!=null) {
+			 employeeRepository.modifyEmployeeForTeamByEmpId(teamToadd.getTm().getEmpId());
+			 }
+			teamRepository.deleteById(teamId);
+			employeeRepository.modifyEmployeeForTeam(teamId);
+		}
 }

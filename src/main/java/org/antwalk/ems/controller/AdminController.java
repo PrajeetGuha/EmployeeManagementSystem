@@ -35,6 +35,7 @@ import org.antwalk.ems.service.ReportService;
 import org.antwalk.ems.view.EmployeeListView;
 import org.antwalk.ems.view.EmployeeSelectionView;
 import org.antwalk.ems.view.ProjectListView;
+import org.antwalk.ems.view.ProjectListView2;
 import org.antwalk.ems.view.TeamListView;
 import org.antwalk.ems.view.TeamListView2;
 import org.antwalk.ems.view.TeamSelectionView;
@@ -188,11 +189,27 @@ private EmployeeRepository employeeRepository;
    		return "analytics";
 
    	}
+
+    @GetMapping("/deleteProject")
+   	public String deleteProject(HttpServletRequest request, Model model) throws UserNotFoundException, EmployeeNotFoundException{
+       	Long id = AuthenticationSystem.getId();
+       	Long projId = Long.parseLong(request.getParameter("projId"));
+       	adminService.deleteProjectById(projId);
+   		return "redirect:/admin/projectallocation?pg=1";
+   	}
+    
+    @GetMapping("/deleteTeam")
+   	public String deleteTeam(HttpServletRequest request, Model model) throws UserNotFoundException, EmployeeNotFoundException, TeamNotFoundException{
+       	Long id = AuthenticationSystem.getId();
+       	Long teamId = Long.parseLong(request.getParameter("teamId"));
+       	adminService.deleteTeamById(teamId );
+   		return "redirect:/admin/teamallocation?pg=1";
+   	}
     @GetMapping("/projectallocation")
-	public String projectallocation(HttpServletRequest request, Model model) throws UserNotFoundException{
+	public String projectallocation(HttpServletRequest request, Model model) throws UserNotFoundException, EmployeeNotFoundException{
     	Long id = AuthenticationSystem.getId();
     	int pageNo = Integer.parseInt(request.getParameter("pg"));
-        List<ProjectListView> listProjects = adminService.getProjectDetails(pageNo);
+        List<ProjectListView2> listProjects = adminService.getProjectDetails(pageNo);
         //List<Team> listTeamsDetails = adminService.getAllTeamsdetails();
     	Admin admin = adminService.fetchAdminData(id);
         Long count = adminService.countAllProjects();

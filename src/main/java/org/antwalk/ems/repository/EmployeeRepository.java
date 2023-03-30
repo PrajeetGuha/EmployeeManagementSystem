@@ -116,4 +116,18 @@ public interface EmployeeRepository extends JpaRepository<Employee,Long>  {
     @Query("select e.empId as empId, e.empName as empName from Employee e where e.empstatus='active' and e.yearOfExperience>=3")
 	public List<EmployeeSelectionView> findAllPotentialPM();
 
+
+
+    @Transactional
+    @Modifying
+    @Query("update Employee e set e.team.teamId = null where e.team.teamId = :teamId")
+	public void modifyEmployeeForTeam(Long teamId);
+
+
+
+    @Transactional
+    @Modifying
+    @Query("update Employee e set e.team.teamId = null where e.empId = :empId")
+	public void modifyEmployeeForTeamByEmpId(Long empId);
+
 }

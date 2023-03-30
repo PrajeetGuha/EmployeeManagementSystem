@@ -494,10 +494,9 @@ function getdeptId(deptId)
 												<td><a href="editableTeamPage?tid=${team.teamId }&pg=${pageNo}" class="edit"
 													> <i class="material-icons"
 														data-toggle="tooltip" title="Edit">&#xE254;</i></a> 
-														<!-- <a
-													href="#generateTeamReportModal" class="report"
-													data-toggle="modal"> <i class="material-icons"
-														data-toggle="tooltip" title="Report">summarize</i></a> -->
+														 <a href="deleteTeam?teamId=${team.teamId }" class="delete"
+													> <i class="material-icons"
+														data-toggle="tooltip" title="Delete">delete</i></a>
 														</td>
 											</tr>
 

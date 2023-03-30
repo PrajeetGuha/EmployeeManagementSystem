@@ -24,7 +24,7 @@ public interface ProjectRepository extends JpaRepository<Project,Long> {
 	@Query("SELECT p.projectName FROM Project p JOIN p.teams t GROUP BY p.id HAVING COUNT(t) > 0")
 	List<String> findProjectsWithTeams();
 	
-	@Query("select p.projId as projId, p.projectName as projectName, p.startDate as startDate, p.endDate as endDate, p.pm as pm from Project p")
+	@Query(nativeQuery = true, value = "select proj_id as projId, project_name as projectName, start_date as startDate, end_date as endDate, pm_emp_id as pm from Project ")
 	Page<ProjectListView> getProjectDetails(Pageable pageable);
 
 }
