@@ -29,6 +29,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import io.micrometer.core.ipc.http.HttpSender.Request;
+
 // @RestController
 // @RequestMapping("/dashboard/admin")
 @Controller
@@ -117,6 +119,42 @@ public class EmployeeController {
         //     )));
         // }
         return "redirect:leaveApplication?pg=1";
+    }
+    
+
+    @GetMapping("/deletefamilymember")
+    public String deletefamilymember( HttpServletRequest request, RedirectAttributes redirectAttrs) throws UserNotFoundException{
+    	Long fid=Long.parseLong(request.getParameter("fid"));
+        employeeService.deleteFamilyMemberById(fid);
+        
+
+        // if (result.hasErrors()){
+        //     redirectAttrs.addFlashAttribute("result", result);
+        // }
+        // else{
+        //     redirectAttrs.addFlashAttribute("result",ResponseEntity.ok().body(new SuccessDetails(
+        //         new Date(),
+        //         "Added",
+        //         "New leave is added"
+        //     )));
+        // }
+        return "redirect:familyDetails";
+    }
+    @GetMapping("/deleteQualification")
+    public String deleteQualification( HttpServletRequest request, RedirectAttributes redirectAttrs) throws UserNotFoundException{
+    	Long qid=Long.parseLong(request.getParameter("qid"));
+        employeeService.deleteQualificationById(qid);
+        
+
+        return "redirect:qualificationdetails";
+    }
+    @GetMapping("/deleteProfession")
+    public String deleteProfession( HttpServletRequest request, RedirectAttributes redirectAttrs) throws UserNotFoundException{
+    	Long pid=Long.parseLong(request.getParameter("pid"));
+        employeeService.deleteProfessionById(pid);
+        
+
+        return "redirect:professionaldetails";
     }
 
     @GetMapping("leaveApplication")
@@ -277,7 +315,6 @@ public class EmployeeController {
     @GetMapping("professionaldetails")
     public String professionaldetails(HttpServletRequest request, Model model) {
         Long id = AuthenticationSystem.getId();
-        System.out.println(id);
 //        int pg=Integer.parseInt(request.getParameter("pg"));
         List<ProfDetails> listOfProfDetails = employeeService.findProfessionalDetails(id,1);
         

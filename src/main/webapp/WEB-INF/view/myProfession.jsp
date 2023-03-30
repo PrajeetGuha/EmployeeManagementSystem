@@ -235,6 +235,8 @@
 													class="col-sm-6 p-0 d-flex justify-content-lg-start justify-content-center">
 													<h2 class="ml-lg-2">Manage Professional Details</h2>
 												</div>
+												
+												<c:if test="${listOfProfession.size()<5}">
 												<div
 													class="col-sm-6 p-0 d-flex justify-content-lg-end justify-content-center">
 													<a href="#addProfessionModal" class="btn btn-success"
@@ -243,6 +245,7 @@
 														<span>Add Professional Details</span></a>
 
 												</div>
+												</c:if>
 
 											</div>
 										</div>
@@ -253,6 +256,7 @@
 													<th>Start Date</th>
 													<th>End Date</th>
 													<th>Designation</th>
+													<th>Action</th>
 												</tr>
 											</thead>
 											<tbody>
@@ -272,6 +276,9 @@
 													</td>
 													<td>
 														<c:out value="${professionInfo.designation}" />
+													</td>
+													<td>
+														<a href="deleteProfession?pid=${professionInfo.profDelId }" class='delete' ><i class='material-icons' data-toggle='tooltip' title='Delete'>&#xE872;</i></a>
 													</td>
 												</tr>
 
