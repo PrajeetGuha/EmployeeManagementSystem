@@ -96,7 +96,7 @@ public interface EmployeeRepository extends JpaRepository<Employee,Long>  {
     @Query("select SUM(ctc) FROM Employee where empstatus= 'active' GROUP BY department")
     public List<Double> totalcost();
     
-    @Query("select DISTINCT department FROM Employee")
+    @Query("SELECT distinct department FROM Employee where empstatus='active' ")
     public List<String> deptname();
     
     

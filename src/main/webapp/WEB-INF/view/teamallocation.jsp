@@ -67,154 +67,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-  </script>
-
-<!-- <script>
-  document.addEventListener("DOMContentLoaded", function() {
-    // Get employee names and ids from model attribute using JSTL
-    var employees = [
-      <c:forEach var="employee" items="${allemployeenames}">
-        {
-          id: "${employee.empId}",
-          name: "${employee.empName}"
-        },
-      </c:forEach>
-    ];
-
- // Get department names from model attribute using JSTL
-    var listdepartments = [
-      <c:forEach var="department" items="${listteams}">
-        "${department.tm.empName}",
-      </c:forEach>
-    ];
-    
-    // Create a list to store selected employee names
-    var selectedEmployees = [];
-
-    // Get references to DOM elements
-    var empList = document.getElementById("empList");
-    var suggestionList = document.getElementById("suggestions");
-
-    
-    
-    // Function to render the list of selected employees
-    function renderSelectedEmployees() {
-  var names = selectedEmployees.map(function(employee) {
-	  return "("+employee.id+") "+employee.name;
-  });
-  empList.value = names.join(", ");
-}
-
-
-
-
-    // Function to filter employee names based on input text
-    function filterEmployees(text) {
-      return employees.filter(function(employee) {
-        // Exclude names that are already in the list of selected employees
-        if (selectedEmployees.some(function(selectedEmployee) {
-          return selectedEmployee.name.toLowerCase() === employee.name.toLowerCase();
-        })) {
-          return false;
-        }
-        // Exclude names that match any department name
-        if (listdepartments.some(function(department) {
-          return department.toLowerCase() === employee.name.toLowerCase();
-        })) {
-          return false;
-        }
-        return employee.name.toLowerCase().includes(text.toLowerCase());
-      });
-    }
-
-    // Function to handle input events on empList
-    function handleInput() {
-      var text = empList.value.trim();
-      suggestionList.innerHTML = "";
-
-      if (text) {
-        // Split the input by commas
-        var names = text.split(",");
-        for (var i = 0; i < names.length; i++) {
-          var name = names[i].trim();
-          if (name) {
-            // Filter employee names based on input text
-            var filteredEmployees = filterEmployees(name);
-
-            // Create a new suggestion element for each filtered employee
-            filteredEmployees.forEach(function(employee) {
-              var suggestionElement = document.createElement("li");
-              suggestionElement.innerText ="(" +employee.id + ")"+ " " + employee.name;
-              suggestionElement.setAttribute("data-employee-id", employee.id);
-
-              suggestionElement.addEventListener("click", function() {
-                // Add selected employee to list
-                var employeeId = this.getAttribute("data-employee-id");
-                selectedEmployees.push({
-                  id: employeeId,
-                  name: employee.name
-                });
-
-                
-                
-                renderSelectedEmployees();
-                suggestionList.innerHTML = "";
-              });
-
-              suggestionList.appendChild(suggestionElement);
-            });
-          }
-        }
-      }
-    }
-    
- // Function to handle keydown events on empList
-    function handleKeydown(event) {
-  if (event.key === "Backspace") {
-    if (empList.selectionStart === empList.selectionEnd && empList.selectionStart === 0 && selectedEmployees.length > 0) {
-      // Remove last name from selected employees list
-      selectedEmployees.pop();
-      renderSelectedEmployees();
-      
-    } else if (empList.value.length < prevLength) {
-      // Remove last name from selected employees list
-      selectedEmployees.pop();
-      renderSelectedEmployees();
-    }
-  }
-
-  prevLength = empList.value.length;
-
-  console.log(selectedEmployees);
-  console.log(empList.value);
-}
-
-
-
-    // Add keydown event listener to empList
-    empList.addEventListener("keydown", handleKeydown);
-
-    // Add input event listener to empList
-    empList.addEventListener("input", handleInput);
-
-    // Add keydown event listener to empList to handle keyboard shortcuts
-    empList.addEventListener("keydown", function(event) {
-      if (event.key === "Escape") {
-        suggestionList.innerHTML = "";
-      } else if (event.key === "Enter") {
-        var firstSuggestion = suggestionList.querySelector("li");
-        if (firstSuggestion) {
-          firstSuggestion.click();
-        }
-      }
-    });
-
-    // Render the list of selected employees
-    renderSelectedEmployees();
-  });
-</script> -->
-
-<script>
 
 function getdeptId(deptId)
 {
@@ -223,33 +75,7 @@ function getdeptId(deptId)
 			var deptIdValue=document.getElementById("deptIdInput");
 			deptIdValue.value = deptId;
 		var departmentNameValue= document.getElementById("tName");
-		<c:forEach var="department" items="${listteams}">
-			console.log(deptId);
-			console.log(${department.teamId});
-			var deptIdValues=${department.teamId};
-			if (deptId===deptIdValues){
-				console.log(deptId);
-				departmentNameValue.value="${department.teamName}";
-				
-				var employeesindept = [
-					<c:forEach var="employee" items="${department.employees}">
-						{
-							id: "${employee.empId}",
-							name: "${employee.empName}"
-						},
-					</c:forEach>
-				];
-				var employeeList = document.getElementById("employeeList");
-
-				employeesindept.forEach(function(employee) {
-					var listItem = document.createElement("li");
-					listItem.className = "list-group-item";
-					listItem.textContent = "(" + employee.id + ") " + employee.name;
-					employeeList.appendChild(listItem);
-				
-				});
-}
-	</c:forEach>
+	
 	
 		
 			
@@ -662,7 +488,7 @@ function getdeptId(deptId)
 												
 												<td><c:out value="${fn:toUpperCase(fn:substring(team.department, 0, 1))}${fn:toLowerCase(fn:substring(team.department, 1,fn:length(team.department)))}" /></td>
 												
-												<td><c:out value="${team.tm.empName}" /></td>
+												<td><c:out value="${team.tm}" /></td>
 
 
 												<td><a href="editableTeamPage?tid=${team.teamId }&pg=${pageNo}" class="edit"

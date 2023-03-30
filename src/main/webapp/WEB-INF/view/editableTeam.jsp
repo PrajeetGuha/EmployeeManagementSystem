@@ -53,18 +53,19 @@ var AlldeptEmployees = [
 	</c:forEach>
 ];
 var bakiEmployees = [];
-	for(let emp in AlldeptEmployees){/* 
-		console.log(AlldeptEmployees[emp]); */
-		if (teamEmployees.length == 0){
-			bakiEmployees.push(AlldeptEmployees[emp]);
+for(let emp in AlldeptEmployees){/* 
+	console.log(AlldeptEmployees[emp]); */
+	var notpresent = true;
+for(let empteam in teamEmployees){
+		if (AlldeptEmployees[emp].id == teamEmployees[empteam].id){
+			notpresent = false;
+			break;
 		}
-	for(let empteam in teamEmployees){
-			if (AlldeptEmployees[emp].id != teamEmployees[empteam].id){
-				bakiEmployees.push(AlldeptEmployees[emp]);
-				break;
-			}
-	}
-	}	
+}
+if (notpresent){
+	bakiEmployees.push(AlldeptEmployees[emp]);
+}
+}	
 
 console.log(teamEmployees);
 console.log(AlldeptEmployees);
