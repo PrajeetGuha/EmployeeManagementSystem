@@ -729,18 +729,21 @@ public class AdminService {
         }
 
 
-		public void addProjectManagerToProject(Long projid, Long projectManagerId) throws ProjectNotFoundException, EmployeeNotFoundException {
-			// TODO Auto-generated method stub
-			Project pmToAdd = projectRepository.findById(projid).orElseThrow(
+		public void addProjectManagerToProject(Long projid, String projectManagerId) throws ProjectNotFoundException, EmployeeNotFoundException {
+            if (projectManagerId.equals("0")){
+                return;
+            }
+            else{
+                Project pmToAdd = projectRepository.findById(projid).orElseThrow(
                     () -> new ProjectNotFoundException("Project not found")
                 );
-			Employee persistedEmployee = employeeRepository.findById(projectManagerId).orElseThrow(
+                Long pmId = Long.parseLong(projectManagerId);
+                Employee pm = employeeRepository.findById(pmId).orElseThrow(
 					() -> new EmployeeNotFoundException("Employee not found"));
-			pmToAdd.setPm(persistedEmployee);
-			//persistedEmployee.setTeam(teamToAdd);
-			//employeeRepository.save(persistedEmployee);
-			projectRepository.save(pmToAdd);
-			System.out.println("\n\n\n done with process");
+                
+                pmToAdd.setPm(pm);
+                projectRepository.save(pmToAdd);
+            }
 		}
 
 
