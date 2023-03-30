@@ -640,9 +640,9 @@ public class AdminService {
 		public List<Team> findTeamsForProject() {
 			// TODO Auto-generated method stub
 			List<Team> teams=teamRepository.findAll();
-			for(int i = 0; i < teams.size(); i++) {
-	    		System.out.println(teams.get(i).getTeamId());
-	    	}
+//			for(int i = 0; i < teams.size(); i++) {
+//	    		System.out.println(teams.get(i).getTeamId());
+//	    	}
 			return teams;
 		}
 		public List<EmployeeSelectionView> listAllPotentialTM(String department) {

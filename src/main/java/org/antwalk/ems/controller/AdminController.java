@@ -254,23 +254,23 @@ private EmployeeRepository employeeRepository;
    	public String editableProjectPage(HttpServletRequest request, Model model) throws UserNotFoundException, TeamNotFoundException, ProjectNotFoundException{
     	Long id = AuthenticationSystem.getId();
     	int pageNo = Integer.parseInt(request.getParameter("pg"));
-
+//
     	Long projid = Long.parseLong(request.getParameter("projid"));
     	Project project=adminService.findProjectById(projid);
-    	System.out.println("\n\n\n\n");
+//    	System.out.println("\n\n\n\n");
     	List<Team> teams=adminService.findTeamsForProject();
     	System.out.println(teams);
-    	List<EmployeeSelectionView> potentialPm = adminService.listAllPotentialPM();
-//    	for(int i = 0; i < teams.size(); i++) {
-//    		System.out.println(teams.get(i).getTeamId());
-//    	}
+//    	List<EmployeeSelectionView> potentialPm = adminService.listAllPotentialPM();
+////    	for(int i = 0; i < teams.size(); i++) {
+////    		System.out.println(teams.get(i).getTeamId());
+////    	}
     	Admin admin = adminService.fetchAdminData(id);
     	model.addAttribute("admin",admin);
         model.addAttribute("pageNo", pageNo);
 
-        model.addAttribute("potentialpm",potentialPm);
-        model.addAttribute("project",project);
-        model.addAttribute("teams", teams);
+//        model.addAttribute("potentialpm",potentialPm);
+//        model.addAttribute("project",project);
+//        model.addAttribute("teams", teams);
  	return "editableproject";
    	}
     

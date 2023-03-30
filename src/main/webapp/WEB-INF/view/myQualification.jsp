@@ -254,6 +254,7 @@
 													class="col-sm-6 p-0 d-flex justify-content-lg-start justify-content-center">
 													<h2 class="ml-lg-2">Manage Qualification</h2>
 												</div>
+												<c:if test="${listOfQualification.size()<5}">
 												<div
 													class="col-sm-6 p-0 d-flex justify-content-lg-end justify-content-center">
 													<a href="#addQualificationModal" class="btn btn-success"
@@ -262,6 +263,7 @@
 														<span>Add Qualification Details</span></a>
 
 												</div>
+												</c:if>
 
 											</div>
 										</div>
@@ -272,6 +274,7 @@
 													<th>Start Date</th>
 													<th>End Date</th>
 													<th>Percentage Scored</th>
+													<th>Action</th>
 												</tr>
 											</thead>
 											<tbody>
@@ -291,6 +294,10 @@
 													<td>
 														<c:out value="${qualificationInfo.percent}" /> %
 														</td>
+														
+													<td>
+														<a href="deleteQualification?qid=${qualificationInfo.qdId }" class='delete' ><i class='material-icons' data-toggle='tooltip' title='Delete'>&#xE872;</i></a>
+													</td>
 												</tr>
 
 

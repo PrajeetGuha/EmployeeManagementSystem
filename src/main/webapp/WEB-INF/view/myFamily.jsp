@@ -254,6 +254,8 @@
 													class="col-sm-6 p-0 d-flex justify-content-lg-start justify-content-center">
 													<h2 class="ml-lg-2">Manage Family Details</h2>
 												</div>
+												
+												<c:if test="${listOfFamilyDetails.size()<5}">
 												<div
 													class="col-sm-6 p-0 d-flex justify-content-lg-end justify-content-center">
 													<a href="#addFamilyModal" class="btn btn-success"
@@ -262,6 +264,7 @@
 														<span>Add Family Details</span></a>
 
 												</div>
+												</c:if>
 
 											</div>
 										</div>
@@ -273,6 +276,7 @@
 													<th>Occupation</th>
 													<th>Date Of Birth</th>
 													<th>Contact Number</th>
+													<th>Action</th>
 												</tr>
 											</thead>
 											<tbody>
@@ -297,6 +301,9 @@
 														<c:out value="${familyInfo.dob}" />
 													</td>													<td>
 														<c:out value="${familyInfo.contactno}" />
+													</td>
+													<td>
+														<a href="deletefamilymember?fid=${familyInfo.familyId }" class='delete' ><i class='material-icons' data-toggle='tooltip' title='Delete'>&#xE872;</i></a>
 													</td>
 												</tr>
 
