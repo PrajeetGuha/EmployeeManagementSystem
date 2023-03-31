@@ -19,6 +19,7 @@ import org.antwalk.ems.repository.EmployeeRepository;
 import org.antwalk.ems.repository.FamilyDetailsRepository;
 import org.antwalk.ems.security.AuthenticationSystem;
 import org.antwalk.ems.service.EmployeeService;
+import org.antwalk.ems.view.EmployeeLeaveView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,8 +29,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import io.micrometer.core.ipc.http.HttpSender.Request;
 
 // @RestController
 // @RequestMapping("/dashboard/admin")
@@ -120,45 +119,9 @@ public class EmployeeController {
         // }
         return "redirect:leaveApplication?pg=1";
     }
-    
-
-    @GetMapping("/deletefamilymember")
-    public String deletefamilymember( HttpServletRequest request, RedirectAttributes redirectAttrs) throws UserNotFoundException{
-    	Long fid=Long.parseLong(request.getParameter("fid"));
-        employeeService.deleteFamilyMemberById(fid);
-        
-
-        // if (result.hasErrors()){
-        //     redirectAttrs.addFlashAttribute("result", result);
-        // }
-        // else{
-        //     redirectAttrs.addFlashAttribute("result",ResponseEntity.ok().body(new SuccessDetails(
-        //         new Date(),
-        //         "Added",
-        //         "New leave is added"
-        //     )));
-        // }
-        return "redirect:familyDetails";
-    }
-    @GetMapping("/deleteQualification")
-    public String deleteQualification( HttpServletRequest request, RedirectAttributes redirectAttrs) throws UserNotFoundException{
-    	Long qid=Long.parseLong(request.getParameter("qid"));
-        employeeService.deleteQualificationById(qid);
-        
-
-        return "redirect:qualificationdetails";
-    }
-    @GetMapping("/deleteProfession")
-    public String deleteProfession( HttpServletRequest request, RedirectAttributes redirectAttrs) throws UserNotFoundException{
-    	Long pid=Long.parseLong(request.getParameter("pid"));
-        employeeService.deleteProfessionById(pid);
-        
-
-        return "redirect:professionaldetails";
-    }
 
     @GetMapping("leaveApplication")
-       public String leaveApplicationView(HttpServletRequest request, Model model) {
+       public String leaveApplicationView(HttpServletRequest request, Model model) throws EmployeeNotFoundException {
        Long id = AuthenticationSystem.getId();
        
         int pg = Integer.parseInt(request.getParameter("pg"));
@@ -168,7 +131,7 @@ public class EmployeeController {
         int totalPages = 0;
         List<Integer> applied=new ArrayList<>();
         String status;
-        Employee employee;
+        EmployeeLeaveView employee;
 		try {
 			leaveapplications = employeeService.findEmployeeLeaves(id,pg);
 			totalCount = employeeService.totalLeaves(id);
@@ -182,15 +145,18 @@ public class EmployeeController {
 			System.out.println(e);
 			status = "FAILED";
 		}
-		try {
-			employee = employeeService.findEmployee(id);
+//		try {
+			employee = employeeService.findEmployeeLeaves(id);
+			System.out.println("\n\nhi\n\n");
 			status = "SUCCESS";
-		}
-		catch(Exception e) {
-			employee = new Employee();
-			model.addAttribute("exception",e);
-			status = "FAILED";
-		}
+//		}
+//		catch(Exception e) {
+//			System.out.println("\n\n no \n\n");
+//			System.out.println("\n\n "+e.getMessage()+" \n\n");
+//			model.addAttribute("exception",e);
+//			status = "FAILED";
+//		}
+		System.out.println("\n\n\n"+employee.getCl());
         model.addAttribute("status",status);
         model.addAttribute("employee",employee);
         model.addAttribute("appliedLeaves",applied);
@@ -248,14 +214,14 @@ public class EmployeeController {
 
     @PostMapping("personaldetailsofemployee")
     public String editemployee(@ModelAttribute("emppersonaldetails") EmployeeDetails employeeDetails,
-            BindingResult result, RedirectAttributes redirectAttrs) throws UserNotFoundException {
+            BindingResult result, RedirectAttributes redirectAttrs) throws UserNotFoundException, EmployeeNotFoundException {
         // familyDetailsRepository.saveAll(families); // save all updated users to the
         // database
 
         Long id = AuthenticationSystem.getId();
         System.out.println("hello " + id);
         System.out.println(employeeDetails);
-        employeeDetailsRepository.save(employeeDetails);
+        employeeService.saveEmpDetails(id,employeeDetails);
         return "redirect:/employee/employeepersonaldetails";
     }
 
@@ -315,6 +281,7 @@ public class EmployeeController {
     @GetMapping("professionaldetails")
     public String professionaldetails(HttpServletRequest request, Model model) {
         Long id = AuthenticationSystem.getId();
+        System.out.println(id);
 //        int pg=Integer.parseInt(request.getParameter("pg"));
         List<ProfDetails> listOfProfDetails = employeeService.findProfessionalDetails(id,1);
         

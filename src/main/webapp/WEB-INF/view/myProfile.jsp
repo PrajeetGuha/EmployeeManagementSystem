@@ -117,11 +117,11 @@
                                                                 <td>
                                                                     <b>
 
-                                                                        <c:if test="${employee.designation==null}">
+                                                                        <c:if test="${employee.designation.equals('')}">
                                                                             No designation assigned
                                                                         </c:if>
 
-                                                                        <c:if test="${employee.designation!=null}">
+                                                                        <c:if test="${!employee.designation.equals('')}">
                                                                             <c:out value="${employee.designation}" />
 
                                                                         </c:if>
@@ -208,12 +208,12 @@
 
                                                             <tr>
                                                                 <td>
-                                                                    PROBITION PERIOD :
+                                                                    PROBATION PERIOD :
                                                                 </td>
                                                                 <td>
                                                                     <b>
                                                                         <c:if test="${employee.probPeriod==null}">
-                                                                            No probition period
+                                                                            No probation period
                                                                         </c:if>
 
                                                                         <c:if test="${employee.probPeriod!=null}">
@@ -229,7 +229,7 @@
                                                             </tr>
                                                             <tr>
                                                                 <td>
-                                                                    PROBITION COMPLETE DATE :
+                                                                    PROBATION COMPLETE DATE :
                                                                     &nbsp;&nbsp;&nbsp;
                                                                 </td>
                                                                 <td>

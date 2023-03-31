@@ -345,15 +345,15 @@ public class AdminService {
         leaveApplication.setAdmin(admin);
         leaveApplication.setIsApproved(approve.equals("true") ? true : false);
         Employee employee=leaveApplication.getEmployee();
-        if(leaveApplication.getLeaveType().equals("CL")) {
+        if(leaveApplication.getLeaveType().equals("CL") && leaveApplication.getIsApproved()==true) {
         		
             employee.setClLeft(employee.getClLeft()-1);
         }
-        else if(leaveApplication.getLeaveType().equals("SL")) {
+        else if(leaveApplication.getLeaveType().equals("SL") && leaveApplication.getIsApproved()==true) {
     		
             employee.setSlLeft(employee.getSlLeft()-1);
         }
-        else if(leaveApplication.getLeaveType().equals("PL")) {
+        else if(leaveApplication.getLeaveType().equals("PL") && leaveApplication.getIsApproved()==true) {
         		
             employee.setMoreLeave(employee.getMoreLeave()+1);
         }

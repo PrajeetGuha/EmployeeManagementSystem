@@ -183,11 +183,13 @@
 											modelAttribute="emppersonaldetails">
 											<div class="input-group mb-3">
 												<span class="input-group-text" id="basic-addon1">Primary
-													contact no</span> <input type="tel" class="form-control"
+													contact no</span> <input type="" class="form-control"
 													placeholder="Phone number" aria-label="Phone number"
 													aria-describedby="basic-addon1" pattern="[5-9]{1}[0-9]{9}"
 													name="primaryContactno"
-													value="${employeeinfomation.primaryContactno}" required>
+													value="${employeeinfomation.primaryContactno}" required
+													oninvalid = "setCustomValidity('Not a valid phone number')"
+													oninput = "setCustomValidity('')">
 											</div>
 											<br>
 
@@ -219,7 +221,7 @@
 													type="text" class="form-control"
 													placeholder="Permanent address" name="permaAddress"
 													value="${employeeinfomation.permaAddress}"
-													pattern="[a-zA-Z0-9_- ]{10,254}" required></input>
+													pattern="[a-zA-Z0-9_-\@#&()+=\\\:',]{10,254}" required></input>
 											</div>
 											<br>
 
@@ -228,7 +230,7 @@
 													type="text" class="form-control"
 													placeholder="Present address" name="presentAddress"
 													value="${employeeinfomation.presentAddress}"
-													pattern="[a-zA-Z0-9_-]{10,254}" required></input>
+													pattern="[a-zA-Z0-9_-\@#&()+=\\\:',]{10,254}" required></input>
 											</div>
 											<br>
 
