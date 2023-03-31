@@ -61,64 +61,57 @@
                 <body>
                     <!-- <div>${result.getBody().getStatus()}</div> -->
 
-                    <div class="wrapper">
-                        <div class="body-overlay" />
-                        <nav id="sidebar">
-                            <div class="sidebar-header">
-                                <h3>
-                                    <img src="../resources/assets/logo.png" class="img-fluid" /><span>NRI
-                                        Fintech</span>
-                                </h3>
-                            </div>
-                            <ul class="list-unstyled components">
-                                <li><a href="dashboard" class="dashboard"><i class="material-icons">dashboard</i>
-                                        <span>Dashboard</span></a></li>
-                                <li><a href="leaveApplication?pg=1"> <i
-                                            class="material-icons">playlist_add_check</i>Apply
-                                        Leave
+	<div class="wrapper">
+		<div class="body-overlay" />
+		<nav id="sidebar">
+			<div class="sidebar-header">
+				<h3>
+					<img src="../resources/assets/logo.png" class="img-fluid" /><span>NRI
+						Fintech</span>
+				</h3>
+			</div>
+			<ul class="list-unstyled components">
+				<li><a href="dashboard" class="dashboard"><i
+						class="material-icons">dashboard</i> <span>Dashboard</span></a></li>
+				<li><a href="leaveApplication?pg=1"> <i
+						class="material-icons">playlist_add_check</i>Apply Leave
 
-                                    </a></li>
-
-
-
-                                <li class="active"><a href="resign"> <i class="material-icons">directions_walk</i>Apply
-                                        Resignation
+				</a></li>
 
 
 
-                                    </a></li>
-
-                
-                                    <li ><a href="employeepersonaldetails" >
-                                        <i class="material-icons">contact_mail</i>Personal Details
-
-
-								<li><a href="professionaldetails">
-									<i class="material-icons">work</i> 
-										<span>Professional Details</span></a></li>
-
-								<li ><a href="qualificationdetails">
-										<!-- <i class='fas fa-user-alt-slash' >Resignation</i> -->
-										<i class="material-icons">school</i> 
-										<span>Qualification Details</span></a></li>
-								<li><a href="familyDetails"><i class="material-icons">group</i>
-										<span>Family Details</span></a></li>
+				<li class="active"><a href="resign"> <i
+						class="material-icons">directions_walk</i>Apply Resignation
 
 
 
+				</a></li>
 
 
-                            </ul>
+				<li><a href="employeepersonaldetails"> <i
+						class="material-icons">contact_mail</i>Personal Details
 
 
-                        </nav>
+						<li><a href="professionaldetails"> <i
+								class="material-icons">work</i> <span>Professional
+									Details</span></a></li>
+
+						<li><a href="qualificationdetails"> <!-- <i class='fas fa-user-alt-slash' >Resignation</i> -->
+								<i class="material-icons">school</i> <span>Qualification
+									Details</span></a></li>
+						<li><a href="familyDetails"><i class="material-icons">group</i>
+								<span>Family Details</span></a></li>
+			</ul>
+
+
+		</nav>
 
 
 
 
 
 
-                        <!-- <div id="applyresignation" class="modal fade">
+		<!-- <div id="applyresignation" class="modal fade">
 							<div class="modal-dialog">
 								<div class="modal-content">
 									<form action="deptAlloc" method="post">
@@ -148,159 +141,144 @@
 
 
 
-                        <!--------page-content---------------->
+		<!--------page-content---------------->
 
-                        <div id="content">
+		<div id="content">
 
-                            <!--top--navbar----design--------->
-                            <div class="top-navbar">
-                                <div class="xp-topbar">
+			<!--top--navbar----design--------->
+			<div class="top-navbar">
+				<div class="xp-topbar">
 
-                                    <!-- Start XP Row -->
-                                    <div class="row justify-content-end">
-                                        <!-- Start XP Col -->
-                                        <!-- <div
+					<!-- Start XP Row -->
+					<div class="row justify-content-end">
+						<!-- Start XP Col -->
+						<!-- <div
     class="col-2 col-md-1 col-lg-1 order-2 order-md-1 align-self-center">
     <div class="xp-menubar">
       <span class="material-icons text-white">signal_cellular_alt
       </span>
     </div>
   </div> -->
-                                        <!-- End XP Col -->
+						<!-- End XP Col -->
 
-                                        <!-- Start XP Col -->
-
-
-
-                                        <!-- End XP Col -->
-
-                                        <!-- Start XP Col -->
-                                        <div class="col-md-3 col-lg-2 order-1 order-md-3 ">
-                                            <div class="xp-profilebar text-right" align="right">
-                                                <nav class="navbar p-0">
-                                                    <ul class="nav navbar-nav flex-row ml-auto">
-                                                        <li class="align-right">
-                                                            <a href="../logout" class="nav-link"><span
-                                                                    class="material-icons">logout</span>
-                                                                Logout
-                                                            </a>
-                                                        </li>
-
-                                                    </ul>
+						<!-- Start XP Col -->
 
 
-                                                </nav>
 
-                                            </div>
-                                        </div>
-                                        <!-- End XP Col -->
+						<!-- End XP Col -->
 
-                                    </div>
-                                    <!-- End XP Row -->
+						<!-- Start XP Col -->
+						<div class="col-md-3 col-lg-2 order-1 order-md-3 ">
+							<div class="xp-profilebar text-right" align="right">
+								<nav class="navbar p-0">
+									<ul class="nav navbar-nav flex-row ml-auto">
+										<li class="align-right"><a href="../logout"
+											class="nav-link"><span class="material-icons">logout</span>
+												Logout </a></li>
 
-                                </div>
-                                <div class="xp-breadcrumbbar text-center">
-                                    <h4 class="page-title">Apply For Resignation</h4>
-                                    <!--  <ol class="breadcrumb">
+									</ul>
+
+
+								</nav>
+
+							</div>
+						</div>
+						<!-- End XP Col -->
+
+					</div>
+					<!-- End XP Row -->
+
+				</div>
+				<div class="xp-breadcrumbbar text-center">
+					<h4 class="page-title">Apply For Resignation</h4>
+					<!--  <ol class="breadcrumb">
 						<li class="breadcrumb-item"><a href="#">Booster</a></li>
 						<li class="breadcrumb-item active" aria-current="page">Dashboard</li>
 					</ol>-->
-                                </div>
+				</div>
 
-                            </div>
+			</div>
 
 
 
-                            <!--------main-content------------->
+			<!--------main-content------------->
 
-           
-                            <div class="row">
-                                <div class="col-1"></div>
-                                <div class="col-10">
-                                    <div class="table-wrapper">
-                                        <div class="table-title">
-                                            <div class="row">
-                                                <div
-                                                    class="col-sm-6 p-0 d-flex justify-content-lg-start justify-content-center">
-                                                    <h2 class="ml-lg-2"></h2>
-                                                </div>
-                                                <div
-                                                    class="col-sm-6 p-0 d-flex justify-content-lg-end justify-content-center">
-                                                    
-                                                    <c:if test="${resign!=null }">
-                                                    <c:if test="${resign.isApproved==true || resign.isApproved==null}">
-                                                    <a href="#applyResignModal" class="btn btn-success"
-                                                        data-toggle="modal" style="pointer-events: none">
-                                                        <i class="material-icons">&#xE147;</i>
-                                                        <span>Apply For Resignation</span></a>
-                                                        </c:if>  
-                                                           <c:if test="${resign.isApproved==false }">
-                                                    <a href="#applyResignModal" class="btn btn-success"
-                                                        data-toggle="modal" >
-                                                        <i class="material-icons">&#xE147;</i>
-                                                        <span>Apply For Resignation</span></a>
-                                                        </c:if> 
-                                                        </c:if>
-                                                        
-                                                    <c:if test="${resign==null }">
-                                                    <a href="#applyResignModal" class="btn btn-success"
-                                                        data-toggle="modal" >
-                                                        <i class="material-icons">&#xE147;</i>
-                                                        <span>Apply For Resignation</span></a>
-                                                        </c:if>
-                                                        
 
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <table class="table table-striped table-hover">
-                                            <thead>
-                                                <tr>
-                                                    <th>Is Approved</th>
-                                                    <th>Date Of Apply</th>
-                                                    <th>Resign Reason</th>
-                                                    <th>Approved By</th>
-                                                </tr>
-                                            </thead>
-                                        <c:if test="${resign!=null}">
-                                            <tbody>
-                                                <tr>
+			<div class="row">
+				<div class="col-1"></div>
+				<div class="col-10">
+					<div class="table-wrapper">
+						<div class="table-title">
+							<div class="row">
+								<div
+									class="col-sm-6 p-0 d-flex justify-content-lg-start justify-content-center">
+									<h2 class="ml-lg-2"></h2>
+								</div>
+								<div
+									class="col-sm-6 p-0 d-flex justify-content-lg-end justify-content-center">
 
-                                                <tr>
-                                                        <td>
-                                                            <c:if test="${resign.isApproved==null}">
-                                                                <button type="button" class="btn btn-secondary">Applied</button>
-                                                          
-                                                        </c:if>
-                                                            <c:if test = "${resign.isApproved == true}">
-                                                                <button type="button" class="btn btn-success">Approved</button>
-                                                            </c:if>
-                                                            <c:if test = "${resign.isApproved == false}">
-                                                                <button type="button" class="btn btn-danger">Rejected</button>
-                                                            </c:if>
-                                                        </td>
+									<c:if test="${resign!=null }">
+										<c:if
+											test="${resign.isApproved==true || resign.isApproved==null}">
+											<a href="#applyResignModal" class="btn btn-success"
+												data-toggle="modal" style="pointer-events: none"> <i
+												class="material-icons">&#xE147;</i> <span>Apply For
+													Resignation</span></a>
+										</c:if>
+										<c:if test="${resign.isApproved==false }">
+											<a href="#applyResignModal" class="btn btn-success"
+												data-toggle="modal"> <i class="material-icons">&#xE147;</i>
+												<span>Apply For Resignation</span></a>
+										</c:if>
+									</c:if>
 
-                                                
-                                                    <td>
-                                                        <c:out value="${resign.resignationDate}" />
-                                                    </td>
-                                                    <td>
-                                                        <c:out value="${resign.resignationReason}" />
-                                                    </td>
-                                                    <td>
-                                                        <c:out value="${resign.approvedBy.adminName}" />
-                                                    </td>
-                                                    
+									<c:if test="${resign==null }">
+										<a href="#applyResignModal" class="btn btn-success"
+											data-toggle="modal"> <i class="material-icons">&#xE147;</i>
+											<span>Apply For Resignation</span></a>
+									</c:if>
 
-                                                </tr>
-                                                </tr>
-                                            </tbody>
-                                            </c:if>
-                                        </table>
-                                    </div>
-                                </div>
 
-                                <!-- <div class="clearfix">
+								</div>
+							</div>
+						</div>
+						<table class="table table-striped table-hover">
+							<thead>
+								<tr>
+									<th>Is Approved</th>
+									<th>Date Of Apply</th>
+									<th>Resign Reason</th>
+									<th>Approved By</th>
+								</tr>
+							</thead>
+							<c:if test="${resign!=null}">
+								<tbody>
+									<tr>
+									<tr>
+										<td><c:if test="${resign.isApproved==null}">
+												<button type="button" class="btn btn-secondary">Applied</button>
+
+											</c:if> <c:if test="${resign.isApproved == true}">
+												<button type="button" class="btn btn-success">Approved</button>
+											</c:if> <c:if test="${resign.isApproved == false}">
+												<button type="button" class="btn btn-danger">Rejected</button>
+											</c:if></td>
+
+
+										<td><c:out value="${resign.resignationDate}" /></td>
+										<td><c:out value="${resign.resignationReason}" /></td>
+										<td><c:out value="${resign.approvedBy.adminName}" /></td>
+
+
+									</tr>
+									</tr>
+								</tbody>
+							</c:if>
+						</table>
+					</div>
+				</div>
+
+				<!-- <div class="clearfix">
 										<div class="hint-text">
 											Total number of entries <b>${countOfDepartments}</b><br>
 											Showing page <b>${pageNo}</b> of <b>${countPages }</b>
@@ -319,49 +297,17 @@
 
 										</ul>
 									</div> -->
-                            </div>
-                        </div>
-
-                        <div class="col-1"></div>
-                        <!-- Edit Modal HTML -->
-                        <div id="applyResignModal" class="modal fade">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-
-                                    <div class="modal-header">
-                                        <h4 class="modal-title">Apply Resignation</h4>
-                                    </div>
-                                    <form action="applyResignation" method="post" modelAttribute="resignform">
-                                        <div class="modal-body">
-
-                                            <div class="form-group">
-                                                <label>Reason for
-                                                    Resignation</label> <textarea class="form-control"
-                                                    name="resignationReason" required></textarea>
-                                            </div>
-                                    
-                                           <br>
-
-                                        </div>
-                                        <div class="modal-footer">
-                                            <input type="button" class="btn btn-danger" data-dismiss="modal"
-                                                value="Cancel"> <input type="submit" class="btn btn-success"
-                                                value="Apply">
-                                        </div>
-                                    </form>
-
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+			</div>
+		</div>
+		
+	</div>
 
 
 
 
 
 
-                    <!---footer---->
+	<!---footer---->
 
 
                     </div>
@@ -376,8 +322,37 @@
 
 
 
-                    </div>
+<!-- Edit Modal HTML -->
+		<div id="applyResignModal" class="modal fade">
+			<div class="modal-dialog">
+				<div class="modal-content">
 
+					<div class="modal-header">
+						<h4 class="modal-title">Apply Resignation</h4>
+					</div>
+					<form action="applyResignation" method="post"
+						modelAttribute="resignform">
+						<div class="modal-body">
+
+							<div class="form-group">
+								<label>Reason for Resignation</label>
+								<textarea class="form-control" name="resignationReason" required></textarea>
+							</div>
+
+							<br>
+
+						</div>
+						<div class="modal-footer">
+							<input type="button" class="btn btn-danger" data-dismiss="modal"
+								value="Cancel"> <input type="submit"
+								class="btn btn-success" value="Apply">
+						</div>
+					</form>
+
+
+				</div>
+			</div>
+		</div>
 
                         <br>
                         <br>
