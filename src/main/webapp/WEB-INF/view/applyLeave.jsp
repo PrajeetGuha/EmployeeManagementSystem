@@ -346,11 +346,11 @@
 															<c:if test="${employee.slLeft - appliedLeaves.get(2)<=0}">
 															<option value="SL" disabled>Sick leave - <i>Unapproved(${appliedLeaves.get(2) }) Left(${employee.slLeft })</i></option>
 															</c:if>
-															<c:if test="${employee.slLeft - appliedLeaves.get(2)<=0}">
+															<c:if test="${employee.clLeft - appliedLeaves.get(0)<=0}">
 															<option value="CL" disabled ><b>Casual leave -</b> <i>Unapproved(${appliedLeaves.get(0) }) Left(${employee.clLeft })</i></option>
 															</c:if>
 															
-															<c:if test="${employee.slLeft - appliedLeaves.get(2)>0}">
+															<c:if test="${employee.clLeft - appliedLeaves.get(0)>0}">
 															<option value="CL" ><b>Casual leave -</b> <i>Unapproved(${appliedLeaves.get(0) }) Left(${employee.clLeft })</i></option>
 															</c:if>
 															

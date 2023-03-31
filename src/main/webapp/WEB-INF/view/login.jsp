@@ -17,6 +17,8 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
+	<link href="https://fonts.googleapis.com/css2?family=Material+Icons"
+	rel="stylesheet">
 
 <script>
 	$(document).ready(function() {
@@ -29,6 +31,7 @@
 		});
 	});
 </script>
+
 
 </head>
 
@@ -43,7 +46,8 @@
 		
 		<div class="navLinks" style="display: flex; justify-content: flex-end;">
 			<ul>
-				<li><a href="welcome">Home</a></li>
+				<li><a href="welcome"><i class="material-icons"
+														data-toggle="tooltip" title="Home">home</i></a></li>
 			</ul>
 		</div>
 		

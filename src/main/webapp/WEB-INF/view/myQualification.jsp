@@ -376,7 +376,7 @@
 											<div class="modal-footer">
 												<input type="button" class="btn btn-danger" data-dismiss="modal"
 													value="Cancel"> <input type="submit" class="btn btn-success"
-													value="Apply">
+													value="Add">
 											</div>
 											</form>
 
