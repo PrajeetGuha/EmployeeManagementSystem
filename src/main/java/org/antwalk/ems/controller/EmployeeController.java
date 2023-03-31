@@ -239,6 +239,40 @@ public class EmployeeController {
         employeeService.applyForResignation(id, resignation);
         return "redirect:resign";
     }
+    @GetMapping("/deletefamilymember")
+    public String deletefamilymember( HttpServletRequest request, RedirectAttributes redirectAttrs) throws UserNotFoundException{
+    	Long fid=Long.parseLong(request.getParameter("fid"));
+        employeeService.deleteFamilyMemberById(fid);
+        
+
+        // if (result.hasErrors()){
+        //     redirectAttrs.addFlashAttribute("result", result);
+        // }
+        // else{
+        //     redirectAttrs.addFlashAttribute("result",ResponseEntity.ok().body(new SuccessDetails(
+        //         new Date(),
+        //         "Added",
+        //         "New leave is added"
+        //     )));
+        // }
+        return "redirect:familyDetails";
+    }
+    @GetMapping("/deleteQualification")
+    public String deleteQualification( HttpServletRequest request, RedirectAttributes redirectAttrs) throws UserNotFoundException{
+    	Long qid=Long.parseLong(request.getParameter("qid"));
+        employeeService.deleteQualificationById(qid);
+        
+
+        return "redirect:qualificationdetails";
+    }
+    @GetMapping("/deleteProfession")
+    public String deleteProfession( HttpServletRequest request, RedirectAttributes redirectAttrs) throws UserNotFoundException{
+    	Long pid=Long.parseLong(request.getParameter("pid"));
+        employeeService.deleteProfessionById(pid);
+        
+
+        return "redirect:professionaldetails";
+    }
 
 
     @GetMapping("qualificationdetails")
