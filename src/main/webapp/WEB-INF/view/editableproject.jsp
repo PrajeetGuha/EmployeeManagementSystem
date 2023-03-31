@@ -45,11 +45,12 @@ var teamEmployees = [
 		},
 	</c:forEach>
 ];
+	
 var AlldeptEmployees = [
-	<c:forEach var="employee" items="${teams}">
+	<c:forEach var="team" items="${teams}">
 		{
-			id : ${employee.teamId},
-			name : "${employee.teamName}"
+			id : ${team.teamId},
+			name : "${team.teamName}"
 		}, 
 		
 	</c:forEach>
@@ -57,14 +58,15 @@ var AlldeptEmployees = [
 var bakiEmployees = [];
 for(let emp in AlldeptEmployees){/* 
 	console.log(AlldeptEmployees[emp]); */
-	if (teamEmployees.length == 0){
-		bakiEmployees.push(AlldeptEmployees[emp]);
-	}
+	var notpresent = true;
 for(let empteam in teamEmployees){
-		if (AlldeptEmployees[emp].id != teamEmployees[empteam].id){
-			bakiEmployees.push(AlldeptEmployees[emp]);
+		if (AlldeptEmployees[emp].id == teamEmployees[empteam].id){
+			notpresent = false;
 			break;
 		}
+}
+if (notpresent){
+	bakiEmployees.push(AlldeptEmployees[emp]);
 }
 }	
  

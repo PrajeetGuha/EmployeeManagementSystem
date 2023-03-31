@@ -37,7 +37,24 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+<script>
+	$(document).ready(function () {
+		
+		$('.highlight-column').each(function () {
+			
+			var status = $(this).text().trim(); // Get the cell's text value and trim whitespace
 
+			// Set a different background color based on the status value
+			if (status === 'active') {
+				
+				$(this).css('color', 'limegreen');
+			} else if (status === 'inactive') {
+				
+				$(this).css('color', 'red');
+			}
+		});
+	});
+</script>
 <c:set var="pageNo" value="${pageNo}" />
 <c:set var="pageCount" value="${pageCount}" />
 <c:if test="${status eq 'SUCCESS'}">
@@ -103,24 +120,7 @@
 							});
 						</script>
 </c:if>
-<script>
-	$(document).ready(function () {
-		
-		$('.highlight-column').each(function () {
-			
-			var status = $(this).text().trim(); // Get the cell's text value and trim whitespace
 
-			// Set a different background color based on the status value
-			if (status === 'active') {
-				
-				$(this).css('color', 'limegreen');
-			} else if (status === 'inactive') {
-				
-				$(this).css('color', 'red');
-			}
-		});
-	});
-</script>
 
 <script>
 						$(document).ready(function () {

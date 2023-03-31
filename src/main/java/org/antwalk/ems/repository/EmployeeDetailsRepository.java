@@ -24,5 +24,6 @@ public interface EmployeeDetailsRepository extends JpaRepository<EmployeeDetails
 
     @Query("select listFamilyDetails from EmployeeDetails ed where ed.empDetId = :id")
     public List<FamilyDetails> findFamilyDetailsByEmpDetId(Long id);
+
     
 }

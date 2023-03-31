@@ -1,6 +1,7 @@
 package org.antwalk.ems.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -9,6 +10,7 @@ import org.antwalk.ems.model.Employee;
 import org.antwalk.ems.model.LeaveApplication;
 import org.antwalk.ems.model.QualificationDetails;
 import org.antwalk.ems.model.Team;
+import org.antwalk.ems.view.EmployeeLeaveView;
 import org.antwalk.ems.view.EmployeeListView;
 import org.antwalk.ems.view.EmployeeSelectionView;
 import org.springframework.data.domain.Page;
@@ -96,7 +98,7 @@ public interface EmployeeRepository extends JpaRepository<Employee,Long>  {
     @Query("select SUM(ctc) FROM Employee where empstatus= 'active' GROUP BY department")
     public List<Double> totalcost();
     
-    @Query("select DISTINCT department FROM Employee")
+    @Query("SELECT distinct department FROM Employee where empstatus='active' ")
     public List<String> deptname();
     
     
@@ -115,5 +117,28 @@ public interface EmployeeRepository extends JpaRepository<Employee,Long>  {
 
     @Query("select e.empId as empId, e.empName as empName from Employee e where e.empstatus='active' and e.yearOfExperience>=3")
 	public List<EmployeeSelectionView> findAllPotentialPM();
+
+
+
+    @Transactional
+    @Modifying
+    @Query("update Employee e set e.team.teamId = null where e.team.teamId = :teamId")
+	public void modifyEmployeeForTeam(Long teamId);
+
+
+
+    @Transactional
+    @Modifying
+    @Query("update Employee e set e.team.teamId = null where e.empId = :empId")
+	public void modifyEmployeeForTeamByEmpId(Long empId);
+
+
+
+//	public Optional<Employee> findLeavesById(Long id);
+
+
+
+    @Query("select e.clLeft as cl, e.slLeft as sl,e.moreLeave as pl from Employee e where e.empId=:id")
+	public EmployeeLeaveView findLeavesById(Long id);
 
 }

@@ -20,6 +20,7 @@ import org.antwalk.ems.repository.LeaveApplicationRepository;
 import org.antwalk.ems.repository.ProfDetailsRepository;
 import org.antwalk.ems.repository.QualificationDetailsRepository;
 import org.antwalk.ems.repository.ResignationRepository;
+import org.antwalk.ems.view.EmployeeLeaveView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
@@ -59,6 +60,12 @@ public class EmployeeService {
 	public Employee findEmployee(Long id) throws EmployeeNotFoundException{
 		return employeeRepository.findById(id).orElseThrow(
 				() -> new EmployeeNotFoundException("The employee is not found"));
+	}
+
+	public EmployeeLeaveView findEmployeeLeaves(Long id) throws EmployeeNotFoundException{
+		EmployeeLeaveView employeeLeaveView= employeeRepository.findLeavesById(id);
+		System.out.println("\n\n\n"+employeeLeaveView+"\n\nhi\n\n");
+		return employeeLeaveView;
 	}
 	public List<LeaveApplication> findEmployeeLeaves(Long id, int pg) throws EmployeeNotFoundException  {
          employeeRepository.findById(id).orElseThrow(
@@ -219,6 +226,21 @@ public class EmployeeService {
 	public void deleteQualificationById(Long qid) {
 		// TODO Auto-generated method stub
 		qualificationDetailsRepository.deleteById(qid);
+	}
+
+	public void saveEmpDetails(Long id, EmployeeDetails employeeDetails) throws EmployeeNotFoundException {
+		// TODO Auto-generated method stub
+
+		Employee employee = employeeRepository.findById(id).orElseThrow(
+		     () -> new EmployeeNotFoundException("No details found")
+		 );
+		EmployeeDetails persistedEmpDetails=employee.getEmployeeDetails();
+		employeeDetails.setListFamilyDetails(persistedEmpDetails.getListFamilyDetails());
+		employeeDetails.setListProfDetails(persistedEmpDetails.getListProfDetails());
+		employeeDetails.setListQualificationDetails(persistedEmpDetails.getListQualificationDetails());
+		employeeDetailsRepository.save(employeeDetails);
+		
+		
 	}
 
 }

@@ -553,7 +553,7 @@
 															<form action="" method="post">
 																
 																<button  type="submit" class="btn btn-success" formaction="leaveAction?lid=${leave.empLeaveId}&pg=1&approve=true">Approve</button>
-																<button type="submit" class="btn btn-danger" formaction="leaveAction?lid=${leave.empLeaveId}&pg=1&approve=false">Discard</button>
+																<button type="submit" class="btn btn-danger" formaction="leaveAction?lid=${leave.empLeaveId}&pg=1&approve=false">Reject</button>
 															</form>
 														</c:if>
 														<c:if test = "${leave.isApproved == true}">

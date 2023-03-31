@@ -714,7 +714,7 @@ var barChartOptions = {
 			  	    		  },
 			  	    		  yaxis: {
 			  	    		    title: {
-			  	    		      text: "Count"
+			  	    		      text: "Number of teams"
 			  	    		    }
 			  	    		  }
 			  	    		};

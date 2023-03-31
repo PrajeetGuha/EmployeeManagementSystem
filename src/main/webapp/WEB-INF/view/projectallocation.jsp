@@ -241,122 +241,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 
 				
-				<script>
-
-function getdeptId(deptId)
-{
-	var formId=document.getElementById("editProj");
-	formId.action="editProj?projectId="+deptId+"&pg=1";
-			var deptIdValue=document.getElementById("deptIdInput");
-			deptIdValue.value = deptId;
-		var departmentNameValue= document.getElementById("projName");
-		var projpmValue= document.getElementById("changedpm");
-		var projstdateValue= document.getElementById("changedstartDate");
-		var projenddateValue= document.getElementById("changedendDate");
-		<c:forEach var="department" items="${listprojects}">
-			console.log(deptId);
-			console.log(${department.projId});
-			var deptIdValues=${department.projId};
-			if (deptId===deptIdValues){
-				console.log(deptId);
-				departmentNameValue.value="${department.projectName}";
-				
-				projstdateValue.value="${department.startDate}";
-				projenddateValue.value="${department.endDate}";
-				
-				var teamsindept = [
-					<c:forEach var="employee" items="${department.teams}">
-						{
-							id: "${employee.teamId}",
-							name: "${employee.teamName}"
-						},
-					</c:forEach>
-				];
-				var employeeList = document.getElementById("employeeList");
-
-				teamsindept.forEach(function(employee) {
-					var listItem = document.createElement("li");
-					listItem.className = "list-group-item";
-					listItem.textContent = "(" + employee.id + ") " + employee.name;
-					employeeList.appendChild(listItem);
-				
-				});
-}
-	</c:forEach>
-	
-		
 			
-	
-
-	var departmentNameInput = document.getElementById('projName');
-	var listdept = [
-		<c:forEach var="department" items="${listprojects}">
-			"${department.projectName}",
-		</c:forEach> // assuming "listdepartments" is a model attribute
-	];
-
-	var defaultValue = departmentNameValue.value;
-	
-	// add an "oninput" event listener to clear custom validity message
-	departmentNameInput.addEventListener('input', function () {
-		this.setCustomValidity('');
-	});
-
-	document.querySelector('form#editProj').addEventListener('submit', function (e) {
-		// check if department name already exists
-		if (departmentNameInput.value == defaultValue) {
-			departmentNameInput.setCustomValidity('');
-		}
-		else if (departmentNameInput.value == "") {
-			departmentNameInput.setCustomValidity('Project name cannot be empty.');
-			e.preventDefault(); // prevent form submission
-		}
-		else if (listdept.includes(departmentNameInput.value)) {
-			departmentNameInput.setCustomValidity('Project already exists. Please choose a different name.');
-			e.preventDefault(); // prevent form submission
-		}
-	});
-	
-	/* // Get the form element
-    const form = document.querySelector('#editProj');
- */
-    
-    /* var startDateInput = document.getElementById('changedstartDate');
-    var endDateInput = document.getElementById('changedendDate');
-
-	var defaultstdate = startDateInput.value;
-	var defaultenddate = endDateInput.value;
-    // Add an event listener to the form submit event
-    form.addEventListener('submit', (event) => {
-        
-
-        // Check if the end date is greater than the start date
-        if (new Date(defaultenddate) <= new Date(defaultstdate)) {
-            endDateInput.setCustomValidity('The end date should be greater than the start date.');
-            event.preventDefault();
-        } else {
-            endDateInput.setCustomValidity('');
-        }
-
-        
-    });
-
-    
-
-    startDateInput.addEventListener('input', () => {
-        startDateInput.setCustomValidity('');
-    });
-
-    endDateInput.addEventListener('input', () => {
-        endDateInput.setCustomValidity('');
-    }); */
-
-
-}
-
-	
-</script>
-
 <style>
 .dropdown-container {
 	position: relative;
@@ -735,7 +620,7 @@ function getdeptId(deptId)
 												<td><c:out
 														value="${project.projectName.substring(0,1).toUpperCase()}${project.projectName.substring(1).toLowerCase()}" /></td>
 
-												<td><c:out value="${project.pm.empName}" /></td>
+												<td><c:out value="${project.pm}" /></td>
 												<td><fmt:formatDate value="${project.startDate}"
 														pattern="dd-MMMM-yyyy" /></td>
 												<td><fmt:formatDate value="${project.endDate}"
@@ -744,9 +629,9 @@ function getdeptId(deptId)
 													class="edit" >
 													 <i
 														class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-													<!-- <a href="#generateProjectReportModal" class="report"
-													data-toggle="modal"> <i class="material-icons"
-														data-toggle="tooltip" title="Report">summarize</i></a> --></td>
+													<a href="deleteProject?projId=${project.projId }" class="delete"
+													> <i class="material-icons"
+														data-toggle="tooltip" title="Delete">delete</i></a> </td>
 											</tr>
 
 											

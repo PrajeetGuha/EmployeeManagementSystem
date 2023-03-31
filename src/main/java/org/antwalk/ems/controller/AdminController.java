@@ -34,6 +34,10 @@ import org.antwalk.ems.service.AdminService;
 import org.antwalk.ems.service.ReportService;
 import org.antwalk.ems.view.EmployeeListView;
 import org.antwalk.ems.view.EmployeeSelectionView;
+import org.antwalk.ems.view.ProjectListView;
+import org.antwalk.ems.view.ProjectListView2;
+import org.antwalk.ems.view.TeamListView;
+import org.antwalk.ems.view.TeamListView2;
 import org.antwalk.ems.view.TeamSelectionView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -153,7 +157,7 @@ private EmployeeRepository employeeRepository;
         List<Integer> teamcount=adminService.teamcount();
         List<String> deptname=adminService.deptname();
         List<String> teamdept=adminService.teamdept();
-        List<Project> listProjects = adminService.getAllProjects();
+        //List<Project> listProjects = adminService.getAllProjects();
         List<String> distgender = adminService.distgender();
         List<String> distemptype= adminService.distemptype();
         List<String> getrecruitmentyear= adminService.getrecruitmentyear();
@@ -164,7 +168,7 @@ private EmployeeRepository employeeRepository;
         model.addAttribute("countOfTeams", countteam);
         model.addAttribute("countOfProjects",countproject);
 //        model.addAttribute("alldepartmentnames",alldepartments);
-        model.addAttribute("listprojects",listProjects);
+        //model.addAttribute("listprojects",listProjects);
         model.addAttribute("allemployeenames",allemployees);
         model.addAttribute("findemployeecount", findemployeecount);
         model.addAttribute("findteamcount", findteamcount);
@@ -185,19 +189,35 @@ private EmployeeRepository employeeRepository;
    		return "analytics";
 
    	}
+
+    @GetMapping("/deleteProject")
+   	public String deleteProject(HttpServletRequest request, Model model) throws UserNotFoundException, EmployeeNotFoundException{
+       	Long id = AuthenticationSystem.getId();
+       	Long projId = Long.parseLong(request.getParameter("projId"));
+       	adminService.deleteProjectById(projId);
+   		return "redirect:/admin/projectallocation?pg=1";
+   	}
+    
+    @GetMapping("/deleteTeam")
+   	public String deleteTeam(HttpServletRequest request, Model model) throws UserNotFoundException, EmployeeNotFoundException, TeamNotFoundException{
+       	Long id = AuthenticationSystem.getId();
+       	Long teamId = Long.parseLong(request.getParameter("teamId"));
+       	adminService.deleteTeamById(teamId );
+   		return "redirect:/admin/teamallocation?pg=1";
+   	}
     @GetMapping("/projectallocation")
-	public String projectallocation(HttpServletRequest request, Model model) throws UserNotFoundException{
+	public String projectallocation(HttpServletRequest request, Model model) throws UserNotFoundException, EmployeeNotFoundException{
     	Long id = AuthenticationSystem.getId();
     	int pageNo = Integer.parseInt(request.getParameter("pg"));
-        List<Project> listProjects = adminService.getAllProjects(pageNo);
-        List<Team> listTeamsDetails = adminService.getAllTeamsdetails();
+        List<ProjectListView2> listProjects = adminService.getProjectDetails(pageNo);
+        //List<Team> listTeamsDetails = adminService.getAllTeamsdetails();
     	Admin admin = adminService.fetchAdminData(id);
         Long count = adminService.countAllProjects();
         int countPages = adminService.countPagesofProjects();
         List<EmployeeSelectionView> allemployees = adminService.listAllEmployees();
     	model.addAttribute("admin",admin);
         model.addAttribute("listprojects", listProjects);
-        model.addAttribute("listteamsdetails",listTeamsDetails);
+        //model.addAttribute("listteamsdetails",listTeamsDetails);
         model.addAttribute("countPages", countPages);
         model.addAttribute("countOfprojects", count);
         model.addAttribute("pageNo", pageNo);
@@ -205,17 +225,18 @@ private EmployeeRepository employeeRepository;
 		return "projectallocation";
 	}
     @GetMapping("/teamallocation")
-   	public String teamallocation(HttpServletRequest request, Model model) throws UserNotFoundException{
+   	public String teamallocation(HttpServletRequest request, Model model) throws UserNotFoundException, EmployeeNotFoundException{
     	Long id = AuthenticationSystem.getId();
     	int pageNo = Integer.parseInt(request.getParameter("pg"));
-        List<Team> listTeams = adminService.getAllTeams(pageNo);
+        List<TeamListView2> listTeams = adminService.getTeamDetails(pageNo);
+//        System.out.println(listTeams + "//////");
     	Admin admin = adminService.fetchAdminData(id);
         Long count = adminService.countAllTeams();
         int countPages = adminService.countPagesofTeams();
         List<EmployeeSelectionView> allemployees = adminService.listAllEmployees();
-        List<EmployeeSelectionView> potentialTM = adminService.listAllEmployees();
+        ///List<EmployeeSelectionView> potentialTM = adminService.listAllEmployees();
     	model.addAttribute("admin",admin);
-        model.addAttribute("potentialTM", potentialTM);
+        //model.addAttribute("potentialTM", potentialTM);
         model.addAttribute("listteams", listTeams);
         model.addAttribute("countPages", countPages);
         model.addAttribute("countOfteams", count);
@@ -257,20 +278,24 @@ private EmployeeRepository employeeRepository;
 //
     	Long projid = Long.parseLong(request.getParameter("projid"));
     	Project project=adminService.findProjectById(projid);
-//    	System.out.println("\n\n\n\n");
-    	List<Team> teams=adminService.findTeamsForProject();
-    	System.out.println(teams);
-//    	List<EmployeeSelectionView> potentialPm = adminService.listAllPotentialPM();
-////    	for(int i = 0; i < teams.size(); i++) {
-////    		System.out.println(teams.get(i).getTeamId());
-////    	}
+
+    	System.out.println("\n\n\n\n");
+    	//List<Team> teams=adminService.findTeamsForProject();
+    	//System.out.println(teams);
+    	List<EmployeeSelectionView> potentialPm = adminService.listAllPotentialPM();
+    	List<TeamSelectionView> teams = adminService.getAllTeams();
+    	
+//    	for(int i = 0; i < teams.size(); i++) {
+//    		System.out.println(teams.get(i).getTeamId());
+//    	}
     	Admin admin = adminService.fetchAdminData(id);
     	model.addAttribute("admin",admin);
         model.addAttribute("pageNo", pageNo);
+        
+        model.addAttribute("potentialpm",potentialPm);
+        model.addAttribute("project",project);
+        model.addAttribute("teams", teams);
 
-//        model.addAttribute("potentialpm",potentialPm);
-//        model.addAttribute("project",project);
-//        model.addAttribute("teams", teams);
  	return "editableproject";
    	}
     
@@ -660,28 +685,34 @@ private EmployeeRepository employeeRepository;
     	int pageNo = Integer.parseInt(request.getParameter("pg"));
 //
     	Long projid = Long.parseLong(request.getParameter("projId"));
-    	System.out.println(teamMemberIds+"/n/nhihiihihihihihh");
     	adminService.addTeamsToProject(projid,teamMemberIds);
         return "redirect:/admin/editableProjectPage?projid="+projid+"&pg="+pageNo;
     }
     @PostMapping("addProjectManager")
-    public String addProjectManager(@RequestParam("teamManagerValues") String pm,  RedirectAttributes redirectAttrs, HttpServletRequest request ) throws Exception{
-//
-    	int pageNo = Integer.parseInt(request.getParameter("pg"));
-////
-    	Long projid = Long.parseLong(request.getParameter("projId"));
-    	if(!pm.equals("0")) {
-    		
-    	Long projectManagerId=Long.parseLong(pm);
-    	System.out.println("\n\n\n");
-    	System.out.println(projectManagerId+"hi done");
-    	adminService.addProjectManagerToProject(projid,projectManagerId);
-    	}
-        return "redirect:/admin/editableProjectPage?projid="+projid+"&pg="+pageNo;
+    public String addProjectManager(@ModelAttribute("teamManagerValues") String pm,  RedirectAttributes redirectAttrs, BindingResult result, HttpServletRequest request ){
+        
+        int pg = Integer.parseInt(request.getParameter("pg"));
+        Long projid = Long.parseLong(request.getParameter("projId"));
+        // redirectAttrs.addFlashAttribute("")
+        String status;
+
+        if (result.hasErrors()){
+            status = "FAILED";
+            redirectAttrs.addFlashAttribute("error", result);
+        }
+        else{
+            try{
+                adminService.addProjectManagerToProject(projid,pm);
+                status = "SUCCESS";
+            }
+            catch(Exception e){
+                redirectAttrs.addFlashAttribute("exception", e);
+                status = "FAILED";
+            }
+        }
+        
+    	redirectAttrs.addFlashAttribute("status",status);
+        return "redirect:/admin/editableProjectPage?projid="+projid+"&pg="+pg;
     }
-	/*
-	 * @GetMapping("/editableTeam") public String editableTeam() { return
-	 * "editableTeam"; }
-	 */
 
 }
