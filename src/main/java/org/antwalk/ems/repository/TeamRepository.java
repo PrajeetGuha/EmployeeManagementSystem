@@ -6,6 +6,7 @@ import javax.transaction.Transactional;
 
 import org.antwalk.ems.model.Employee;
 import org.antwalk.ems.model.Team;
+import org.antwalk.ems.view.TeamDetailsView;
 import org.antwalk.ems.view.TeamListView;
 import org.antwalk.ems.view.TeamSelectionView;
 import org.springframework.data.domain.Page;
@@ -36,5 +37,11 @@ public interface TeamRepository extends JpaRepository<Team,Long> {
     
     @Query(nativeQuery = true, value = "select team_id as teamId, team_name as teamName, department as department, tm_emp_id as tm from Team")
     public Page<TeamListView> getTeamDetails(Pageable pageable);
+
+    @Query("select t.teamId as teamId, t.teamName as teamName, t.department as department from Team t where t.teamId = :tid")
+    public TeamDetailsView findTeamDetails(Long tid);
+
+    @Query("select t.teamName from Team t where t.teamId = :id")
+    public String findTeamNameById(Long id);
 
 }

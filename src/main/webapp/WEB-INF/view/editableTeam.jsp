@@ -35,9 +35,8 @@
 <c:set var="pageCount" value="${pageCount}" />
 
 <script>
-
 var teamEmployees = [
-	<c:forEach var="employee" items="${team.employees}">
+	<c:forEach var="employee" items="${employeeInTeam}">
 		{
 			id : ${employee.empId},
 			name : "${employee.empName}"
@@ -524,7 +523,7 @@ function addRow(id,name) {
 
 				</div>
 				<div class="xp-breadcrumbbar text-center">
-					<h4 class="page-title">${team.teamName }</h4>
+					<h4 class="page-title">${teamdetails.teamName }</h4>
 				</div>
 				<div class="row">
 					<div class="col-10"></div>
@@ -636,7 +635,7 @@ function addRow(id,name) {
 
 							
 							<div>
-								<form action="addTeamMember?teamId=${team.teamId }&pg=${pageNo}"
+								<form action="addTeamMember?teamId=${teamdetails.teamId }&pg=${pageNo}"
 									method="post">
 									<center>
 										<input type="hidden" name="hiddenFieldOfTeams"
@@ -655,7 +654,7 @@ function addRow(id,name) {
 					<div id="addTM" class="modal fade">
 						<div class="modal-dialog">
 							<div class="modal-content">
-								<form action="addTeamManager?tid=${team.teamId }&pg=${pageNo }"
+								<form action="addTeamManager?tid=${teamdetails.teamId }&pg=${pageNo }"
 									method="post">
 									<div class="modal-header">
 										<h4 class="modal-title">Add Team Manager</h4>

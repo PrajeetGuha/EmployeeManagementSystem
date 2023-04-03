@@ -22,8 +22,8 @@ public class QualificationDetails {
     @Column(length = 255)
     private String qual;
 
-    @OneToOne
-    private DocFile qualDoc;
+    // @OneToOne
+    // private DocFile qualDoc;
 
     @Column
     private Double percent;
@@ -56,11 +56,13 @@ public class QualificationDetails {
 
 
 
-	public QualificationDetails(Long qdId, String qual, DocFile qualDoc, Double percent, Date startDate, Date endDate) {
+	public QualificationDetails(Long qdId, String qual, 
+	// DocFile qualDoc, 
+	Double percent, Date startDate, Date endDate) {
 		super();
 		this.qdId = qdId;
 		this.qual = qual;
-		this.qualDoc = qualDoc;
+		// this.qualDoc = qualDoc;
 		this.percent = percent;
 		this.startDate = startDate;
 		this.endDate = endDate;
@@ -89,14 +91,14 @@ public class QualificationDetails {
 	}
 
 
-	public DocFile getQualDoc() {
-		return qualDoc;
-	}
+	// public DocFile getQualDoc() {
+	// 	return qualDoc;
+	// }
 
 
-	public void setQualDoc(DocFile qualDoc) {
-		this.qualDoc = qualDoc;
-	}
+	// public void setQualDoc(DocFile qualDoc) {
+	// 	this.qualDoc = qualDoc;
+	// }
 
 
 	public Double getPercent() {

@@ -267,7 +267,7 @@
 
 										<td><c:out value="${resign.resignationDate}" /></td>
 										<td><c:out value="${resign.resignationReason}" /></td>
-										<td><c:out value="${resign.approvedBy.adminName}" /></td>
+										<td><c:out value="${resign.approvedBy}" /></td>
 
 
 									</tr>

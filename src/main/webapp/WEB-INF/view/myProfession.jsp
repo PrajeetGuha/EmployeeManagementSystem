@@ -278,7 +278,9 @@
 														<c:out value="${professionInfo.designation}" />
 													</td>
 													<td>
-														<a href="deleteProfession?pid=${professionInfo.profDelId }" class='delete' ><i class='material-icons' data-toggle='tooltip' title='Delete'>&#xE872;</i></a>
+														<form action="deleteProfession?pid=${professionInfo.profDelId }" method="post">
+															<button style="all : unset; cursor : pointer"><i class='material-icons' data-toggle='tooltip' title='Delete'>&#xE872;</i></button>
+														</form>
 													</td>
 												</tr>
 

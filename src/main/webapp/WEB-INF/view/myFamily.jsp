@@ -303,7 +303,11 @@
 														<c:out value="${familyInfo.contactno}" />
 													</td>
 													<td>
-														<a href="deletefamilymember?fid=${familyInfo.familyId }" class='delete' ><i class='material-icons' data-toggle='tooltip' title='Delete'>&#xE872;</i></a>
+														<form action="deletefamilymember?fid=${familyInfo.familyId }" method="post">
+															<button style="all : unset; cursor : pointer"><i class='material-icons' data-toggle='tooltip' title='Delete'>&#xE872;</i></button>
+															
+														</form>
+														
 													</td>
 												</tr>
 

@@ -31,20 +31,21 @@ public class ProfDetails {
     @Column
     private Date toDate;
     
-    @OneToOne
-    private DocFile releaseLetterDoc;
+    // @OneToOne
+    // private DocFile releaseLetterDoc;
 
     public ProfDetails() {
     }
 
-    public ProfDetails(Long profDelId, String nameOfPrevOrg, String designation, @Past Date fromDate, @Past Date toDate,
-            DocFile releaseLetterDoc) {
+    public ProfDetails(Long profDelId, String nameOfPrevOrg, String designation, @Past Date fromDate, @Past Date toDate
+    // , DocFile releaseLetterDoc
+            ) {
         this.profDelId = profDelId;
         this.nameOfPrevOrg = nameOfPrevOrg;
         this.designation = designation;
         this.fromDate = fromDate;
         this.toDate = toDate;
-        this.releaseLetterDoc = releaseLetterDoc;
+        // this.releaseLetterDoc = releaseLetterDoc;
     }
 
     public Long getProfDelId() {
@@ -87,13 +88,13 @@ public class ProfDetails {
         this.toDate = toDate;
     }
 
-    public DocFile getReleaseLetterDoc() {
-        return releaseLetterDoc;
-    }
+    // public DocFile getReleaseLetterDoc() {
+    //     return releaseLetterDoc;
+    // }
 
-    public void setReleaseLetterDoc(DocFile releaseLetterDoc) {
-        this.releaseLetterDoc = releaseLetterDoc;
-    }
+    // public void setReleaseLetterDoc(DocFile releaseLetterDoc) {
+    //     this.releaseLetterDoc = releaseLetterDoc;
+    // }
 
     
 

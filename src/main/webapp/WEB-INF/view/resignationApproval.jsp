@@ -537,7 +537,7 @@
 
 										<c:forEach items="${resignationList}" var="resignation">
 											<tr>
-												<td><c:out value="${resignation.employee.empName}" />
+												<td><c:out value="${resignation.empName}" />
 
 												</td>
 												<td><c:out value="${resignation.resignationReason}" />
@@ -547,9 +547,9 @@
 														<form action="" method="post">
 
 															<button type="submit" class="btn btn-success"
-																formaction="resignAction?rid=${resignation.resignation_id}&pg=1&approve=true">Approve</button>
+																formaction="resignAction?rid=${resignation.resignationId}&pg=1&approve=true">Approve</button>
 															<button type="submit" class="btn btn-danger"
-																formaction="resignAction?rid=${resignation.resignation_id}&pg=1&approve=false">Discard</button>
+																formaction="resignAction?rid=${resignation.resignationId}&pg=1&approve=false">Discard</button>
 														</form>
 													</c:if> <c:if test="${resignation.isApproved == true}">
 														<button type="button" class="btn btn-success">Approved</button>

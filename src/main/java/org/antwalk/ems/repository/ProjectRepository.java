@@ -4,6 +4,7 @@ package org.antwalk.ems.repository;
 import java.util.List;
 
 import org.antwalk.ems.model.Project;
+import org.antwalk.ems.view.ProjectDetailsView;
 import org.antwalk.ems.view.ProjectListView;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -26,5 +27,11 @@ public interface ProjectRepository extends JpaRepository<Project,Long> {
 	
 	@Query(nativeQuery = true, value = "select proj_id as projId, project_name as projectName, start_date as startDate, end_date as endDate, pm_emp_id as pm from Project ")
 	Page<ProjectListView> getProjectDetails(Pageable pageable);
+
+	@Query(nativeQuery = true, value = "select team_id from team_project where proj_id = :projid")
+    List<Long> findTeamIdsWithProjectId(Long projid);
+
+	@Query("select p.projId as projId, p.projectName as projectName from Project p where p.projId = :projid")
+	ProjectDetailsView getProjectDetailsById(Long projid);
 
 }

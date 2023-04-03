@@ -5,7 +5,14 @@ import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 
+import org.antwalk.ems.dto.ResignationDTO;
+import org.antwalk.ems.exception.AdminNotFoundException;
+import org.antwalk.ems.exception.EmployeeDetailsNotFoundException;
 import org.antwalk.ems.exception.EmployeeNotFoundException;
+import org.antwalk.ems.exception.FamilyDetailsNotFoundException;
+import org.antwalk.ems.exception.ProfessionalDetailsNotFoundException;
+import org.antwalk.ems.exception.QualificationDetailsNotFoundException;
+import org.antwalk.ems.model.Admin;
 import org.antwalk.ems.model.Employee;
 import org.antwalk.ems.model.EmployeeDetails;
 import org.antwalk.ems.model.FamilyDetails;
@@ -13,6 +20,7 @@ import org.antwalk.ems.model.LeaveApplication;
 import org.antwalk.ems.model.ProfDetails;
 import org.antwalk.ems.model.QualificationDetails;
 import org.antwalk.ems.model.Resignation;
+import org.antwalk.ems.repository.AdminRepository;
 import org.antwalk.ems.repository.EmployeeDetailsRepository;
 import org.antwalk.ems.repository.EmployeeRepository;
 import org.antwalk.ems.repository.FamilyDetailsRepository;
@@ -20,12 +28,15 @@ import org.antwalk.ems.repository.LeaveApplicationRepository;
 import org.antwalk.ems.repository.ProfDetailsRepository;
 import org.antwalk.ems.repository.QualificationDetailsRepository;
 import org.antwalk.ems.repository.ResignationRepository;
-import org.antwalk.ems.view.EmployeeLeaveView;
+import org.antwalk.ems.view.LeaveApplicationListView;
+import org.antwalk.ems.view.LeaveLeftView;
+import org.antwalk.ems.view.ResignationView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -48,46 +59,64 @@ public class EmployeeService {
 
 	@Autowired
 	QualificationDetailsRepository qualificationDetailsRepository;
+
+	@Autowired
+	AdminRepository adminRepository;
 	
 //	public List<FamilyDetails> listAllFamilyDetails(Long id){
 //		return employeeRepository.getById(id).getEmployeeDetails().getListFamilyDetails();
 //	}
 	
-	public EmployeeDetails employeeInfo(Long id){
-		return employeeRepository.getById(id).getEmployeeDetails();
+	public EmployeeDetails employeeInfo(Long id) throws EmployeeNotFoundException{
+		return employeeRepository.findById(id).orElseThrow(
+			() -> new EmployeeNotFoundException("The employee is not found")
+		).getEmployeeDetails();
 	}
 
 	public Employee findEmployee(Long id) throws EmployeeNotFoundException{
 		return employeeRepository.findById(id).orElseThrow(
 				() -> new EmployeeNotFoundException("The employee is not found"));
 	}
-
-	public EmployeeLeaveView findEmployeeLeaves(Long id) throws EmployeeNotFoundException{
-		EmployeeLeaveView employeeLeaveView= employeeRepository.findLeavesById(id);
-		System.out.println("\n\n\n"+employeeLeaveView+"\n\nhi\n\n");
-		return employeeLeaveView;
-	}
-	public List<LeaveApplication> findEmployeeLeaves(Long id, int pg) throws EmployeeNotFoundException  {
+	public List<LeaveApplicationListView> findEmployeeLeaves(Long id, int pg) throws EmployeeNotFoundException  {
          employeeRepository.findById(id).orElseThrow(
-             () -> new EmployeeNotFoundException("No details found")
+             () -> new EmployeeNotFoundException("No employee found")
          );
          Pageable pageable = PageRequest.of(pg-1, PAGESIZE);
-        return employeeRepository.getLeavesById(id,pageable);
+        return leaveApplicationRepository.getLeavesById(id,pageable).getContent();
     }
-	public void applyLeave(Long id, LeaveApplication leaveApplication) {
+	public void applyLeave(Long id, LeaveApplication leaveApplication) throws EmployeeNotFoundException {
         Employee employee = employeeRepository.findById(id).orElseThrow(
-            () -> new RuntimeException("No details found")
+            () -> new EmployeeNotFoundException("The employee is not found")
         );
 		leaveApplication.setEmployee(employee);
         leaveApplication.setApplicationDate(new Date(System.currentTimeMillis()));
         leaveApplicationRepository.save(leaveApplication);
     }
 
-	public Resignation resign(Long id) throws EmployeeNotFoundException {
+	public ResignationDTO resign(Long id) throws EmployeeNotFoundException, AdminNotFoundException {
+		System.out.println("Print id:"+id);
 		Employee employee = employeeRepository.findById(id).orElseThrow(
 			() -> new EmployeeNotFoundException("Employee not found")
 		);
-		return employee.getResignation();
+		ResignationView resignationView;
+		if (employee.getResignation() == null){
+			return null;
+		}
+		else{
+			resignationView = resignationRepository.findResignationById(employee.getResignation().getResignation_id());
+		}
+		String adminName;
+		if (resignationView.getApprovedBy() == null){
+			adminName = null;
+		}
+		else{
+			Admin admin = adminRepository.findById(resignationView.getApprovedBy()).orElseThrow(
+			() -> new AdminNotFoundException("Admin not found")
+		);
+			adminName = admin.getAdminName();
+		}
+		ResignationDTO resignationDTO = new ResignationDTO(resignationView.getResignationReason(),resignationView.getResignationDate(),adminName,resignationView.getIsApproved());
+		return resignationDTO;
 	}
 
 	public void applyForResignation(Long id, Resignation resignation) throws EmployeeNotFoundException {
@@ -108,23 +137,13 @@ public class EmployeeService {
 		qualificationDetailsRepository.save(qualificationDetails);
 		employeeDetails.addQualification(qualificationDetails);
 		employeeDetailsRepository.save(employeeDetails);
-//		employeeDetails.setListQualificationDetails(qualificationDetailsRepository.findQualificationDetails(id));
 	}
 
-	public List<QualificationDetails> findQualificationDetails(Long id, int pg)  {
-         Employee employee;
-		try {
-			employee = employeeRepository.findById(id).orElseThrow(
-			     () -> new EmployeeNotFoundException("No details found")
-			 );
-			Long empDetId=employee.getEmployeeDetails().getEmpDetId();
-	        return employeeDetailsRepository.findQualificationDetailsByEmpDetId(empDetId);
-		} catch (EmployeeNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-        // Pageable pageable = PageRequest.of(pg-1, 7);
-		return null;
+	public List<QualificationDetails> findQualificationDetails(Long id) throws EmployeeNotFoundException  {
+         Employee employee = employeeRepository.findById(id).orElseThrow(
+			     () -> new EmployeeNotFoundException("No employee found")
+		);
+		return employee.getEmployeeDetails().getListQualificationDetails();
     }
 
 	@Autowired
@@ -141,20 +160,11 @@ public class EmployeeService {
 //		employeeDetails.setListQualificationDetails(qualificationDetailsRepository.findQualificationDetails(id));
 	}
 
-	public List<ProfDetails> findProfessionalDetails(Long id, int pg)  {
-         Employee employee;
-		try {
-			employee = employeeRepository.findById(id).orElseThrow(
-			     () -> new EmployeeNotFoundException("No details found")
+	public List<ProfDetails> findProfessionalDetails(Long id) throws EmployeeNotFoundException  {
+         Employee employee = employeeRepository.findById(id).orElseThrow(
+			     () -> new EmployeeNotFoundException("No employee found")
 			 );
-			Long empDetId=employee.getEmployeeDetails().getEmpDetId();
-	        return employeeDetailsRepository.findProfessionalDetailsByEmpDetId(empDetId);
-		} catch (EmployeeNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-        // Pageable pageable = PageRequest.of(pg-1, 7);
-		return null;
+		return employee.getEmployeeDetails().getListProfDetails();
     }
 	
 	@Autowired
@@ -167,23 +177,13 @@ public class EmployeeService {
 		familyDetailsRepository.save(familyDetails);
 		employeeDetails.addFamilyDetails(familyDetails);
 		employeeDetailsRepository.save(employeeDetails);
-//		employeeDetails.setListQualificationDetails(qualificationDetailsRepository.findQualificationDetails(id));
 	}
 
-	public List<FamilyDetails> findFamilyDetails(Long id, int pg)  {
-         Employee employee;
-		try {
-			employee = employeeRepository.findById(id).orElseThrow(
-			     () -> new EmployeeNotFoundException("No details found")
-			 );
-			Long empDetId=employee.getEmployeeDetails().getEmpDetId();
-	        return employeeDetailsRepository.findFamilyDetailsByEmpDetId(empDetId);
-		} catch (EmployeeNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-        // Pageable pageable = PageRequest.of(pg-1, 7);
-		return null;
+	public List<FamilyDetails> findFamilyDetails(Long id) throws EmployeeNotFoundException  {
+         Employee employee = employeeRepository.findById(id).orElseThrow(
+				() -> new EmployeeNotFoundException("No details found")
+			);
+		return employee.getEmployeeDetails().getListFamilyDetails();
     }
 
 	public int totalLeaves(Long id) throws EmployeeNotFoundException {
@@ -211,36 +211,90 @@ public class EmployeeService {
 		return applied;
 	}
 
-	public void deleteFamilyMemberById(Long fid) {
-		// TODO Auto-generated method stub
-		familyDetailsRepository.deleteById(fid);
+	public void deleteFamilyMemberById(Long empId, Long fid) throws FamilyDetailsNotFoundException, EmployeeNotFoundException {
+		familyDetailsRepository.findById(fid).orElseThrow(
+			() -> new FamilyDetailsNotFoundException("The family details is not found")
+		);
+		Employee employee  = employeeRepository.findById(empId).orElseThrow(
+			     () -> new EmployeeNotFoundException("No details found")
+		);
+		boolean present = false;
+		for(FamilyDetails fd : employee.getEmployeeDetails().getListFamilyDetails()){
+			if(fd.getFamilyId() == fid){
+				present = true;
+			}
+		}
+		if (present){
+			familyDetailsRepository.deleteById(fid);	
+		}
+		else{
+			throw new AccessDeniedException("Access is denied");
+		}
 		
 	}
 
-	public void deleteProfessionById(Long pid) {
-		// TODO Auto-generated method stub
-		profDetailsRepository.deleteById(pid);
-		
+	public void deleteProfessionById(Long empId, Long pid) throws ProfessionalDetailsNotFoundException, EmployeeNotFoundException {
+		profDetailsRepository.findById(pid).orElseThrow(
+			() -> new ProfessionalDetailsNotFoundException("The professional details is not found")
+		);
+		Employee employee  = employeeRepository.findById(empId).orElseThrow(
+			     () -> new EmployeeNotFoundException("No employee found")
+		);
+		boolean present = false;
+		for(ProfDetails pd : employee.getEmployeeDetails().getListProfDetails()){
+			if(pd.getProfDelId() == pid){
+				present = true;
+			}
+		}
+		if (present){
+			profDetailsRepository.deleteById(pid);	
+		}
+		else{
+			throw new AccessDeniedException("Access is denied");
+		}		
 	}
 
-	public void deleteQualificationById(Long qid) {
-		// TODO Auto-generated method stub
-		qualificationDetailsRepository.deleteById(qid);
+	public void deleteQualificationById(Long empId, Long qid) throws QualificationDetailsNotFoundException, EmployeeNotFoundException {
+		qualificationDetailsRepository.findById(qid).orElseThrow(
+			() -> new QualificationDetailsNotFoundException("The qualification details is not found")
+		);
+		Employee employee  = employeeRepository.findById(empId).orElseThrow(
+			     () -> new EmployeeNotFoundException("No employee found")
+		);
+		boolean present = false;
+		for(QualificationDetails qd : employee.getEmployeeDetails().getListQualificationDetails()){
+			if(qd.getQdId() == qid){
+				present = true;
+			}
+		}
+		if (present){
+			qualificationDetailsRepository.deleteById(qid);	
+		}
+		else{
+			throw new AccessDeniedException("Access is denied");
+		}		
 	}
 
-	public void saveEmpDetails(Long id, EmployeeDetails employeeDetails) throws EmployeeNotFoundException {
-		// TODO Auto-generated method stub
+	public LeaveLeftView findEmployeeLeavesLeft(Long id) throws EmployeeNotFoundException {
+		employeeRepository.findById(id).orElseThrow(
+			() -> new EmployeeNotFoundException("No employee found")
+		);
+		return employeeRepository.findLeaveLeft(id);
+	}
 
+	public void saveEmployeeDetails(Long id, EmployeeDetails employeeDetails) throws EmployeeNotFoundException, EmployeeDetailsNotFoundException {
 		Employee employee = employeeRepository.findById(id).orElseThrow(
-		     () -> new EmployeeNotFoundException("No details found")
-		 );
-		EmployeeDetails persistedEmpDetails=employee.getEmployeeDetails();
-		employeeDetails.setListFamilyDetails(persistedEmpDetails.getListFamilyDetails());
-		employeeDetails.setListProfDetails(persistedEmpDetails.getListProfDetails());
-		employeeDetails.setListQualificationDetails(persistedEmpDetails.getListQualificationDetails());
-		employeeDetailsRepository.save(employeeDetails);
-		
-		
-	}
+			() -> new EmployeeNotFoundException("No employee found")
+		);
+		EmployeeDetails persistedEmployeeDetails = employee.getEmployeeDetails();
+		if (persistedEmployeeDetails == null){
+			throw new EmployeeDetailsNotFoundException("No details found");
+		}
+		employeeDetails.setListFamilyDetails(persistedEmployeeDetails.getListFamilyDetails());
+		employeeDetails.setListProfDetails(persistedEmployeeDetails.getListProfDetails());
+		employeeDetails.setListQualificationDetails(persistedEmployeeDetails.getListQualificationDetails());
+		employeeDetails.setEmpDetId(persistedEmployeeDetails.getEmpDetId());
 
+		employeeDetailsRepository.save(employeeDetails);
+	}
 }

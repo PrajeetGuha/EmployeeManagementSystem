@@ -42,9 +42,33 @@ insert into user(username,password,role,is_enabled, table_pk) values('test-admin
 insert into admin(admin_id, admin_name, admin_email) values(1,"Test Admin","test@admin.nrifintech.com");
 
 insert into employee_details(email_id) values("test1employee@test.com");
-insert into employee(emp_name, gender, designation, department, year_of_experience, grade_level, doj, emptype, work_email, empstatus, employee_details_emp_det_id) values('Test1', 'male', 'ASE', 'administration', 3, 4, '2020-09-23', 'full time', 'test1employee@nrifintech.com','active', 1);
+insert into employee(emp_name, gender, designation, department, year_of_experience, grade_level, doj, emptype, work_email, empstatus, employee_details_emp_det_id, cl_left, sl_left, more_leave, resignation_resignation_id) values('Test1', 'male', 'ASE', 'administration', 3, 4, '2020-09-23', 'full time', 'test1employee@nrifintech.com','active', 1,6,6,0,1);
 insert into user(username,password, is_enabled, role, table_pk) values('test1employee','$2a$12$I1pwfNEvxdVTY281JTkcO.X0kFAEAWpSuvhpO8KIln9pR6rojoqE2', 1, 'ROLE_EMP',1);
 
 insert into employee_details(email_id) values("test2employee@test.com");
-insert into employee(emp_name, gender, designation, department, year_of_experience, grade_level, doj, emptype, work_email, empstatus, employee_details_emp_det_id) values('Test2', 'female', 'security', 'DSE', 5, 2, '2023-03-28', 'part time', 'test2employee@nrifintech.com', 'active', 2);
+insert into employee(emp_name, gender, designation, department, year_of_experience, grade_level, doj, emptype, work_email, empstatus, employee_details_emp_det_id, cl_left, sl_left, more_leave resignation_resignation_id) values('Test2', 'female', 'security', 'DSE', 5, 2, '2023-03-28', 'part time', 'test2employee@nrifintech.com', 'active', 2,6,6,0,2);
 insert into user(username,password, is_enabled, role, table_pk) values('test2employee','$2a$12$I1pwfNEvxdVTY281JTkcO.X0kFAEAWpSuvhpO8KIln9pR6rojoqE2', 1, 'ROLE_EMP', 2);
+
+insert into resignation(resignation_reason,resignation_date,employee_emp_id) values('ABCD','2023-04-03',1);
+insert into resignation(resignation_reason,resignation_date,employee_emp_id) values('ABCD','2023-04-03',2);
+
+insert into family_details(contactno,dob,name,relation,occupation,list_family_details_emp_det_id) values('1234567890','2001-04-27','Mr Test1 Senior', 'Father', 'Business', 1);
+insert into family_details(contactno,dob,name,relation,occupation,list_family_details_emp_det_id) values('1234567890','2001-04-27','Mrs Test1 Senior', 'Mother', 'Soldier', 1);
+insert into family_details(contactno,dob,name,relation,occupation,list_family_details_emp_det_id) values('1234567890','2001-04-27','Mrs Test1 Senior', 'Mother', 'Soldier', 2);
+
+insert into qualification_details(end_date,percent,qual,start_date,list_qualification_details_emp_det_id) values('2023-08-12',89, '10th','2012-04-23',1);
+insert into qualification_details(end_date,percent,qual,start_date,list_qualification_details_emp_det_id) values('2023-08-23',92,'12th', '2012-04-23', 1);
+insert into qualification_details(end_date,percent,qual,start_date,list_qualification_details_emp_det_id) values('2023-08-12',89, '10th','2012-04-23',2);
+
+insert into prof_details(designation,from_date,name_of_prev_org,to_date,list_prof_details_emp_det_id) values('SDE','2020-08-01','JP Morgan and Chase', '2022-06-30',1);
+insert into prof_details(designation,from_date,name_of_prev_org,to_date,list_prof_details_emp_det_id) values('SDE','2015-03-01','Carlsberg', '2020-08-31',1);
+insert into prof_details(designation,from_date,name_of_prev_org,to_date,list_prof_details_emp_det_id) values('SDE','2015-03-01','Carlsberg', '2022-06-30',2);
+
+insert into leave_application(application_date, leave_applied_for, leave_reason, leave_type, admin_admin_id, employee_emp_id, is_approved) values('2023-03-21', '2023-03-31','Test Reason','CL', null, 1, null);
+insert into leave_application(application_date, leave_applied_for, leave_reason, leave_type, admin_admin_id, employee_emp_id, is_approved) values('2023-03-21', '2023-03-31','Test Reason','PL', 1, 1, 1);
+insert into leave_application(application_date, leave_applied_for, leave_reason, leave_type, admin_admin_id, employee_emp_id, is_approved) values('2023-03-21', '2023-03-31','Test Reason','SL', null, 1,null);
+insert into leave_application(application_date, leave_applied_for, leave_reason, leave_type, admin_admin_id, employee_emp_id, is_approved) values('2023-03-21', '2023-03-31','Test Reason','PL', 1, 1, 0);
+
+insert into project(end_date,project_name,start_date,pm_emp_id) values('2023-04-28','esx test','2023-03-16',1);
+insert into team(department,team_name) values('Security','ESX Test');
+

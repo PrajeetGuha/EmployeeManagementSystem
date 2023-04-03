@@ -629,9 +629,12 @@ document.addEventListener('DOMContentLoaded', function() {
 													class="edit" >
 													 <i
 														class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-													<a href="deleteProject?projId=${project.projId }" class="delete"
+														<form action="deleteProject?projId=${project.projId }&pg=${pageNo}" method="post" style="display : inline">
+															<button style="all : unset; cursor : pointer"><i class='material-icons' data-toggle='tooltip' title='Delete'>&#xE872;</i></button>
+														</form>
+													<!-- <a href="deleteProject?projId=${project.projId }" class="delete"
 													> <i class="material-icons"
-														data-toggle="tooltip" title="Delete">delete</i></a> </td>
+														data-toggle="tooltip" title="Delete">delete</i></a> </td> -->
 											</tr>
 
 											

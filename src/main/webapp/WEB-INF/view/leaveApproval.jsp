@@ -533,7 +533,7 @@
 													</td>
 													<td>
 														<c:out
-															value="${leave.employee.empName}" />
+															value="${leave.empName}" />
 													</td>
 													<td>
 														<c:out

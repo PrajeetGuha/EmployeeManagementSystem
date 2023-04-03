@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.antwalk.ems.dto.ResignationDTO;
+import org.antwalk.ems.exception.AdminNotFoundException;
 import org.antwalk.ems.exception.EmployeeNotFoundException;
 import org.antwalk.ems.exception.UserNotFoundException;
 import org.antwalk.ems.model.Employee;
@@ -20,7 +22,9 @@ import org.antwalk.ems.repository.FamilyDetailsRepository;
 import org.antwalk.ems.security.AuthenticationSystem;
 import org.antwalk.ems.service.AdminService;
 import org.antwalk.ems.service.EmployeeService;
-import org.antwalk.ems.view.EmployeeLeaveView;
+import org.antwalk.ems.view.LeaveApplicationListView;
+import org.antwalk.ems.view.LeaveLeftView;
+import org.antwalk.ems.view.ResignationView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -60,66 +64,44 @@ public class EmployeeController {
     private EmployeeDetailsRepository employeeDetailsRepository;
 
     @GetMapping("dashboard")
-    public String employeedashboard(HttpServletRequest request, Model model) {
+    public String employeeDashboard(HttpServletRequest request, Model model) {
         Long id = AuthenticationSystem.getId();
-        System.out.println(id);
+
         Employee employee;
+        String status;
+
 		try {
 			employee = employeeService.findEmployee(id);
-		} catch (EmployeeNotFoundException e) {
-			// TODO Auto-generated catch block
-
+            status = "SUCCESS";
+		} catch (Exception e) {
 	        employee=new Employee();
-			e.printStackTrace();
+			model.addAttribute("exception", e);
+            status = "FAILED";
 		}
+        model.addAttribute("status", status);
         model.addAttribute("employee", employee);
         return "myProfile";
     }
 
-    @GetMapping("editemployeedetails")
-    public String editemployeedetails(HttpServletRequest request, Model model) {
+    @GetMapping("employeepersonaldetails")
+    public String employeePersonalDetails(HttpServletRequest request, Model model){
         Long id = AuthenticationSystem.getId();
-        Employee employee;
+        EmployeeDetails employeeDetails;
+        String status;
+
 		try {
-			employee = employeeService.findEmployee(id);
-		} catch (EmployeeNotFoundException e) {
-			// TODO Auto-generated catch block
-	        employee=new Employee();
-			e.printStackTrace();
+			employeeDetails = employeeService.employeeInfo(id);
+            status = "SUCCESS";
+		} catch (Exception e) {
+
+	        employeeDetails = new EmployeeDetails();
+			model.addAttribute("exception", e);
+            status = "FAILED";
 		}
-        model.addAttribute("employee", employee);
-        return "myProfile";
-    }
-
-    @GetMapping("personaldetails")
-    public String personaldetails(HttpServletRequest request, Model model) {
-        Long id = AuthenticationSystem.getId();
-        System.out.println(id);
-        EmployeeDetails employeeDetails = employeeService.employeeInfo(id);
-        model.addAttribute("employeeinfo", employeeDetails);
-        return "myProfile";
-    }
-
-
-
-    @PostMapping("/applyLeave")
-    public String editemployee(@ModelAttribute("leave") LeaveApplication leaveApplication, BindingResult result, RedirectAttributes redirectAttrs) throws UserNotFoundException{
+        model.addAttribute("status", status);
+        model.addAttribute("employeeinfomation", employeeDetails);
         
-        Long id = AuthenticationSystem.getId();
-        employeeService.applyLeave(id,leaveApplication);
-        
-
-        // if (result.hasErrors()){
-        //     redirectAttrs.addFlashAttribute("result", result);
-        // }
-        // else{
-        //     redirectAttrs.addFlashAttribute("result",ResponseEntity.ok().body(new SuccessDetails(
-        //         new Date(),
-        //         "Added",
-        //         "New leave is added"
-        //     )));
-        // }
-        return "redirect:leaveApplication?pg=1";
+        return "personalDetails";
     }
 
     @GetMapping("leaveApplication")
@@ -128,39 +110,34 @@ public class EmployeeController {
        
         int pg = Integer.parseInt(request.getParameter("pg"));
        
-        List<LeaveApplication> leaveapplications = null;
+        List<LeaveApplicationListView> leaveapplications = null;
         int totalCount = 0;
         int totalPages = 0;
         List<Integer> applied=new ArrayList<>();
         String status;
-        EmployeeLeaveView employee;
+        LeaveLeftView leaves;
 		try {
 			leaveapplications = employeeService.findEmployeeLeaves(id,pg);
 			totalCount = employeeService.totalLeaves(id);
 			totalPages = employeeService.totalCountOfPages(id);
-			 applied=employeeService.countApplied(id);
+			applied=employeeService.countApplied(id);
 			status = "SUCCESS";
 			
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			model.addAttribute("exception",e);
 			System.out.println(e);
 			status = "FAILED";
 		}
-//		try {
-			employee = employeeService.findEmployeeLeaves(id);
-			System.out.println("\n\nhi\n\n");
+		try {
+			leaves = employeeService.findEmployeeLeavesLeft(id);
 			status = "SUCCESS";
-//		}
-//		catch(Exception e) {
-//			System.out.println("\n\n no \n\n");
-//			System.out.println("\n\n "+e.getMessage()+" \n\n");
-//			model.addAttribute("exception",e);
-//			status = "FAILED";
-//		}
-		System.out.println("\n\n\n"+employee.getCl());
-        model.addAttribute("status",status);
-        model.addAttribute("employee",employee);
+		}
+		catch(Exception e) {
+			leaves = null;
+			model.addAttribute("exception",e);
+			status = "FAILED";
+		}
+        model.addAttribute("employee",leaves);
         model.addAttribute("appliedLeaves",applied);
 		model.addAttribute("status",status);
         model.addAttribute("leavelist",leaveapplications);
@@ -168,168 +145,347 @@ public class EmployeeController {
         model.addAttribute("count",totalCount);
         model.addAttribute("pg", pg);
        return "applyLeave";
-       }
-
-    @GetMapping("dashboards")
-    public String employeesdashboard(HttpServletRequest request, Model model) {
-        Long id = AuthenticationSystem.getId();
-        System.out.println(id);
-        Employee employee = employeeRepository.getById(id);
-        model.addAttribute("employee", employee);
-        return "personalDetails";
-    }
-
-
-    @GetMapping("adminUserView")
-    public String adminUserView(HttpServletRequest request, Model model) {
-        Long id = AuthenticationSystem.getId();
-        System.out.println(id);
-        // List<FamilyDetails> listOfFamilyDetails =
-        // employeeService.listAllFamilyDetails(id);
-        // model.addAttribute("listOfFamily",listOfFamilyDetails);
-        // model.addAttribute("familyDetails", new ArrayList<FamilyDetails>());
-        return "editUser";
-    }
-
-    @GetMapping("employeepersonaldetails")
-    public String employeepersonaldetails(HttpServletRequest request, Model model) {
-        Long id = AuthenticationSystem.getId();
-        System.out.println("Emp details  " + id);
-        EmployeeDetails employeeDetails = employeeService.employeeInfo(id);
-        
-        model.addAttribute("employeeinfomation", employeeDetails);
-        System.out.println(employeeDetails);
-        // model.addAttribute("familyDetails", new ArrayList<FamilyDetails>());
-        return "personalDetails";
-    }
-
-    @PostMapping("postfamilydetails")
-    public String postfamilydetails(@ModelAttribute("listOfFamily") List<FamilyDetails> families,
-            BindingResult result) {
-        // familyDetailsRepository.saveAll(families); // save all updated users to the
-        // database
-        // if(result.hasErrors()){
-        // return "error";
-        // }
-        // model.addAttribute("family", families);
-        return "redirect:/familyDetails";
-    }
-
-    @PostMapping("personaldetailsofemployee")
-    public String editemployee(@ModelAttribute("emppersonaldetails") EmployeeDetails employeeDetails,
-            BindingResult result, RedirectAttributes redirectAttrs) throws UserNotFoundException, EmployeeNotFoundException {
-        // familyDetailsRepository.saveAll(families); // save all updated users to the
-        // database
-
-        Long id = AuthenticationSystem.getId();
-        System.out.println("hello " + id);
-        System.out.println(employeeDetails);
-        employeeService.saveEmpDetails(id,employeeDetails);
-        return "redirect:/employee/employeepersonaldetails";
     }
 
     @GetMapping("resign")
-    public String resign(HttpServletRequest request, Model model) throws EmployeeNotFoundException{
+    public String resign(HttpServletRequest request, Model model) throws EmployeeNotFoundException, AdminNotFoundException{
         Long id = AuthenticationSystem.getId();
-        Resignation resign = employeeService.resign(id);
+        ResignationDTO resign;
+        String status;
+        try{
+            
+            resign = employeeService.resign(id);
+            status = "SUCCESS";
+        }
+        catch(Exception e){
+            model.addAttribute("exception", e);
+            resign = null;
+            status = "FAILED";
+        }
+        model.addAttribute("status",status);
         model.addAttribute("resign", resign);
         return "applyResignation";
     }
 
-    @PostMapping("applyResignation")
-    public String applyResignation(@ModelAttribute("resignform") Resignation resignation, HttpServletRequest request) throws EmployeeNotFoundException{
-        Long id = AuthenticationSystem.getId();
-        employeeService.applyForResignation(id, resignation);
-        return "redirect:resign";
-    }
-    @GetMapping("/deletefamilymember")
-    public String deletefamilymember( HttpServletRequest request, RedirectAttributes redirectAttrs) throws UserNotFoundException{
-    	Long fid=Long.parseLong(request.getParameter("fid"));
-        employeeService.deleteFamilyMemberById(fid);
-        
-
-        // if (result.hasErrors()){
-        //     redirectAttrs.addFlashAttribute("result", result);
-        // }
-        // else{
-        //     redirectAttrs.addFlashAttribute("result",ResponseEntity.ok().body(new SuccessDetails(
-        //         new Date(),
-        //         "Added",
-        //         "New leave is added"
-        //     )));
-        // }
-        return "redirect:familyDetails";
-    }
-    @GetMapping("/deleteQualification")
-    public String deleteQualification( HttpServletRequest request, RedirectAttributes redirectAttrs) throws UserNotFoundException{
-    	Long qid=Long.parseLong(request.getParameter("qid"));
-        employeeService.deleteQualificationById(qid);
-        
-
-        return "redirect:qualificationdetails";
-    }
-    @GetMapping("/deleteProfession")
-    public String deleteProfession( HttpServletRequest request, RedirectAttributes redirectAttrs) throws UserNotFoundException{
-    	Long pid=Long.parseLong(request.getParameter("pid"));
-        employeeService.deleteProfessionById(pid);
-        
-
-        return "redirect:professionaldetails";
-    }
-
-
     @GetMapping("qualificationdetails")
     public String qualificationdetails(HttpServletRequest request, Model model) {
         Long id = AuthenticationSystem.getId();
-        System.out.println(id);
-//        int pg=Integer.parseInt(request.getParameter("pg"));
-        List<QualificationDetails> listOfQualificationDetails = employeeService.findQualificationDetails(id,1);
-        
+        List<QualificationDetails> listOfQualificationDetails = null;
+        String status;
+
+        try{
+            listOfQualificationDetails = employeeService.findQualificationDetails(id);
+            status = "SUCCESS";
+        }
+        catch(Exception e){
+            model.addAttribute("exception", e);
+            status = "FAILED";
+        }
+        model.addAttribute("status", status);
         model.addAttribute("listOfQualification", listOfQualificationDetails);
         return "myQualification";
     }
-    
-    @PostMapping("addQualification")
-    public String addQualification(@ModelAttribute("qualification") QualificationDetails qualificationDetails, HttpServletRequest request) throws EmployeeNotFoundException{
-        Long id = AuthenticationSystem.getId();
-        employeeService.addQualification(id, qualificationDetails);
-        return "redirect:qualificationdetails";
-    }
-    
-    @GetMapping("familyDetails")
-    public String familydetails(HttpServletRequest request, Model model) {
-        Long id = AuthenticationSystem.getId();
-        System.out.println(id);
-//        int pg=Integer.parseInt(request.getParameter("pg"));
-        List<FamilyDetails> listOfFamilyDetails = employeeService.findFamilyDetails(id,1);
-        model.addAttribute("listOfFamilyDetails", listOfFamilyDetails);
-        return "myFamily";
-    }
-    
-    @PostMapping("addFamily")
-    public String addFamily(@ModelAttribute("family") FamilyDetails familyDetails, HttpServletRequest request) throws EmployeeNotFoundException{
-        Long id = AuthenticationSystem.getId();
-        employeeService.addFamily(id, familyDetails);
-        return "redirect:familyDetails";
-    }
-    
-    
-    
+
     @GetMapping("professionaldetails")
     public String professionaldetails(HttpServletRequest request, Model model) {
         Long id = AuthenticationSystem.getId();
-        System.out.println(id);
-//        int pg=Integer.parseInt(request.getParameter("pg"));
-        List<ProfDetails> listOfProfDetails = employeeService.findProfessionalDetails(id,1);
-        
+
+        List<ProfDetails> listOfProfDetails = null;
+        String status;
+        try{
+            listOfProfDetails = employeeService.findProfessionalDetails(id);
+            status = "SUCCESS";
+        }
+        catch(Exception e){
+            model.addAttribute("exception", e);
+            status = "FAILED";
+        }
+        model.addAttribute("status", status);
         model.addAttribute("listOfProfession", listOfProfDetails);
         return "myProfession";
     }
-    
-    @PostMapping("addProfession")
-    public String addProfession(@ModelAttribute("profession") ProfDetails profDetails, HttpServletRequest request) throws EmployeeNotFoundException{
+
+    @GetMapping("familyDetails")
+    public String familydetails(HttpServletRequest request, Model model) {
         Long id = AuthenticationSystem.getId();
-        employeeService.addProfession(id, profDetails);
-        return "redirect:professionaldetails";
+
+        List<FamilyDetails> listOfFamilyDetails = null;
+        String status;
+        try{
+            listOfFamilyDetails = employeeService.findFamilyDetails(id);
+            status = "SUCCESS";
+        }
+        catch(Exception e){
+            status = "FAILED";
+            model.addAttribute("exception", e);
+        }
+        model.addAttribute("status", status);
+        model.addAttribute("listOfFamilyDetails", listOfFamilyDetails);
+        return "myFamily";
     }
+
+    @PostMapping("/applyLeave")
+    public String applyLeave(@ModelAttribute("leave") LeaveApplication leaveApplication, BindingResult result, RedirectAttributes redirectAttrs){
+        
+        Long id = AuthenticationSystem.getId();
+        String status;
+        if (result.hasErrors()){
+            redirectAttrs.addFlashAttribute("error",result);
+            status = "FAILED";
+        }
+        else{
+            try {
+                employeeService.applyLeave(id,leaveApplication);
+                status = "SUCCESS";
+            } catch (Exception e) {
+                redirectAttrs.addFlashAttribute("exception",e);
+                status = "FAILED";
+            }
+        }
+        redirectAttrs.addFlashAttribute("status", status);
+        return "redirect:/employee/leaveApplication?pg=1";
+    }
+
+    @PostMapping("/deletefamilymember")
+    public String deletefamilymember( RedirectAttributes redirectAttrs, HttpServletRequest request  ){
+    	Long fid=Long.parseLong(request.getParameter("fid"));
+        Long empId = AuthenticationSystem.getId();
+        String status;
+
+        try{
+            employeeService.deleteFamilyMemberById(empId,fid);
+            status = "SUCCESS";
+        }
+        catch(Exception e){
+            redirectAttrs.addFlashAttribute("exception",e);
+            status = "FAILED";
+        }
+        redirectAttrs.addFlashAttribute("status",status);
+        return "redirect:/employee/familyDetails";
+    }
+
+    @PostMapping("/deleteQualification")
+    public String deleteQualification( RedirectAttributes redirectAttrs, HttpServletRequest request){
+    	
+        Long qid=Long.parseLong(request.getParameter("qid"));
+        Long empId = AuthenticationSystem.getId();
+        String status;
+
+        try{
+            employeeService.deleteQualificationById(empId,qid);
+            status = "SUCCESS";
+        }
+        catch(Exception e){
+            redirectAttrs.addFlashAttribute("exception",e);
+            status = "FAILED";
+        }
+        redirectAttrs.addFlashAttribute("status",status);
+
+        return "redirect:/employee/qualificationdetails";
+    }
+
+    @PostMapping("/deleteProfession")
+    public String deleteProfession( RedirectAttributes redirectAttrs, HttpServletRequest request){
+        
+        Long pid=Long.parseLong(request.getParameter("pid"));
+        Long empId = AuthenticationSystem.getId();
+        String status;
+
+        try{
+            employeeService.deleteProfessionById(empId,pid);
+            status = "SUCCESS";
+        }
+        catch(Exception e){
+            redirectAttrs.addFlashAttribute("exception",e);
+            status = "FAILED";
+        }
+        redirectAttrs.addFlashAttribute("status",status);
+
+        return "redirect:/employee/professionaldetails";
+    }
+
+    @PostMapping("personaldetailsofemployee")
+    public String editemployee(@ModelAttribute("emppersonaldetails") EmployeeDetails employeeDetails,
+            BindingResult result, RedirectAttributes redirectAttrs) {
+
+        Long id = AuthenticationSystem.getId();
+        String status;
+
+        if (result.hasErrors()){
+            redirectAttrs.addFlashAttribute("error",result);
+            status = "FAILED";
+        }
+        else{
+            try{
+                employeeService.saveEmployeeDetails(id,employeeDetails);
+                status = "SUCCESS";
+            }
+            catch(Exception e){
+                redirectAttrs.addFlashAttribute("exception",e);
+                status = "FAILED";
+            }
+        }
+        redirectAttrs.addFlashAttribute("status",status);
+        return "redirect:/employee/employeepersonaldetails";
+    }
+
+    @PostMapping("applyResignation")
+    public String applyResignation(@ModelAttribute("resignform") Resignation resignation, BindingResult result, RedirectAttributes redirectAttrs, HttpServletRequest request){
+        Long id = AuthenticationSystem.getId();
+        String status;
+        if (result.hasErrors()){
+            redirectAttrs.addFlashAttribute("error", result);
+            status = "FAILED";
+        }
+        else{
+            try{
+                employeeService.applyForResignation(id, resignation);
+                status = "SUCCESS";
+            }
+            catch(Exception e){
+                status = "FAILED";
+                redirectAttrs.addFlashAttribute("exception",e);
+            }
+        }
+        redirectAttrs.addFlashAttribute("status",status);
+        return "redirect:/employee/resign";
+    }
+
+    @PostMapping("addQualification")
+    public String addQualification(@ModelAttribute("qualification") QualificationDetails qualificationDetails, BindingResult result, RedirectAttributes redirectAttrs, HttpServletRequest request){
+        Long id = AuthenticationSystem.getId();
+        String status;
+        
+        if(result.hasErrors()){
+            redirectAttrs.addFlashAttribute("error",result);
+            status = "FAILED";
+        }
+        else{
+            try {
+                employeeService.addQualification(id, qualificationDetails);
+                status = "SUCCESS";
+            } catch (Exception e) {
+                redirectAttrs.addFlashAttribute("exception", e);
+                status = "FAILED";
+            }
+        }
+        redirectAttrs.addFlashAttribute("status",status);
+        return "redirect:/employee/qualificationdetails";
+    }
+
+    @PostMapping("addFamily")
+    public String addFamily(@ModelAttribute("family") FamilyDetails familyDetails, BindingResult result, RedirectAttributes redirectAttrs, HttpServletRequest request){
+        Long id = AuthenticationSystem.getId();
+        String status;
+
+        if(result.hasErrors()){
+            redirectAttrs.addFlashAttribute("error",result);
+            status = "FAILED";
+        }
+        else{
+            try{
+                employeeService.addFamily(id, familyDetails);
+                status = "SUCCESS";
+            }
+            catch(Exception e){
+                redirectAttrs.addFlashAttribute("exception",e);
+                status = "FAILED";
+            }
+        }
+        redirectAttrs.addFlashAttribute("status",status);
+        return "redirect:/employee/familyDetails";
+    }
+
+    @PostMapping("addProfession")
+    public String addProfession(@ModelAttribute("profession") ProfDetails profDetails, BindingResult result, RedirectAttributes redirectAttrs, HttpServletRequest request) throws EmployeeNotFoundException{
+        Long id = AuthenticationSystem.getId();
+        String status;
+
+        if(result.hasErrors()){
+            redirectAttrs.addFlashAttribute("error",result);
+            status = "FAILED";
+        }
+        else{
+            try{
+                employeeService.addProfession(id, profDetails);
+                status = "SUCCESS";
+            }
+            catch(Exception e){
+                redirectAttrs.addFlashAttribute("exception",e);
+                status = "FAILED";
+            }
+        }
+        redirectAttrs.addFlashAttribute("status",status);
+        return "redirect:/employee/professionaldetails";
+    }
+
+    // @GetMapping("editemployeedetails")
+    // public String editemployeedetails(HttpServletRequest request, Model model) {
+    //     Long id = AuthenticationSystem.getId();
+    //     Employee employee;
+	// 	try {
+	// 		employee = employeeService.findEmployee(id);
+	// 	} catch (EmployeeNotFoundException e) {
+	// 		// TODO Auto-generated catch block
+	//         employee=new Employee();
+	// 		e.printStackTrace();
+	// 	}
+    //     model.addAttribute("employee", employee);
+    //     return "myProfile";
+    // }
+
+    // @GetMapping("personaldetails")
+    // public String personaldetails(HttpServletRequest request, Model model) {
+    //     Long id = AuthenticationSystem.getId();
+    //     EmployeeDetails employeeDetails;
+    //     String status;
+
+	// 	try {
+	// 		employeeDetails = employeeService.employeeInfo(id);
+    //         status = "SUCCESS";
+	// 	} catch (Exception e) {
+
+	//         employeeDetails = new EmployeeDetails();
+	// 		model.addAttribute("exception", e);
+    //         status = "FAILED";
+	// 	}
+    //     model.addAttribute("status", status);
+    //     model.addAttribute("employeeinfo", employeeDetails);
+    //     return "myProfile";
+    // }
+
+    // @GetMapping("dashboards")
+    // public String employeesdashboard(HttpServletRequest request, Model model) {
+    //     Long id = AuthenticationSystem.getId();
+    //     System.out.println(id);
+    //     Employee employee = employeeRepository.getById(id);
+    //     model.addAttribute("employee", employee);
+    //     return "personalDetails";
+    // }
+
+
+    // @GetMapping("adminUserView")
+    // public String adminUserView(HttpServletRequest request, Model model) {
+    //     Long id = AuthenticationSystem.getId();
+    //     System.out.println(id);
+    //     List<FamilyDetails> listOfFamilyDetails =
+    //     employeeService.listAllFamilyDetails(id);
+    //     model.addAttribute("listOfFamily",listOfFamilyDetails);
+    //     model.addAttribute("familyDetails", new ArrayList<FamilyDetails>());
+    //     return "editUser";
+    // }
+
+    
+
+    // @PostMapping("postfamilydetails")
+    // public String postfamilydetails(@ModelAttribute("listOfFamily") List<FamilyDetails> families,
+    //         BindingResult result) {
+    //     familyDetailsRepository.saveAll(families); // save all updated users to the
+    //     database
+    //     if(result.hasErrors()){
+    //     return "error";
+    //     }
+    //     model.addAttribute("family", families);
+    //     return "redirect:/familyDetails";
+    // }
 }

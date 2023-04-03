@@ -38,7 +38,7 @@
 
 
 var teamEmployees = [
-	<c:forEach var="employee" items="${project.teams}">
+	<c:forEach var="employee" items="${teamsInProject}">
 		{
 			id : ${employee.teamId},
 			name : "${employee.teamName}"
@@ -527,7 +527,7 @@ function addRow(id,name) {
 
 				</div>
 				<div class="xp-breadcrumbbar text-center">
-					<h4 class="page-title">${project.projectName}</h4>
+					<h4 class="page-title">${projectdetails.projectName}</h4>
 					<!--  <ol class="breadcrumb">
 						<li class="breadcrumb-item"><a href="#">Booster</a></li>
 						<li class="breadcrumb-item active" aria-current="page">Dashboard</li>
@@ -624,7 +624,7 @@ function addRow(id,name) {
 								</tbody>
 							</table>
 							<div>
-								<form action="addTeamToProject?projId=${project.projId }&pg=${pageNo}"
+								<form action="addTeamToProject?projId=${projectdetails.projId }&pg=${pageNo}"
 									method="post">
 									<center>
 										<input type="hidden" name="hiddenFieldOfTeams"
@@ -644,7 +644,7 @@ function addRow(id,name) {
 					<div id="addPM" class="modal fade">
 						<div class="modal-dialog">
 							<div class="modal-content">
-								<form action="addProjectManager?projId=${project.projId }&pg=${pageNo }"
+								<form action="addProjectManager?projId=${projectdetails.projId }&pg=${pageNo }"
 									method="post">
 									<div class="modal-header">
 										<h4 class="modal-title">Add Project Manager</h4>

@@ -493,10 +493,14 @@ function getdeptId(deptId)
 
 												<td><a href="editableTeamPage?tid=${team.teamId }&pg=${pageNo}" class="edit"
 													> <i class="material-icons"
-														data-toggle="tooltip" title="Edit">&#xE254;</i></a> 
-														 <a href="deleteTeam?teamId=${team.teamId }" class="delete"
+														data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+														
+														<form action="deleteTeam?teamId=${team.teamId }&pg=${pageNo}" method="post" style="display : inline">
+															<button style="all : unset; cursor : pointer"><i class='material-icons' data-toggle='tooltip' title='Delete'>&#xE872;</i></button>
+														</form>
+														 <!-- <a href="deleteTeam?teamId=${team.teamId }" class="delete"
 													> <i class="material-icons"
-														data-toggle="tooltip" title="Delete">delete</i></a>
+														data-toggle="tooltip" title="Delete">delete</i></a> -->
 														</td>
 											</tr>
 

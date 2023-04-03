@@ -9,10 +9,14 @@ import javax.transaction.Transactional;
 import org.antwalk.ems.model.Employee;
 import org.antwalk.ems.model.LeaveApplication;
 import org.antwalk.ems.model.QualificationDetails;
+import org.antwalk.ems.model.Resignation;
 import org.antwalk.ems.model.Team;
+import org.antwalk.ems.view.EmployeeEditView;
 import org.antwalk.ems.view.EmployeeLeaveView;
 import org.antwalk.ems.view.EmployeeListView;
 import org.antwalk.ems.view.EmployeeSelectionView;
+import org.antwalk.ems.view.LeaveLeftView;
+import org.antwalk.ems.view.ResignationView;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -73,9 +77,6 @@ public interface EmployeeRepository extends JpaRepository<Employee,Long>  {
     @Query("select DISTINCT emptype FROM Employee where empstatus='active'")
     public List<String> distemptype();
     
-    @Query("select e.leaves from Employee e where e.empId = :empId")
-    public List<LeaveApplication> getLeavesById(Long empId, Pageable pageable);
-    
     @Query("SELECT COUNT(*) AS count, YEAR(doj) AS month FROM Employee GROUP BY YEAR(doj) ORDER BY YEAR(doj)")
     public List<Integer> recruitment();
     
@@ -101,10 +102,15 @@ public interface EmployeeRepository extends JpaRepository<Employee,Long>  {
     @Query("SELECT distinct department FROM Employee where empstatus='active' ")
     public List<String> deptname();
     
+    @Transactional
+    @Modifying
+    @Query("update Employee e set e.team.teamId = null where e.team.teamId = :teamId")
+    public void modifyEmployeeForTeam(Long teamId);
+    @Transactional
+    @Modifying
+    @Query("update Employee e set e.team.teamId = null where e.empId = :empId")
+    public void modifyEmployeeForTeamByEmpId(Long empId);
     
-    
-    
-
     @Transactional
     @Modifying
     @Query("update Employee e set e.team.teamId = null where e.team.teamId = :teamId")
@@ -118,27 +124,13 @@ public interface EmployeeRepository extends JpaRepository<Employee,Long>  {
     @Query("select e.empId as empId, e.empName as empName from Employee e where e.empstatus='active' and e.yearOfExperience>=3")
 	public List<EmployeeSelectionView> findAllPotentialPM();
 
+    @Query("select e.clLeft as clLeft, e.slLeft as slLeft, e.moreLeave as moreLeave from Employee e where e.empId = :id")
+    public LeaveLeftView findLeaveLeft(Long id);
 
+    @Query(nativeQuery = true, value = "select emp_name as empName, gender, grade_level as gradeLevel, doj, designation, emptype, prob_period as probPeriod, prob_comp_date as probCompDate, train_period as trainPeriod, contract_end_date as contractEndDate, serv_period as servPeriod, work_email as workEmail, branch, office, workstation_id as workstationId, ctc, year_of_experience as yearOfExperience, department, team_team_id as team from Employee where emp_id = :empId")
+    public EmployeeEditView getEmployeeEditView(Long empId);
 
-    @Transactional
-    @Modifying
-    @Query("update Employee e set e.team.teamId = null where e.team.teamId = :teamId")
-	public void modifyEmployeeForTeam(Long teamId);
-
-
-
-    @Transactional
-    @Modifying
-    @Query("update Employee e set e.team.teamId = null where e.empId = :empId")
-	public void modifyEmployeeForTeamByEmpId(Long empId);
-
-
-
-//	public Optional<Employee> findLeavesById(Long id);
-
-
-
-    @Query("select e.clLeft as cl, e.slLeft as sl,e.moreLeave as pl from Employee e where e.empId=:id")
-	public EmployeeLeaveView findLeavesById(Long id);
+    @Query("select e.empId as empId, e.empName as empName from Employee e where e.team.teamId = :tid")
+    public List<EmployeeSelectionView> findEmployeesWithTeam(Long tid);
 
 }

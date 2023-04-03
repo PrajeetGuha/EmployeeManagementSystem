@@ -1,14 +1,12 @@
-package org.antwalk.ems.view;
+package org.antwalk.ems.dto;
 
-import org.antwalk.ems.model.Employee;
-
-public class TeamListView2 {
+public class TeamListViewDTO {
 	Long teamId;
 	String teamName;
 	String department;
 	String tm;
 	
-	public TeamListView2(Long teamId, String teamName, String department, String tm) {
+	public TeamListViewDTO(Long teamId, String teamName, String department, String tm) {
 		super();
 		this.teamId = teamId;
 		this.teamName = teamName;

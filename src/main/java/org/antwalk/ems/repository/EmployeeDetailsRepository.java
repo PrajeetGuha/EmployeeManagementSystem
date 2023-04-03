@@ -15,9 +15,6 @@ import org.springframework.stereotype.Repository;
 public interface EmployeeDetailsRepository extends JpaRepository<EmployeeDetails,Long> {
     @Query("select ed.emailId from EmployeeDetails ed")
     public List<String> listOfEmails();
-    
-    @Query("select listQualificationDetails from EmployeeDetails ed where ed.empDetId = :id")
-    public List<QualificationDetails> findQualificationDetailsByEmpDetId(Long id);
 
     @Query("select listProfDetails from EmployeeDetails ed where ed.empDetId = :id")
     public List<ProfDetails> findProfessionalDetailsByEmpDetId(Long id);

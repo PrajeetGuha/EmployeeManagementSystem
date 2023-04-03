@@ -60,6 +60,7 @@ public class WebSecurityConfig {
                 .antMatchers("/admin/*","/admin").hasRole("ADMIN")
                 .antMatchers("/employee/*","/employee").hasRole("EMP")
                 .antMatchers("/resources/**").permitAll();
+                
                 http.formLogin()
                 .loginPage("/login")
                 .defaultSuccessUrl("/loggedin", true)

@@ -1,14 +1,14 @@
-package org.antwalk.ems.view;
+package org.antwalk.ems.dto;
 
 import java.sql.Date;
 
-public class ProjectListView2 {
+public class ProjectListViewDTO {
 	Long projId;
 	String projectName;
 	Date startDate;
 	Date endDate;
 	String pm;
-	public ProjectListView2(Long projId, String projectName, Date startDate, Date endDate, String pm) {
+	public ProjectListViewDTO(Long projId, String projectName, Date startDate, Date endDate, String pm) {
 		super();
 		this.projId = projId;
 		this.projectName = projectName;

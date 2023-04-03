@@ -296,7 +296,10 @@
 														</td>
 														
 													<td>
-														<a href="deleteQualification?qid=${qualificationInfo.qdId }" class='delete' ><i class='material-icons' data-toggle='tooltip' title='Delete'>&#xE872;</i></a>
+														<form action="deleteQualification?qid=${qualificationInfo.qdId }" method="post">
+															<button style="all : unset; cursor : pointer"><i class='material-icons' data-toggle='tooltip' title='Delete'>&#xE872;</i></button>
+															
+														</form>
 													</td>
 												</tr>
 

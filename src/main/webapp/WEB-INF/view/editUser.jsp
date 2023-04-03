@@ -918,7 +918,7 @@
 																	
 																	aria-label="Team"
 																	aria-describedby="basic-addon1" name=""
-																	value="${employee.team.teamName}" disabled/>
+																	value="${employee.teamName}" disabled/>
 															</div>
 														</td>
 													</tr>

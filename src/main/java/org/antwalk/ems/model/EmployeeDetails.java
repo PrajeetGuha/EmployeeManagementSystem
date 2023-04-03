@@ -20,8 +20,8 @@ public class EmployeeDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long empDetId;
 
-    @OneToOne
-    private DocFile profilePicDoc;
+    // @OneToOne
+    // private DocFile profilePicDoc;
 
     @Column
     private String maritalStatus;
@@ -48,20 +48,20 @@ public class EmployeeDetails {
     @Column(length = 255)
     private String bloodGrp;
 
-    @OneToOne
-    private DocFile pancardDoc;
+    // @OneToOne
+    // private DocFile pancardDoc;
 
     @Column(length = 255)
     private String pancardnno;
 
-    @OneToOne
-    private DocFile adhaarDoc;
+    // @OneToOne
+    // private DocFile adhaarDoc;
 
     @Column(length = 255)
     private String adhaarno;
 
-    @OneToOne
-    private DocFile passportDoc;
+    // @OneToOne
+    // private DocFile passportDoc;
 
     @Column(length = 255)
     private String passportno;
@@ -92,25 +92,56 @@ public class EmployeeDetails {
     public EmployeeDetails() {
     }
 
+    
+
     @Override
     public String toString() {
-        return "EmployeeDetails [empDetId=" + empDetId + ", profilePicDoc=" + profilePicDoc + ", maritalStatus="
-                + maritalStatus + ", permaAddress=" + permaAddress + ", primaryContactno=" + primaryContactno
-                + ", emergencyContactno=" + emergencyContactno + ", emailId=" + emailId + ", presentAddress="
-                + presentAddress + ", nationality=" + nationality + ", bloodGrp=" + bloodGrp + ", pancardDoc="
-                + pancardDoc + ", pancardnno=" + pancardnno + ", adhaarDoc=" + adhaarDoc + ", adhaarno=" + adhaarno
-                + ", passportDoc=" + passportDoc + ", passportno=" + passportno + ", listQualificationDetails="
-                + listQualificationDetails + ", listFamilyDetails=" + listFamilyDetails + ", listProfDetails="
-                + listProfDetails + "]";
+        return "EmployeeDetails [empDetId=" + empDetId + ", maritalStatus=" + maritalStatus + ", permaAddress="
+                + permaAddress + ", primaryContactno=" + primaryContactno + ", emergencyContactno=" + emergencyContactno
+                + ", emailId=" + emailId + ", presentAddress=" + presentAddress + ", nationality=" + nationality
+                + ", bloodGrp=" + bloodGrp + ", pancardnno=" + pancardnno + ", adhaarno=" + adhaarno + ", passportno="
+                + passportno + ", listQualificationDetails=" + listQualificationDetails + ", listFamilyDetails="
+                + listFamilyDetails + ", listProfDetails=" + listProfDetails + "]";
     }
 
-    public EmployeeDetails(Long empDetId, DocFile profilePicDoc, String permaAddress, String primaryContactno,
+    // public EmployeeDetails(Long empDetId, DocFile profilePicDoc, String permaAddress, String primaryContactno,
+    //         String emergencyContactno, @Email String emailId, String presentAddress, String nationality,
+    //         String bloodGrp, DocFile pancardDoc, String pancardnno, DocFile adhaarDoc, String adhaarno,
+    //         DocFile passportDoc, String passportno, List<QualificationDetails> listQualificationDetails,
+    //         List<FamilyDetails> listFamilyDetails, List<ProfDetails> listProfDetails) {
+    //     this.empDetId = empDetId;
+    //     this.profilePicDoc = profilePicDoc;
+    //     this.permaAddress = permaAddress;
+    //     this.primaryContactno = primaryContactno;
+    //     this.emergencyContactno = emergencyContactno;
+    //     this.emailId = emailId;
+    //     this.presentAddress = presentAddress;
+    //     this.nationality = nationality;
+    //     this.bloodGrp = bloodGrp;
+    //     this.pancardDoc = pancardDoc;
+    //     this.pancardnno = pancardnno;
+    //     this.adhaarDoc = adhaarDoc;
+    //     this.adhaarno = adhaarno;
+    //     this.passportDoc = passportDoc;
+    //     this.passportno = passportno;
+    //     this.listQualificationDetails = listQualificationDetails;
+    //     this.listFamilyDetails = listFamilyDetails;
+    //     this.listProfDetails = listProfDetails;
+    // }
+
+    
+
+    public Long getEmpDetId() {
+        return empDetId;
+    }
+
+    public EmployeeDetails(Long empDetId, String maritalStatus, String permaAddress, String primaryContactno,
             String emergencyContactno, @Email String emailId, String presentAddress, String nationality,
-            String bloodGrp, DocFile pancardDoc, String pancardnno, DocFile adhaarDoc, String adhaarno,
-            DocFile passportDoc, String passportno, List<QualificationDetails> listQualificationDetails,
-            List<FamilyDetails> listFamilyDetails, List<ProfDetails> listProfDetails) {
+            String bloodGrp, String pancardnno, String adhaarno, String passportno,
+            List<QualificationDetails> listQualificationDetails, List<FamilyDetails> listFamilyDetails,
+            List<ProfDetails> listProfDetails) {
         this.empDetId = empDetId;
-        this.profilePicDoc = profilePicDoc;
+        this.maritalStatus = maritalStatus;
         this.permaAddress = permaAddress;
         this.primaryContactno = primaryContactno;
         this.emergencyContactno = emergencyContactno;
@@ -118,32 +149,25 @@ public class EmployeeDetails {
         this.presentAddress = presentAddress;
         this.nationality = nationality;
         this.bloodGrp = bloodGrp;
-        this.pancardDoc = pancardDoc;
         this.pancardnno = pancardnno;
-        this.adhaarDoc = adhaarDoc;
         this.adhaarno = adhaarno;
-        this.passportDoc = passportDoc;
         this.passportno = passportno;
         this.listQualificationDetails = listQualificationDetails;
         this.listFamilyDetails = listFamilyDetails;
         this.listProfDetails = listProfDetails;
     }
 
-    public Long getEmpDetId() {
-        return empDetId;
-    }
-
     public void setEmpDetId(Long empDetId) {
         this.empDetId = empDetId;
     }
 
-    public DocFile getProfilePicDoc() {
-        return profilePicDoc;
-    }
+    // public DocFile getProfilePicDoc() {
+    //     return profilePicDoc;
+    // }
 
-    public void setProfilePicDoc(DocFile profilePicDoc) {
-        this.profilePicDoc = profilePicDoc;
-    }
+    // public void setProfilePicDoc(DocFile profilePicDoc) {
+    //     this.profilePicDoc = profilePicDoc;
+    // }
 
     public String getPermaAddress() {
         return permaAddress;
@@ -201,13 +225,13 @@ public class EmployeeDetails {
         this.bloodGrp = bloodGrp;
     }
 
-    public DocFile getPancardDoc() {
-        return pancardDoc;
-    }
+    // public DocFile getPancardDoc() {
+    //     return pancardDoc;
+    // }
 
-    public void setPancardDoc(DocFile pancardDoc) {
-        this.pancardDoc = pancardDoc;
-    }
+    // public void setPancardDoc(DocFile pancardDoc) {
+    //     this.pancardDoc = pancardDoc;
+    // }
 
     public String getPancardnno() {
         return pancardnno;
@@ -217,13 +241,13 @@ public class EmployeeDetails {
         this.pancardnno = pancardnno;
     }
 
-    public DocFile getAdhaarDoc() {
-        return adhaarDoc;
-    }
+    // public DocFile getAdhaarDoc() {
+    //     return adhaarDoc;
+    // }
 
-    public void setAdhaarDoc(DocFile adhaarDoc) {
-        this.adhaarDoc = adhaarDoc;
-    }
+    // public void setAdhaarDoc(DocFile adhaarDoc) {
+    //     this.adhaarDoc = adhaarDoc;
+    // }
 
     public String getAdhaarno() {
         return adhaarno;
@@ -233,13 +257,13 @@ public class EmployeeDetails {
         this.adhaarno = adhaarno;
     }
 
-    public DocFile getPassportDoc() {
-        return passportDoc;
-    }
+    // public DocFile getPassportDoc() {
+    //     return passportDoc;
+    // }
 
-    public void setPassportDoc(DocFile passportDoc) {
-        this.passportDoc = passportDoc;
-    }
+    // public void setPassportDoc(DocFile passportDoc) {
+    //     this.passportDoc = passportDoc;
+    // }
 
     public String getPassportno() {
         return passportno;

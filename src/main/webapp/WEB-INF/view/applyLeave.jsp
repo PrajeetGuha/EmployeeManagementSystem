@@ -340,21 +340,21 @@
 													<div class="form-group">
 														<label>Leave Type</label>
 														<select class="form-control" name="leaveType">
-														<c:if test="${employee.sl - appliedLeaves.get(2)>0}">
-															<option value="SL" >Sick leave - <i>Unapproved(${appliedLeaves.get(2) }) Left(${employee.sl })</i></option>
+														<c:if test="${employee.slLeft - appliedLeaves.get(2)>0}">
+															<option value="SL" >Sick leave - <i>Unapproved(${appliedLeaves.get(2) }) Left(${employee.slLeft })</i></option>
 															</c:if>
-															<c:if test="${employee.sl - appliedLeaves.get(2)<=0}">
-															<option value="SL" disabled>Sick leave - <i>Unapproved(${appliedLeaves.get(2) }) Left(${employee.sl })</i></option>
+															<c:if test="${employee.slLeft - appliedLeaves.get(2)<=0}">
+															<option value="SL" disabled>Sick leave - <i>Unapproved(${appliedLeaves.get(2) }) Left(${employee.slLeft })</i></option>
 															</c:if>
-															<c:if test="${employee.cl - appliedLeaves.get(0)<=0}">
-															<option value="CL" disabled ><b>Casual leave -</b> <i>Unapproved(${appliedLeaves.get(0) }) Left(${employee.cl })</i></option>
-															</c:if>
-															
-															<c:if test="${employee.cl - appliedLeaves.get(0)>0}">
-															<option value="CL" ><b>Casual leave -</b> <i>Unapproved(${appliedLeaves.get(0) }) Left(${employee.cl })</i></option>
+															<c:if test="${employee.clLeft - appliedLeaves.get(0)<=0}">
+															<option value="CL" disabled ><b>Casual leave -</b> <i>Unapproved(${appliedLeaves.get(0) }) Left(${employee.clLeft })</i></option>
 															</c:if>
 															
-															<option value="PL" selected>Paid leave - <i>Unapproved(${appliedLeaves.get(1) }) Approved(${employee.pl })</i></option>
+															<c:if test="${employee.clLeft - appliedLeaves.get(0)>0}">
+															<option value="CL" ><b>Casual leave -</b> <i>Unapproved(${appliedLeaves.get(0) }) Left(${employee.clLeft })</i></option>
+															</c:if>
+															
+															<option value="PL" selected>Paid leave - <i>Unapproved(${appliedLeaves.get(1) }) Approved(${employee.moreLeave })</i></option>
 														</select>
 													</div>
 													<div class="form-group">
