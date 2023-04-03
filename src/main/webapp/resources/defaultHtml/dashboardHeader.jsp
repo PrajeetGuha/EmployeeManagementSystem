@@ -147,8 +147,8 @@
       <body>
         <!-- <div>${result.getBody().getStatus()}</div> -->
 
-        <div class="wrapper">
-          <div class="body-overlay" />
+        
+          <div class="body-overlay" >
           <nav id="sidebar">
             <div class="sidebar-header">
               <h3>
@@ -209,7 +209,7 @@
 
 
 
-
+	<div class="wrapper-dashboard">
           <!--------page-content---------------->
 
           <div id="content">

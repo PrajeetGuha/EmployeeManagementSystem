@@ -34,12 +34,6 @@
 <c:set var="pageNo" value="${pageNo}" />
 <c:set var="pageCount" value="${pageCount}" />
 
-
-
-</head>
-
-<c:set var="pageNo" value="${pageNo}" />
-<c:set var="pageCount" value="${pageCount}" />
 </head>
 
 
@@ -180,7 +174,7 @@
 								<div class="row">
 									<div class="col">
 										<form method="post" action="personaldetailsofemployee"
-											modelAttribute="emppersonaldetails">
+											modelAttribute="emppersonaldetails" onsubmit="return validateForm()">
 											<div class="input-group mb-3">
 												<span class="input-group-text" id="basic-addon1">Primary
 													contact no</span> <input type="" class="form-control"
@@ -199,7 +193,8 @@
 													placeholder="Phone number" aria-label="Phone number"
 													aria-describedby="basic-addon1" pattern="[5-9]{1}[0-9]{9}"
 													name="emergencyContactno"
-													value="${employeeinfomation.emergencyContactno}" required>
+													value="${employeeinfomation.emergencyContactno}" required oninvalid = "setCustomValidity('Not a valid phone number')"
+													oninput = "setCustomValidity('')">
 											</div>
 
 
@@ -209,7 +204,7 @@
 
 											<div class="input-group">
 												<span class="input-group-text">Email Id</span> <input
-													type="email" class="form-control" placeholder="Email id"
+													type="email" class="form-control" placeholder="Email id" 
 													name="emailId" value="${employeeinfomation.emailId}"
 													required></input>
 											</div>
@@ -221,7 +216,8 @@
 													type="text" class="form-control"
 													placeholder="Permanent address" name="permaAddress"
 													value="${employeeinfomation.permaAddress}"
-													pattern="[a-zA-Z0-9_-\@#&()+=\\\:',]{10,254}" required></input>
+													pattern="[a-zA-Z0-9_-\@#&()+=\\\:',]{10,254}" required oninvalid = "setCustomValidity('Can contain alphanumeric values with [_-\@#&()+=\\\:',] special characters only')"
+													oninput = "setCustomValidity('')"></input>
 											</div>
 											<br>
 
@@ -230,7 +226,8 @@
 													type="text" class="form-control"
 													placeholder="Present address" name="presentAddress"
 													value="${employeeinfomation.presentAddress}"
-													pattern="[a-zA-Z0-9_-\@#&()+=\\\:',]{10,254}" required></input>
+													pattern="[a-zA-Z0-9_-\@#&()+=\\\:',]{10,254}" required oninvalid = "setCustomValidity('Can contain alphanumeric values with [_-\@#&()+=\\\:',] special characters only')"
+													oninput = "setCustomValidity('')"></input>
 											</div>
 											<br>
 
@@ -238,16 +235,18 @@
 											<div class="input-group">
 												<span class="input-group-text">Nationality</span> <input
 													type="text" class="form-control" placeholder="Nationality "
-													pattern="[a-zA-Z0-9_-]{5,20}" name="nationality"
-													value="${employeeinfomation.nationality}" required></input>
+													pattern="[a-zA-Z]{2,50}" name="nationality"
+													value="${employeeinfomation.nationality}" required oninvalid = "setCustomValidity('Can contain characters only')"
+													oninput = "setCustomValidity('')"></input>
 											</div>
 											<br>
 
 											<div class="input-group">
 												<span class="input-group-text">Blood Group</span> <input
 													type="text" class="form-control" placeholder="Blood Group "
-													pattern="[a-zA-Z0-9_-]{1,3}" name="bloodGrp"
-													value="${employeeinfomation.bloodGrp}" required></input>
+													pattern="^(A|B|AB|O|a|b|ab|o)[+-]$" name="bloodGrp"
+													value="${employeeinfomation.bloodGrp}" required oninvalid = "setCustomValidity('Invalid blood group')"
+													oninput = "setCustomValidity('')"></input>
 											</div>
 											<br>
 											<div class="input-group mb-3">
@@ -256,8 +255,9 @@
 													type="text" class="form-control"
 													aria-label="Sizing example input"
 													aria-describedby="inputGroup-sizing-default"
-													pattern="[1-9]{1}[0-9]{11}" name="adhaarno"
-													value="${employeeinfomation.adhaarno}" placeholder="Adhaar number" required>
+													pattern="^[1-9]\d{11}$" name="adhaarno"
+													value="${employeeinfomation.adhaarno}" placeholder="Adhaar number" required oninvalid = "setCustomValidity('Invalid Adhaar number')"
+													oninput = "setCustomValidity('')">
 											</div>
 
 											<br>
@@ -272,8 +272,9 @@
 													type="text" class="form-control"
 													aria-label="Sizing example input"
 													aria-describedby="inputGroup-sizing-default"
-													pattern="[1-9]{1}[0-9]{9}" name="pancardnno"
-													value="${employeeinfomation.pancardnno}" placeholder="Pan number" required>
+													pattern="^[A-Z]{5}[0-9]{4}[A-Z]$" name="pancardnno"
+													value="${employeeinfomation.pancardnno}" placeholder="Pan number" required oninvalid = "setCustomValidity('Invalid Pan number')"
+													oninput = "setCustomValidity('')">
 											</div>
 											<br>
 
@@ -284,8 +285,9 @@
 													type="text" class="form-control"
 													aria-label="Sizing example input"
 													aria-describedby="inputGroup-sizing-default"
-													pattern="[1-9]{1}[0-9]{9}" name="passportno"
-													value="${employeeinfomation.passportno}" placeholder="Passport number" required>
+													pattern="^[A-Za-z]{3}[0-9]{7}$" name="passportno"
+													value="${employeeinfomation.passportno}" placeholder="Passport number" required oninvalid = "setCustomValidity('Invalid Passport number')"
+													oninput = "setCustomValidity('')">
 											</div>
 											<br>
 											

@@ -225,7 +225,7 @@
 							<!--------main-content------------->
 
 
-							<div class="row">
+							<div class="row" style="margin-right: 0px">
 								<div class="col-1"></div>
 								<div class="col-10">
 									<div class="table-wrapper">
@@ -333,7 +333,7 @@
 													<div class="form-group">
 														<label>Designation</label><input type="text" class="form-control" name="designation" pattern="^[a-zA-Z][a-zA-Z0-9 -]*$"
 												
-												oninvalid="setCustomValidity('Designation can only contain alphanumeric characters, hiphens and whitespaces')"
+												oninvalid="setCustomValidity('Designation can only contain alphanumeric characters, hyphens and whitespaces')"
 												onchange="setCustomValidity('')"
 															required>
 													</div>

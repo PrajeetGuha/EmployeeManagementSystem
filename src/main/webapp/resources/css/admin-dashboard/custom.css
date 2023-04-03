@@ -104,7 +104,13 @@ body,html{
   .wrapper{
 	position:relative;
 width:100%;
-overflow:auto;	
+	
+  }
+  
+  .wrapper-dashboard{
+  position:relative;
+width:100%;
+overflow: auto;
   }
   
   /*=========sidebar---design------*/

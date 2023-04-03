@@ -244,7 +244,7 @@
 							<!--------main-content------------->
 
 
-							<div class="row">
+							<div class="row" style="margin-right: 0px">
 								<div class="col-1"></div>
 								<div class="col-10">
 									<div class="table-wrapper">

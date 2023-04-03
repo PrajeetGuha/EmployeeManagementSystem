@@ -244,7 +244,7 @@
 							<!--------main-content------------->
 
 
-							<div class="row">
+							<div class="row" style="margin-right: 0px">
 								<div class="col-1"></div>
 								<div class="col-10">
 									<div class="table-wrapper">
@@ -363,7 +363,8 @@
 													
 													<div class="form-group">
 														<label>Percentage </label> <input type="number" class="form-control" name="percent" min="0" max="100"
-															required>
+															required oninvalid="setCustomValidity('Percentage value should be between 0 to 100')"
+												onchange="setCustomValidity('')">
 													</div>
 													<!-- <div class="input-group ">
 														<input type="date" class="form-control"

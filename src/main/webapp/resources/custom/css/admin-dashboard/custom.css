@@ -104,10 +104,16 @@ body,html{
   .wrapper{
 	position:relative;
 width:100%;
-overflow:auto;
+
 	
   }
   
+  .wrapper-dashboard{
+  position:relative;
+width:100%;
+overflow: auto;
+
+  }
   /*=========sidebar---design------*/
   
   #sidebar{
@@ -815,7 +821,7 @@ background-color:rgba(0,0,0,0.09);
 		   
 		   
 		   
-		   #sidebar.show-nav, .body-overlay.show-nav{
+		   #sidebar.show-nav, .show-nav{
 			   transform:translatex(0%);
 			   opacity:1;
 			   display:block;

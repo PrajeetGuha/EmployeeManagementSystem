@@ -27,7 +27,7 @@
 </head>
 
 <body>
-<div class="wrapper">
+<div class="wrapper-dashboard">
 
 
         <div class="body-overlay"></div>

@@ -18,6 +18,7 @@ import org.antwalk.ems.repository.EmployeeDetailsRepository;
 import org.antwalk.ems.repository.EmployeeRepository;
 import org.antwalk.ems.repository.FamilyDetailsRepository;
 import org.antwalk.ems.security.AuthenticationSystem;
+import org.antwalk.ems.service.AdminService;
 import org.antwalk.ems.service.EmployeeService;
 import org.antwalk.ems.view.EmployeeLeaveView;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,6 +51,7 @@ public class EmployeeController {
 
     @Autowired
     private EmployeeService employeeService;
+    
 
     @Autowired
     private FamilyDetailsRepository familyDetailsRepository;
@@ -194,6 +196,7 @@ public class EmployeeController {
         Long id = AuthenticationSystem.getId();
         System.out.println("Emp details  " + id);
         EmployeeDetails employeeDetails = employeeService.employeeInfo(id);
+        
         model.addAttribute("employeeinfomation", employeeDetails);
         System.out.println(employeeDetails);
         // model.addAttribute("familyDetails", new ArrayList<FamilyDetails>());

@@ -199,12 +199,12 @@
 
 			</div>
 
-
+			<br>
 
 			<!--------main-content------------->
 
 
-			<div class="row">
+			<div class="row" style="margin-right: 0px">
 				<div class="col-1"></div>
 				<div class="col-10">
 					<div class="table-wrapper">
@@ -298,6 +298,13 @@
 										</ul>
 									</div> -->
 			</div>
+			<footer class="footer">
+                            <div class="container-fluid">
+                                <div class="footer-in">
+                                    <p class="mb-0">NRI FinTech - All Rights Reserved.</p>
+                                </div>
+                            </div>
+                        </footer>
 		</div>
 		
 	</div>
@@ -357,13 +364,7 @@
                         <br>
                         <br>
 
-                        <footer class="footer">
-                            <div class="container-fluid">
-                                <div class="footer-in">
-                                    <p class="mb-0">NRI FinTech - All Rights Reserved.</p>
-                                </div>
-                            </div>
-                        </footer>
+                        
                     <!-- Optional JavaScript -->
                     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 
